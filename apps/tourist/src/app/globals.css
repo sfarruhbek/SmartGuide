@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+:root {
+  --bg-obsidian: #090d16;
+  --bg-surface: #111827;
+  --silk-gold: #d4af37;
+  --silk-gold-bright: #f3d27a;
+  --khiva-teal: #14b8a6;
+}
+
+html,
+body {
+  background-color: var(--bg-obsidian);
+  color: #f8fafc;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.font-display {
+  font-family: Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+
+/* Subtle Silk Road geometric lattice overlay */
+.silk-road-pattern {
+  background-image:
+    radial-gradient(circle at 20% 0%, rgba(20, 184, 166, 0.14), transparent 42%),
+    radial-gradient(circle at 85% 10%, rgba(212, 175, 55, 0.12), transparent 38%),
+    linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+}
+
+@keyframes soundBar {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.animate-sound-bar {
+  animation: soundBar 0.85s ease-in-out infinite;
+  transform-origin: bottom;
+}
