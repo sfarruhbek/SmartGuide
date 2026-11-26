@@ -7,7 +7,7 @@ import type { TripInput } from './journey';
 
 export type VoiceStatus='idle'|'connecting'|'listening'|'speaking'|'muted'|'error'|'ended';
 export interface VoicePosition {lat:number;lng:number;accuracy?:number}
-export interface VoiceContext {cityId:string;language:SupportedLanguage;locationSource:'gps'|'map';location?:VoicePosition;placeId?:string;tripPreferences?:TripInput;purpose?:'plan'|'revise'|'guide'}
+export interface VoiceContext {cityId:string;language:SupportedLanguage;locationSource:'gps'|'map';location?:VoicePosition;placeId?:string;placeName?:string;tripPreferences?:TripInput;purpose?:'plan'|'revise'|'guide'}
 export interface VoicePlace {id:string;name:string;lat:number;lng:number;distanceKm?:number;kind?:'place'|'area';cityId?:string;facts?:string[]}
 export interface VoiceSource {placeId:string;name:string;provenance:string;links:{title:string;url:string;license?:string}[]}
 export interface VoiceReference {nearby:VoicePlace[];focusPlace:VoicePlace|null;sources:VoiceSource[];webRecordsAdded:number}
@@ -117,7 +117,7 @@ export class LiveVoiceClient {
     this.capture.port.onmessage=event=>{if(!this.muted&&this.ready&&!this.stopped)this.send({type:'audio',data:encodePcm(event.data)});};
     const source=this.audio.createMediaStreamSource(this.media);source.connect(this.capture);this.capture.connect(this.audio.destination);
   }
-  updateContext(context:VoiceContext,focusNow=false){this.send({type:'context',cityId:context.cityId,location:context.location??null,locationSource:context.locationSource,placeId:context.placeId??null,...(focusNow?{focusNow:true}:{})});}
+  updateContext(context:VoiceContext,focusNow=false){this.send({type:'context',cityId:context.cityId,location:context.location??null,locationSource:context.locationSource,placeId:context.placeId??null,placeName:context.placeName??null,...(focusNow?{focusNow:true}:{})});}
   toggleMute(){
     this.muted=!this.muted;
     for(const track of this.media?.getAudioTracks()??[])track.enabled=!this.muted;

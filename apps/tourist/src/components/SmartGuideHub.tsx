@@ -126,7 +126,13 @@ export function SmartGuideHub({initialLang,initialQuery=''}:{initialLang?:string
   };
   const talk=(place?:Place|VoicePlace)=>{
     if(loadingAccess)return;setVoicePurpose(place?'guide':view==='plan'?'plan':'guide');
-    if(place){if('city'in place)setCityId(place.city);setSelected(place.id);setFocus('city'in place?{id:place.id,name:local(place.name,language),lat:place.lat,lng:place.lng}:place);setVoiceStartNonce(n=>n+1);}
+    if(place){
+      if('city'in place){setCityId(place.city);setSelected(place.id);}
+      else if(place.cityId&&CITIES.some(city=>city.id===place.cityId))setCityId(place.cityId);
+      if(allPlaces.some(known=>known.id===place.id))setSelected(place.id);
+      setFocus('city'in place?{id:place.id,name:local(place.name,language),lat:place.lat,lng:place.lng}:place);
+      setVoiceStartNonce(n=>n+1);
+    }
     else if(view==='itinerary'&&currentDay&&CITIES.some(city=>city.id===currentDay.city)){setCityId(currentDay.city);setFocus(null);setSelected(null);}
     setVoiceOpen(true);
   };
@@ -203,7 +209,7 @@ export function SmartGuideHub({initialLang,initialQuery=''}:{initialLang?:string
               {slot.kind==='explore'&&!slot.note&&<p>{c('exploreHint')}</p>}
               {slot.kind==='transfer'&&<p>{cityName(slot.from!)} → {cityName(slot.to!)}. {c('transferHint')}</p>}
               <div className="hub-actions">
-                <button type="button" className="hub-button" onClick={()=>{if(currentDay&&CITIES.some(ct=>ct.id===currentDay.city))setCityId(currentDay.city);talk();}}><AudioLines size={16}/>{p('askAboutSlot')}</button>
+                <button type="button" className="hub-button" onClick={()=>{const slotCity=CITIES.find(ct=>ct.id===currentDay?.city)??city;talk({id:`slot-${slotKey}`,name:slotTitle,lat:slotCity.lat,lng:slotCity.lng,cityId:slotCity.id});}}><AudioLines size={16}/>{p('askAboutSlot')}</button>
                 <button type="button" className="hub-button hub-button-light" onClick={()=>{setEditing(true);setEditInstruction(`${c('day')} ${currentDay.number} (${slot.time} ${slotTitle}): `);window.scrollTo({top:0,behavior:'smooth'});}}><Pencil size={15}/>{p('customizeSlot')}</button>
                 {(slot.kind==='explore'||slot.kind==='transfer')&&currentDay&&CITIES.some(ct=>ct.id===currentDay.city)&&<button type="button" className="hub-button hub-button-light" onClick={()=>go('map',{city:currentDay.city})}><MapIcon size={16}/>{c('navMap')}</button>}
               </div>

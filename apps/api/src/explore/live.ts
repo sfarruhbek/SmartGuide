@@ -16,17 +16,17 @@ import { CATALOG_CITY_IDS, normalizeVoicePreferences } from '../planner/voice-pr
 import type { Trip, TripInput } from '../planner/trip.js';
 import { resolveVisitor, checkVoice, openVoice, reservePhoto, workspaceState, AccessError, type Visitor } from '../access/store.js';
 
-type Context=z.infer<typeof exploreRequestSchema>&{tripPreferences?:TripInput;purpose?:'plan'|'revise'|'guide'};
+type Context=z.infer<typeof exploreRequestSchema>&{placeName?:string;tripPreferences?:TripInput;purpose?:'plan'|'revise'|'guide'};
 const grants=new Map<string,{expires:number;context:Context;visitor:Visitor}>();
 const liveCooldown=new Map<string,number>();
 const contextSchema=z.object({cityId:z.string(),language:z.enum(LANGUAGE_CODES as ['en','uz','ru','ja','ko','es']),
-  locationSource:z.enum(['gps','map']),placeId:z.string().max(100).optional(),
+  locationSource:z.enum(['gps','map']),placeId:z.string().max(100).optional(),placeName:z.string().trim().min(1).max(160).optional(),
   location:z.object({lat:z.number().min(-90).max(90),lng:z.number().min(-180).max(180),accuracy:z.number().nonnegative().max(100000).optional()}).optional(),
   tripPreferences:tripInputSchema.optional(),purpose:z.enum(['plan','revise','guide']).default('guide'),
-}).strict().superRefine(({tripPreferences,purpose,...fields},ctx)=>{
+}).strict().superRefine(({placeName,tripPreferences,purpose,...fields},ctx)=>{
   const parsed=exploreRequestSchema.safeParse({...fields,question:'What is interesting nearby?',history:[]});
   if(!parsed.success)for(const issue of parsed.error.issues)ctx.addIssue(issue);
-}).transform(({tripPreferences,purpose,...fields})=>({...fields,question:'What is interesting nearby?',history:[],tripPreferences,purpose} as Context));
+}).transform(({placeName,tripPreferences,purpose,...fields})=>({...fields,question:'What is interesting nearby?',history:[],placeName,tripPreferences,purpose} as Context));
 export const liveVoiceRouter=Router();
 liveVoiceRouter.post('/session',aiLimit,async(req,res)=>{
   if((req.headers.origin&&!env.corsOrigins.includes(req.headers.origin))||req.headers['sec-fetch-site']==='cross-site'){res.status(403).json({error:'LIVE_ORIGIN_REJECTED'});return;}
@@ -50,7 +50,7 @@ const clientMessage=z.discriminatedUnion('type',[
   z.object({type:z.literal('mute')}),
   z.object({type:z.literal('text'),text:z.string().trim().min(1).max(1000)}),
   z.object({type:z.literal('photo'),data:z.string().regex(/^[A-Za-z0-9+/]+={0,2}$/).max(400_000),mimeType:z.literal('image/jpeg')}),
-  z.object({type:z.literal('context'),cityId:z.string(),placeId:z.string().nullable().optional(),location:z.object({lat:z.number().min(-90).max(90),lng:z.number().min(-180).max(180),accuracy:z.number().nonnegative().optional()}).nullable().optional(),locationSource:z.enum(['gps','map']),focusNow:z.boolean().optional()}),
+  z.object({type:z.literal('context'),cityId:z.string(),placeId:z.string().nullable().optional(),placeName:z.string().trim().min(1).max(160).nullable().optional(),location:z.object({lat:z.number().min(-90).max(90),lng:z.number().min(-180).max(180),accuracy:z.number().nonnegative().optional()}).nullable().optional(),locationSource:z.enum(['gps','map']),focusNow:z.boolean().optional()}),
 ]);
 
 export function attachLiveVoice(server:Server,handler:(ws:WebSocket,context:Context,visitor:Visitor)=>Promise<void>=serveVoice) {
@@ -99,19 +99,22 @@ export async function serveVoice(ws:WebSocket,initial:Context,visitor:Visitor,se
       if(!parsed.success){send({type:'error',code:'INVALID_INPUT'});return;}
       const data=parsed.data;
       if(data.type==='context'){
-        // Strict schema: omit the transport discriminator.
-        const {type,focusNow,...fields}=data;
-        const {tripPreferences,purpose,...referenceContext}=context;
+        // Strict schema: omit the transport discriminator and helper fields.
+        const {type,focusNow,placeName,...fields}=data;
+        const {placeName:_prevName,tripPreferences,purpose,...referenceContext}=context;
         const validated=exploreRequestSchema.safeParse({...referenceContext,...fields,placeId:fields.placeId??undefined,location:fields.location??undefined});
         if(validated.success){
-          context={...validated.data,tripPreferences,purpose};
-          if(focusNow&&fields.placeId&&upstream){
-            const requestedId=fields.placeId;
+          const cleanName=placeName??undefined;
+          context={...validated.data,placeName:cleanName,tripPreferences,purpose};
+          if(focusNow&&(fields.placeId||cleanName)&&upstream){
+            const requestedId=fields.placeId??undefined;
             void allExplorePlaces().then(places=>{
               if(closed||!upstream)return;
-              const matched=places.find(p=>p.id===requestedId);
+              const matched=requestedId?places.find(p=>p.id===requestedId):undefined;
               if(matched){
                 upstream.sendRealtimeInput({text:`The tourist just tapped on "${matched.name}" and wants to hear about it now. Using these reference facts (${matched.facts.slice(0,4).join(' ')}), immediately tell an engaging 3–5 sentence story about "${matched.name}" in language ${context.language}. Do not talk about changing the trip plan unless they ask.`});
+              }else if(cleanName){
+                upstream.sendRealtimeInput({text:`The tourist just tapped on "${cleanName}" in ${context.cityId} and wants to hear about it now. Call get_tourism_context for "${cleanName}" if needed, then immediately tell an engaging 3–5 sentence story specifically about "${cleanName}" in language ${context.language}. Do not talk about changing the trip plan unless they ask.`});
               }
             }).catch(()=>{});
           }
@@ -183,7 +186,7 @@ export async function serveVoice(ws:WebSocket,initial:Context,visitor:Visitor,se
             upstream.sendToolResponse({functionResponses:{id:call.id,name:call.name,response:{summary:result.trip.summary,days:result.trip.days,totalUsd:result.trip.total/100,estimated:true,saved:true}}});
             continue;
           }
-          const {tripPreferences,purpose,...referenceContext}=context;
+          const {placeName:_placeName,tripPreferences,purpose,...referenceContext}=context;
           const result=await exploreChat({...referenceContext,question:question.data,imageBase64:undefined});
           if(closed||task.signal.aborted)return;
           context={...context,placeId:result.focusPlace?.id??context.placeId,history:[...context.history,
@@ -201,12 +204,17 @@ export async function serveVoice(ws:WebSocket,initial:Context,visitor:Visitor,se
 
   let focusedPlaceContext = '';
   let focusedPlaceName = '';
-  if (context.placeId && context.purpose === 'guide') {
-    const knownPlaces = await allExplorePlaces().catch(() => []);
-    const matched = knownPlaces.find((p) => p.id === context.placeId);
+  let focusedPlaceHasFacts = false;
+  if ((context.placeId || context.placeName) && context.purpose === 'guide') {
+    const knownPlaces = context.placeId ? await allExplorePlaces().catch(() => []) : [];
+    const matched = context.placeId ? knownPlaces.find((p) => p.id === context.placeId) : undefined;
     if (matched) {
       focusedPlaceName = matched.name;
+      focusedPlaceHasFacts = true;
       focusedPlaceContext = `Focused place selected by the tourist: ${matched.name} (id: ${matched.id}, city: ${matched.cityId ?? context.cityId}). Verified reference facts: ${matched.facts.slice(0, 5).join(' ')}`;
+    } else if (context.placeName) {
+      focusedPlaceName = context.placeName;
+      focusedPlaceContext = `Focused place selected by the tourist: ${context.placeName} (city: ${context.cityId}).`;
     }
     if (closed) return;
   }
@@ -233,7 +241,9 @@ export async function serveVoice(ws:WebSocket,initial:Context,visitor:Visitor,se
     }
     if (closed) return;
   } else if (focusedPlaceName) {
-    openingPrompt = `The tourist just tapped "Tell me about this place" on "${focusedPlaceName}". Immediately tell an engaging, warm 3–5 sentence spoken story specifically about "${focusedPlaceName}" in language ${context.language} grounded strictly in the focused place reference facts provided in your system instructions. Do NOT talk about creating or changing their trip plan unless they ask; finish with one brief follow-up question about "${focusedPlaceName}".`;
+    openingPrompt = focusedPlaceHasFacts
+      ? `The tourist just tapped "Tell me about this place" on "${focusedPlaceName}". Immediately tell an engaging, warm 3–5 sentence spoken story specifically about "${focusedPlaceName}" in language ${context.language} grounded strictly in the focused place reference facts provided in your system instructions. Do NOT talk about creating or changing their trip plan unless they ask; finish with one brief follow-up question about "${focusedPlaceName}".`
+      : `The tourist just tapped "Tell me about this place" on "${focusedPlaceName}" in ${context.cityId}. Call get_tourism_context for "${focusedPlaceName}" if needed, then immediately tell an engaging, warm 3–5 sentence spoken story specifically about "${focusedPlaceName}" in language ${context.language}. Do NOT talk about creating or changing their trip plan unless they ask; finish with one brief follow-up question about "${focusedPlaceName}".`;
   }
 
   for(const model of env.GEMINI_LIVE_MODELS.split(',').map(s=>s.trim()).filter(Boolean)){

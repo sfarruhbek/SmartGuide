@@ -33,7 +33,7 @@ export function MapVoiceAssistant({open,embedded=false,mapVisible,onClose,city,c
   const connected=['listening','speaking','muted'].includes(status);
   const active=connected||status==='connecting';
   useEffect(()=>{onActiveChange?.(active);},[active,onActiveChange]);
-  const context={cityId:city.id,language,placeId:focusPlace?.id,locationSource:location?'gps' as const:'map' as const,...(location?{location}:{}),tripPreferences,purpose};
+  const context={cityId:city.id,language,placeId:focusPlace?.id,placeName:focusPlace?.name,locationSource:location?'gps' as const:'map' as const,...(location?{location}:{}),tripPreferences,purpose};
   const stop=()=>{client.current?.stop();client.current=null;setStatus('ended');setMuted(false);setLookingUp(false);actions.current.onUsage?.();};
   useEffect(()=>{if(!active||seconds===null)return;const timer=setInterval(()=>setSeconds(value=>value===null?null:Math.max(0,value-1)),1000);return()=>clearInterval(timer);},[active,seconds===null]);
   useEffect(()=>{
@@ -42,14 +42,15 @@ export function MapVoiceAssistant({open,embedded=false,mapVisible,onClose,city,c
     return()=>{};
   },[open]);
   useEffect(()=>()=>{client.current?.stop();},[]);
-  useEffect(()=>{client.current?.updateContext(context);},[city.id,location?.lat,location?.lng,location?.accuracy,focusPlace?.id]);
+  useEffect(()=>{client.current?.updateContext(context);},[city.id,location?.lat,location?.lng,location?.accuracy,focusPlace?.id,focusPlace?.name]);
   const lastAutoStart=useRef(0);
   useEffect(()=>{
     if(!open||!autoStartNonce||autoStartNonce===lastAutoStart.current)return;
     lastAutoStart.current=autoStartNonce;
-    if(client.current){
-      if(focusPlace?.id)client.current.updateContext(context,true);
+    if(client.current&&active){
+      if(focusPlace?.id||focusPlace?.name)client.current.updateContext(context,true);
     }else{
+      client.current?.stop();client.current=null;
       start();
     }
   },[open,autoStartNonce]);
@@ -68,7 +69,7 @@ export function MapVoiceAssistant({open,embedded=false,mapVisible,onClose,city,c
     if(client.current)return;
     setError('');setHeard('');setAnswer('');setMuted(false);lastRole.current='';
     setReaction(null);setReactionError(false);setTripUpdated(false);setSeconds(null);
-    const connection=new LiveVoiceClient({status:setStatus,error:setError,lookup:setLookingUp,photoAccepted:()=>setPhotoStatus('sent'),
+    const connection=new LiveVoiceClient({status(next){setStatus(next);if((next==='ended'||next==='error')&&client.current===connection)client.current=null;},error:setError,lookup:setLookingUp,photoAccepted:()=>setPhotoStatus('sent'),
       remaining:setSeconds,trip(result){const ok=actions.current.onTrip?.(result);if(ok!==false)setTripUpdated(true);},registrationRequired(feature){actions.current.onRegistrationRequired?.(feature);},
       transcript(role,text){
         const changed=lastRole.current!==role;lastRole.current=role;

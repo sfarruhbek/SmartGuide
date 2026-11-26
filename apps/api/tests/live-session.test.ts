@@ -147,6 +147,24 @@ test('Live focused placeId injects verified facts and opens immediately with a s
   assert.ok(sys.includes('Ishratkhana Mausoleum'));
   assert.ok(sys.includes('1464'));
   assert.ok(sentInputs.some(input=>JSON.stringify(input).includes('Ishratkhana Mausoleum')&&JSON.stringify(input).includes('Do NOT talk about creating or changing their trip plan')));
+  ws.emit('message',Buffer.from(JSON.stringify({type:'context',cityId:'samarkand',placeId:'osm-123',placeName:'Самаркандский бумажный цех Конигил',locationSource:'map',focusNow:true})));
+  await new Promise(resolve=>setTimeout(resolve,30));
+  assert.ok(sentInputs.some(input=>JSON.stringify(input).includes('Самаркандский бумажный цех Конигил')&&JSON.stringify(input).includes('Do not talk about changing the trip plan')));
+  ws.close();
+});
+
+test('Live focused placeName fallback narrates dynamic/OSM places without talking about trip planning',async()=>{
+  const {serveVoice}=await import('../src/explore/live.js');
+  const sentInputs:unknown[]=[];
+  const connection=makeConnection();
+  (connection.session as unknown as {sendRealtimeInput:(v:unknown)=>void}).sendRealtimeInput=(v)=>{sentInputs.push(v);};
+  const ws=new FakeSocket();
+  await serveVoice(ws as unknown as WebSocket,{...context,cityId:'bukhara',placeId:'osm-custom-99',placeName:'Чайхана у Ляби-Хауза',purpose:'guide'},{key:'guest:focus-name',registered:false},{
+    connect:connection.connect,openVoice:async()=>({durationMs:180000,close:async()=>{}}),
+  });
+  const sys=String(connection.options.config?.systemInstruction??'');
+  assert.ok(sys.includes('Чайхана у Ляби-Хауза'));
+  assert.ok(sentInputs.some(input=>JSON.stringify(input).includes('Чайхана у Ляби-Хауза')&&JSON.stringify(input).includes('Do NOT talk about creating or changing their trip plan')));
   ws.close();
 });
 
