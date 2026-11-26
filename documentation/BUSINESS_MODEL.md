@@ -9,8 +9,9 @@
 ## 1. Bitta Gapda Mahsulot Mohiyati (Value Loop)
 
 **SmartGuide** — bu oddiy chat-bot emas, balki **o'z-o'zidan aqllilashib boruvchi (Self-Learning) turistik infratuzilma**:
-1. **Kirishda (1-qadam — Emotsional Roadmap):** Sayyoh ilovaga kirishi bilan unga *qaysi obyektlarga*, *qaysi tartibda* borishi va **har bir joydan aynan qanday hissiyot, taassurot va foyda olishi** bo'yicha shaxsiy marshrut (Roadmap) chizib beradi.
-2. **Obyekt oldida (2-qadam — Jonli Suhbat):** Sayyoh marshrut bo'yicha obidaga borganda (QR yoki Snap & Ask orqali) o'z tilida (6+ til) muzey tasdiqlagan bazadan jonli ovozli suhbat quradi.
+0. **Reklama va Kirish (QR-kod & Info-Kiosk):** Kirish darvozasi, vokzal, aeroport va mehmonxona resepshnidagi **QR-kod va info-kiosklar faqat reklama va dasturni tanitish nuqtasi** bo'lib xizmat qiladi (*har bir obidaga alohida QR-kod yopishtirilmaydi* — UNESCO yodgorlik devorlariga aralashuv 0%, kengayish 10× tez!).
+1. **Kirishda (1-qadam — GPS + Emotsional Roadmap):** Sayyoh ilovaga kirishi bilan uning **GPS joylashuvi (`lat/lng`)** va qiziqishiga qarab *qaysi obyektlarga*, *qaysi tartibda* borishi va **har bir joydan aynan qanday hissiyot, taassurot va foyda olishi** bo'yicha shaxsiy marshrut (Roadmap) chizib beradi.
+2. **Obyekt yonida (2-qadam — GPS Avto-Taklif + Jonli Suhbat):** Sayyoh marshrut bo'yicha yurganida **ilovaning o'zi joylashuvdan kelib chiqib eng yaqin obyektni avtomatik taklif qiladi** (yoki Snap & Ask foto orqali taniydi) — sayyoh 6+ tilda muzey tasdiqlagan bazadan jonli ovozli suhbat quradi.
 3. **Suhbatdan Intellekt (3-qadam — Bizning Asosiy "Moat" / Data Flywheel):** Har bir jonli suhbatdan tizim **sayyohning obida haqidagi haqiqiy taassurotini**, **aynan qaysi fakt/afsonalar uni hayratga solganini ("Signal")** va **qaysi quruq ma'lumotlar ahamiyatsiz/zerikarli ekanini ("Noise")** ajratib bazaga yig'adi.
    - **Keyingi sayyoh uchun:** Eng ideal, haqiqiy sayyohlar tajribasida sinalgan **Roadmap** va **faqat eng qiziq, kerakli ma'lumotlar** (ortiqcha ensiklopediya shovqinisiz!).
    - **Muzey va turizm sohasi uchun (B2B/B2G):** Qaysi obidalar sayyohlarga eng kuchli taassurot beryapti, yapon/koreys/yevropalik sayyohlar aynan nimalarga qiziqyapti va muzeyda qanday savollarga javob yetishmayapti — real-vaqtdagi **Tourist Experience Intelligence**!
@@ -49,7 +50,7 @@
 
 1. **Proprietary Tourist Interest & Experience Graph (Eng katta ustunlik!):** ChatGPT har bir suhbatni unutadi va umumiy javob beradi. SmartGuide esa minglab jonli obida suhbatlaridan **qaysi obida qaysi millat sayyohiga qanday hissiyot berishi**, **qaysi 3 ta fakt eng kuchli hayrat uyg'otishi ("Signal")** va **qaysi 15 ta fakt zerikarli ("Noise")** ekanini real ma'lumotda to'playdi. Sayyoh soni oshgani sayin bizning Roadmap va hikoyalarimiz raqobatchilardan ko'ra eksponensial aniqroq bo'ladi!
 2. **Muzeylar tasdiqlagan eksklyuziv mahalliy RAG bazasi:** Internetda tarqoq yoki umuman yo'q bo'lgan rasmiy tarixiy pasportlar, epigrafika yozuvlari va mahalliy keksa gidlarning afsonalari.
-3. **Kassa va Obida QR Tarqatish Kanali (B2B2C Distribution):** Sayyohni Instagram reklamasi bilan qimmatga (CAC yuqori) emas, to'g'ridan-to'g'ri Ichan-Qal'a chipta kassasi va obida oldidagi QR-stend orqali nol marketing xarajati bilan qo'lga olamiz.
+3. **Kirish Nuqtalari (Kassa, Kiosk, Mehmonxona) Tarqatish Kanali + GPS Nol-Uskuna Masshtab:** Sayyohni Instagram reklamasi bilan qimmatga emas, to'g'ridan-to'g'ri Ichan-Qal'a kirish darvozasi, vokzal/aeroport info-kiosklari va mehmonxona resepshnidagi reklama QR-stendlari orqali jalb qilamiz. Ichkarida esa har bir obidaga fizik QR o'rnatish shart emas — **GPS joylashuv avtomatik obyektni taklif qiladi**, bu esa UNESCO tarixiy devorlariga ruxsat olish to'sig'ini yo'q qiladi va istalgan yangi shaharni (Samarqand, Buxoro) 1 haftada ishga tushirish imkonini beradi!
 4. **Muzey Ish Jarayoniga Integratsiya:** Muzey ma'muriyati har kuni bizning B2B panelimizda tashriflar, sayyohlar taassuroti, javobsiz qolgan qiziqishlar ("Curiosity Gaps") va tushumni kuzatadi.
 
 ---
@@ -112,7 +113,7 @@
 - **1 ta o'rta kompleks (masalan, Ichan-Qal'a) oylik oqimi:** oyiga o'rtacha `1,200` pullik SmartGuide sayyohi × `$2.65` sof foyda = **`$3,180 / oy`** (yoki konservativ `400` sayyoh/oy = **`$1,060 / oy`**).
 - **Hamkorlik muddati (Retention):** min `12 oy` (muzeylar bilan yillik shartnoma).
 - **Konservativ B2B LTV (400 sayyoh/oy):** `12 oy × $1,060` = **`$12,720`**
-- **B2B CAC (1 ta muzeyni ulash xarajati):** Xivaga safar/uchrashuv (`$150`) + 10 ta akril/metall QR stend (`$120`) + mahalliy tarixchi bilan kontent tekshirish (`$250`) + demo/sotuv vaqti (`$180`) = **`$700`**
+- **B2B CAC (1 ta muzey/kompleksni ulash xarajati):** Xivaga safar/uchrashuv (`$150`) + 2 ta kirish Roll-Up reklama banneri va 15 ta kassa/mehmonxona akril QR stendi (`$150` — har obidaga lavha kerak emas!) + mahalliy tarixchi bilan kontent tekshirish (`$250`) + demo/sotuv vaqti (`$150`) = **`$700`**
 - **LTV / CAC nisbati:** `$12,720 / $700` = **`18.1×`** *(ProSkill sog'lom biznes chegarasi `>= 3×` dan 6 baravar yuqori!)*
 - **CAC Payback muddati:** **< 1 oy (20 kun)!**
 
@@ -120,11 +121,11 @@
 
 ## 6. Go-To-Market (Birinchi 10 Mijoz Strategiyasi — Founder-Led Sales)
 
-*"Instagram reklama" emas — aniq manzil va shaxsiy uchrashuvlar:*
-1. **1–2-oy (Pilot #1 — Xiva, Ichan-Qal'a):** Xakaton va TITF 2026 ko'rgazmasidagi Turizm qo'mitasi hamda mentorlar (Lola Sayfi va b.) tavsiyasi orqali Ichan-Qal'a ma'muriyati bilan **1 oylik bepul pilot** (5 ta asosiy obidaga QR stend o'rnatish + real sayyohlar ma'lumotini yig'ish).
-2. **2–3-oy (Toshkentdagi 4 ta yirik muzey):** Temuriylar tarixi davlat muzeyi, O'zbekiston amaliy san'at muzeyi, O'zbekiston tarixi davlat muzeyi, Hazrati Imom majmuasi rahbariyatiga Ichan-Qal'a pilot natijalari (real konversiya va sayyohlar qiziqish hisoboti) bilan shaxsan kirish.
-3. **4–6-oy (Samarqand & Buxoro — 5 ta flagman kompleks):** Registon ansambli, Shohi Zinda, Go'ri Amir, Buxoro Arki va Poi Kalon majmuasini ulash.
-4. **Hamkor tarqatish kanali:** TITF 2026 stendlaridagi **20 ta inbound turoperator** va Xiva/Samarqanddagi **30 ta butik-mehmonxona resepshni**ga QR-bukletlar qo'yish (10% affiliate komissiya).
+*"Instagram reklama" emas — strategik kirish nuqtalaridagi QR/kiosk reklama + shaxsiy uchrashuvlar:*
+1. **1–2-oy (Pilot #1 — Xiva, Ichan-Qal'a):** Ichan-Qal'a Ota-Darvoza kirish qismi va Xivadagi 15 ta mehmonxona/kassaga reklama QR-stend va roll-up banner o'rnatish (obida devorlariga tegmasdan — GPS ichkarida o'zi ishlaydi!). 1 oylik bepul pilot orqali real sayyohlar qiziqishi ma'lumotini yig'ish.
+2. **2–3-oy (Toshkentdagi 4 ta yirik muzey):** Temuriylar tarixi davlat muzeyi, O'zbekiston amaliy san'at muzeyi, O'zbekiston tarixi davlat muzeyi, Hazrati Imom majmuasi rahbariyatiga Ichan-Qal'a pilot natijalari bilan shaxsan kirish.
+3. **4–6-oy (Samarqand & Buxoro — 5 ta flagman kompleks):** Registon ansambli, Shohi Zinda, Go'ri Amir, Buxoro Arki va Poi Kalon majmuasiga GPS koordinatalari va RAG bazasini yuklab ulash (fizik obida lavhalarisiz 1 haftada ishga tushadi!).
+4. **Hamkor tarqatish kanali:** Urganch aeroporti / Xiva vokzali promo-kiosklari, TITF 2026 stendlaridagi **20 ta inbound turoperator** va **30 ta butik-mehmonxona resepshni** (har bir hamkorga alohida kuzatiladigan `?ref=` reklama QR-kodi + 10% affiliate komissiya!).
 
 ---
 
