@@ -4,7 +4,7 @@ import './globals.css';
 
 const playfair = Playfair_Display({
   subsets: ['latin', 'cyrillic'],
-  weight: ['500', '600', '700'],
+  weight: ['400', '500', '600'],
   variable: '--font-display',
   display: 'swap',
 });
@@ -19,7 +19,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'SmartGuide · Ichan-Qala Official AI Audio Guide',
   description:
-    'Sunlit museum-grade QR audio & vision guide for Ichan-Qala, Khiva. Verified museum archives, zero hallucinations, 6 languages.',
+    'Discover Ichan-Qala at your own pace. Five remarkable places, stories from the museum archive, and a personal audio guide in six languages.',
   manifest: '/manifest.webmanifest',
   icons: {
     icon: '/icon.svg',

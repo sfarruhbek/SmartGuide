@@ -1,8 +1,14 @@
 import { Camera, X } from 'lucide-react';
-import { SUPPORTED_LANGUAGES, type RecentQuestionItem } from '@smartguide/shared';
+import { SUPPORTED_LANGUAGES } from '@smartguide/shared';
+import {
+  FEEDBACK_LABELS,
+  SENTIMENT_EMOJI,
+  SENTIMENT_LABELS,
+  type ExperienceQuestion,
+} from '../lib/experience';
 
 interface LiveArrivalBannerProps {
-  item: RecentQuestionItem | null;
+  item: ExperienceQuestion | null;
   onDismiss: () => void;
 }
 
@@ -11,6 +17,11 @@ export function LiveArrivalBanner({ item, onDismiss }: LiveArrivalBannerProps) {
 
   const langMeta = SUPPORTED_LANGUAGES.find((l) => l.code === item.language);
   const flag = langMeta?.flag ?? '🌐';
+  const sentiment = item.sentiment ?? item.insight?.sentiment;
+  const topic =
+    item.detectedTopicLabel ??
+    item.insight?.detectedTopicLabel ??
+    item.detectedTopic;
 
   return (
     <div
@@ -23,13 +34,23 @@ export function LiveArrivalBanner({ item, onDismiss }: LiveArrivalBannerProps) {
           <div className="flex flex-wrap items-center gap-2 text-xs font-bold tracking-wide text-emerald-300">
             <span className="inline-flex h-2.5 w-2.5 rounded-full bg-[#10B981] animate-pulse" />
             <span>
-              🔴 Новая активность туриста · {flag} {item.language.toUpperCase()} · {item.landmarkName}
+              Live visitor · {flag} {item.language.toUpperCase()} ·{' '}
+              {item.landmarkName}
             </span>
           </div>
 
           <p className="mt-2 text-base font-semibold leading-snug text-white">
             &ldquo;{item.question}&rdquo;
           </p>
+          {(topic || sentiment || item.userFeedback) && (
+            <p className="mt-2 text-sm text-emerald-200">
+              {topic}
+              {sentiment &&
+                ` · ${SENTIMENT_EMOJI[sentiment]} ${SENTIMENT_LABELS[sentiment] ?? sentiment}`}
+              {item.userFeedback &&
+                ` · ${FEEDBACK_LABELS[item.userFeedback] ?? item.userFeedback}`}
+            </p>
+          )}
 
           {item.hasImage && (
             <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-emerald-500/20 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-200">

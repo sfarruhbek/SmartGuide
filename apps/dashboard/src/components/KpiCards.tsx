@@ -1,12 +1,34 @@
-import { Camera, DollarSign, Landmark, MessageSquareText, Users } from 'lucide-react';
-import type { AnalyticsSummary } from '@smartguide/shared';
+import {
+  Camera,
+  DollarSign,
+  Landmark,
+  MessageSquareText,
+  Users,
+} from 'lucide-react';
+import type { ExperienceAnalytics } from '../lib/experience';
 
 interface KpiCardsProps {
-  data: AnalyticsSummary;
+  data: ExperienceAnalytics;
 }
 
 export function KpiCards({ data }: KpiCardsProps) {
   const { revenue } = data;
+  const ratedVisits = data.visitsByLandmark.filter(
+    (item) =>
+      typeof item.avgInterestScore === 'number' &&
+      Number.isFinite(item.avgInterestScore),
+  );
+  const ratedCount = ratedVisits.reduce((sum, item) => sum + item.visits, 0);
+  const avgInterest =
+    typeof data.avgInterestScore === 'number' &&
+    Number.isFinite(data.avgInterestScore)
+      ? data.avgInterestScore
+      : ratedCount > 0
+        ? ratedVisits.reduce(
+            (sum, item) => sum + (item.avgInterestScore ?? 0) * item.visits,
+            0,
+          ) / ratedCount
+        : null;
 
   return (
     <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -24,7 +46,9 @@ export function KpiCards({ data }: KpiCardsProps) {
           <span className="text-3xl font-bold tabular-nums tracking-tight text-[#0F172A]">
             {data.totalTourists}
           </span>
-          <span className="text-xs font-medium text-[#0E7470]">unique sessions</span>
+          <span className="text-xs font-medium text-[#0E7470]">
+            unique sessions
+          </span>
         </div>
         <p className="mt-2 text-xs text-[#475569]">
           Avg{' '}
@@ -49,13 +73,17 @@ export function KpiCards({ data }: KpiCardsProps) {
           <span className="text-3xl font-bold tabular-nums tracking-tight text-[#0F172A]">
             {data.totalInteractions}
           </span>
-          <span className="text-xs font-medium text-[#0284C7]">verified answers</span>
+          <span className="text-xs font-medium text-[#0284C7]">
+            verified answers
+          </span>
         </div>
         <p className="mt-2 inline-flex items-center gap-1.5 text-xs text-[#475569]">
           <Camera className="h-3.5 w-3.5 text-[#B47B38]" />
           <span>
-            <strong className="tabular-nums text-[#0F172A]">{data.totalPhotoScans}</strong> Snap
-            &amp; Ask photo recognitions
+            <strong className="tabular-nums text-[#0F172A]">
+              {data.totalPhotoScans}
+            </strong>{' '}
+            Snap &amp; Ask photo recognitions
           </span>
         </p>
       </div>
@@ -113,12 +141,35 @@ export function KpiCards({ data }: KpiCardsProps) {
         </div>
         <div className="mt-2 flex flex-wrap items-center justify-between gap-1 text-xs">
           <span className="font-semibold tabular-nums text-[#059669]">
-            Museum {revenue.museumSharePercent}%: ${revenue.museumShareUsd.toFixed(2)}
+            Museum {revenue.museumSharePercent}%: $
+            {revenue.museumShareUsd.toFixed(2)}
           </span>
           <span className="tabular-nums text-[#475569]">
-            Margin: <strong className="text-[#0F172A]">{revenue.grossMarginPercent}%</strong>
+            Margin:{' '}
+            <strong className="text-[#0F172A]">
+              {revenue.grossMarginPercent}%
+            </strong>
           </span>
         </div>
+      </div>
+      <div className="experience-kpi-strip sm:col-span-2 xl:col-span-4">
+        <div>
+          <span>Roadmaps generated</span>
+          <strong>
+            {typeof data.totalRoadmapsGenerated === 'number'
+              ? data.totalRoadmapsGenerated.toLocaleString()
+              : '—'}
+          </strong>
+        </div>
+        <div>
+          <span>Average visitor interest</span>
+          <strong>
+            {avgInterest === null
+              ? '—'
+              : `${Math.max(0, Math.min(5, avgInterest)).toFixed(1)} / 5`}
+          </strong>
+        </div>
+        <p>Learn from each visit. Shape the next experience.</p>
       </div>
     </section>
   );

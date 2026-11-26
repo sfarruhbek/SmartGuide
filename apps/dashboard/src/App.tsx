@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import {
   Activity,
   BarChart3,
@@ -8,34 +8,49 @@ import {
   QrCode,
   RefreshCw,
   ShieldCheck,
+  Sparkles,
   WifiOff,
 } from 'lucide-react';
-import type { AnalyticsSummary, LandmarkSummary, RecentQuestionItem } from '@smartguide/shared';
-import { AnalyticsCharts } from './components/AnalyticsCharts';
+import type { LandmarkSummary } from '@smartguide/shared';
+import type { ExperienceAnalytics, ExperienceQuestion } from './lib/experience';
+import { SignalNoisePanel } from './components/SignalNoisePanel';
+import { ExperienceInsights } from './components/ExperienceInsights';
 import { KpiCards } from './components/KpiCards';
 import { LiveArrivalBanner } from './components/LiveArrivalBanner';
 import { LiveQuestionsFeed } from './components/LiveQuestionsFeed';
-import { QrCodeGenerator } from './components/QrCodeGenerator';
-import { RevenueSimulator } from './components/RevenueSimulator';
-import { exportAnalyticsCsv, fetchAnalyticsSummary, fetchLandmarksList } from './lib/api';
+import {
+  exportAnalyticsCsv,
+  fetchAnalyticsSummary,
+  fetchLandmarksList,
+} from './lib/api';
 
 const POLL_INTERVAL_MS = 5000;
+const AnalyticsCharts = lazy(()=>import('./components/AnalyticsCharts').then(module=>({default:module.AnalyticsCharts})));
+const QrCodeGenerator = lazy(()=>import('./components/QrCodeGenerator').then(module=>({default:module.QrCodeGenerator})));
+const RevenueSimulator = lazy(()=>import('./components/RevenueSimulator').then(module=>({default:module.RevenueSimulator})));
 
 export function App() {
-  const [activeTab, setActiveTab] = useState<'analytics' | 'calculator' | 'qr'>('analytics');
-  const [summary, setSummary] = useState<AnalyticsSummary | null>(null);
+  const [activeTab, setActiveTab] = useState<
+    'intelligence' | 'analytics' | 'calculator' | 'qr'
+  >('intelligence');
+  const [summary, setSummary] = useState<ExperienceAnalytics | null>(null);
   const [landmarks, setLandmarks] = useState<LandmarkSummary[]>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [highlightedIds, setHighlightedIds] = useState<Set<number>>(new Set());
-  const [liveBannerItem, setLiveBannerItem] = useState<RecentQuestionItem | null>(null);
+  const [liveBannerItem, setLiveBannerItem] =
+    useState<ExperienceQuestion | null>(null);
 
   const seenQuestionIdsRef = useRef<Set<number>>(new Set());
   const isFirstFetchRef = useRef<boolean>(true);
   const bannerTimeoutRef = useRef<number | null>(null);
+  const seenFeedbackRef = useRef(new Map<number, string | null | undefined>());
+  const pollInFlightRef = useRef(false);
 
   const loadAnalytics = useCallback(async (showSpinner = false) => {
+    if (pollInFlightRef.current) return;
+    pollInFlightRef.current = true;
     if (showSpinner) setIsRefreshing(true);
     try {
       const nextData = await fetchAnalyticsSummary();
@@ -44,12 +59,25 @@ export function App() {
 
       // Remember initial IDs without firing banner on first render (FE-09)
       if (isFirstFetchRef.current) {
-        seenQuestionIdsRef.current = new Set(nextData.recentQuestions.map((q) => q.id));
+        seenQuestionIdsRef.current = new Set(
+          nextData.recentQuestions.map((q) => q.id),
+        );
+        seenFeedbackRef.current = new Map(
+          nextData.recentQuestions.map((q) => [q.id, q.userFeedback]),
+        );
         isFirstFetchRef.current = false;
       } else {
         const newlyArrivedItems = nextData.recentQuestions.filter(
           (q) => !seenQuestionIdsRef.current.has(q.id),
         );
+        const newReactions = nextData.recentQuestions.filter(
+          (q) =>
+            seenQuestionIdsRef.current.has(q.id) &&
+            q.userFeedback &&
+            seenFeedbackRef.current.get(q.id) !== q.userFeedback,
+        );
+        for (const question of nextData.recentQuestions)
+          seenFeedbackRef.current.set(question.id, question.userFeedback);
 
         if (newlyArrivedItems.length > 0) {
           const newlyArrivedIds = newlyArrivedItems.map((q) => q.id);
@@ -65,9 +93,10 @@ export function App() {
               return copy;
             });
           }, 12_000);
-
-          // Display high-contrast projector arrival banner for 7s
-          setLiveBannerItem(newlyArrivedItems[0]);
+        }
+        const bannerItem = newlyArrivedItems[0] ?? newReactions[0];
+        if (bannerItem) {
+          setLiveBannerItem(bannerItem);
           if (bannerTimeoutRef.current !== null) {
             window.clearTimeout(bannerTimeoutRef.current);
           }
@@ -77,8 +106,11 @@ export function App() {
         }
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unable to reach SmartGuide API');
+      setError(
+        err instanceof Error ? err.message : 'Unable to reach SmartGuide API',
+      );
     } finally {
+      pollInFlightRef.current = false;
       if (showSpinner) setIsRefreshing(false);
     }
   }, []);
@@ -146,7 +178,22 @@ export function App() {
 
           <div className="flex flex-wrap items-center gap-2.5">
             {/* 3 Navigation Tabs */}
-            <nav className="flex rounded-xl border border-slate-200 bg-slate-100 p-1">
+            <nav
+              className="dashboard-navigation flex flex-wrap rounded-xl border border-slate-200 bg-slate-100 p-1"
+              aria-label="Museum dashboard"
+            >
+              <button
+                type="button"
+                aria-pressed={activeTab === 'intelligence'}
+                onClick={() => setActiveTab('intelligence')}
+                className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition cursor-pointer ${activeTab === 'intelligence' ? 'bg-white text-[#0F172A] shadow-xs' : 'text-[#475569] hover:text-[#0F172A]'}`}
+              >
+                <Sparkles
+                  className="h-3.5 w-3.5 text-[#0E7470]"
+                  aria-hidden="true"
+                />
+                <span>Experience Intelligence</span>
+              </button>
               <button
                 type="button"
                 onClick={() => setActiveTab('analytics')}
@@ -191,10 +238,10 @@ export function App() {
             </nav>
 
             {/* Single Clean Live Sync / Reconnecting Badge */}
-            {isReconnecting ? (
+            {!summary || isReconnecting ? (
               <div className="inline-flex items-center gap-1.5 rounded-xl border border-amber-300 bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-800">
                 <WifiOff className="h-3.5 w-3.5" />
-                <span>Reconnecting...</span>
+                <span>{summary ? 'Reconnecting...' : 'Connecting...'}</span>
               </div>
             ) : (
               <div className="inline-flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-bold tracking-wide text-[#059669]">
@@ -224,7 +271,9 @@ export function App() {
               title="Refresh now"
               aria-label="Refresh analytics"
             >
-              <RefreshCw className={`h-3.5 w-3.5 ${isRefreshing ? 'animate-spin' : ''}`} />
+              <RefreshCw
+                className={`h-3.5 w-3.5 ${isRefreshing ? 'animate-spin' : ''}`}
+              />
             </button>
           </div>
         </div>
@@ -232,13 +281,38 @@ export function App() {
 
       {/* Main Content */}
       <main className="mx-auto max-w-7xl space-y-6 px-4 pt-6 sm:px-6">
+        <Suspense fallback={<div className="rounded-xl bg-white p-10 text-center text-slate-600" role="status">Loading museum tools…</div>}>
         {/* Initial API Connection Issue (only before data has loaded; afterwards we preserve charts + show Reconnecting badge) */}
         {error && !summary && (
           <div className="no-print rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-800">
-            <strong>API Connection Issue:</strong> {error}. Make sure <code>apps/api</code> and
-            PostgreSQL are running on port 4000.
+            Visitor activity is temporarily unavailable. We are trying to
+            reconnect.
           </div>
         )}
+
+        {activeTab === 'intelligence' &&
+          (summary ? (
+            <>
+              <KpiCards data={summary} />
+              <SignalNoisePanel data={summary} />
+              <ExperienceInsights data={summary} />
+              <LiveQuestionsFeed
+                questions={summary.recentQuestions}
+                highlightedIds={highlightedIds}
+                landmarks={landmarks}
+              />
+              <p className="text-xs text-slate-600 tabular-nums">
+                Last synced: {new Date(summary.updatedAt).toLocaleTimeString()}
+              </p>
+            </>
+          ) : (
+            <div
+              className="rounded-2xl border border-slate-200 bg-white p-12 text-center text-slate-600"
+              role="status"
+            >
+              Connecting to visitor experience data…
+            </div>
+          ))}
 
         {activeTab === 'analytics' &&
           (summary ? (
@@ -253,10 +327,12 @@ export function App() {
               <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-slate-200 pt-4 text-xs text-[#475569]">
                 <span className="inline-flex items-center gap-1.5">
                   <Activity className="h-3.5 w-3.5 text-[#0E7470]" />
-                  B2B2C Revenue Share Model: 70% SmartGuide / 30% Museum · Verified Local RAG
+                  B2B2C Revenue Share Model: 70% SmartGuide / 30% Museum ·
+                  Verified Local RAG
                 </span>
                 <span className="tabular-nums">
-                  Last synced: {new Date(summary.updatedAt).toLocaleTimeString()}
+                  Last synced:{' '}
+                  {new Date(summary.updatedAt).toLocaleTimeString()}
                 </span>
               </footer>
             </>
@@ -269,6 +345,7 @@ export function App() {
         {activeTab === 'calculator' && <RevenueSimulator />}
 
         {activeTab === 'qr' && <QrCodeGenerator landmarks={landmarks} />}
+        </Suspense>
       </main>
     </div>
   );

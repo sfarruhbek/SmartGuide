@@ -1,19 +1,24 @@
 import { useMemo, useState } from 'react';
 import { Camera, Clock, Filter, Radio, RotateCcw, Search } from 'lucide-react';
+import { SUPPORTED_LANGUAGES, type LandmarkSummary } from '@smartguide/shared';
 import {
-  SUPPORTED_LANGUAGES,
-  type LandmarkSummary,
-  type RecentQuestionItem,
-} from '@smartguide/shared';
+  FEEDBACK_LABELS,
+  SENTIMENT_EMOJI,
+  SENTIMENT_LABELS,
+  type ExperienceQuestion,
+} from '../lib/experience';
 
 interface LiveQuestionsFeedProps {
-  questions: RecentQuestionItem[];
+  questions: ExperienceQuestion[];
   highlightedIds: Set<number>;
   landmarks: LandmarkSummary[];
 }
 
 function formatRelativeTime(isoDate: string): string {
-  const diffSec = Math.max(0, Math.floor((Date.now() - new Date(isoDate).getTime()) / 1000));
+  const diffSec = Math.max(
+    0,
+    Math.floor((Date.now() - new Date(isoDate).getTime()) / 1000),
+  );
   if (diffSec < 15) return 'just now';
   if (diffSec < 60) return `${diffSec}s ago`;
   const diffMin = Math.floor(diffSec / 60);
@@ -49,8 +54,10 @@ export function LiveQuestionsFeed({
   const filteredQuestions = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
     return questions.filter((item) => {
-      if (selectedLandmark !== 'all' && item.landmarkSlug !== selectedLandmark) return false;
-      if (selectedLanguage !== 'all' && item.language !== selectedLanguage) return false;
+      if (selectedLandmark !== 'all' && item.landmarkSlug !== selectedLandmark)
+        return false;
+      if (selectedLanguage !== 'all' && item.language !== selectedLanguage)
+        return false;
       if (onlySnapAndAsk && !item.hasImage) return false;
       if (
         q &&
@@ -62,7 +69,13 @@ export function LiveQuestionsFeed({
       }
       return true;
     });
-  }, [questions, selectedLandmark, selectedLanguage, onlySnapAndAsk, searchQuery]);
+  }, [
+    questions,
+    selectedLandmark,
+    selectedLanguage,
+    onlySnapAndAsk,
+    searchQuery,
+  ]);
 
   const hasActiveFilter =
     selectedLandmark !== 'all' ||
@@ -79,8 +92,8 @@ export function LiveQuestionsFeed({
             <span>Live Recent Questions Feed</span>
           </h2>
           <p className="text-xs text-[#475569]">
-            Real-time stream from PostgreSQL — ask a question in the Tourist PWA and watch it appear
-            here automatically
+            Real-time stream from PostgreSQL — ask a question in the Tourist PWA
+            and watch it appear here automatically
           </p>
         </div>
 
@@ -166,8 +179,15 @@ export function LiveQuestionsFeed({
 
       <div className="space-y-2.5">
         {filteredQuestions.map((item) => {
-          const langMeta = SUPPORTED_LANGUAGES.find((l) => l.code === item.language);
+          const langMeta = SUPPORTED_LANGUAGES.find(
+            (l) => l.code === item.language,
+          );
           const isNew = highlightedIds.has(item.id);
+          const topic =
+            item.detectedTopicLabel ??
+            item.insight?.detectedTopicLabel ??
+            item.detectedTopic;
+          const sentiment = item.sentiment ?? item.insight?.sentiment;
 
           return (
             <div
@@ -202,7 +222,9 @@ export function LiveQuestionsFeed({
                 </div>
 
                 <div className="flex items-center gap-3 text-[11px] tabular-nums text-[#475569]">
-                  <span className="font-mono text-[#475569]">#{item.sessionId.slice(-8)}</span>
+                  <span className="font-mono text-[#475569]">
+                    #{item.sessionId.slice(-8)}
+                  </span>
                   <span className="inline-flex items-center gap-1">
                     <Clock className="h-3 w-3" />
                     <span>{formatRelativeTime(item.createdAt)}</span>
@@ -217,6 +239,22 @@ export function LiveQuestionsFeed({
                 <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-[#475569]">
                   {item.answerPreview}
                 </p>
+              )}
+              {(topic || sentiment || item.userFeedback) && (
+                <div className="question-insights">
+                  {topic && <span>{topic}</span>}
+                  {sentiment && (
+                    <span>
+                      {SENTIMENT_EMOJI[sentiment]}{' '}
+                      {SENTIMENT_LABELS[sentiment] ?? sentiment}
+                    </span>
+                  )}
+                  {item.userFeedback && (
+                    <span>
+                      {FEEDBACK_LABELS[item.userFeedback] ?? item.userFeedback}
+                    </span>
+                  )}
+                </div>
               )}
             </div>
           );

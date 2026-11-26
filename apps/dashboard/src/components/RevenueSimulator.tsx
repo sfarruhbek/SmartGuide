@@ -33,7 +33,7 @@ export function RevenueSimulator() {
   const museumAnnualNet = annualGross * 0.3;
 
   const smartGuideMonthly = monthlyGross * 0.7;
-  const apiCostMonthly = monthlyBuyers * 0.15;
+  const apiCostMonthly = monthlyBuyers * 0.04;
   const grossMarginPercent =
     monthlyGross > 0 ? (((monthlyGross - apiCostMonthly) / monthlyGross) * 100).toFixed(1) : '0.0';
 
@@ -284,7 +284,7 @@ export function RevenueSimulator() {
             <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-semibold uppercase tracking-wider text-[#475569]">
-                  Gemini API Cost ($0.15/tourist)
+                  Gemini API Cost ($0.04/tourist)
                 </span>
                 <Cpu className="h-4 w-4 text-[#0284C7]" />
               </div>

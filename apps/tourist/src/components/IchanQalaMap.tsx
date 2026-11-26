@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ArrowRight, Headphones, MapPin } from 'lucide-react';
 import type { LandmarkSummary, SupportedLanguage } from '@smartguide/shared';
 import { saveLanguage } from '@/lib/session';
+import { MAP_GATES } from '@/lib/route-copy';
 import { LandmarkArt } from './LandmarkArt';
 
 interface IchanQalaMapProps {
@@ -16,7 +17,10 @@ interface IchanQalaMapProps {
   openLabel: string;
 }
 
-const PIN_POSITIONS: Record<string, { x: number; y: number; gateHint?: string }> = {
+const PIN_POSITIONS: Record<
+  string,
+  { x: number; y: number; gateHint?: string }
+> = {
   'kunya-ark': { x: 64, y: 52 },
   'kalta-minor': { x: 78, y: 98 },
   'juma-mosque': { x: 184, y: 94 },
@@ -35,11 +39,16 @@ export function IchanQalaMap({
 }: IchanQalaMapProps) {
   if (landmarks.length === 0) return null;
 
-  const activeLandmark = landmarks.find((lm) => lm.slug === activeSlug) ?? landmarks[0];
-  const activeIndex = landmarks.findIndex((lm) => lm.slug === activeLandmark.slug);
-  const localizedName = activeLandmark.localizedNames[language] || activeLandmark.name;
+  const activeLandmark =
+    landmarks.find((lm) => lm.slug === activeSlug) ?? landmarks[0];
+  const activeIndex = landmarks.findIndex(
+    (lm) => lm.slug === activeLandmark.slug,
+  );
+  const localizedName =
+    activeLandmark.localizedNames[language] || activeLandmark.name;
   const localizedDesc =
-    activeLandmark.localizedShortDescriptions[language] || activeLandmark.shortDescription;
+    activeLandmark.localizedShortDescriptions[language] ||
+    activeLandmark.shortDescription;
 
   return (
     <section className="overflow-hidden rounded-3xl border border-[#EAE6DF] bg-white shadow-sm">
@@ -63,7 +72,7 @@ export function IchanQalaMap({
             viewBox="0 0 360 176"
             className="block h-auto w-full select-none"
             role="img"
-            aria-label="Interactive walking map of Ichan-Qala monuments"
+            aria-label={title}
           >
             {/* Outer desert context grid */}
             <rect width="360" height="176" fill="#F5F0E6" />
@@ -120,7 +129,7 @@ export function IchanQalaMap({
               fill="#B47B38"
               letterSpacing="0.06em"
             >
-              WEST GATE
+              {MAP_GATES[language].west}
             </text>
 
             <rect x="326" y="83" width="12" height="22" rx="3" fill="#B47B38" />
@@ -132,7 +141,7 @@ export function IchanQalaMap({
               fill="#B47B38"
               letterSpacing="0.06em"
             >
-              EAST GATE
+              {MAP_GATES[language].east}
             </text>
 
             {/* 5 Interactive Monument Pins */}
@@ -155,10 +164,11 @@ export function IchanQalaMap({
                 <g
                   key={lm.slug}
                   onClick={() => onSelectSlug(lm.slug)}
-                  className="cursor-pointer outline-none focus:outline-none"
+                  className="map-pin cursor-pointer"
                   role="button"
                   tabIndex={0}
-                  aria-label={`${idx + 1}. ${lm.name}`}
+                  aria-label={`${idx + 1}. ${lm.localizedNames[language]}`}
+                  aria-pressed={isSelected}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                       e.preventDefault();
@@ -201,7 +211,9 @@ export function IchanQalaMap({
                     fontWeight={isSelected ? '700' : '600'}
                     fill={isSelected ? '#0E7470' : '#14181F'}
                   >
-                    {shortTitle.length > 16 ? `${shortTitle.slice(0, 15)}…` : shortTitle}
+                    {shortTitle.length > 16
+                      ? `${shortTitle.slice(0, 15)}…`
+                      : shortTitle}
                   </text>
                 </g>
               );

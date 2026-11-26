@@ -31,22 +31,35 @@ export async function compressImageToBase64(
 
   const ctx = canvas.getContext('2d');
   if (!ctx) {
-    const rawBase64 = dataUrl.split(',')[1] ?? '';
-    return { base64: rawBase64, mimeType: file.type || 'image/jpeg', previewDataUrl: dataUrl };
+    throw new Error('Image processing is unavailable');
   }
 
   ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
 
-  // Ensure compressed JPEG payload stays strictly < 200KB even for high-detail shots
+  // Bound the decoded JPEG size, including detailed photographs that need resizing.
   let quality = initialQuality;
   let compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
   let base64 = compressedDataUrl.split(',')[1] ?? '';
 
-  while (base64.length > 250_000 && quality > 0.45) {
-    quality -= 0.12;
+  while (base64.length > 250_000) {
+    if (quality > 0.45) {
+      quality = Math.max(0.4, quality - 0.12);
+    } else {
+      const resized = document.createElement('canvas');
+      resized.width = Math.max(1, Math.round(canvas.width * 0.8));
+      resized.height = Math.max(1, Math.round(canvas.height * 0.8));
+      const resizedContext = resized.getContext('2d');
+      if (!resizedContext) throw new Error('Image processing is unavailable');
+      resizedContext.drawImage(canvas, 0, 0, resized.width, resized.height);
+      canvas.width = resized.width;
+      canvas.height = resized.height;
+      ctx.drawImage(resized, 0, 0);
+    }
     compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
     base64 = compressedDataUrl.split(',')[1] ?? '';
   }
+
+  if (!base64) throw new Error('Could not encode image');
 
   return {
     base64,

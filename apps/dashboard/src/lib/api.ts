@@ -1,37 +1,46 @@
-import type { AnalyticsSummary, LandmarkSummary, RecentQuestionItem } from '@smartguide/shared';
+import type { LandmarkSummary } from '@smartguide/shared';
+import type { ExperienceAnalytics, ExperienceQuestion } from './experience';
 
 function resolveLocalHostUrl(configured: string): string {
   if (typeof window !== 'undefined') {
     const currentHost = window.location.hostname;
-    const isCurrentLocal = currentHost === 'localhost' || currentHost === '127.0.0.1';
-    if (!isCurrentLocal && /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(configured)) {
-      return configured.replace(/\/\/(localhost|127\.0\.0\.1)/i, `//${currentHost}`);
+    const isCurrentLocal =
+      currentHost === 'localhost' || currentHost === '127.0.0.1';
+    if (
+      !isCurrentLocal &&
+      /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(configured)
+    ) {
+      return configured.replace(
+        /\/\/(localhost|127\.0\.0\.1)/i,
+        `//${currentHost}`,
+      );
     }
   }
   return configured;
 }
 
 export function getApiBaseUrl(): string {
-  const configured = (import.meta.env.VITE_API_URL || 'http://localhost:4000').replace(/\/+$/, '');
+  const configured = (
+    import.meta.env.VITE_API_URL || 'http://localhost:4000'
+  ).replace(/\/+$/, '');
   return resolveLocalHostUrl(configured);
 }
 
 export function getDefaultTouristAppUrl(): string {
-  const configured = (import.meta.env.VITE_TOURIST_APP_URL || 'http://localhost:3000').replace(
-    /\/+$/,
-    '',
-  );
+  const configured = (
+    import.meta.env.VITE_TOURIST_APP_URL || 'http://localhost:3000'
+  ).replace(/\/+$/, '');
   return resolveLocalHostUrl(configured);
 }
 
-export async function fetchAnalyticsSummary(): Promise<AnalyticsSummary> {
+export async function fetchAnalyticsSummary(): Promise<ExperienceAnalytics> {
   const res = await fetch(`${getApiBaseUrl()}/api/analytics/summary`, {
     cache: 'no-store',
   });
   if (!res.ok) {
     throw new Error(`Analytics API returned HTTP ${res.status}`);
   }
-  return (await res.json()) as AnalyticsSummary;
+  return (await res.json()) as ExperienceAnalytics;
 }
 
 export async function fetchLandmarksList(): Promise<LandmarkSummary[]> {
@@ -68,7 +77,9 @@ function triggerFileDownload(blob: Blob, filename: string): void {
  * Downloads analytics CSV from backend GET /api/analytics/export,
  * falling back to UTF-8 BOM client-side CSV generation from recentQuestions.
  */
-export async function exportAnalyticsCsv(fallbackQuestions: RecentQuestionItem[]): Promise<void> {
+export async function exportAnalyticsCsv(
+  fallbackQuestions: ExperienceQuestion[],
+): Promise<void> {
   const filename = 'smartguide-ichan-qala-analytics.csv';
 
   try {
@@ -77,7 +88,10 @@ export async function exportAnalyticsCsv(fallbackQuestions: RecentQuestionItem[]
     });
     if (res.ok) {
       const contentType = res.headers.get('content-type') || '';
-      if (contentType.includes('text/csv') || contentType.includes('text/plain')) {
+      if (
+        contentType.includes('text/csv') ||
+        contentType.includes('text/plain')
+      ) {
         const text = await res.text();
         const withBom = text.startsWith('\uFEFF') ? text : `\uFEFF${text}`;
         const blob = new Blob([withBom], { type: 'text/csv;charset=utf-8;' });
@@ -99,6 +113,10 @@ export async function exportAnalyticsCsv(fallbackQuestions: RecentQuestionItem[]
     'Snap_And_Ask',
     'Question',
     'Answer_Preview',
+    'Detected_Topic',
+    'Sentiment',
+    'Interest_Score',
+    'User_Feedback',
   ];
 
   const rows = fallbackQuestions.map((item) =>
@@ -112,6 +130,15 @@ export async function exportAnalyticsCsv(fallbackQuestions: RecentQuestionItem[]
       escapeCsvCell(item.hasImage ? 'Yes' : 'No'),
       escapeCsvCell(item.question),
       escapeCsvCell(item.answerPreview),
+      escapeCsvCell(
+        item.detectedTopicLabel ??
+          item.insight?.detectedTopicLabel ??
+          item.detectedTopic ??
+          '',
+      ),
+      escapeCsvCell(item.sentiment ?? item.insight?.sentiment ?? ''),
+      escapeCsvCell(item.interestScore ?? item.insight?.interestScore ?? ''),
+      escapeCsvCell(item.userFeedback ?? ''),
     ].join(','),
   );
 

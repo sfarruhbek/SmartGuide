@@ -7,12 +7,12 @@ export const dynamic = 'force-dynamic';
 
 interface LandmarkPageProps {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ lang?: string }>;
+  searchParams: Promise<{ lang?: string; roadmapId?: string }>;
 }
 
 export default async function LandmarkPage({ params, searchParams }: LandmarkPageProps) {
   const { slug } = await params;
-  const { lang } = await searchParams;
+  const { lang, roadmapId } = await searchParams;
 
   const [landmark, allLandmarks] = await Promise.all([
     fetchLandmarkBySlug(slug),
@@ -25,9 +25,11 @@ export default async function LandmarkPage({ params, searchParams }: LandmarkPag
 
   return (
     <LandmarkGuideClient
+      key={landmark.slug}
       landmark={landmark}
       allLandmarks={allLandmarks}
       initialLang={lang}
+      initialRoadmapId={roadmapId}
     />
   );
 }

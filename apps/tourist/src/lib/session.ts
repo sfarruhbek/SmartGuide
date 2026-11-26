@@ -50,9 +50,18 @@ export function getSavedLanguage(urlLang?: string | null): SupportedLanguage {
 
 export function saveLanguage(lang: SupportedLanguage): void {
   if (typeof window === 'undefined') return;
+  document.documentElement.lang = lang;
   try {
     window.localStorage.setItem(LANG_KEY, lang);
   } catch {
     // Ignore storage access errors
   }
+}
+
+/** Keep explicit URL language and the saved preference in sync on refresh. */
+export function updateLanguage(lang: SupportedLanguage): void {
+  saveLanguage(lang);
+  const url = new URL(window.location.href);
+  url.searchParams.set('lang', lang);
+  window.history.replaceState(window.history.state, '', url);
 }

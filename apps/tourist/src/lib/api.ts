@@ -1,18 +1,32 @@
 import type {
   GuideAskRequest,
-  GuideAskResponse,
   LandmarkDetail,
   LandmarkSummary,
   SupportedLanguage,
 } from '@smartguide/shared';
+import type {
+  FeedbackRating,
+  GuideResponse,
+  Roadmap,
+  TravelVibe,
+} from './experience';
 
 function getApiBaseUrl(): string {
-  const configured = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000').replace(/\/+$/, '');
+  const configured = (
+    process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000'
+  ).replace(/\/+$/, '');
   if (typeof window !== 'undefined') {
     const currentHost = window.location.hostname;
-    const isCurrentLocal = currentHost === 'localhost' || currentHost === '127.0.0.1';
-    if (!isCurrentLocal && /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(configured)) {
-      return configured.replace(/\/\/(localhost|127\.0\.0\.1)/i, `//${currentHost}`);
+    const isCurrentLocal =
+      currentHost === 'localhost' || currentHost === '127.0.0.1';
+    if (
+      !isCurrentLocal &&
+      /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(configured)
+    ) {
+      return configured.replace(
+        /\/\/(localhost|127\.0\.0\.1)/i,
+        `//${currentHost}`,
+      );
     }
   }
   return configured;
@@ -29,10 +43,15 @@ export async function fetchLandmarks(): Promise<LandmarkSummary[]> {
   return data.landmarks;
 }
 
-export async function fetchLandmarkBySlug(slug: string): Promise<LandmarkDetail | null> {
-  const res = await fetch(`${getApiBaseUrl()}/api/landmarks/${encodeURIComponent(slug)}`, {
-    cache: 'no-store',
-  });
+export async function fetchLandmarkBySlug(
+  slug: string,
+): Promise<LandmarkDetail | null> {
+  const res = await fetch(
+    `${getApiBaseUrl()}/api/landmarks/${encodeURIComponent(slug)}`,
+    {
+      cache: 'no-store',
+    },
+  );
   if (res.status === 404) return null;
   if (!res.ok) {
     throw new Error(`Failed to fetch landmark "${slug}" (${res.status})`);
@@ -41,7 +60,9 @@ export async function fetchLandmarkBySlug(slug: string): Promise<LandmarkDetail 
   return data.landmark;
 }
 
-export async function askGuide(payload: GuideAskRequest): Promise<GuideAskResponse> {
+export async function askGuide(
+  payload: GuideAskRequest & { roadmapId?: number },
+): Promise<GuideResponse> {
   const res = await fetch(`${getApiBaseUrl()}/api/guide/ask`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -49,11 +70,57 @@ export async function askGuide(payload: GuideAskRequest): Promise<GuideAskRespon
   });
 
   if (!res.ok) {
-    const errBody = (await res.json().catch(() => null)) as { error?: string } | null;
+    const errBody = (await res.json().catch(() => null)) as {
+      error?: string;
+    } | null;
     throw new Error(errBody?.error || `Guide request failed (${res.status})`);
   }
 
-  return (await res.json()) as GuideAskResponse;
+  return (await res.json()) as GuideResponse;
+}
+
+export async function generateRoadmap(payload: {
+  sessionId: string;
+  language: SupportedLanguage;
+  durationMinutes: 60 | 120 | 240;
+  vibes: TravelVibe[];
+}): Promise<Roadmap> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 15000);
+  try {
+    const response = await fetch(`${getApiBaseUrl()}/api/roadmap/generate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: controller.signal,
+    });
+    if (!response.ok)
+      throw new Error(`Roadmap unavailable (${response.status})`);
+    return (await response.json()) as Roadmap;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+export async function sendGuideFeedback(
+  interactionId: number,
+  rating: FeedbackRating,
+): Promise<void> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 10000);
+  try {
+    const response = await fetch(`${getApiBaseUrl()}/api/guide/feedback`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ interactionId, rating }),
+      signal: controller.signal,
+    });
+    if (!response.ok) throw new Error('Feedback unavailable');
+    const result = (await response.json()) as { ok?: boolean };
+    if (result.ok !== true) throw new Error('Feedback not saved');
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 /**
@@ -66,14 +133,17 @@ export async function trackLandmarkScan(params: {
   language: SupportedLanguage;
 }): Promise<void> {
   try {
-    await fetch(`${getApiBaseUrl()}/api/landmarks/${encodeURIComponent(params.slug)}/scan`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        sessionId: params.sessionId,
-        language: params.language,
-      }),
-    });
+    await fetch(
+      `${getApiBaseUrl()}/api/landmarks/${encodeURIComponent(params.slug)}/scan`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sessionId: params.sessionId,
+          language: params.language,
+        }),
+      },
+    );
   } catch {
     // Silent fail by design (FE-04)
   }
