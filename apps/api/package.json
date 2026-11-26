@@ -8,6 +8,10 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "ai:check": "tsx scripts/check-ai.ts",
+    "ai:smoke": "tsx scripts/smoke-ai.ts",
+    "catalog:sync": "tsx scripts/sync-planner-catalog.ts",
     "db:push": "drizzle-kit push --force",
     "db:seed": "tsx src/db/seed.ts",
     "db:studio": "drizzle-kit studio"

@@ -16,7 +16,9 @@ flowchart LR
   Draft --> Storage
   User --> Pilot[Xiva pilot guide]
   Pilot --> API[Express API]
-  API --> AI[Gemini / arxiv fallback]
+  API --> AI[Groq: matn / foto / trip ranking]
+  API --> Voice[Gemini: faqat ovoz]
+  API --> TripAPI[Server trip smetasi / lokal fallback]
   API --> DB[(PostgreSQL)]
   DB --> API
   API --> Dash[B2B dashboard, 5s polling]
@@ -36,6 +38,8 @@ flowchart LR
 | GET `/api/landmarks` | Bor; Xiva katalogi |
 | GET `/api/landmarks/:slug` | Bor; bitta dossier |
 | POST `/api/guide/ask` | Bor; RAG/Vision/TTS va interaction log |
+| POST `/api/trips/generate` | Bor; Groq katalog ranking + deterministik smeta, frontend hali ulanmagan |
+| POST `/api/audio/speech` | Bor; Gemini WAV va model fallback |
 | GET `/api/analytics/summary` | Bor; mavjud analytics tiplari |
 | Roadmap / feedback / nearby / visit / export | Hali route ulanmagan; oldingi kontraktdagi takliflar |
 
@@ -52,6 +56,6 @@ Mavjud umumiy tiplarda milliy trip, signals, sentiment va contribution kontraktl
 
 ## Keyingi arxitektura — kelishilishi kerak
 
-Milliy city/place katalogi va manba versiyalari; trip backendga saqlash; transport/tarif manbalari; contribution moderation va huquqlar; opt-in GPS; nationwide vision; payment/payout; agregat feedback va analytics. Ushbu branch backend yoki shared runtime ni oʻzgartirmaydi.
+Milliy city/place katalogi va manba versiyalari; trip backendga saqlash; transport/tarif manbalari; contribution moderation va huquqlar; opt-in GPS; nationwide vision; payment/payout; agregat feedback va analytics. `feat/ai-provider-routing` foydalanuvchi topshirigʻi bilan backend va shared guide sourceMode tipini kengaytiradi; DB migratsiyasi yoʻq. [AI backend handoff](AI_BACKEND_HANDOFF.md) da provider/quota, import va testlar bayoni bor.
 
 Feedback loop faqat o‘lchangan va yetarli namunadagi reaksiyalarga tayanishi kerak. Tilni millat deb olish, kam savol berilgan joyni «zerikarli» deb fakt sifatida chiqarish yoki soxta foizlarni UIga qoʻshish mumkin emas. Kontrakt va rollar: [API_CONTRACT.md](API_CONTRACT.md), [FRONTEND_PRODUCT.md](FRONTEND_PRODUCT.md).

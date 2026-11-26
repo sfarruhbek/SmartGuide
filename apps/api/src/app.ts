@@ -7,6 +7,8 @@ import { errorHandler } from './middleware/error-handler.js';
 import { analyticsRouter } from './routes/analytics.routes.js';
 import { guideRouter } from './routes/guide.routes.js';
 import { landmarksRouter } from './routes/landmarks.routes.js';
+import { tripsRouter } from './routes/trips.routes.js';
+import { audioRouter } from './routes/audio.routes.js';
 
 export function createApp() {
   const app = express();
@@ -40,10 +42,11 @@ export function createApp() {
       status: dbOk ? 'ok' : 'degraded',
       service: 'smartguide-api',
       database: dbOk ? 'connected' : 'disconnected',
-      aiConfigured: env.isGeminiConfigured,
+      aiConfigured: env.isGroqConfigured && env.isGeminiConfigured,
+      providers: { groq: env.isGroqConfigured, geminiSpeech: env.isGeminiConfigured },
       models: {
-        ragVision: env.GEMINI_MODEL,
-        fallback: env.GEMINI_FALLBACK_MODEL,
+        planner: env.groqModels,
+        ragVision: env.GROQ_VISION_MODEL,
         tts: env.GEMINI_TTS_MODEL,
       },
       timestamp: new Date().toISOString(),
@@ -53,6 +56,8 @@ export function createApp() {
   app.use('/api/landmarks', landmarksRouter);
   app.use('/api/guide', guideRouter);
   app.use('/api/analytics', analyticsRouter);
+  app.use('/api/trips', tripsRouter);
+  app.use('/api/audio', audioRouter);
 
   app.use((_req, res) => {
     res.status(404).json({ error: 'API route not found.' });

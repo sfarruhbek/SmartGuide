@@ -118,7 +118,7 @@ export interface GuideAskResponse {
   verifiedBy: string;
   archiveCode: string;
   modelUsed: string;
-  sourceMode: 'gemini-rag' | 'verified-rag-fallback';
+  sourceMode: 'groq-rag' | 'gemini-rag' | 'verified-rag-fallback';
   responseTimeMs: number;
 }
 

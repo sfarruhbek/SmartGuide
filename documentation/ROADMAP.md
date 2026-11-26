@@ -13,6 +13,8 @@
 
 Frontend ish branchi `feat/uzbekistan-solo-travel`. Shared tiplardagi oʻzgarishlar jamoa bilan kelishiladi. Boshqa odamlarning branchlariga force-push qilinmaydi; hujjatlar shu branchdagi diff sifatida beriladi.
 
+Keyingi topshiriq — `feat/ai-provider-routing`: milliy trip generation route, Gemini speech route, provider fallback va guide Groq integratsiyasi tayyor. Milliy UI hali lokal; trip storage, tarixiy import review va production DB tekshiruvi qolgan. [AI backend handoff](AI_BACKEND_HANDOFF.md).
+
 ## Frontend topshirigʻi
 
 - [x] Milliy onboarding: shaharlar tartibi, 1–14 kun, byudjet, qiziqishlar, yashash.

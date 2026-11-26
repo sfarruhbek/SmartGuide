@@ -11,4 +11,4 @@ npm run build --workspace=@smartguide/shared
 npm run typecheck --workspace=@smartguide/shared
 ```
 
-This branch corrects documentation only in this package; shared runtime types are unchanged. [API status](../../documentation/API_CONTRACT.md)
+The AI backend branch adds `groq-rag` to `GuideAskResponse.sourceMode`; historical `gemini-rag` remains compatible. National trip types currently live in the API planner and tourist libraries rather than this package. [API status](../../documentation/API_CONTRACT.md), [AI handoff](../../documentation/AI_BACKEND_HANDOFF.md).

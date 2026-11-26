@@ -8,6 +8,7 @@ import {
 } from '../services/ai.service.js';
 import { logTouristInteraction } from '../services/analytics.service.js';
 import { getLandmarkBySlug, listLandmarkDetails } from '../services/landmark.service.js';
+import { aiLimit } from '../middleware/ai-limit.js';
 
 export const guideRouter = Router();
 
@@ -31,7 +32,7 @@ const askRequestSchema = z
  * Identifies landmark if photo provided, injects strict verified RAG dossier,
  * generates text + Gemini TTS audio response, and logs telemetry to PostgreSQL.
  */
-guideRouter.post('/ask', async (req, res) => {
+guideRouter.post('/ask', aiLimit, async (req, res) => {
   const startedAt = Date.now();
   const parsed = askRequestSchema.safeParse(req.body);
 
@@ -70,8 +71,8 @@ guideRouter.post('/ask', async (req, res) => {
   }
 
   if (!targetSlug) {
-    res.status(400).json({
-      error: 'landmarkSlug is required when no landmark photo is uploaded.',
+    res.status(hasImage ? 422 : 400).json({
+      error: hasImage ? 'Could not identify the photo. Please select a landmark.' : 'landmarkSlug is required when no landmark photo is uploaded.',
     });
     return;
   }

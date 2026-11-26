@@ -2,7 +2,7 @@
 
 SmartGuide mustaqil sayohatchiga shaharlar, kunlar, umumiy byudjet va qiziqishlar asosida kunlik safar rejasini tuzishga yordam beradi. Rejada vaqt, ovqatlanish, transport, kirish, yashash va zaxira xarajatlari bor. Interaktiv xaritada mahalliy joylar, manbali hikoyalar va shaxsiy topilmalar uchun qoralama mavjud.
 
-**Butun Oʻzbekiston — mahsulot geografiyasi. Xiva — birinchi AI-pilot.** Milliy planner frontendda lokal ishlaydi. Hozirgi AI/backend katalogi besh Xiva obidasi; mamlakat boʻylab AI, jonli narxlar, moderatsiya, avtomatik GPS va toʻlovlar hali integratsiya talab qiladi. Audio — AI javobini ixtiyoriy tinglash.
+**Butun Oʻzbekiston — mahsulot geografiyasi. Xiva — birinchi AI-pilot.** Milliy frontend planner hali lokal ishlaydi; yangi Groq server planner 16 shahar tanlovi va toʻrtta shahardagi 15 joy katalogidan foydalanadi. Dossier/foto piloti besh Xiva obidasi bilan cheklangan. Jonli narxlar, moderatsiya, avtomatik GPS va toʻlovlar hali integratsiya talab qiladi. Gemini audio — javobni ixtiyoriy tinglash.
 
 ## Hujjatlar
 
@@ -13,6 +13,7 @@ SmartGuide mustaqil sayohatchiga shaharlar, kunlar, umumiy byudjet va qiziqishla
 | [Smeta](documentation/SMETA_BUDGET.md) | Tariflar, farazlar va qayta hisoblangan cash ssenariylar |
 | [Architecture](documentation/ARCHITECTURE.md) | Ishlayotgan qatlamlar va keyingi integratsiya |
 | [API contract](documentation/API_CONTRACT.md) | Runtime endpointlar va hali taklif holatidagi kengaytmalar |
+| [AI backend handoff](documentation/AI_BACKEND_HANDOFF.md) | Groq / Gemini, quota fallback, yangi trip/audio API va JSON import |
 | [Roadmap](documentation/ROADMAP.md) | Frontend va boshqa jamoa ishlarining alohida navbati |
 | [Git / deploy](documentation/GIT_WORKFLOW_AND_DEPLOY.md) | Jamoa egaligi va deploy yoʻriqnomasi |
 
@@ -31,7 +32,7 @@ Backend/analitika uchun PostgreSQL va `.env.example` asosidagi konfiguratsiya:
 
 ```bash
 cp .env.example .env
-# DATABASE_URL va kerak bo‘lsa GEMINI_API_KEY ni kiriting; bazani yarating
+# DATABASE_URL, GROQ_API_KEYS va GEMINI_API_KEY ni serverda kiriting; bazani yarating
 npm run db:push
 npm run db:seed
 npm run dev
@@ -49,7 +50,7 @@ npx tsx --tsconfig apps/tourist/tests/tsconfig.json --test apps/tourist/tests/*.
 
 - [Tourist](apps/tourist/README.md): Next.js / React, 6 tildagi UI.
 - [Dashboard](apps/dashboard/README.md): Vite / React, pilot analitikasi va iqtisodiyot ssenariysi.
-- [API](apps/api/README.md): Express / Drizzle / PostgreSQL / Gemini, Xiva pilot runtime.
+- [API](apps/api/README.md): Express / PostgreSQL / Groq / Gemini, milliy trip va Xiva pilot runtime.
 - [Shared](packages/shared/README.md): amaldagi umumiy tiplarga yagona manba.
 
-Frontend branchi: `feat/uzbekistan-solo-travel`. Backend/shared runtime fayllari bu ishda oʻzgartirilmaydi. Yangi API kontraktlar jamoa bilan alohida kelishiladi.
+Frontend branchi: `feat/uzbekistan-solo-travel`. Keyingi AI-backend topshirigʻi: `feat/ai-provider-routing`; milliy server planner va Gemini TTS tayyor, frontend milliy sahifasi hozircha lokal hisoblaydi. DB migratsiyasi yoki production deploy bajarilmagan.

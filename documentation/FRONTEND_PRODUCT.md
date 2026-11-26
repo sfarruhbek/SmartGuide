@@ -32,7 +32,7 @@ UI: EN / RU / UZ / ES / JA / KO. URL `?lang=` va saqlangan til mavjud. Milliy ka
 
 ## Frontend egaligi
 
-Frontend dasturchi: `apps/tourist/**`, `apps/dashboard/**` va shu vazifa uchun hujjatlar. Backend runtime, DB sxemasi, shared kontraktlar, root dependency va lockfile bu branchda oʻzgartirilmagan. `packages/shared/README.md` dagi tavsif mavjud tiplarga moslangan, runtime emas.
+Frontend dasturchi: `apps/tourist/**`, `apps/dashboard/**` va shu vazifa uchun hujjatlar. Dastlabki `feat/uzbekistan-solo-travel` frontend ishida backend/shared runtime oʻzgarmagan. Keyingi aniq topshiriq bilan `feat/ai-provider-routing` backend route larini va shared guide sourceMode tipini kengaytiradi; DB sxemasi va root dependency oʻzgarmaydi. [Backend topshirish hujjati](AI_BACKEND_HANDOFF.md).
 
 Backend bilan kelishiladigan keyingi ishlar: milliy safar generation/storage, city/place katalogi, jonli tarif/jadval manbalari, source provenance, foydalanuvchi contribution moderation, nationwide vision, ixtiyoriy GPS, attribution va payment. Ular tayyor endpoint sifatida chaqirilmaydi. Eski pilot roadmap/feedback adapterlari HTTP xatoda halol fallback/retry ko‘rsatadi.
 

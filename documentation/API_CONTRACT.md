@@ -12,6 +12,8 @@ Base URL `http://localhost:4000`, JSON. Til: `en | uz | ru | ja | ko | es`. Pilo
 | GET `/api/landmarks` | `{ site, count, landmarks: LandmarkSummary[] }` |
 | GET `/api/landmarks/:slug` | `{ landmark: LandmarkDetail }`; topilmasa 404 |
 | POST `/api/guide/ask` | `GuideAskResponse` |
+| POST `/api/trips/generate` | Milliy trip v2; Groq ranking + server smeta, local-fallback |
+| POST `/api/audio/speech` | Gemini TTS → base64 WAV yoki 503 |
 | GET `/api/analytics/summary` | `AnalyticsSummary` |
 
 `GET /api/landmarks/nearby` hozir dinamik `/:slug` route bilan toʻqnashib 404 bo‘lishi mumkin; nearby sifatida tayyor emas. Health javobi real toʻlov yoki kontent tasdigʻi emas.
@@ -30,7 +32,7 @@ Base URL `http://localhost:4000`, JSON. Til: `en | uz | ru | ja | ko | es`. Pilo
 
 Ixtiyoriy `imageBase64`, `imageMimeType`. Kamida savol yoki foto kerak. Savol max 500 belgi; base64 max 12M belgi. Foto boʻlmasa slug kerak. Brauzer mikrofon diktovkasini matnga aylantiradi; streaming audio chat endpointi yoʻq.
 
-Response maydonlari: `interactionId`, `landmarkSlug`, `landmarkName`, `language`, `answer`, optional `audioBase64`/`audioMimeType`, `identifiedByVision`, `verifiedBy`, `archiveCode`, `modelUsed`, `sourceMode`, `responseTimeMs`. `sourceMode`: `gemini-rag | verified-rag-fallback`. `identifiedByVision: false` boʻlsa surat muvaffaqiyatli tanildi deb koʻrsatmaslik kerak. `verifiedBy` stringi mustaqil tarixiy audit dalili emas.
+Response maydonlari: `interactionId`, `landmarkSlug`, `landmarkName`, `language`, `answer`, optional `audioBase64`/`audioMimeType`, `identifiedByVision`, `verifiedBy`, `archiveCode`, `modelUsed`, `sourceMode`, `responseTimeMs`. `sourceMode`: `groq-rag | verified-rag-fallback`; oldingi `gemini-rag` shared tipida compatibility uchun qolgan. Gemini faqat TTS uchun, Groq matn va foto uchun. Tanilmagan foto va tanlangan slug boʻlmasa 422. `identifiedByVision: false` boʻlsa surat muvaffaqiyatli tanildi deb koʻrsatmaslik kerak. `verifiedBy` stringi mustaqil tarixiy audit dalili emas.
 
 Hozir backend `roadmapId`, `insight`, `nextStopSuggestion`ni shared response sifatida kafolatlamaydi. Frontend ularni faqat optional kengaytma sifatida tushunadi.
 
@@ -77,9 +79,9 @@ Audit yangilanishi: 404/405/501 boʻlsa frontend feedback vaqtincha mavjud emasl
 - Analytics optional fields: `totalRoadmapsGenerated`, `avgInterestScore`, `signalVsNoise`, `sentimentBreakdown`, `curiosityGaps`. UI ularni yo‘q bo‘lsa ixtiro qilmaydi. Aniq shape: [dashboard experience types](../apps/dashboard/src/lib/experience.ts).
 - Guide optional `insight` va `nextStopSuggestion`: [tourist experience types](../apps/tourist/src/lib/experience.ts). Bular shared ABI deb tasdiqlanmagan.
 
-## 3. Milliy safar — frontend lokal modeli
+## 3. Milliy safar — tayyor server route, frontend hali lokal
 
-Hozir yangi HTTP endpoint chaqirilmaydi. [journey.ts](../apps/tourist/src/lib/journey.ts) ichidagi `TripInput`, `Trip`, `TripDay`, `TripSlot` lokal model, kelishilgan server kontrakti emas.
+`POST /api/trips/generate` quyidagi payloadni qabul qiladi. Server modeli `apps/api/src/planner/trip.ts` da, joriy [journey.ts](../apps/tourist/src/lib/journey.ts) v2 bilan mos. Frontend hali HTTP route chaqirmaydi. Toʻliq konfiguratsiya, xatolar va tekshiruvlar: [AI backend handoff](AI_BACKEND_HANDOFF.md).
 
 ```json
 {
@@ -96,7 +98,11 @@ Budget USD, bir kishi, mamlakatga kelish yoʻlisiz. Kunlar 1–14; shaharlar tar
 
 `Discovery`: nom, shahar, lat/lng, hikoya, source, fact/legend/personal turi va sana. Hozir faqat shaxsiy localStorage. Public moderation statusi yoki nashr API si yoʻq.
 
-Backend/AI egasi bilan keyin kelishiladi: city/place ID va manba versiyasi, sana/availability, narx range va valyuta, transfer jadvali, trip saqlash, moderation/consent, nationwide recognition confidence, payment va attribution. Tasdiqlanmagan URLlarni tayyor API deb qoʻshmaslik kerak.
+Server response: `{trip, source: "groq" | "local-fallback", modelUsed, fallbackReason, costBasis: "planning-allowances", amounts, warnings}`. Groq faqat katalog ID larini tartiblaydi; pul/vaqt serverda hisoblanadi. Model/quota xatosida lokal reja HTTP 200 bilan va aniq source bilan qaytadi; notoʻgʻri input 400. Route IP/concurrency limiti 429/503 qaytarishi mumkin.
+
+`POST /api/audio/speech` input `{text, language}`, text 1–1400 belgi. Response `{audioBase64, audioMimeType: "audio/wav", modelUsed, provider: "gemini"}`; input xatosi 400, ovoz vaqtincha yoʻq boʻlsa 503 `{error, code:"AUDIO_UNAVAILABLE", text}`. Mikrofon STT yoki Live audio chat bu route vazifasi emas.
+
+Backend/AI egasi bilan keyin kelishiladi: katalog va manba versiyasi, sana/availability, tekshirilgan narx range, transfer jadvali, trip saqlash, moderation/consent, nationwide recognition confidence, payment va attribution.
 
 ## 4. Tekshiruv chegarasi
 
