@@ -2,6 +2,8 @@
 
 26-noyabr 2026. **Amaldagi shared tiplari:** [packages/shared/src/index.ts](../packages/shared/src/index.ts). Quyidagi statuslar repodagi Express route lar bilan solishtirilgan. Dizayn taklifi route yoki DB migratsiyasi tayyorligini bildirmaydi.
 
+> **Mahsulot va pilot chegarasi:** SmartGuide'ning **asosiy mahsulot API'si** — butun Oʻzbekiston (16+ shahar va erkin shaharlar) boʻylab toʻliq kunlik sayohat Roadmap'i va byudjet smetasini chizuvchi **`POST /api/trips/generate`** endpointidir. Quyidagi 5 ta Xiva (Ichan-Qal'a) slug'i (`kalta-minor`, `juma-mosque`, `tosh-hovli`, `kunya-ark`, `pahlavon-mahmud`), `/api/guide/ask` va `/api/roadmap/generate` esa faqat **1-bosqich chuqurlashtirilgan RAG/Vision pilot hududi**ga tegishli boʻlib, butun mahsulot geografiyasini cheklamaydi.
+
 Base URL `http://localhost:4000`, JSON. Til: `en | uz | ru | ja | ko | es`. Pilot slug: `kalta-minor | juma-mosque | tosh-hovli | kunya-ark | pahlavon-mahmud`. Milliy frontend katalog ID lari shu enumni almashtirmaydi.
 
 ## 1. Amaldagi runtime

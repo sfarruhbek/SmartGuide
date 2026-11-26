@@ -12,8 +12,8 @@ Asosiy foydalanuvchi — yolgʻiz/mustaqil sayohatchi. Geografiya — butun Oʻz
 
 | Oqim | Amalga oshirilgan holat | Chegara |
 | --- | --- | --- |
-| `/` rejalashtirish | 16 shahar + boshqa shahar matni, 1–14 kun, USD jami byudjet, 5 qiziqish, yashash toggle | Bir kishi uchun; boshlanish sanasi / jonli jadval / bron yoʻq |
-| Kunlik reja | Groq tanlagan joylar tartibi; server nonushta, obida, transport, n−1 kecha, 10% zaxira va kamomadni hisoblaydi | Narxlar smeta; server local-fallback qaytarsa UI alohida belgilaydi |
+| `/` rejalashtirish | **Tashrif buyuriladigan shahar(lar) boʻylab toʻliq sayohat Roadmap'i:** 16 shahar + boshqa shahar matni, 1–14 kun, USD jami byudjet, 5 qiziqish, yashash toggle | Bir kishi uchun; boshlanish sanasi / jonli jadval / bron yoʻq |
+| Kunlik reja (Full City Roadmap) | `POST /api/trips/generate` orqali **Groq AI tartiblash** + server deterministik byudjeti: nonushta, obidalar va mahalliy joylar, ovqat, mahalliy/shaharlararo transport, ixtiyoriy n−1 kecha, 10% zaxira, kamomad ogohlantirishi | AI mavjud boʻlmasa aniq belgilangan server `local-fallback` qaytadi; jonli bron emas |
 | Safardan foydalanish | Xarajatlar toifalari, barcha kun va manbalar bilan TXT eksport; URL orqali boʻlim, kun, joyni tiklash | Eksport bron emas; shaxsiy trip boshqa qurilmaga bulut orqali yuborilmaydi |
 | Koʻp shahar | Tanlash tartibi saqlanadi; yangi shaharga butun transfer kuni ajratiladi | Yoʻl narxi distance asosidagi allowance, transport qatnovi emas; uzoq yoʻl yana vaqt talab qilishi mumkin |
 | Xarita | OpenStreetMap tile, pan/zoom, marker, klaviatura uchun tugmalar, shahar + mashhur joylar / noodatiy tarixiy hikoyalar filtrlari, matnli roʻyxat | Toifalar tahririy tanlov; jonli tashrifchilar statistikasi emas. Internet kerak; marshrut chizigʻi yoki navigatsiya hisoblanmaydi |

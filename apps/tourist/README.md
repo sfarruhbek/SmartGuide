@@ -1,4 +1,6 @@
-# `@smartguide/tourist` — Uzbekistan solo travel
+# `@smartguide/tourist` — Uzbekistan Full-City Travel Roadmap & AI Guide PWA
+
+> **Scope:** SmartGuide is **not** an Ichan-Qala-only app. The main experience (`/`) draws a **complete day-by-day city/multi-city exploration roadmap** (schedule, places, interactive map, USD budget breakdown) for whichever city or cities in Uzbekistan the traveler visits (16 cities + custom city). Khiva (`/khiva`, `/l/[slug]`) is the Phase 1 deep museum-archive & photo-recognition pilot.
 
 Next.js 15, React 19, TypeScript, Tailwind 4. Default port 3000.
 
@@ -11,7 +13,7 @@ Next.js 15, React 19, TypeScript, Tailwind 4. Default port 3000.
 - View, city, collection, selected catalog place and day are restored from URL parameters; Back/Forward switches views. Trip export downloads all days, costs and sources as UTF-8 text.
 - Budget breakdown separates food, transport, admission, accommodation and reserve. API calls time out; interrupted guide requests are cancelled; errors and unknown places have recovery screens.
 
-Trip and discovery drafts stay in localStorage. No login, cloud sync, public contribution publishing, payment, booking, live fares or offline tile download is implemented. GPS in the voice popup is opt-in. Public map tiles and Live conversations need internet. The PWA service worker caches the app shell/static assets; API calls bypass it.
+Trip and discovery drafts stay in localStorage. Installable PWA support (`manifest.webmanifest`, `sw.js`, PNG 192/512 and Apple Touch icons) uses network-first navigation and asset caching, bypassing `/api/*`. No login, cloud sync, public contribution publishing, payment, booking, live fares or bulk offline map tile download is implemented. GPS in the voice popup is opt-in; public map tiles and Live conversations need internet.
 
 UI languages: EN/UZ/RU/ES/JA/KO. New place stories: EN/RU/UZ; English fallback is labelled. Estimates are authored planning allowances, not verified current tariffs.
 

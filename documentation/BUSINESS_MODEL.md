@@ -1,21 +1,25 @@
 # SmartGuide — Biznes Model (ProSkill Metodologiyasi Asosida)
 
-> **Loyiha:** SmartGuide — GPS Emotsional Roadmap + Jonli AI-Gid + Sayyohlar Qiziqishi Intellekti (Data Flywheel)  
-> **Xakaton:** Tourism Hackathon 2026 (25–27 noyabr 2026, CAEx Toshkent) · **3-trek:** *Kichik turbiznes va infratuzilmani raqamlashtirish*  
-> **Pilot obyekt:** Xiva — **Ichan-Qal'a** majmuasi (UNESCO Butunjahon merosi, *National Geographic 2026* Top Destination)
+> **Loyiha:** SmartGuide — **Tashrif Buyuriladigan Shahar(lar) Bo'ylab To'liq Sayohat Roadmap'i** + Jonli AI-Gid + Sayyohlar Qiziqishi Intellekti (Data Flywheel)  
+> **Mahsulot geografiyasi:** **Butun O'zbekiston (16+ shahar va ko'p-shaharlik marshrutlar:** Toshkent, Samarqand, Buxoro, Xiva, Shahrisabz, Nukus, Termiz, Qo'qon va b.) — **faqat bitta obida yoki faqat Ichan-Qal'a EMAS!**  
+> **1-bosqich chuqurlashtirilgan RAG/Vision piloti:** Xiva — **Ichan-Qal'a** (UNESCO Butunjahon merosi, *National Geographic 2026* Top Destination — birinchi tasdiqlangan muzey-arxiv sinov maydoni)  
+> **Xakaton:** Tourism Hackathon 2026 (25–27 noyabr 2026, CAEx Toshkent) · **3-trek:** *Kichik turbiznes va infratuzilmani raqamlashtirish*
 
 ---
 
 ## 1. Mahsulot Mohiyati va Foydalanuvchi Yo'li (Value Loop)
 
-**SmartGuide** — sayyoh istalgan joydan (safardan oldin uydan, aeroport/vokzaldan, mehmonxonadan yoki chipta kassasi yonidagi **reklama info-kioski / QR-stend** orqali) o'zi ochib foydalanadigan, **o'z-o'zidan aqllilashib boruvchi (Self-Learning)** shaxsiy AI-gid platformasi:
+**SmartGuide** — mustaqil sayyoh O'zbekistonning **istalgan shahriga** (yoki bir nechta shaharlariga) tashrif buyurganida, safardan oldin uydan, aeroport/vokzaldan, mehmonxonadan yoki kirish nuqtalaridagi **reklama info-kioski / QR-stend** orqali o'zi ochib ishlatadigan, **to'liq shahar aylanish Roadmap'ini tuzuvchi** va **o'z-o'zidan aqllilashib boruvchi (Self-Learning)** shaxsiy AI-gid platformasi:
 
-0. **Reklama va Tanitish (Kiosk & QR-kod):** Chipta kassasi, kirish darvozasi, aeroport, vokzal va mehmonxonalardagi **info-kiosk hamda QR-stendlar faqat reklama va dasturni tanitish kanali**dir (*har bir obidaga alohida QR-kod qo'yilmaydi va sayyoh faqat kassadan sotib olishga majbur emas* — u ilovani istalgan joydan o'rnatib/ochib o'zi xarid qila oladi).
-1. **Kirishda — GPS + Shaxsiy Emotsional Roadmap (Bepul Hook):** Sayyoh ilovaga kirishi bilan uning **GPS joylashuvi**, vaqti va qiziqishiga qarab *qaysi obyektlarga*, *qaysi tartibda* borishi va **har bir joydan aynan qanday hissiyot, estetik zavq va foyda olishi** bo'yicha shaxsiy marshrut (Roadmap) bepul chizib beriladi.
-2. **Obyekt yonida — GPS Avto-Taklif + Jonli Suhbat:** Yurish davomida ilova sayyohning **GPS joylashuvidan kelib chiqib eng yaqin obyektni avtomatik taklif qiladi** (yoki Snap & Ask foto orqali taniydi). Sayyoh 6+ tilda muzey tasdiqlagan bazadan jonli ovozli suhbat quradi.
-3. **Suhbatdan Intellekt — Bizning Asosiy "Moat" (Data Flywheel):** Har bir jonli suhbatdan tizim **sayyohning obida haqidagi haqiqiy taassurotini**, **qaysi fakt/afsonalar uni hayratga solganini ("Signal")** va **qaysi ma'lumotlar ahamiyatsiz/zerikarli ekanini ("Noise")** ajratib bazaga yig'adi:
-   - **Keyingi sayyoh uchun:** Real sayyohlar tajribasida sinalgan eng ideal **Emotsional Roadmap** va **ortiqcha shovqinsiz, faqat eng qiziq ma'lumotlar**!
-   - **Mahalliy biznes va turizm ekotizimi uchun:** Sayyoh qiziqishiga mos hunarmand/restoran/mehmonxona yo'naltirishlari + real **Tourist Experience Intelligence** ma'lumotlar bazasi!
+0. **Reklama va Tanitish (Kiosk & QR-kod):** Aeroport, vokzal, mehmonxona va turistik hudud kirishlaridagi **info-kiosk hamda QR-stendlar faqat reklama va ilovani tanitish kanali**dir (*har bir obidaga alohida QR-kod qo'yilmaydi va sayyoh faqat kassadan sotib olishga majbur emas* — u PWA ilovani istalgan joydan o'rnatib/ochib o'zi xarid qila oladi).
+1. **Kirishda — Shahar(lar) Bo'ylab To'liq Sayohat Roadmap'i (Bepul Hook):** Sayyoh tashrif buyuradigan **shahar(lar)ni** (16 ta shahar + erkin shahar kiritish), kunlar sonini (1–14 kun), umumiy USD byudjetini va qiziqishlarini tanlaydi → SmartGuide unga **butun shaharni aylanish uchun to'liq kunlik Roadmap** chizib beradi:
+   - Qaysi kunda, qaysi soatda **qaysi obida, mahalliy ko'cha, bozor va yashirin kashfiyotlarga** borishi va **har bir joydan qanday hissiyot/foyda olishi**;
+   - **To'liq byudjet smetasi:** ovqatlanish, mahalliy va shaharlararo transport, kirish chiptalari, yashash hamda 10% zaxira (kamomad bo'lsa ochiq ogohlantiradi);
+   - **Interaktiv OpenStreetMap xarita** va manbali tarixiy/madaniy hikoyalar (shu jumladan sayyohning shaxsiy topilmalari).
+2. **Shahar va Obida Ichida — Jonli AI-Gid + Ovoz + Snap & Ask:** Shahar bo'ylab aylanayotganda sayyoh xarita / GPS (keyingi bosqichda avto-taklif) yoki kamera (**Snap & Ask**) orqali 6+ tilda manbali AI-gid bilan muloqot qiladi va **Gemini 3.8 TTS** orqali jonli ovozli hikoya tinglaydi *(1-chuqurlashtirilgan arxiv/vision piloti Xivadagi 5 ta asosiy obidada ishlayapti, keyingi bosqichda barcha shaharlarga kengaytiriladi)*.
+3. **Suhbatdan Intellekt — Bizning Asosiy "Moat" (Data Flywheel):** Har bir safar rejasi va jonli suhbatdan tizim **sayyohning shahar va obidalar haqidagi haqiqiy taassurotini**, **qaysi fakt/joylar uni hayratga solganini ("Signal")** va **qaysi ma'lumotlar ahamiyatsiz/zerikarli ekanini ("Noise")** ajratib bazaga yig'adi:
+   - **Keyingi sayyoh uchun:** Real sayyohlar tajribasida sinalgan eng ideal **shahar aylanish Roadmap'i** va **ortiqcha shovqinsiz, faqat eng qiziq hikoyalar**!
+   - **Mahalliy biznes va turizm ekotizimi uchun:** Shahar marshrutiga tabiiy ulangan mahalliy hunarmand/restoran/mehmonxona yo'naltirishlari + real **Tourist Experience Intelligence** ma'lumotlar bazasi!
 
 ---
 
@@ -23,61 +27,61 @@
 
 ### 2.1. Aniq Mijoz Segmenti (ICP)
 
-*(Sayyoh O'zbekistonda odatda **3–10 kun** qoladi — shuning uchun oylik obuna emas, **safar davomiyligiga mos bir martalik Trip Pass** modeli qo'llaniladi!)*
+*(Sayyoh O'zbekistonda odatda **3–10 kun** qoladi va 1–4 ta shaharni aylanadi — shuning uchun oylik obuna emas, **safar davomiyligiga mos bir martalik Trip Pass** modeli qo'llaniladi!)*
 
 | Segment | Kim (Aniq ICP)? | Qanday topamiz (ICP testi)? | Nimaga pul to'laydi? |
 | :--- | :--- | :--- | :--- |
-| **1. Asosiy Mijoz va To'lovchi (B2C — Mustaqil Sayyoh)** | Xiva, Samarqand, Buxoro va Toshkentga mustaqil keladigan xorijiy va mahalliy sayyohlar (ayniqsa kamyob tillar: yapon, koreys, ispan, ingliz, rus, o'zbek) — safar muddati **2–10 kun** | 1) Chipta kassasi, aeroport, vokzal va mehmonxonadagi **reklama info-kiosklari va QR-stendlar**<br>2) Safardan oldin Google/TripAdvisor/Travel bloglar va App/Web qidiruv | **Bir martalik Safar Pass'i (Trip Pass):**<br>• **City Pass (48 soat — masalan Xiva):** `$4.99`<br>• **Silk Road All-Uzbekistan Pass (10 kun — barcha shaharlar):** `$12.99` |
-| **2. B2B Hamkor-Tarqatuvchilar (Mehmonxonalar & Turoperatorlar)** | Xiva, Samarqand, Buxoro va Toshkentdagi 15–60 xonali butik-mehmonxonalar hamda inbound turagentliklar | TITF 2026 ko'rgazmasi va Xiva/Samarqanddagi mehmonxona egalariga shaxsan kirish | Mehmonlari uchun **ulgurji (Bulk) Trip Pass paketlari** (40% chegirma bilan, masalan 100 ta City Pass = `$300`) yoki o'z resepshn QR-kodi orqali sotuvdan **15% hamkorlik ulushi** |
-| **3. Mahalliy Kichik Turbiznes (SME Partners)** | Ichan-Qal'a va turistik hududlardagi oilaviy restoranlar, hunarmand ustaxonalari (kulolchilik, gilamdo'zlik, yog'och o'ymakorligi), mahalliy transferlar | Xivadagi mahalliy hunarmandlar va restoran egalari bilan to'g'ridan-to'g'ri hamkorlik | Sayyohning Roadmap'ida kontekstga mos tavsiya qilinishi orqali kelgan mijozdan **10–15% affiliate komissiya** (yoki oylik hamkorlik joylashuvi) |
-| **4. Strategik Ekotizim Hamkorlari (Muzeylar & Turizm Qo'mitasi)** | Ichan-Qal'a muzey-qo'riqxonasi, davlat muzeylari (137 ta), hududiy turizm boshqarmalari va yirik kurortlar (Arda Khiva, Silk Road Samarkand) | Rasmiy pilot va hamkorlik memorandumi | • **Davlat muzeylariga B2B Analitika Paneli BEPUL beriladi** — buning evaziga kirish hududida **reklama kioski/stendi** qo'yish va rasmiy arxivni tasdiqlash huquqi olinadi!<br>• **Yirik B2G / Turoperator / Developerlarga** — choraklik/yillik **Destination Experience Intelligence** hisobotlari (`$2,000–$5,000 / loyiha`, oylik SaaS majburiyatisiz!) |
+| **1. Asosiy Mijoz va To'lovchi (B2C — Mustaqil Sayyoh)** | O'zbekistonning istalgan turistik shahriga (Toshkent, Samarqand, Buxoro, Xiva, Shahrisabz va b.) mustaqil keladigan xorijiy va mahalliy sayyohlar (ayniqsa kamyob tillar: yapon, koreys, ispan, ingliz, rus, o'zbek) — safar muddati **2–14 kun** | 1) Safardan oldin Google/TripAdvisor/Travel bloglar va Web/PWA qidiruv<br>2) Aeroport, vokzal, mehmonxona va turistik kirishlardagi **reklama info-kiosklari va QR-stendlar** | **Bir martalik Safar Pass'i (Trip Pass):**<br>• **City Pass (48 soat — istalgan 1 shahar: Toshkent, Samarqand, Buxoro, Xiva va b.):** `$4.99`<br>• **Silk Road All-Uzbekistan Pass (10 kun — barcha shaharlar bo'ylab to'liq Roadmap & AI-gid):** `$12.99` |
+| **2. B2B Hamkor-Tarqatuvchilar (Mehmonxonalar & Turoperatorlar)** | Toshkent, Samarqand, Buxoro va Xivadagi 15–60 xonali butik-mehmonxonalar hamda inbound turagentliklar | TITF 2026 ko'rgazmasi va mehmonxona egalariga shaxsan kirish | Mehmonlari uchun **ulgurji (Bulk) Trip Pass paketlari** (40% chegirma bilan, masalan 100 ta City Pass = `$300`) yoki o'z resepshn QR-kodi orqali sotuvdan **15% hamkorlik ulushi** |
+| **3. Mahalliy Kichik Turbiznes (SME Partners)** | Turistik shaharlardagi (1-pilot: Xiva; keyin Samarqand, Buxoro, Toshkent) oilaviy restoranlar, hunarmand ustaxonalari (kulolchilik, gilamdo'zlik, yog'och o'ymakorligi), mahalliy transferlar | Mahalliy hunarmandlar va restoran egalari bilan to'g'ridan-to'g'ri hamkorlik | Sayyohning **shahar Roadmap'ida** tushlik/dam olish vaqtiga tabiiy tavsiya qilinishi orqali kelgan mijozdan **10–15% affiliate komissiya** |
+| **4. Strategik Ekotizim Hamkorlari (Muzeylar & Turizm Qo'mitasi)** | Davlat muzeylari (137 ta; 1-pilot: Ichan-Qal'a muzey-qo'riqxonasi), hududiy turizm boshqarmalari va yirik kurortlar (Arda Khiva, Silk Road Samarkand) | Rasmiy pilot va hamkorlik memorandumi | • **Davlat muzeylariga B2B Analitika Paneli BEPUL beriladi** — buning evaziga kirish hududida **reklama kioski/stendi** qo'yish va rasmiy arxivni tasdiqlash huquqi olinadi!<br>• **Yirik B2G / Turoperator / Developerlarga** — choraklik/yillik **Destination Experience Intelligence** hisobotlari (`$2,500–$5,000 / loyiha`, oylik SaaS majburiyatisiz!) |
 
 ---
 
 ### 2.2. Painkiller Muammo (1 Gaplik Formula)
 
-- **Sayyoh uchun:** Mustaqil sayyohlar O'zbekistonning tarixiy shaharlariga 3–10 kunga kelganda qaysi obidaga nega borishni va undan qanday taassurot olishini bilmaydi, jonli gid qimmat (**$35–$60/kun**) yoki o'z tilida topilmaydi, ChatGPT/Vikipediya esa uzun, zerikarli va ko'pincha xato ma'lumot beradi — natijada sayyoh qisqa safar vaqtini samarasiz o'tkazib, obidalarning asl ruhini his qilmay qaytib ketadi.
-- **Mahalliy turbiznes va muzeylar uchun:** Hududlardagi hunarmandlar, restoranlar va muzeylar sayyohlar aynan qaysi obidalarga qiziqayotgani, qaysi ma'lumot ularni hayratga solayotgani va qayerda vaqt o'tkazayotganini bilmaydi — mustaqil sayyohlar oqimini to'g'ri yo'naltira olmaydi.
+- **Sayyoh uchun:** Mustaqil sayyohlar O'zbekiston shaharlariga 2–14 kunga kelganda **o'z byudjeti, vaqti va qiziqishiga mos butun shahar bo'ylab to'liq aylanish Roadmap'ini** tuza olmaydi, jonli gid qimmat (**$35–$60/kun**) yoki o'z tilida topilmaydi, ChatGPT/Vikipediya esa shahar bo'yicha real byudjet/vaqtsiz uzun va ko'pincha xato ma'lumot beradi — natijada sayyoh safar vaqtini samarasiz o'tkazib, shaharning asl ruhini his qilmay qaytib ketadi.
+- **Mahalliy turbiznes va muzeylar uchun:** Shaharlardagi hunarmandlar, restoranlar va muzeylar mustaqil sayyohlar qaysi marshrutdan yurayotgani, qaysi obidalarga qiziqayotgani va qaysi hikoyalar ularni hayratga solayotganini bilmaydi — sayyohlar oqimini to'g'ri yo'naltira olmaydi.
 
 ---
 
 ### 2.3. Hozirgi Alternativalar va Raqobat Tahlili
 
-| Mezon | Jonli Gid ($35–$60/kun) | Eski Audio-gid | ChatGPT / Gemini Live | Google Maps / TripAdvisor | **SmartGuide (Biz)** |
+| Mezon | Jonli Gid ($35–$60/kun) | Eski Audio-gid | ChatGPT / Gemini | Google Maps / TripAdvisor | **SmartGuide (Biz)** |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| **To'lov modeli** | $35 – $60 / kun | $5 – $10 / joy | $20 / oy (obuna) | Bepul | **$4.99 (48s) yoki $12.99 (butun safar — 1 marta!)** |
-| **Emotsional & Foyda Roadmap** | Gidga bog'liq | Yo'q | Umumiy shablon | Faqat reyting | **Ha — GPS + real sayyohlar qiziqishidan tuzilgan** |
-| **Obyektni aniqlash** | Gid ko'rsatadi | Qo'lda raqam terish | Rasm yuklash kerak | Xaritadan qidirish | **GPS avto-taklif (har obidada QR shart emas) + Snap & Ask** |
+| **To'lov modeli** | $35 – $60 / kun | $5 – $10 / joy | $20 / oy (obuna) | Bepul | **$4.99 (48s 1 shahar) yoki $12.99 (10 kun butun O'zbekiston — 1 marta!)** |
+| **Shahar bo'ylab To'liq Roadmap + Byudjet** | Gidga bog'liq | Yo'q | Umumiy matn, real byudjet/xaritasiz | Faqat nuqtalar | **Ha — 16+ shahar uchun kunbay vaqt, USD smeta va interaktiv xarita** |
+| **Obyektni aniqlash & Manbali Gid** | Gid ko'rsatadi | Qo'lda raqam terish | Rasm yuklash kerak | Qidirish kerak | **Xarita + Snap & Ask foto tanish + opt-in GPS (obida devorida QR shart emas)** |
 | **Kerakli vs Keraksiz filtr** | Subyektiv | Yo'q | Uzun, shovqinli matn | Yo'q | **Ha — Signal vs. Noise Data Flywheel** |
-| **Tarixiy aniqlik (Xiva/mahalliy)** | Turlicha | Eskirgan | Ko'p gallyutsinatsiya | Yuzaki | **100% Tasdiqlangan mahalliy RAG (0% xato)** |
-| **6+ til jonli ovoz** | Kamyob tillar qiyin | 2–3 til | Ha | Matnli | **Ha — Gemini 3.8 TTS (EN, UZ, RU, JA, KO, ES)** |
+| **Tarixiy aniqlik (Manbali RAG)** | Turlicha | Eskirgan | Ko'p gallyutsinatsiya | Yuzaki | **Manbali katalog + tasdiqlangan mahalliy RAG (1-pilot: Xiva)** |
+| **6+ til jonli ovoz** | Kamyob tillar qiyin | 2–3 til | Ha | Matnli | **Ha — Groq AI + Gemini 3.8 TTS (EN, UZ, RU, JA, KO, ES)** |
 
 ---
 
 ### 2.4. "Agar ChatGPT ertaga shu funksiyani qo'shsa, bizda nima qoladi?" (4 Qatlamli Moat)
 
-1. **Proprietary Tourist Interest & Experience Graph (Eng kuchli himoya!):** ChatGPT har bir suhbatni unutadi va barcha sayyohlarga uzun ensiklopediya matnini to'kib beradi. SmartGuide esa minglab jonli obida suhbatlaridan **qaysi obida qaysi millat sayyohiga qanday hissiyot berishi**, **qaysi faktlar eng kuchli hayrat uyg'otishi ("Signal")** va **qaysilari zerikarli ("Noise")** ekanini real bazada jamlaydi. Har yangi sayyoh bilan bizning Roadmap va hikoyalarimiz aniqroq bo'lib boraveradi!
-2. **Mahalliy tasdiqlangan RAG baza:** Xivaning kichik obidalari, me'morlari, koshin ustalari va keksa gidlar afsonalari bo'yicha 0% gallyutsinatsiyali arxiv.
-3. **Strategik Fizik Reklama Nuqtalari (Kiosk + Mehmonxona QR) + GPS Nol-Uskuna Masshtab:** Chipta kassasi, aeroport, vokzal va mehmonxonalardagi reklama kiosklari/QR-stendlari sayyohni eng yuqori ehtiyoj pallasida (high-intent) arzon CAC bilan jalb qiladi; ichkarida esa GPS ishlagani uchun yangi shaharni (Samarqand, Buxoro) 1 haftada ishga tushiramiz.
-4. **Mahalliy Turizm Ekotizimi Integratsiyasi:** Sayyoh qiziqishiga mos mahalliy hunarmandlar, restoranlar va xizmatlarni marshrutga tabiiy ulash (ChatGPT buni qilmaydi).
+1. **Proprietary Tourist Interest & Experience Graph (Eng kuchli himoya!):** ChatGPT har bir suhbatni unutadi va barcha sayyohlarga uzun ensiklopediya matnini to'kib beradi. SmartGuide esa shahar marshrutlari va jonli suhbatlardan **qaysi shahar va obida qaysi sayyohga qanday taassurot berishi**, **qaysi faktlar eng kuchli hayrat uyg'otishi ("Signal")** va **qaysilari zerikarli ("Noise")** ekanini bazada jamlaydi. Har yangi sayyoh bilan shahar Roadmap'larimiz aniqroq bo'lib boraveradi!
+2. **O'zbekiston bo'ylab manbali katalog va tasdiqlangan RAG baza:** Kichik obidalar, yashirin mahalliy ko'chalar, me'morlar va afsonalar bo'yicha manba-ajratilgan (fakt vs. afsona) baza — Xiva piloti orqali boshlanib, Samarqand, Buxoro va Toshkentga kengaytiriladi.
+3. **Strategik Fizik Reklama Nuqtalari (Kiosk + Mehmonxona QR) + Nol-Uskuna Masshtab:** Aeroport, vokzal, mehmonxona va kirish nuqtalaridagi reklama kiosklari/QR-stendlari sayyohni eng yuqori ehtiyoj pallasida (high-intent) arzon CAC bilan jalb qiladi; ichkarida hech qanday maxsus uskuna kerak emasligi uchun yangi shaharni 1 haftada ishga tushiramiz.
+4. **Mahalliy Turizm Ekotizimi Integratsiyasi:** Sayyohning shahar Roadmap'iga uning qiziqishi va byudjetiga mos mahalliy hunarmandlar, restoranlar va xizmatlarni tabiiy ulash (ChatGPT buni qilmaydi).
 
 ---
 
 ## 3. Monetizatsiya Modeli (Sayyoh Safariga Moslashgan — Oylik Obunasiz!)
 
 ### Oqim 1 (Asosiy — ~75% daromad): Freemium → Bir Martalik Trip Pass (B2C)
-Sayyoh ilovani istalgan joydan (App/Web yoki reklama kiosk/QR orqali) bepul ochadi:
-- **Bepul (Hook):** Shaxsiy **Emotsional Roadmap** tuzish + **1-obida kirish tanishtiruvi va 2 ta bepul jonli AI savoli** (sayyoh darhol "wow" sifatini his qiladi!).
-- **48-Hour City Pass — `$4.99` (bir martalik to'lov):** Tanlangan shahar (masalan, Xiva / Ichan-Qal'a) bo'yicha 48 soat cheksiz GPS obida taklifi, jonli ovozli AI-gid va Snap & Ask foto tanish.
-- **10-Day Silk Road Uzbekistan Pass — `$12.99` (bir martalik to'lov):** Xiva + Samarqand + Buxoro + Toshkent — sayyohning **butun O'zbekiston safari** uchun yagona pasport! (Jonli giddan 4–10 baravar arzon.)
+Sayyoh ilovani istalgan joydan (Web/PWA yoki reklama kiosk/QR orqali) bepul ochadi:
+- **Bepul (Hook):** Istalgan shahar(lar) uchun **to'liq kunlik Roadmap & byudjet smetasi** tuzish + xarita ko'rish + **1-obida tanishtiruvi va 2 ta bepul AI-gid savoli** (sayyoh darhol qiymatni his qiladi!).
+- **48-Hour City Pass — `$4.99` (bir martalik to'lov):** Tanlangan **istalgan 1 shahar** (Toshkent, Samarqand, Buxoro, Xiva va b.) bo'ylab 48 soat cheksiz ovozli AI-gid, Snap & Ask foto tanish va chuqur mahalliy marshrutlar.
+- **10-Day Silk Road Uzbekistan Pass — `$12.99` (bir martalik to'lov):** Xiva + Samarqand + Buxoro + Toshkent + barcha mintaqalar — sayyohning **butun O'zbekiston safari** uchun yagona pasport! (Jonli giddan 4–10 baravar arzon.)
 - **To'lov:** Apple Pay, Google Pay, Visa/Mastercard, Click, Payme (1-klik, ro'yxatdan o'tishsiz).
 
 ### Oqim 2 (~15% daromad): Mahalliy Kichik Turbiznes Referral & Native Recommendations (B2B SME)
-- Roadmap davomida (masalan, tushlik payti yoki obidadan chiqqanda) sayyohning qiziqishiga mos **tasdiqlangan mahalliy restoranlar, hunarmand ustaxonalari, master-klasslar va transferlar** tavsiya qilinadi → har bir bron/tashrifdan **10–15% komissiya** (sayyohga esa SmartGuide orqali 5–10% chegirma!).
+- Shahar Roadmap'i davomida (masalan, tushlik payti yoki obidadan chiqqanda) sayyohning qiziqishi va byudjetiga mos **tasdiqlangan mahalliy restoranlar, hunarmand ustaxonalari, master-klasslar va transferlar** tavsiya qilinadi → har bir bron/tashrifdan **10–15% komissiya** (sayyohga esa SmartGuide orqali 5–10% chegirma!).
 
 ### Oqim 3 (~10% daromad): B2B Bulk Pass Paketlari & Loyihaviy Data Insights (Oylik SaaS Emas!)
 - **Mehmonxona va Turoperatorlar uchun Bulk Pass:** 50–500 talik ulgurji Trip Pass kodlari (40% chegirma bilan) — mehmonxona o'z mijoziga sovg'a/bonus sifatida beradi.
-- **Muzeylar uchun Analitika Paneli — BEPUL (Strategik almashuv!):** Muzey oylik pul to'lamaydi — evaziga kirish qismiga reklama kiosk/stend qo'yishga va arxivni tasdiqlashga ruxsat beradi.
+- **Muzeylar uchun Analitika Paneli — BEPUL (Strategik almashuv!):** Muzey oylik pul to'lamaydi — evaziga kirish qismiga reklama kiosk/stend qo'yishga va arxivni tasdiqlashga ruxsat beradi (1-pilot: Ichan-Qal'a).
 - **Yirik Turizm Tashkilotlari va Developerlar (B2G/Enterprise):** Choraklik/yillik maxsus *"Sayyohlar Qiziqishi, Signal/Noise va Taassurot Indeksi"* tahliliy hisobotlari (`$2,500 – $5,000 / hisobot`).
 
 ---

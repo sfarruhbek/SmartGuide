@@ -150,9 +150,9 @@ curl http://localhost:4000/api/health
 ### 6-qadam: AWS Security Group & HTTPS (Mobil kamera/mikrofon uchun muhim!)
 1. **AWS Security Group Inbound Rules:** TCP `22`, `80`, `443`, `3000`, `4000`, `5173` portlarni oching.
 2. **Tavsiya (HTTPS):** iOS Safari va Android Chrome brauzerlarida ovozli diktovka (`SpeechRecognition`) va to'g'ridan-to'g'ri kamera ishlashi uchun HTTPS zarur. Agar domeningiz bo'lsa, Nginx reverse proxy + Certbot (`sudo apt install certbot python3-certbot-nginx`) ulang:
-   - `https://khiva.yourdomain.uz` → `localhost:3000` (Tourist PWA)
-   - `https://admin.yourdomain.uz` → `localhost:5173` (B2B Dashboard)
-   - `https://api.yourdomain.uz` → `localhost:4000` (API)
+   - `https://app.smartguide.uz` → `localhost:3000` (Tourist PWA — butun O'zbekiston Roadmap + AI-Gid)
+   - `https://admin.smartguide.uz` → `localhost:5173` (B2B Dashboard)
+   - `https://api.smartguide.uz` → `localhost:4000` (API)
    *(HTTPS ulangach `.env` dagi `NEXT_PUBLIC_API_URL`, `VITE_API_URL`, `VITE_TOURIST_APP_URL` ni yangilab `npm run build` va `pm2 restart all` qiling!)*
 
 ### Yangi kodni serverda yangilash (30 soniyada)

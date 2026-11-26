@@ -1,8 +1,13 @@
-# SmartGuide — Oʻzbekiston boʻylab oʻz maromingizda
+# SmartGuide — Oʻzbekiston boʻylab toʻliq shahar Roadmap'i va AI-Gid
 
-SmartGuide mustaqil sayohatchiga shaharlar, kunlar, umumiy byudjet va qiziqishlar asosida kunlik safar rejasini tuzishga yordam beradi. Rejada vaqt, ovqatlanish, transport, kirish, yashash va zaxira xarajatlari bor. Interaktiv xaritada mahalliy joylar, manbali hikoyalar va shaxsiy topilmalar uchun qoralama mavjud.
+> **Muhim aniqlik (Mahsulot ko'lami):** SmartGuide **faqat Ichan-Qal'a (Xiva) ilovasi EMAS!**
+> - **Asosiy mahsulot:** Sayyoh tashrif buyuradigan **istalgan shahar(lar)** (Oʻzbekiston boʻylab 16 ta shahar + erkin shahar kiritish: Toshkent, Samarqand, Buxoro, Xiva, Nukus, Termiz, Shahrisabz, Qoʻqon va boshqalar) boʻylab aylanish uchun **toʻliq kunlik sayohat Roadmap'ini** chizib beruvchi mustaqil sayohat va AI-gid PWA platformasi.
+> - **Toʻliq Roadmap ichida nima bor:** har bir kun uchun vaqt jadvali, obidalar va mahalliy kashfiyotlar ketma-ketligi, ovqatlanish, mahalliy/shaharlararo transport, kirish chiptalari, yashash va 10% zaxira byudjet (USD) hisob-kitobi, interaktiv OpenStreetMap xarita, manbali hikoyalar hamda shaxsiy topilmalar qoralamasi.
+> - **Ichan-Qal'a (Xiva) nima?** U mahsulot chegarasi emas, balki **1-bosqich chuqurlashtirilgan AI-pilot hududi** (5 ta muzey-arxiv dossierli obida, Snap & Ask rasm tanish, `/khiva` qisqa piyoda yurish rejimi va B2B muzey analitikasi piloti).
 
 **Butun Oʻzbekiston — mahsulot geografiyasi.** Milliy frontend Groq server planneriga ulangan: 16 shahar tanlovi va toʻrtta shahardagi 15 planner joyi. Xaritada **Gemini Live ovozli popup** bor: suhbat, foto va ixtiyoriy GPS, Groq orqali manbali maʼlumot hamda yetishmagan joylarni Wikipediaʼdan keshga olish. Alohida besh Xiva obidasi dossier piloti saqlangan. Xarita katalogi hali butun mamlakatdagi barcha obyektlarni qamramaydi; jonli narxlar, moderatsiya va toʻlovlar tayyor emas. [API konfiguratsiyasi](documentation/LIVE_API_SETUP.md), [Live yordamchi va backend topshirish](documentation/LIVE_VOICE_ASSISTANT.md).
+
+PWA (`manifest.webmanifest`, `sw.js`, PNG iconlar) o‘rnatishga tayyor; navigatsiya network-first, API so‘rovlari keshlanmaydi.
 
 ## Hujjatlar
 
