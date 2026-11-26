@@ -19,3 +19,5 @@ npm run ai:smoke --workspace=@smartguide/api
 ```
 
 Database changes belong to the backend owner. Seed data is not evidence of real visitor research or transactions. [Architecture](../../documentation/ARCHITECTURE.md)
+
+Next implementation tasks, ownership and demo acceptance: [Backend tasks](../../documentation/BACKEND_TASKS.md). Start with a clean PostgreSQL/content setup, full guide HTTP/database checks, a shared request deadline and the real HTTPS staging address. The national frontend adapter remains a frontend task.
