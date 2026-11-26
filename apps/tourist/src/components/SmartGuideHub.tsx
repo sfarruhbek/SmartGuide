@@ -142,7 +142,7 @@ export function SmartGuideHub({initialLang,initialQuery=''}:{initialLang?:string
       acceptTrip(result,true,action==='revise');setEditInstruction('');setEditing(false);
     }catch(error){if(!controller.signal.aborted){if(registrationRequired(error))requireRegistration('plans',true);else setError(c('planError'));}}finally{if(planning.current===controller){planning.current=null;setPending(false);}}
   };
-  const voiceTrip=(raw:unknown)=>{try{acceptTrip(parseComposedTrip(raw),false,view==='itinerary');}catch{setError(c('planError'));}};
+  const voiceTrip=(raw:unknown)=>{try{acceptTrip(parseComposedTrip(raw),view==='plan',view==='itinerary');return true;}catch{setError(c('planError'));return false;}};
   const planByVoice=()=>{if(loadingAccess)return;setVoicePurpose(view==='itinerary'?'revise':'plan');setVoiceOpen(true);};
   const download=()=>{if(!trip)return;const url=URL.createObjectURL(new Blob(['\uFEFF',tripText(trip,language,CITIES,allPlaces)],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download=`smartguide-${language}.txt`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);setDownloaded(true);};
   const saveDraft=(event:React.FormEvent<HTMLFormElement>)=>{

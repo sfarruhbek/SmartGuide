@@ -108,6 +108,32 @@ test('Live trip tool saves collected preferences and emits the real returned iti
   ws.close();
 });
 
+test('Live manage_trip normalizes Russian/Uzbek/capitalized cities and missing optional fields instead of rejecting',async()=>{
+  const {serveVoice}=await import('../src/explore/live.js');
+  const {normalizeVoicePreferences}=await import('../src/planner/voice-preferences.js');
+  const normalized=normalizeVoicePreferences({cities:['Самарканд','Бухаре','Чимган'],days:'4',budget:'$350',interests:['культура','еда']});
+  assert.equal(normalized.ok,true);
+  if(normalized.ok){
+    assert.deepEqual(normalized.data,{cities:['samarkand','bukhara'],days:4,budget:350,interests:['local','food'],accommodation:true,customCity:'Чимган'});
+  }
+  const connection=makeConnection(),ws=new FakeSocket();let received:unknown;
+  const expectedPrefs={cities:['samarkand','bukhara'],days:4,budget:300,interests:['history','local'],accommodation:true,customCity:''};
+  const result={trip:{input:expectedPrefs,summary:'4 дня в Самарканде и Бухаре',days:[],total:18000},source:'groq',modelUsed:'test',fallbackReason:null,revision:1};
+  await serveVoice(ws as unknown as WebSocket,{...context,purpose:'plan'},{key:'guest:ru-plan',registered:false},{
+    connect:connection.connect,openVoice:async()=>({durationMs:180000,close:async()=>{}}),
+    workspaceState:(async()=>({workspace:null})) as never,
+    compose:(async(_visitor:unknown,input:unknown)=>{received=input;return result;}) as never,
+  });
+  connection.options.callbacks.onmessage({toolCall:{functionCalls:[{id:'trip-ru',name:'manage_trip',args:{
+    instruction:'Четыре дня в Самарканде и Бухаре, бюджет 300 долларов',
+    preferences:{cities:['Самарканд','Бухара'],days:4,budget:300},
+  }}]}});
+  await tick();await tick();
+  assert.deepEqual(received,{preferences:expectedPrefs,language:'ru',instruction:'Четыре дня в Самарканде и Бухаре, бюджет 300 долларов',action:'create'});
+  assert.deepEqual(ws.messages.find(value=>value.type==='tripUpdated')?.result,result);
+  ws.close();
+});
+
 test('Live refunds a photo reservation if the visitor disconnects before delivery',async()=>{
   const {serveVoice}=await import('../src/explore/live.js');
   const connection=makeConnection(),ws=new FakeSocket();let resolveReservation!:(refund:()=>Promise<void>)=>void,refunds=0;

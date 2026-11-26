@@ -18,7 +18,7 @@ export function MapVoiceAssistant({open,embedded=false,mapVisible,onClose,city,c
   mapVisible:boolean;cities:City[];onCityChange:(id:string)=>void;locating:boolean;geoError:boolean;onLocate:()=>void;
   focusPlace:VoicePlace|null;
   onPlaces:(places:VoicePlace[])=>void;onFocus:(place:VoicePlace)=>void;
-  tripPreferences?:TripInput;purpose?:'plan'|'revise'|'guide';onTrip?:(result:unknown)=>void;onRegistrationRequired?:(feature:'plans'|'photos'|'voice')=>void;onUsage?:()=>void;onViewTrip?:()=>void;
+  tripPreferences?:TripInput;purpose?:'plan'|'revise'|'guide';onTrip?:(result:unknown)=>boolean|void;onRegistrationRequired?:(feature:'plans'|'photos'|'voice')=>void;onUsage?:()=>void;onViewTrip?:()=>void;
 }){
   const copy=voiceCopy(language),p=planningCopy(language),id=useId(),dialog=useRef<HTMLDialogElement>(null),file=useRef<HTMLInputElement>(null);
   const actions=useRef({onTrip,onRegistrationRequired,onUsage});actions.current={onTrip,onRegistrationRequired,onUsage};
@@ -59,7 +59,7 @@ export function MapVoiceAssistant({open,embedded=false,mapVisible,onClose,city,c
     setError('');setHeard('');setAnswer('');setMuted(false);lastRole.current='';
     setReaction(null);setReactionError(false);setTripUpdated(false);setSeconds(null);
     const connection=new LiveVoiceClient({status:setStatus,error:setError,lookup:setLookingUp,photoAccepted:()=>setPhotoStatus('sent'),
-      remaining:setSeconds,trip(result){actions.current.onTrip?.(result);setTripUpdated(true);},registrationRequired(feature){actions.current.onRegistrationRequired?.(feature);},
+      remaining:setSeconds,trip(result){const ok=actions.current.onTrip?.(result);if(ok!==false)setTripUpdated(true);},registrationRequired(feature){actions.current.onRegistrationRequired?.(feature);},
       transcript(role,text){
         const changed=lastRole.current!==role;lastRole.current=role;
         if(role==='user'){setHeard(old=>(changed?text:old+text).slice(-3000));if(changed){setAnswer('');setReaction(null);setReactionError(false);}}
@@ -89,7 +89,7 @@ export function MapVoiceAssistant({open,embedded=false,mapVisible,onClose,city,c
       <p id={`${id}-intro`} className="voice-intro">{copy('intro')}</p>
       {purpose!=='guide'&&<p className="voice-hint">{p(purpose==='revise'?'placeholder':'voiceHint')}</p>}
       {seconds!==null&&<p className="hub-hint" role="timer">Live · {Math.floor(seconds/60)}:{String(seconds%60).padStart(2,'0')}</p>}
-      {tripUpdated&&<button className="hub-button" type="button" onClick={onViewTrip}>{p('continueSaved')}</button>}
+      {tripUpdated&&<button className="hub-button" type="button" onClick={onViewTrip}>{p('openCreatedPlan')}</button>}
       <div className="voice-location-controls">
         <button type="button" className="journey-outline" onClick={onLocate} aria-pressed={!!location}>
           {locating?<Loader2 className="animate-spin" size={16}/>:<Navigation size={16}/>}{copy(locating?'locating':location?'locationOff':'location')}
@@ -102,7 +102,8 @@ export function MapVoiceAssistant({open,embedded=false,mapVisible,onClose,city,c
       {!embedded&&focusPlace&&<p className="voice-focus-name">{focusPlace.name}</p>}
       <div className="voice-session-state"><div className={`voice-orb voice-${status}`} aria-hidden="true"><Volume2/><i/><i/><i/></div>
       <p className="voice-state" role="status">{copy(status)}</p></div>
-      {lookingUp&&<p className="voice-lookup" role="status"><Loader2 className="animate-spin" size={14}/>{copy('lookup')}</p>}
+      {lookingUp&&<p className="voice-lookup" role="status"><Loader2 className="animate-spin" size={14}/>{purpose==='guide'?copy('lookup'):p('preparing')}</p>}
+      {tripUpdated&&<button className="hub-button" type="button" onClick={onViewTrip}>{p('openCreatedPlan')}</button>}
       {error&&<p className="journey-error" role="alert">{copy(error==='MIC_PERMISSION'?'micPermission':error==='SECURE_CONTEXT_REQUIRED'?'https':'unavailable')}</p>}
       <div className="voice-main-actions">{active?<>
         <button type="button" className="voice-action" disabled={!connected} onClick={()=>setMuted(client.current?.toggleMute()??false)} aria-pressed={muted} aria-label={copy(muted?'unmute':'mute')}>{muted?<MicOff/>:<Mic/>}</button>

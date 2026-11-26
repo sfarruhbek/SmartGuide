@@ -13,6 +13,7 @@ const words={
   onePlan:['itinerary','план','reja','itinerario','旅程','계획'],
   photos:['photos','фото','rasm','fotos','写真','사진'],
   continueSaved:['Continue my saved trip','Продолжить сохранённую поездку','Saqlangan safarni davom ettirish','Continuar mi viaje guardado','保存した旅を続ける','저장한 여행 계속'],
+  openCreatedPlan:['Open your new itinerary','Открыть созданный план','Yaratilgan rejani ochish','Abrir tu nuevo itinerario','新しい旅程を開く','새 여행 계획 열기'],
   edit:['Change this itinerary','Изменить этот план','Bu rejani oʻzgartirish','Cambiar este itinerario','この旅程を変更','여행 계획 변경'],
   instruction:['What would you like to change?','Что хочешь изменить?','Nimani oʻzgartirmoqchisiz?','¿Qué quieres cambiar?','何を変更しますか？','무엇을 바꿀까요?'],
   placeholder:['Less walking, more local food, a lower budget…','Меньше прогулок, больше местной кухни, дешевле…','Kamroq yurish, koʻproq mahalliy taom, arzonroq…','Menos caminar, más comida local, menor presupuesto…','歩く量を減らす、郷土料理を増やす、予算を下げる…','덜 걷기, 현지 음식 더하기, 예산 줄이기…'],
