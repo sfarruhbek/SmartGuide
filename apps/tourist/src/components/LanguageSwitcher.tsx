@@ -8,10 +8,17 @@ interface LanguageSwitcherProps {
   compact?: boolean;
 }
 
+/**
+ * Clean single-row 6-language pill capsule without duplicate flag/text codes.
+ * Fits cleanly across 375px+ mobile viewports on a single row.
+ */
 export function LanguageSwitcher({ value, onChange, compact = false }: LanguageSwitcherProps) {
   return (
     <div
-      className="flex flex-wrap items-center gap-1.5"
+      className={[
+        'grid grid-cols-6 items-center rounded-full border border-[#EAE6DF] bg-white p-1 shadow-2xs',
+        compact ? 'gap-0.5' : 'gap-1',
+      ].join(' ')}
       role="group"
       aria-label="Select guide language"
     >
@@ -21,17 +28,19 @@ export function LanguageSwitcher({ value, onChange, compact = false }: LanguageS
           <button
             key={lang.code}
             type="button"
+            title={lang.nativeLabel}
+            aria-label={lang.nativeLabel}
+            aria-pressed={isActive}
             onClick={() => onChange(lang.code)}
             className={[
-              'inline-flex items-center gap-1 rounded-full border transition-all cursor-pointer font-medium whitespace-nowrap',
-              compact ? 'px-2.5 py-1 text-xs' : 'px-3 py-1.5 text-xs sm:text-sm',
+              'rounded-full text-center font-semibold uppercase tracking-wide cursor-pointer whitespace-nowrap',
+              compact ? 'px-2 py-1 text-[11px]' : 'px-2.5 py-1.5 text-xs',
               isActive
-                ? 'border-[#0E7470] bg-[#0E7470] text-white shadow-xs'
-                : 'border-[#EAE6DF] bg-white text-[#14181F] hover:border-[#0E7470]/45 hover:bg-[#EEF7F6]/70',
+                ? 'bg-[#0E7470] text-white shadow-2xs'
+                : 'text-[#5C6370] hover:bg-[#EEF7F6]/70 hover:text-[#14181F]',
             ].join(' ')}
           >
-            <span aria-hidden="true">{lang.flag}</span>
-            <span className="uppercase tracking-wide">{lang.code}</span>
+            {lang.code}
           </button>
         );
       })}

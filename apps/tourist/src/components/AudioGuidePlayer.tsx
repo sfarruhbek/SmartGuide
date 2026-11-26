@@ -17,8 +17,9 @@ interface AudioGuidePlayerProps {
 
 function formatSeconds(sec: number): string {
   if (!Number.isFinite(sec) || sec < 0) return '0:00';
-  const mins = Math.floor(sec / 60);
-  const rem = Math.floor(sec % 60);
+  const rounded = Math.floor(sec);
+  const mins = Math.floor(rounded / 60);
+  const rem = rounded % 60;
   return `${mins}:${rem.toString().padStart(2, '0')}`;
 }
 
@@ -63,7 +64,6 @@ export function AudioGuidePlayer({
     );
   }, [playerId]);
 
-  // Single Active Audio Manager: pause/cancel whenever another player starts
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -114,7 +114,6 @@ export function AudioGuidePlayer({
         await el.play();
         setAutoplayBlocked(false);
       } catch {
-        // Mobile Safari/Chrome blocks ungesture-backed play() — show tap prompt
         setAutoplayBlocked(true);
       }
     };
@@ -145,6 +144,7 @@ export function AudioGuidePlayer({
     if (!el) return;
     broadcastPlay();
     el.currentTime = 0;
+    setCurrentTime(0);
     el.playbackRate = playbackRate;
     try {
       await el.play();
@@ -184,17 +184,17 @@ export function AudioGuidePlayer({
 
   if (!objectUrl) {
     return (
-      <div className="mt-3.5 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-[#EAE6DF] bg-[#FAF8F5] px-3 py-2.5">
+      <div className="mt-3.5 flex items-center justify-between gap-2 rounded-xl border border-[#EAE6DF] bg-[#FAF8F5] px-3 py-2.5">
         <button
           type="button"
           onClick={toggleBrowserFallbackSpeech}
-          className="inline-flex items-center gap-2 rounded-lg bg-[#0E7470] px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-[#0A5C59] cursor-pointer"
+          className="inline-flex items-center gap-2 rounded-lg bg-[#0E7470] px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-[#0A5C59] cursor-pointer whitespace-nowrap"
         >
           {isSpeakingFallback ? <Pause className="h-3.5 w-3.5" /> : <Volume2 className="h-3.5 w-3.5" />}
           <span>{isSpeakingFallback ? ui.audioPause : ui.audioPlay}</span>
         </button>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           <button
             type="button"
             onClick={toggleSpeed}
@@ -202,13 +202,17 @@ export function AudioGuidePlayer({
           >
             {playbackRate === 1 ? '1.0x' : '1.25x'}
           </button>
-          <span className="text-[11px] font-medium text-[#5C6370]">{ui.audioBrowserFallback}</span>
+          <span className="text-[11px] font-medium text-[#5C6370] whitespace-nowrap">
+            {ui.audioBrowserFallback}
+          </span>
         </div>
       </div>
     );
   }
 
-  const progressPercent = duration > 0 ? Math.min(100, (currentTime / duration) * 100) : 0;
+  const safeDuration = Number.isFinite(duration) && duration > 0 ? duration : 0;
+  const progressPercent =
+    safeDuration > 0 ? Math.min(100, (currentTime / safeDuration) * 100) : 0;
 
   return (
     <div className="mt-3.5 rounded-xl border border-[#EAE6DF] bg-[#FAF8F5] p-3">
@@ -220,13 +224,60 @@ export function AudioGuidePlayer({
           setAutoplayBlocked(false);
         }}
         onPause={() => setIsPlaying(false)}
-        onEnded={() => setIsPlaying(false)}
+        onEnded={() => {
+          setIsPlaying(false);
+          setCurrentTime(0);
+        }}
         onLoadedMetadata={(e) => {
-          setDuration(e.currentTarget.duration);
+          const d = e.currentTarget.duration;
+          setDuration(Number.isFinite(d) ? d : 0);
           e.currentTarget.playbackRate = playbackRate;
         }}
         onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
       />
+
+      <div className="mb-2.5 flex items-center justify-between gap-2 text-[11px]">
+        <span className="inline-flex min-w-0 items-center gap-1.5 font-semibold text-[#0E7470] whitespace-nowrap">
+          <span className="flex h-3 shrink-0 items-end gap-0.5" aria-hidden="true">
+            {[0, 1, 2, 3].map((bar) => (
+              <span
+                key={bar}
+                className={[
+                  'w-0.5 rounded-full bg-[#0E7470] transition-all',
+                  isPlaying ? 'animate-sound-bar h-3' : 'h-1.5 opacity-45',
+                ].join(' ')}
+                style={{ animationDelay: `${bar * 0.14}s` }}
+              />
+            ))}
+          </span>
+          <span className="truncate">
+            {autoplayBlocked && !isPlaying ? ui.tapToListenHint : ui.audioVoiceTag}
+          </span>
+        </span>
+
+        <div className="flex shrink-0 items-center gap-1.5">
+          <span className="tabular-nums font-medium text-[#5C6370] whitespace-nowrap">
+            {formatSeconds(currentTime)} / {formatSeconds(safeDuration)}
+          </span>
+          <button
+            type="button"
+            onClick={toggleSpeed}
+            className="h-6 rounded-md border border-[#EAE6DF] bg-white px-1.5 text-[10px] font-bold tabular-nums text-[#14181F] hover:border-[#0E7470]/45 hover:bg-[#EEF7F6] transition cursor-pointer"
+            aria-label="Toggle playback speed"
+          >
+            {playbackRate === 1 ? '1.0x' : '1.25x'}
+          </button>
+          <button
+            type="button"
+            onClick={() => void replayGeminiAudio()}
+            className="flex h-6 w-6 items-center justify-center rounded-md border border-[#EAE6DF] bg-white text-[#5C6370] hover:border-[#0E7470]/45 hover:text-[#0E7470] transition cursor-pointer"
+            title={ui.audioReplay}
+            aria-label={ui.audioReplay}
+          >
+            <RotateCcw className="h-3 w-3" />
+          </button>
+        </div>
+      </div>
 
       <div className="flex items-center gap-3">
         <button
@@ -241,70 +292,25 @@ export function AudioGuidePlayer({
           {isPlaying ? <Pause className="h-4 w-4 fill-current" /> : <Play className="h-4 w-4 fill-current ml-0.5" />}
         </button>
 
-        <div className="min-w-0 flex-1">
-          <div className="mb-1.5 flex items-center justify-between gap-2 text-[11px]">
-            <span className="inline-flex items-center gap-1.5 font-semibold text-[#0E7470]">
-              <span className="flex h-3 items-end gap-0.5" aria-hidden="true">
-                {[0, 1, 2, 3].map((bar) => (
-                  <span
-                    key={bar}
-                    className={[
-                      'w-0.5 rounded-full bg-[#0E7470] transition-all',
-                      isPlaying ? 'animate-sound-bar h-3' : 'h-1.5 opacity-45',
-                    ].join(' ')}
-                    style={{ animationDelay: `${bar * 0.14}s` }}
-                  />
-                ))}
-              </span>
-              <span>
-                {autoplayBlocked && !isPlaying ? ui.tapToListenHint : ui.audioVoiceTag}
-              </span>
-            </span>
-
-            <span className="tabular-nums font-medium text-[#5C6370]">
-              {formatSeconds(currentTime)} / {formatSeconds(duration)}
-            </span>
-          </div>
-
-          <input
-            type="range"
-            min={0}
-            max={duration || 100}
-            step={0.1}
-            value={currentTime}
-            onChange={(e) => {
-              const nextTime = Number(e.target.value);
-              setCurrentTime(nextTime);
-              if (audioRef.current) {
-                audioRef.current.currentTime = nextTime;
-              }
-            }}
-            aria-label="Audio progress"
-            className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-[#EAE6DF] accent-[#0E7470]"
-            style={{
-              background: `linear-gradient(to right, #0E7470 ${progressPercent}%, #EAE6DF ${progressPercent}%)`,
-            }}
-          />
-        </div>
-
-        <button
-          type="button"
-          onClick={toggleSpeed}
-          className="h-8 shrink-0 rounded-lg border border-[#EAE6DF] bg-white px-2 text-[11px] font-semibold tabular-nums text-[#14181F] hover:border-[#0E7470]/45 hover:bg-[#EEF7F6] transition cursor-pointer"
-          aria-label="Toggle playback speed"
-        >
-          {playbackRate === 1 ? '1.0x' : '1.25x'}
-        </button>
-
-        <button
-          type="button"
-          onClick={() => void replayGeminiAudio()}
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#EAE6DF] bg-white text-[#5C6370] hover:border-[#0E7470]/45 hover:text-[#0E7470] transition cursor-pointer"
-          title={ui.audioReplay}
-          aria-label={ui.audioReplay}
-        >
-          <RotateCcw className="h-3.5 w-3.5" />
-        </button>
+        <input
+          type="range"
+          min={0}
+          max={safeDuration || 1}
+          step={0.05}
+          value={safeDuration > 0 ? Math.min(currentTime, safeDuration) : 0}
+          onChange={(e) => {
+            const nextTime = Number(e.target.value);
+            setCurrentTime(nextTime);
+            if (audioRef.current) {
+              audioRef.current.currentTime = nextTime;
+            }
+          }}
+          aria-label="Audio progress"
+          className="h-1.5 min-w-0 flex-1 cursor-pointer appearance-none rounded-full bg-[#EAE6DF] accent-[#0E7470]"
+          style={{
+            background: `linear-gradient(to right, #0E7470 ${progressPercent}%, #EAE6DF ${progressPercent}%)`,
+          }}
+        />
       </div>
     </div>
   );

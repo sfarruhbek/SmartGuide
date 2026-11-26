@@ -397,36 +397,17 @@ export function LandmarkGuideClient({
               type="button"
               disabled={isLoading}
               onClick={handleIntroTour}
-              className="mt-4 flex w-full items-center justify-between gap-2 rounded-xl bg-[#0E7470] px-4 py-3 text-sm font-semibold text-white shadow-xs transition hover:bg-[#0A5C59] active:scale-[0.99] disabled:opacity-60 cursor-pointer"
+              className="mt-4 flex w-full items-center justify-between gap-2 rounded-xl bg-[#0E7470] px-4 py-3 text-[13px] font-semibold text-white shadow-xs transition hover:bg-[#0A5C59] active:scale-[0.99] disabled:opacity-60 cursor-pointer sm:text-sm"
             >
-              <span className="inline-flex items-center gap-2">
-                <Play className="h-4 w-4 fill-current" />
-                <span>{ui.introTourButton}</span>
+              <span className="inline-flex min-w-0 items-center gap-2">
+                <Play className="h-4 w-4 shrink-0 fill-current" />
+                <span className="truncate">{ui.introTourButton}</span>
               </span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-white/15 px-2.5 py-0.5 text-[11px] font-medium text-white">
+              <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-white/15 px-2.5 py-0.5 text-[11px] font-medium text-white whitespace-nowrap">
                 <Headphones className="h-3 w-3" />
                 <span>{ui.audioIntroBadge}</span>
               </span>
             </button>
-
-            <div className="mt-4 grid grid-cols-2 gap-3 rounded-2xl border border-[#EAE6DF] bg-[#FAF8F5] p-3.5 text-xs">
-              <div>
-                <span className="block text-[10px] font-semibold uppercase tracking-wider text-[#5C6370]">
-                  {ui.eraLabel}
-                </span>
-                <span className="mt-0.5 block font-semibold text-[#14181F]">
-                  {landmark.builtYear}
-                </span>
-              </div>
-              <div>
-                <span className="block text-[10px] font-semibold uppercase tracking-wider text-[#5C6370]">
-                  {ui.architectLabel}
-                </span>
-                <span className="mt-0.5 line-clamp-2 block font-semibold text-[#14181F]">
-                  {landmark.architect}
-                </span>
-              </div>
-            </div>
 
             {/* Collapsible Verified Museum Dossier */}
             <button
@@ -447,6 +428,24 @@ export function LandmarkGuideClient({
 
             {isDossierOpen && (
               <div className="mt-3 rounded-2xl border border-[#EAE6DF] bg-[#FAF8F5] p-4 animate-fade-slide">
+                <div className="mb-3 grid grid-cols-2 gap-3 rounded-xl border border-[#EAE6DF] bg-white p-3 text-xs">
+                  <div>
+                    <span className="block text-[10px] font-semibold uppercase tracking-wider text-[#5C6370]">
+                      {ui.eraLabel}
+                    </span>
+                    <span className="mt-0.5 block font-semibold text-[#14181F]">
+                      {landmark.builtYear}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="block text-[10px] font-semibold uppercase tracking-wider text-[#5C6370]">
+                      {ui.architectLabel}
+                    </span>
+                    <span className="mt-0.5 line-clamp-2 block font-semibold text-[#14181F]">
+                      {landmark.architect}
+                    </span>
+                  </div>
+                </div>
                 <div className="mb-3 flex flex-wrap gap-1.5">
                   {(
                     [
@@ -526,16 +525,16 @@ export function LandmarkGuideClient({
           </label>
         </div>
 
-        <div className="flex flex-wrap gap-2">
+        <div className="flex items-stretch gap-2 overflow-x-auto scrollbar-none pb-1 sm:flex-wrap">
           {quickQuestions.map((prompt) => (
             <button
               key={prompt}
               type="button"
               disabled={isLoading}
               onClick={() => void submitQuestion(prompt)}
-              className="rounded-xl border border-[#EAE6DF] bg-white px-3.5 py-2 text-left text-xs font-medium text-[#14181F] shadow-2xs transition hover:border-[#0E7470] hover:bg-[#EEF7F6] disabled:opacity-50 cursor-pointer"
+              className="w-60 shrink-0 rounded-xl border border-[#EAE6DF] bg-white px-3.5 py-2 text-left text-xs font-medium leading-snug text-[#14181F] shadow-2xs transition hover:border-[#0E7470] hover:bg-[#EEF7F6] disabled:opacity-50 cursor-pointer sm:w-auto sm:shrink"
             >
-              {prompt}
+              <span className="line-clamp-2">{prompt}</span>
             </button>
           ))}
         </div>
@@ -563,14 +562,16 @@ export function LandmarkGuideClient({
           )}
         </div>
 
-        {/* Welcome Card */}
-        <div className="rounded-2xl border border-[#EAE6DF] bg-white p-4 text-sm leading-relaxed text-[#14181F] shadow-2xs">
-          <div className="mb-1.5 flex items-center gap-2 text-xs font-semibold text-[#0E7470]">
-            <ShieldCheck className="h-4 w-4" />
-            <span>SmartGuide · {localizedName}</span>
+        {/* Welcome Card (only before first interaction) */}
+        {messages.length === 0 && (
+          <div className="rounded-2xl border border-[#EAE6DF] bg-white p-4 text-sm leading-relaxed text-[#14181F] shadow-2xs">
+            <div className="mb-1.5 flex items-center gap-2 text-xs font-semibold text-[#0E7470]">
+              <ShieldCheck className="h-4 w-4" />
+              <span>SmartGuide · {localizedName}</span>
+            </div>
+            <p className="text-[#5C6370]">{ui.welcomePrefix}</p>
           </div>
-          <p className="text-[#5C6370]">{ui.welcomePrefix}</p>
-        </div>
+        )}
 
         {messages.map((msg) => {
           const isLatest = msg.id === lastMessageId;
@@ -651,26 +652,26 @@ export function LandmarkGuideClient({
                   )}
                 </div>
 
-                {/* FE-07: Discreet Verified Museum Trust Footer */}
-                <div className="flex flex-wrap items-center justify-between gap-2 border-t border-[#EAE6DF] bg-[#FAF8F5] px-4 py-2 text-[11px]">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="inline-flex items-center gap-1 font-semibold text-[#B47B38]">
-                      <Check className="h-3 w-3" />
-                      <span>
+                {/* FE-07: Sleek Single-Line Verified Museum Trust Footer */}
+                <div className="flex items-center justify-between gap-2 border-t border-[#EAE6DF] bg-[#FAF8F5] px-4 py-2 text-[11px]">
+                  <div className="flex min-w-0 items-center gap-2">
+                    <span className="inline-flex min-w-0 items-center gap-1 truncate font-semibold text-[#B47B38]">
+                      <Check className="h-3 w-3 shrink-0" />
+                      <span className="truncate">
                         {ui.verifiedArchive}
                         {msg.archiveCode ? ` · ${msg.archiveCode}` : ''}
                       </span>
                     </span>
-                    <span className="text-[#5C6370] tabular-nums">
-                      {isInstantCache ? ui.instantCacheLabel : ui.verifiedSourceLabel}
-                      {formattedSeconds ? ` · ${formattedSeconds}` : ''}
+                    <span className="hidden shrink-0 text-[#5C6370] tabular-nums sm:inline">
+                      · {isInstantCache ? ui.instantCacheLabel : ui.verifiedSourceLabel}
+                      {formattedSeconds ? ` ${formattedSeconds}` : ''}
                     </span>
                   </div>
 
                   <button
                     type="button"
                     onClick={() => void handleCopyAnswer(msg.id, msg.text)}
-                    className="inline-flex items-center gap-1 rounded-md border border-[#EAE6DF] bg-white px-2 py-0.5 text-[11px] font-medium text-[#5C6370] transition hover:border-[#0E7470]/40 hover:text-[#14181F] cursor-pointer"
+                    className="inline-flex shrink-0 items-center gap-1 rounded-md border border-[#EAE6DF] bg-white px-2 py-0.5 text-[11px] font-medium text-[#5C6370] transition hover:border-[#0E7470]/40 hover:text-[#14181F] cursor-pointer"
                   >
                     {isCopied ? (
                       <>
@@ -788,7 +789,7 @@ export function LandmarkGuideClient({
               e.preventDefault();
               void submitQuestion(question);
             }}
-            className="flex items-center gap-2"
+            className="flex items-center gap-1.5 sm:gap-2"
           >
             {/* Snap & Ask Photo Button */}
             <button
@@ -796,7 +797,7 @@ export function LandmarkGuideClient({
               disabled={isLoading}
               onClick={() => fileInputRef.current?.click()}
               title={ui.snapButton}
-              className="flex h-11 shrink-0 items-center gap-1.5 rounded-xl border border-[#0E7470]/30 bg-[#EEF7F6] px-3 text-xs font-semibold text-[#0E7470] transition hover:bg-[#0E7470] hover:text-white disabled:opacity-50 cursor-pointer"
+              className="flex h-10 w-10 shrink-0 items-center justify-center gap-1.5 rounded-xl border border-[#0E7470]/30 bg-[#EEF7F6] text-xs font-semibold text-[#0E7470] transition hover:bg-[#0E7470] hover:text-white disabled:opacity-50 cursor-pointer sm:h-11 sm:w-auto sm:px-3"
             >
               <Camera className="h-4 w-4" />
               <span className="hidden sm:inline">{ui.snapButton}</span>
@@ -809,7 +810,7 @@ export function LandmarkGuideClient({
               onClick={handleVoiceToggle}
               title={isListening ? ui.voiceListening : ui.voiceButton}
               className={[
-                'flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border transition cursor-pointer',
+                'flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border transition cursor-pointer sm:h-11 sm:w-11',
                 isListening
                   ? 'border-rose-300 bg-rose-50 text-rose-600 animate-pulse'
                   : 'border-[#EAE6DF] bg-[#FAF8F5] text-[#14181F] hover:border-[#0E7470]/45 hover:text-[#0E7470]',
@@ -825,7 +826,7 @@ export function LandmarkGuideClient({
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
               placeholder={isListening ? ui.voiceListening : ui.inputPlaceholder}
-              className="h-11 min-w-0 flex-1 rounded-xl border border-[#EAE6DF] bg-[#FAF8F5] px-4 text-sm text-[#14181F] placeholder-[#5C6370] focus:border-[#0E7470] focus:bg-white focus:outline-none"
+              className="h-10 min-w-0 flex-1 rounded-xl border border-[#EAE6DF] bg-[#FAF8F5] px-3 text-[13px] text-[#14181F] placeholder-[#5C6370] focus:border-[#0E7470] focus:bg-white focus:outline-none sm:h-11 sm:px-4 sm:text-sm"
             />
 
             {/* Send Button */}
@@ -833,7 +834,7 @@ export function LandmarkGuideClient({
               type="submit"
               disabled={isLoading || (!question.trim() && !pendingPhoto)}
               aria-label="Send question"
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0E7470] text-white shadow-xs transition hover:bg-[#0A5C59] disabled:opacity-40 cursor-pointer"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0E7470] text-white shadow-xs transition hover:bg-[#0A5C59] disabled:opacity-40 cursor-pointer sm:h-11 sm:w-11"
             >
               {isLoading ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
