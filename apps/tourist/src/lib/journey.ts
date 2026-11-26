@@ -11,6 +11,8 @@ export type LocalText = {
 export const local = (text: LocalText, language: SupportedLanguage) =>
   text[language] || text.en;
 export type Interest = 'history' | 'local' | 'food' | 'nature' | 'sacred';
+export type PlaceCategory = 'landmark' | 'discovery';
+export type PlaceFilter = 'all' | PlaceCategory;
 export interface City {
   id: string;
   name: LocalText;
@@ -26,7 +28,9 @@ export interface Place {
   lat: number;
   lng: number;
   interests: Interest[];
-  local: boolean;
+  category: PlaceCategory;
+  history?: LocalText;
+  /** Authored admission allowance in USD cents, not a live ticket quote. */
   admission: number;
   minutes: number;
   source: string;
@@ -35,6 +39,7 @@ export interface Place {
 export interface TripInput {
   cities: string[];
   days: number;
+  /** User-entered total in US dollars. All calculated amounts use integer cents. */
   budget: number;
   interests: Interest[];
   accommodation: boolean;
@@ -65,7 +70,8 @@ export interface TripDay {
   total: number;
 }
 export interface Trip {
-  version: 1;
+  version: 2;
+  currency: 'USD';
   input: TripInput;
   days: TripDay[];
   subtotal: number;
@@ -85,12 +91,22 @@ export interface Discovery {
   kind: 'fact' | 'legend' | 'personal';
   createdAt: string;
 }
-export const TRIP_KEY = 'smartguide_trip_v1';
+export const TRIP_KEY = 'smartguide_trip_v2';
+export const LEGACY_TRIP_KEY = 'smartguide_trip_v1';
 export const DISCOVERY_KEY = 'smartguide_discoveries_v1';
 
 export function money(value: number, language: SupportedLanguage) {
-  return `${new Intl.NumberFormat(language === 'uz' ? 'uz-UZ' : language, { maximumFractionDigits: 0 }).format(value)} UZS`;
+  return new Intl.NumberFormat(language === 'uz' ? 'uz-UZ' : language, {
+    style: 'currency',
+    currency: 'USD',
+    currencyDisplay: 'narrowSymbol',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(value / 100);
 }
+export const budgetCents = (dollars: number) => Math.round(dollars * 100);
+export const matchesPlaceFilter = (place: Place, filter: PlaceFilter) =>
+  filter === 'all' || place.category === filter;
 export function project(lat: number, lng: number, zoom: number) {
   const clamped = Math.max(-85.0511, Math.min(85.0511, lat));
   const size = 256 * 2 ** zoom;
@@ -125,6 +141,7 @@ export function generateTrip(
   input: TripInput,
   cities: City[],
   places: Place[],
+  useEconomy = false,
 ): Trip {
   if (
     !Number.isInteger(input.days) ||
@@ -132,7 +149,8 @@ export function generateTrip(
     input.days > 14 ||
     !Number.isFinite(input.budget) ||
     input.budget <= 0 ||
-    input.budget > 1e9
+    input.budget > 1000000 ||
+    Math.abs(input.budget * 100 - budgetCents(input.budget)) > 1e-6
   )
     throw new Error('Invalid trip');
   if (
@@ -154,7 +172,7 @@ export function generateTrip(
   if (!destinations.length || destinations.length > input.days)
     throw new Error('Invalid destinations');
   const perDay = input.budget / input.days;
-  const economical = perDay < (input.accommodation ? 500000 : 300000);
+  const economical = useEconomy || perDay < (input.accommodation ? 40 : 24);
   const used = new Set<string>();
   const days: TripDay[] = [];
   for (let index = 0; index < input.days; index++) {
@@ -178,51 +196,46 @@ export function generateTrip(
       });
       now += duration;
     };
-    add('breakfast', 45, economical ? 25000 : 45000);
+    add('breakfast', 45, economical ? 200 : 360);
     // Each new city gets an entire transfer day: no fabricated train timetable or rushed sightseeing.
     if (previous && previous !== city) {
       const from = cities.find((value) => value.id === previous);
       const to = cities.find((value) => value.id === city);
       const km = from && to ? distanceKm(from, to) : 400;
       const transfer = { from: previous, to: city };
-      add(
-        'transfer',
-        4 * 60,
-        Math.ceil((80000 + km * 450) / 10000) * 10000,
-        transfer,
-      );
-      add('lunch', 60, economical ? 45000 : 80000);
+      add('transfer', 4 * 60, Math.ceil((640 + km * 3.6) / 80) * 80, transfer);
+      add('lunch', 60, economical ? 360 : 640);
       add('transfer', 5 * 60, 0, transfer);
-      add('dinner', 60, economical ? 45000 : 80000);
+      add('dinner', 60, economical ? 360 : 640);
     } else {
       const candidates = places
         .filter((place) => place.city === city && !used.has(place.id))
         .sort((a, b) => {
           const score = (p: Place) =>
             p.interests.filter((i) => input.interests.includes(i)).length * 10 +
-            (p.local ? 3 : 0) -
-            (economical ? p.admission / 30000 : 0);
+            (p.category === 'discovery' ? 3 : 0) -
+            (economical ? p.admission / 240 : 0);
           return score(b) - score(a) || a.id.localeCompare(b.id);
         })
         .slice(0, 2);
       for (let stop = 0; stop < 2; stop++) {
         const place = candidates[stop];
-        add('taxi', 30, economical ? 15000 : 30000);
+        add('taxi', 30, economical ? 120 : 240);
         if (place) {
           add('visit', place.minutes, place.admission, { placeId: place.id });
           used.add(place.id);
         } else add('explore', 90, 0);
         if (!stop) {
           now = Math.max(now, 12 * 60 + 30);
-          add('lunch', 60, economical ? 45000 : 80000);
+          add('lunch', 60, economical ? 360 : 640);
         }
       }
       now = Math.max(now, 18 * 60);
-      add('dinner', 60, economical ? 45000 : 80000);
+      add('dinner', 60, economical ? 360 : 640);
     }
     if (input.accommodation && index < input.days - 1) {
       now = 21 * 60;
-      add('stay', 60, economical ? 180000 : 350000);
+      add('stay', 60, economical ? 1440 : 2800);
     }
     days.push({
       number: index + 1,
@@ -232,27 +245,40 @@ export function generateTrip(
     });
   }
   const subtotal = days.reduce((sum, day) => sum + day.total, 0);
-  const reserve = Math.ceil((subtotal * 0.1) / 1000) * 1000;
-  return {
-    version: 1,
+  const reserve = Math.ceil(subtotal / 10);
+  const trip: Trip = {
+    version: 2,
+    currency: 'USD',
     input: { ...input, cities: destinations.filter((id) => id !== 'custom') },
     days,
     subtotal,
     reserve,
     total: subtotal + reserve,
-    shortfall: Math.max(0, subtotal + reserve - input.budget),
+    shortfall: Math.max(0, subtotal + reserve - budgetCents(input.budget)),
     createdAt: new Date().toISOString(),
   };
+  // Try the lower daily allowances before reporting a shortfall that can be avoided.
+  return !economical && trip.shortfall > 0
+    ? generateTrip(input, cities, places, true)
+    : trip;
 }
 
 export function readTrip(cities: City[], places: Place[]): Trip | null {
   try {
-    const value: unknown = JSON.parse(localStorage.getItem(TRIP_KEY) || 'null');
+    const value: unknown = JSON.parse(
+      localStorage.getItem(TRIP_KEY) ??
+        localStorage.getItem(LEGACY_TRIP_KEY) ??
+        'null',
+    );
     if (!value || typeof value !== 'object') return null;
-    const { version, input } = value as Trip;
+    const { version, input, currency } = value as Omit<Trip, 'version'> & {
+      version: number;
+    };
     if (
-      version !== 1 ||
+      (version !== 1 && version !== 2) ||
+      (version === 2 && currency !== 'USD') ||
       !input ||
+      !Number.isFinite(input.budget) ||
       !Array.isArray(input.cities) ||
       !input.cities.every((id) => typeof id === 'string') ||
       !Array.isArray(input.interests) ||
@@ -264,8 +290,13 @@ export function readTrip(cities: City[], places: Place[]): Trip | null {
       input.customCity.length > 100
     )
       return null;
-    // Recalculate from validated input rather than trusting persisted prices/totals.
-    return generateTrip(input, cities, places);
+    // v1 used UZS. Its historical planning basis is used ONLY to migrate the old input,
+    // never as a claim about the current exchange rate. Recalculate all costs in cents.
+    const migrated =
+      version === 1
+        ? { ...input, budget: Math.round((input.budget / 12500) * 100) / 100 }
+        : input;
+    return generateTrip(migrated, cities, places);
   } catch {
     return null;
   }

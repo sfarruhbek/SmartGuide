@@ -1,4 +1,98 @@
 /* The national travel experience shares the guide's paper and editorial type. */
+.journey-app input[type='file'].sr-only {
+  width: 1px;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+}
+.collection-explanation {
+  max-width: 720px;
+  margin: -6px 0 22px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #63705f;
+}
+.map-filterbar .collection-filter {
+  font-size: 13px;
+  gap: 8px;
+}
+.collection-count {
+  display: inline-flex;
+  min-width: 21px;
+  min-height: 21px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #d9e2d3;
+  font-size: 11px;
+}
+.map-filterbar .collection-discovery[aria-pressed='true'] {
+  background: #f4e9df;
+  border-color: #ac704e;
+  color: #8c4b2b;
+}
+.collection-discovery .collection-count {
+  background: #ead9c8;
+}
+.place-history {
+  margin: 24px 0;
+  border-left: 2px solid #bb8a61;
+  padding: 4px 0 4px 16px;
+}
+.place-history h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #805332;
+}
+.place-history p {
+  font-size: 14px;
+  line-height: 1.85;
+  color: #52634d;
+  margin-top: 10px;
+}
+.place-list .place-list-title {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 14px;
+}
+.place-list .place-list-title small {
+  font-size: 11px;
+  margin: 0;
+  color: #75816d;
+  max-width: none;
+}
+.place-category-symbol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  background: #e8eee1;
+  border-radius: 50%;
+  color: #2c5946;
+}
+.place-category-symbol.discovery {
+  background: #f3e5d7;
+  color: #9b5b35;
+}
+.journey-app .discovery-pin.discovery > span {
+  background: #a36640;
+}
+.journey-app .discovery-pin.landmark > span {
+  background: #294f3f;
+}
+.journey-app .discovery-pin.selected > span {
+  box-shadow:
+    0 0 0 4px #fff9,
+    0 2px 10px #183d3855;
+}
 .journey-app {
   --ink: #183d38;
   --paper: #faf8f5;
@@ -154,7 +248,7 @@
   filter: saturate(0.8);
 }
 .journey-cover::after {
-  content: "";
+  content: '';
   position: absolute;
   inset: 45% 0 0;
   background: linear-gradient(transparent, #172c23a6);
@@ -284,8 +378,8 @@
   font-size: 12px;
   color: #5b695e;
 }
-.city-choices button[aria-pressed="true"],
-.interest-choices button[aria-pressed="true"] {
+.city-choices button[aria-pressed='true'],
+.interest-choices button[aria-pressed='true'] {
   border-color: #507367;
   background: #e9eee5;
   color: #254e41;
@@ -333,7 +427,7 @@
 .planner-numbers label {
   min-width: 0;
 }
-.journey-app input:not([type="checkbox"]),
+.journey-app input:not([type='checkbox']),
 .journey-app textarea,
 .journey-app select {
   width: 100%;
@@ -552,7 +646,7 @@
   font-size: 12px;
   flex-shrink: 0;
 }
-.day-switcher button[aria-pressed="true"] {
+.day-switcher button[aria-pressed='true'] {
   background: var(--ink);
   color: white;
   border-color: var(--ink);
@@ -608,7 +702,7 @@
   position: relative;
 }
 .slot-content::before {
-  content: "";
+  content: '';
   width: 7px;
   height: 7px;
   background: #9fac90;
@@ -691,7 +785,7 @@
   border: 1px solid #d5ddcc;
   border-radius: 3px;
 }
-.map-filterbar button[aria-pressed="true"] {
+.map-filterbar button[aria-pressed='true'] {
   background: #e8eddf;
   border-color: #7b9270;
 }
@@ -856,7 +950,7 @@
   padding: 14px 0;
   color: #5f7353;
 }
-.place-list button[aria-pressed="true"] {
+.place-list button[aria-pressed='true'] {
   color: #a9593a;
 }
 .place-list button > svg,

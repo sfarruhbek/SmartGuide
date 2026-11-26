@@ -8,6 +8,8 @@ import {
   ArrowUp,
   Minus,
   Plus,
+  Landmark,
+  Sparkles,
 } from 'lucide-react';
 import type { SupportedLanguage } from '@smartguide/shared';
 import {
@@ -151,14 +153,22 @@ export function DiscoveryMap({
           <button
             key={place.id}
             type="button"
-            className={`discovery-pin ${selected === place.id ? 'selected' : ''} ${'kind' in place ? 'draft' : ''}`}
+            className={`discovery-pin ${selected === place.id ? 'selected' : ''} ${'kind' in place ? 'draft' : place.category}`}
             style={{ left: x, top: y }}
             aria-label={name}
             aria-pressed={selected === place.id}
             title={name}
             onClick={() => onSelect(place.id)}
           >
-            <span>{'kind' in place ? '◇' : place.local ? '✦' : '•'}</span>
+            <span>
+              {'kind' in place ? (
+                '◇'
+              ) : place.category === 'discovery' ? (
+                <Sparkles size={15} />
+              ) : (
+                <Landmark size={15} />
+              )}
+            </span>
           </button>
         );
       })}

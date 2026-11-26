@@ -10,11 +10,11 @@ Asosiy foydalanuvchi — yolgʻiz/mustaqil sayohatchi. Geografiya — butun Oʻz
 
 | Oqim | Amalga oshirilgan holat | Chegara |
 | --- | --- | --- |
-| `/` rejalashtirish | 16 shahar + boshqa shahar matni, 1–14 kun, UZS jami byudjet, 5 qiziqish, yashash toggle | Bir kishi uchun; boshlanish sanasi / jonli jadval / bron yoʻq |
+| `/` rejalashtirish | 16 shahar + boshqa shahar matni, 1–14 kun, USD jami byudjet, 5 qiziqish, yashash toggle | Bir kishi uchun; boshlanish sanasi / jonli jadval / bron yoʻq |
 | Kunlik reja | Nonushta, obidalar, ovqat, mahalliy transport, ixtiyoriy n−1 kecha, 10% zaxira, kamomad ko‘rsatish | Lokal deterministik planner; AI generatsiya deb ko‘rsatilmaydi |
 | Koʻp shahar | Tanlash tartibi saqlanadi; yangi shaharga butun transfer kuni ajratiladi | Yoʻl narxi distance asosidagi allowance, transport qatnovi emas; uzoq yoʻl yana vaqt talab qilishi mumkin |
-| Xarita | OpenStreetMap tile, pan/zoom, marker, klaviatura uchun tugmalar, shahar/mahalliy filter, matnli roʻyxat | Internet kerak; marshrut chizigʻi yoki navigatsiya hisoblanmaydi |
-| Kontent | 13 joy / Buxoro, Samarqand, Toshkent, Xiva; 3 tilda hikoya + manba havolasi | Boshqa 3 til UI tayyor, hikoya tarjimasi bo‘lmasa English deb belgilanadi; boshqa shaharlarda katalog hali toʻldiriladi |
+| Xarita | OpenStreetMap tile, pan/zoom, marker, klaviatura uchun tugmalar, shahar + mashhur joylar / noodatiy tarixiy hikoyalar filtrlari, matnli roʻyxat | Toifalar tahririy tanlov; jonli tashrifchilar statistikasi emas. Internet kerak; marshrut chizigʻi yoki navigatsiya hisoblanmaydi |
+| Kontent | 15 joy / Buxoro, Samarqand, Toshkent, Xiva; 3 tilda hikoya + manba havolasi | Boshqa 3 til UI tayyor, hikoya tarjimasi bo‘lmasa English deb belgilanadi; boshqa shaharlarda katalog hali toʻldiriladi |
 | Joy taklif qilish | Nom, shahar, koordinata, hikoya, manba, tarixiy daʼvo / rivoyat / kuzatuv; lokal saqlash va oʻchirish | Shaxsiy tekshirilmagan qoralama. Umumiy eʼlon yoki moderatorga joʻnatish yoʻq |
 | Foto | Existing `/api/guide/ask` bilan Xiva pilotiga ulangan | Mamlakat boʻylab recognition yoʻq; aniqlanmagan natija tanilgan deb koʻrsatilmaydi |
 | `/khiva` | Oldingi 1/2/4 soatlik 5 obida yurish builderi saqlangan | Bu milliy ko‘p kunlik safardan alohida legacy pilot |
@@ -25,7 +25,7 @@ Asosiy foydalanuvchi — yolgʻiz/mustaqil sayohatchi. Geografiya — butun Oʻz
 
 ## Saqlash va tillar
 
-`smartguide_trip_v1` — validatsiya qilingan inputdan qayta hisoblanadigan lokal reja. `smartguide_discoveries_v1` — 50 tagacha shaxsiy qoralama. Eski Xiva yurishi `smartguide_roadmap_v1` bilan alohida qoladi. LocalStorage ishlamasa UI saqlangan deb aytmaydi. Bulut sinxronizatsiya yo‘q.
+`smartguide_trip_v2` — USD input va integer cent hisoblari bilan lokal reja. Oldingi `smartguide_trip_v1` UZS byudjeti eski smetaning 12,500 UZS/USD reja bazasida faqat migratsiya uchun oʻgiriladi; bu joriy valyuta kursi emas. `smartguide_discoveries_v1` — 50 tagacha shaxsiy qoralama. Eski Xiva yurishi `smartguide_roadmap_v1` bilan alohida qoladi. LocalStorage ishlamasa UI saqlangan deb aytmaydi. Bulut sinxronizatsiya yo‘q.
 
 UI: EN / RU / UZ / ES / JA / KO. URL `?lang=` va saqlangan til mavjud. Milliy katalog manbalari `apps/tourist/src/lib/places.ts` ichida. Foto litsenziyalari `/credits.html` va `public/cities/credits.json` da. Tile attribution © OpenStreetMap contributors; faqat joriy ko‘rinadigan tile lar olinadi, offline bulk download yo‘q.
 
@@ -39,6 +39,6 @@ API holati: [API_CONTRACT.md](API_CONTRACT.md). Biznes farazlari: [BUSINESS_MODE
 
 ## Ushbu o‘zgarishning texnik tekshiruvi
 
-26-noyabr 2026: monorepo `npm run typecheck` va `npm run build` muvaffaqiyatli o‘tdi. Node test runner bilan 6 test: planner uchun 112 kun/byudjet/yashash kombinatsiyasi, summa va vaqt ketma-ketligi, transfer/yashash, saqlangan input validatsiyasi, xarita proyeksiyasi va B2B iqtisodiyotining bazaviy/stress/nol sotuv holatlari.
+26-noyabr 2026: monorepo `npm run typecheck` va `npm run build` bazaviy versiyada muvaffaqiyatli o‘tdi. USD / xarita yangilanishi uchun tourist typecheck/build va jami 8 test: plannerning 112 kun/byudjet/yashash kombinatsiyasi, summa va vaqt ketma-ketligi, transfer/yashash, saqlangan input validatsiyasi, xarita proyeksiyasi, USD cent hisobi va UZS migratsiyasi, xarita toifalari, B2B iqtisodiyotining bazaviy/stress/nol sotuv holatlari.
 
-Brauzerda 390×844 va 1280×800 ko‘rinishlari, kamomad, refreshdan keyingi trip tiklash, shaxsiy topilma yaratish/oʻchirish, OSM tile yuklanishi, 6 til UI, $7,997 kalkulyator natijasi va promo/pilot QR kartalari tekshirildi. Lokal 4000 API — QA mock; bu real PostgreSQL/Gemini, tarixiy audit, toʻlov yoki public moderation integratsiyasi sinovi emas.
+Brauzerda bazaviy 390×844 va 1280×800 ko‘rinishlari, kamomad, refreshdan keyingi trip tiklash, shaxsiy topilma yaratish/oʻchirish, OSM tile yuklanishi, 6 til UI, $7,997 kalkulyator natijasi va promo/pilot QR kartalari tekshirildi. USD yangilanishida $160 input, $117.04 smeta / $42.96 qoldiq, mashhur va noodatiy toifalar filtri, yangi tarixiy izohlar va mobil xarita qayta tekshirildi. Komfort smeta oshib ketsa planner iqtisodiy kunlik allowance bilan qayta hisoblaydi. Lokal 4000 API — QA mock; bu real PostgreSQL/Gemini, tarixiy audit, toʻlov yoki public moderation integratsiyasi sinovi emas.

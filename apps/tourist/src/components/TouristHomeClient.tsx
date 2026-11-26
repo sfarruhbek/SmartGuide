@@ -8,6 +8,8 @@ import {
   Bookmark,
   Camera,
   Check,
+  History,
+  Landmark,
   Clock3,
   Compass,
   Loader2,
@@ -26,12 +28,15 @@ import {
   generateTrip,
   local,
   money,
+  budgetCents,
+  matchesPlaceFilter,
   readDiscoveries,
   readTrip,
   type Discovery,
   type Interest,
   type Trip,
   type TripInput,
+  type PlaceFilter,
 } from '@/lib/journey';
 import { journeyCopy } from '@/lib/journey-copy';
 import {
@@ -49,7 +54,7 @@ import { AudioGuidePlayer } from './AudioGuidePlayer';
 const initialInput: TripInput = {
   cities: ['bukhara'],
   days: 4,
-  budget: 2000000,
+  budget: 160,
   interests: ['local', 'history'],
   accommodation: true,
   customCity: '',
@@ -64,8 +69,8 @@ export function TouristHomeClient({ initialLang }: { initialLang?: string }) {
   const [error, setError] = useState('');
   const [saved, setSaved] = useState(true);
   const [cityId, setCityId] = useState('bukhara');
-  const [filter, setFilter] = useState(false);
-  const [selected, setSelected] = useState<string | null>('chor-bakr');
+  const [filter, setFilter] = useState<PlaceFilter>('all');
+  const [selected, setSelected] = useState<string | null>('fayzabad');
   const [drafts, setDrafts] = useState<Discovery[]>([]);
   const [showDraft, setShowDraft] = useState(false);
   const [photoBusy, setPhotoBusy] = useState(false);
@@ -79,7 +84,7 @@ export function TouristHomeClient({ initialLang }: { initialLang?: string }) {
   const copy = journeyCopy(language);
   const city = CITIES.find((value) => value.id === cityId) || CITIES[0];
   const places = PLACES.filter(
-    (place) => place.city === cityId && (!filter || place.local),
+    (place) => place.city === cityId && matchesPlaceFilter(place, filter),
   );
   const visibleDrafts = drafts.filter((draft) => draft.city === cityId);
   const selectedPlace = places.find((place) => place.id === selected);
@@ -123,8 +128,9 @@ export function TouristHomeClient({ initialLang }: { initialLang?: string }) {
   const changeCity = (id: string) => {
     setCityId(id);
     setSelected(
-      PLACES.find((place) => place.city === id && (!filter || place.local))
-        ?.id || null,
+      PLACES.find(
+        (place) => place.city === id && matchesPlaceFilter(place, filter),
+      )?.id || null,
     );
   };
   const saveTrip = (event: React.FormEvent) => {
@@ -373,9 +379,9 @@ export function TouristHomeClient({ initialLang }: { initialLang?: string }) {
                     <span>{copy('budget')}</span>
                     <input
                       type="number"
-                      min={1}
-                      max={1000000000}
-                      step={1}
+                      min={0.01}
+                      max={1000000}
+                      step={0.01}
                       required
                       value={input.budget || ''}
                       onChange={(event) =>
@@ -534,7 +540,8 @@ export function TouristHomeClient({ initialLang }: { initialLang?: string }) {
                     </span>
                     <strong>
                       {money(
-                        trip.shortfall || trip.input.budget - trip.total,
+                        trip.shortfall ||
+                          budgetCents(trip.input.budget) - trip.total,
                         language,
                       )}
                     </strong>
@@ -668,28 +675,42 @@ export function TouristHomeClient({ initialLang }: { initialLang?: string }) {
                   ))}
                 </select>
               </label>
-              <button
-                type="button"
-                aria-pressed={!filter}
-                onClick={() => setFilter(false)}
-              >
-                {copy('all')}
-              </button>
-              <button
-                type="button"
-                aria-pressed={filter}
-                onClick={() => {
-                  setFilter(true);
-                  setSelected(
-                    PLACES.find((place) => place.city === cityId && place.local)
-                      ?.id || null,
-                  );
-                }}
-              >
-                <Sparkles size={14} />
-                {copy('localFilter')}
-              </button>
+              {(['all', 'landmark', 'discovery'] as const).map((category) => (
+                <button
+                  key={category}
+                  type="button"
+                  aria-pressed={filter === category}
+                  className={`collection-filter collection-${category}`}
+                  onClick={() => {
+                    setFilter(category);
+                    setSelected(
+                      PLACES.find(
+                        (place) =>
+                          place.city === cityId &&
+                          matchesPlaceFilter(place, category),
+                      )?.id || null,
+                    );
+                  }}
+                >
+                  {category === 'landmark' ? (
+                    <Landmark size={15} />
+                  ) : category === 'discovery' ? (
+                    <Sparkles size={15} />
+                  ) : null}
+                  {copy(category)}
+                  <span className="collection-count">
+                    {
+                      PLACES.filter(
+                        (place) =>
+                          place.city === cityId &&
+                          matchesPlaceFilter(place, category),
+                      ).length
+                    }
+                  </span>
+                </button>
+              ))}
             </div>
+            <p className="collection-explanation">{copy('collectionHint')}</p>
             <div className="map-layout">
               <DiscoveryMap
                 city={city}
@@ -704,12 +725,21 @@ export function TouristHomeClient({ initialLang }: { initialLang?: string }) {
                   <article className="place-story">
                     <p className="eyebrow">
                       {cityName(selectedPlace.city)} ·{' '}
-                      {selectedPlace.local ? '✦' : ''}
+                      {copy(selectedPlace.category)}
                     </p>
                     <h2>{local(selectedPlace.name, language)}</h2>
                     <p>{local(selectedPlace.story, language)}</p>
                     {!selectedPlace.story[language] && (
                       <small className="field-hint">English</small>
+                    )}
+                    {selectedPlace.history && (
+                      <section className="place-history">
+                        <h3>
+                          <History size={16} />
+                          {copy('historicalContext')}
+                        </h3>
+                        <p>{local(selectedPlace.history, language)}</p>
+                      </section>
                     )}
                     <div className="place-practical">
                       <span>
@@ -790,9 +820,20 @@ export function TouristHomeClient({ initialLang }: { initialLang?: string }) {
                       aria-pressed={selected === place.id}
                       onClick={() => setSelected(place.id)}
                     >
-                      <span>{place.local ? '✦' : '○'}</span>
-                      {local(place.name, language)}
-                      <ArrowRight size={15} />
+                      <span
+                        className={`place-category-symbol ${place.category}`}
+                        aria-hidden="true"
+                      >
+                        {place.category === 'discovery' ? (
+                          <Sparkles size={15} />
+                        ) : (
+                          <Landmark size={15} />
+                        )}
+                      </span>
+                      <span className="place-list-title">
+                        {local(place.name, language)}
+                        <small>{copy(place.category)}</small>
+                      </span>
                     </button>
                   ))}
                   {visibleDrafts.map((draft) => (

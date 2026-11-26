@@ -4,6 +4,10 @@ import { CITIES, PLACES } from '../src/lib/places';
 import {
   DISCOVERY_KEY,
   TRIP_KEY,
+  LEGACY_TRIP_KEY,
+  money,
+  budgetCents,
+  matchesPlaceFilter,
   generateTrip,
   project,
   readDiscoveries,
@@ -15,14 +19,14 @@ import {
 const input: TripInput = {
   cities: ['bukhara'],
   days: 4,
-  budget: 2000000,
+  budget: 160,
   interests: ['local'],
   accommodation: true,
   customCity: '',
 };
 test('budget and timetable invariants across cities, budgets and 1–14 days', () => {
   for (let days = 1; days <= 14; days++)
-    for (const budget of [1, 150000, 2000000, 10000000])
+    for (const budget of [0.01, 12, 160, 800])
       for (const accommodation of [true, false]) {
         const trip = generateTrip(
           {
@@ -42,11 +46,12 @@ test('budget and timetable invariants across cities, budgets and 1–14 days', (
           slots.reduce((sum, slot) => sum + slot.cost, 0),
         );
         assert.equal(trip.total, trip.subtotal + trip.reserve);
+        assert.equal(trip.reserve, Math.ceil(trip.subtotal / 10));
         assert.equal(
-          trip.reserve,
-          Math.ceil((trip.subtotal * 0.1) / 1000) * 1000,
+          trip.shortfall,
+          Math.max(0, trip.total - budgetCents(budget)),
         );
-        assert.equal(trip.shortfall, Math.max(0, trip.total - budget));
+        assert.equal(trip.currency, 'USD');
         assert.equal(
           slots.filter((s) => s.kind === 'stay').length,
           accommodation ? days - 1 : 0,
@@ -81,6 +86,9 @@ test('budget and timetable invariants across cities, budgets and 1–14 days', (
       }
 });
 test('budget shortage is visible; custom destinations and sparse catalogs stay honest', () => {
+  const affordable = generateTrip(input, CITIES, PLACES);
+  assert.equal(affordable.shortfall, 0);
+  assert.ok(affordable.total <= budgetCents(input.budget));
   const low = generateTrip({ ...input, budget: 1 }, CITIES, PLACES);
   assert.ok(low.shortfall > 0);
   const sparse = generateTrip(
@@ -112,6 +120,8 @@ test('rejects invalid duration, budget, destinations and persisted input', () =>
     { days: 1.5 },
     { budget: NaN },
     { budget: -1 },
+    { budget: 1.001 },
+    { budget: 1000001 },
     { cities: [] },
     { cities: ['bukhara', 'khiva'], days: 1 },
     { cities: ['unknown'] },
@@ -165,4 +175,65 @@ test('map projection round trips across Uzbekistan and zoom levels', () => {
       assert.ok(Math.abs(roundTrip.lat - city.lat) < 1e-8);
       assert.ok(Math.abs(roundTrip.lng - city.lng) < 1e-8);
     }
+});
+
+test('USD amounts use cents and migrate the old UZS budget without treating it as dollars', () => {
+  assert.equal(money(12345, 'en'), '$123.45');
+  assert.ok(money(12345, 'ru').includes('123,45'));
+  assert.equal(budgetCents(0.29), 29);
+  const one = generateTrip(
+    { ...input, days: 1, accommodation: false },
+    CITIES,
+    PLACES,
+  );
+  const breakfast = one.days[0].slots.find(
+    (slot) => slot.kind === 'breakfast',
+  )!;
+  assert.ok(breakfast.cost >= 200 && breakfast.cost <= 360);
+  const data = new Map([
+    [
+      LEGACY_TRIP_KEY,
+      JSON.stringify({ version: 1, input: { ...input, budget: 2000000 } }),
+    ],
+  ]);
+  Object.defineProperty(globalThis, 'localStorage', {
+    configurable: true,
+    value: { getItem: (key: string) => data.get(key) ?? null },
+  });
+  const migrated = readTrip(CITIES, PLACES)!;
+  assert.equal(migrated.input.budget, 160);
+  assert.equal(migrated.version, 2);
+  assert.equal(migrated.currency, 'USD');
+  data.set(
+    TRIP_KEY,
+    JSON.stringify({ ...migrated, input: { ...input, budget: 159.99 } }),
+  );
+  assert.equal(readTrip(CITIES, PLACES)!.input.budget, 159.99);
+  delete (globalThis as { localStorage?: unknown }).localStorage;
+});
+
+test('map collections separate established landmarks from editorial discoveries', () => {
+  const landmarks = PLACES.filter((place) =>
+    matchesPlaceFilter(place, 'landmark'),
+  );
+  const discoveries = PLACES.filter((place) =>
+    matchesPlaceFilter(place, 'discovery'),
+  );
+  assert.equal(landmarks.length + discoveries.length, PLACES.length);
+  assert.ok(landmarks.some((place) => place.id === 'registan'));
+  assert.ok(landmarks.some((place) => place.id === 'chorsu'));
+  assert.ok(discoveries.some((place) => place.id === 'fayzabad'));
+  assert.ok(discoveries.some((place) => place.id === 'turki-jandi'));
+  assert.ok(
+    discoveries
+      .filter((place) => ['fayzabad', 'turki-jandi'].includes(place.id))
+      .every(
+        (place) => place.history?.ru && place.source.startsWith('https://'),
+      ),
+  );
+  assert.ok(
+    PLACES.every(
+      (place) => Number.isInteger(place.admission) && place.admission >= 0,
+    ),
+  );
 });

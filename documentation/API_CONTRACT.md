@@ -83,14 +83,14 @@ Hozir yangi HTTP endpoint chaqirilmaydi. [journey.ts](../apps/tourist/src/lib/jo
 {
   "cities": ["bukhara", "samarkand"],
   "days": 4,
-  "budget": 2000000,
+  "budget": 160,
   "interests": ["local", "history"],
   "accommodation": true,
   "customCity": ""
 }
 ```
 
-Budget UZS, bir kishi, mamlakatga kelish yoʻlisiz. Kunlar 1–14; shaharlar tartibi va har shaharga kamida bir kun. Interests: history / local / food / nature / sacred. Legacy TravelVibe bilan teng emas. Resultda kunlar va slotlar, subtotal, 10% reserve, total va shortfall mavjud. Barcha summalar whole UZS; joriy quote emas. Trip uchun global backend ID yoki fake session success yoʻq.
+Budget USD, bir kishi, mamlakatga kelish yoʻlisiz. Kunlar 1–14; shaharlar tartibi va har shaharga kamida bir kun. Interests: history / local / food / nature / sacred. Legacy TravelVibe bilan teng emas. Resultda kunlar va slotlar, subtotal, 10% reserve, total va shortfall mavjud. Input budget USD dollar; Trip v2 currency USD, slot/total/reserve/shortfall va place admission integer USD centlarda. Bu joriy quote emas. Trip uchun global backend ID yoki fake session success yoʻq.
 
 `Discovery`: nom, shahar, lat/lng, hikoya, source, fact/legend/personal turi va sana. Hozir faqat shaxsiy localStorage. Public moderation statusi yoki nashr API si yoʻq.
 

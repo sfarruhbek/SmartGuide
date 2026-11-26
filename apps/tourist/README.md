@@ -2,8 +2,8 @@
 
 Next.js 15, React 19, TypeScript, Tailwind 4. Default port 3000.
 
-- `/`: plan / itinerary / map. Six-language UI, days and UZS budget, ordered destinations, local estimates, contingency and shortfall. Deterministic frontend planner; no AI-generation claim.
-- Interactive OSM map: 13 places in four cities, source notes, filters and private discovery drafts. Planner supports 16 named cities plus free text; missing catalog data becomes explicit free time.
+- `/`: plan / itinerary / map. Six-language UI, days and USD budget, ordered destinations, local estimates, contingency and shortfall. Deterministic frontend planner; no AI-generation claim.
+- Interactive OSM map: 15 places in four cities, source notes, filters and private discovery drafts. Planner supports 16 named cities plus free text; missing catalog data becomes explicit free time.
 - `/khiva`: retained short-walk pilot (1/2/4 hours, five landmarks).
 - `/l/[slug]`: existing Khiva API guide with optional audio, text/photo/speech, transcript and feedback UI. Current backend does not implement feedback or roadmap routes; errors/fallbacks are visible.
 

@@ -6,7 +6,7 @@
 
 ```mermaid
 flowchart LR
-  User[Mustaqil sayohatchi] --> Form[Shaharlar + kunlar + UZS + qiziqishlar]
+  User[Mustaqil sayohatchi] --> Form[Shaharlar + kunlar + USD + qiziqishlar]
   Form --> Planner[Lokal deterministik planner]
   Planner --> Days[Kunlik vaqt va smeta]
   Planner --> Storage[Qurilmadagi localStorage]
@@ -22,7 +22,7 @@ flowchart LR
   API --> Dash[B2B dashboard, 5s polling]
 ```
 
-`apps/tourist/src/lib/journey.ts`: validatsiya, byudjetni yigʻish, zaxira va kamomad, proyeksiya, localStorage inputni qayta hisoblash. `places.ts`: 16 shahar va 13 joy. Joylar narxi operator kiritgan taxmin, amaldagi quote emas. Yetarli kontent boʻlmasa planner erkin vaqtni ochiq belgilaydi. Har yangi shahar uchun transfer kuni ajratiladi; real qatnov jadvali hisoblanmaydi.
+`apps/tourist/src/lib/journey.ts`: validatsiya, byudjetni yigʻish, zaxira va kamomad, proyeksiya, localStorage inputni qayta hisoblash. `places.ts`: 16 shahar va 15 joy. Joylar narxi operator kiritgan taxmin, amaldagi quote emas. Yetarli kontent boʻlmasa planner erkin vaqtni ochiq belgilaydi. Har yangi shahar uchun transfer kuni ajratiladi; real qatnov jadvali hisoblanmaydi.
 
 `DiscoveryMap.tsx`: visible OSM tile lar, attribution, pan/zoom va markerlar. Bu navigatsiya/routing engine emas. `TouristHomeClient.tsx`: plan / itinerary / map, fotosuratni mavjud Xiva API ga joʻnatish, shaxsiy qoralama dialogi. `journey-copy.ts`: 6 til UI; katalog hikoyalari hozir EN/RU/UZ.
 
