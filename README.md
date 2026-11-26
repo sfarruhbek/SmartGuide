@@ -9,8 +9,8 @@
 
 | Hujjat | Kimga mo'ljallangan | Mazmuni |
 | :--- | :--- | :--- |
-| [documentation/BUSINESS_MODEL.md](documentation/BUSINESS_MODEL.md) | **Speaker, Mentorlar, Hakamlar** | ProSkill 7-band biznes model, Data Flywheel Moat, TAM/SAM/SOM, LTV/CAC (`18×`), GTM |
-| [documentation/SMETA_BUDGET.md](documentation/SMETA_BUDGET.md) | **Speaker, Investor, Hakamlar** | 2026 real narxlar asosida moliyaviy smeta (Gemini API `$0.036/sayyoh`, AWS EC2, `.uz`, QR stendlar, 3 oy & 12 oy P&L) |
+| [documentation/BUSINESS_MODEL.md](documentation/BUSINESS_MODEL.md) | **Speaker, Mentorlar, Hakamlar** | ProSkill 7-band biznes model: Bir martalik Trip Pass (`$4.99/$12.99`), SME Affiliate, Data Flywheel Moat, `LTV/CAC = 4.66×` |
+| [documentation/SMETA_BUDGET.md](documentation/SMETA_BUDGET.md) | **Speaker, Investor, Hakamlar** | 2026 real narxlar asosida moliyaviy smeta (Gemini API `$0.035/sayyoh`, AWS EC2, Info-Kiosk/Bannerlar, 3 oy & 12 oy P&L) |
 | [documentation/ARCHITECTURE.md](documentation/ARCHITECTURE.md) | **Butun jamoa & Texnik Mentorlar** | 3 bosqichli Data Flywheel arxitekturasi, Mermaid diagrammalar, PostgreSQL ERD, Signal/Noise formulasi |
 | [documentation/ROADMAP.md](documentation/ROADMAP.md) | **Butun jamoa** | 2-kun (26-noyabr) va Demo Day (27-noyabr) aniq soatbay rejasi, Code Freeze (19:00), 3 daqiqalik pitch ssenariysi |
 | [documentation/API_CONTRACT.md](documentation/API_CONTRACT.md) | **Butun jamoa** | `POST /api/roadmap/generate`, `POST /api/guide/ask`, `POST /api/guide/feedback`, `GET /api/analytics/summary` JSON kontraktlari |

@@ -225,15 +225,13 @@ B2B Dashboard har **5 soniyada** `GET /api/analytics/summary` ga so'rov yuboradi
     "sharePercent": 30.65
   },
   "revenue": {
-    "pricePerTouristUsd": 4,
-    "grossRevenueUsd": 136,
-    "museumSharePercent": 30,
-    "museumShareUsd": 40.8,
-    "smartGuideSharePercent": 70,
-    "smartGuideShareUsd": 95.2,
-    "estimatedApiCostPerTouristUsd": 0.04,
-    "totalEstimatedApiCostUsd": 1.36,
-    "grossMarginPercent": 97.0
+    "blendedPassPriceUsd": 7.0,
+    "cityPassPriceUsd": 4.99,
+    "silkRoadPassPriceUsd": 12.99,
+    "grossRevenueUsd": 238.0,
+    "estimatedApiCostPerTouristUsd": 0.07,
+    "totalEstimatedApiCostUsd": 2.38,
+    "grossMarginPercent": 91.0
   },
   "visitsByLandmark": [
     {
