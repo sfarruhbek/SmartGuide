@@ -8,12 +8,12 @@
 
 ## Jamoa Rollari va Parallel Mas'uliyat
 
-| Rol | Git Branch | Asosiy Fokus | TZ Hujjati |
+| Rol | Git Branch | Asosiy Fokus | Asosiy Hujjatlar |
 | :--- | :--- | :--- | :--- |
-| **1. Frontend Dev** | `feat/frontend` | 1) Emotsional Roadmap Builder (`/`) · 2) Obida jonli suhbat + Micro-Feedback (`/l/[slug]`) · 3) B2B Signal/Noise & Sentiment Dashboard + QR Generator (`apps/dashboard`) | [TZ_FRONTEND.md](TZ_FRONTEND.md) |
-| **2. Backend Dev** | `feat/backend` | `roadmaps` + `landmark_topic_signals` DB sxemasi, `POST /api/roadmap/generate`, `POST /api/guide/feedback`, Signal/Noise SQL agregatsiyasi, Cache, CSV eksport, AWS Ubuntu Deploy | [TZ_BACKEND.md](TZ_BACKEND.md) |
-| **3. AI & RAG Dev** | `feat/ai-rag` | 5 ta obidaning Emotional Payoff + Tagged Facts RAG bazasi, Roadmap Generator prompt, Signal/Noise + Sentiment Extractor, Vision + Gemini 3.8 TTS, `eval-rag.ts` benchmark | [TZ_AI_RAG.md](TZ_AI_RAG.md) |
-| **4. Speaker & PM** | — | Validatsiya faktlarini rasmiylashtirish, [BUSINESS_MODEL.md](BUSINESS_MODEL.md) + [SMETA_BUDGET.md](SMETA_BUDGET.md) asosida slaydlar, biznes mentorlik (13:00–18:00), 3 daqiqalik pitch repetitsiyasi | [BUSINESS_MODEL.md](BUSINESS_MODEL.md) · [SMETA_BUDGET.md](SMETA_BUDGET.md) |
+| **1. Frontend Dev** | `feat/frontend` | 1) GPS Yaqin Obyekt + Emotsional Roadmap (`/`) · 2) Obida jonli suhbat + Micro-Feedback (`/l/[slug]`) · 3) B2B Signal/Noise & Sentiment Dashboard + Promo QR (`apps/dashboard`) | [API_CONTRACT.md](API_CONTRACT.md) · [ARCHITECTURE.md](ARCHITECTURE.md) |
+| **2. Backend Dev** | `feat/backend` | `roadmaps` + `landmark_topic_signals` + `landmark_visits` DB sxemasi, `GET /api/landmarks/nearby`, `POST /api/roadmap/generate`, `POST /api/guide/feedback`, Cache, CSV, AWS Deploy | [API_CONTRACT.md](API_CONTRACT.md) · [GIT_WORKFLOW_AND_DEPLOY.md](GIT_WORKFLOW_AND_DEPLOY.md) |
+| **3. AI & RAG Dev** | `feat/ai-rag` | 5 ta obidaning GPS + Emotional Payoff + Tagged Facts RAG bazasi, Roadmap Generator prompt, Signal/Noise + Sentiment Extractor, Vision + Gemini 3.8 TTS, `eval-rag.ts` | [ARCHITECTURE.md](ARCHITECTURE.md) · [SMETA_BUDGET.md](SMETA_BUDGET.md) |
+| **4. Speaker & PM** | — | Validatsiya faktlarini rasmiylashtirish, [BUSINESS_MODEL.md](BUSINESS_MODEL.md) + [SMETA_BUDGET.md](SMETA_BUDGET.md) asosida slaydlar, biznes mentorlik, 3 daqiqalik pitch repetitsiyasi | [BUSINESS_MODEL.md](BUSINESS_MODEL.md) · [SMETA_BUDGET.md](SMETA_BUDGET.md) |
 
 ---
 

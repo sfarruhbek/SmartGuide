@@ -14,9 +14,6 @@
 | [documentation/ARCHITECTURE.md](documentation/ARCHITECTURE.md) | **Butun jamoa & Texnik Mentorlar** | 3 bosqichli Data Flywheel arxitekturasi, Mermaid diagrammalar, PostgreSQL ERD, Signal/Noise formulasi |
 | [documentation/ROADMAP.md](documentation/ROADMAP.md) | **Butun jamoa** | 2-kun (26-noyabr) va Demo Day (27-noyabr) aniq soatbay rejasi, Code Freeze (19:00), 3 daqiqalik pitch ssenariysi |
 | [documentation/API_CONTRACT.md](documentation/API_CONTRACT.md) | **Butun jamoa** | `POST /api/roadmap/generate`, `POST /api/guide/ask`, `POST /api/guide/feedback`, `GET /api/analytics/summary` JSON kontraktlari |
-| [documentation/TZ_FRONTEND.md](documentation/TZ_FRONTEND.md) | **Frontend Developer (1 kishi)** | Emotsional Roadmap UI + Obida Jonli Suhbat + Micro-Feedback + B2B Signal/Noise Dashboard TZ (`FE-01`..`FE-15`) |
-| [documentation/TZ_BACKEND.md](documentation/TZ_BACKEND.md) | **Backend Developer (1 kishi)** | Roadmap & Signal DB sxemasi, Signal/Noise agregatsiya, kesh, CSV eksport, AWS Ubuntu Deploy TZ (`BE-01`..`BE-12`) |
-| [documentation/TZ_AI_RAG.md](documentation/TZ_AI_RAG.md) | **AI & RAG Data Engineer (1 kishi)** | Emotsional Roadmap Prompting, Interest/Sentiment/Signal Extractor, 5 obida RAG, Vision, TTS, `eval-rag.ts` TZ (`AI-01`..`AI-10`) |
 | [documentation/GIT_WORKFLOW_AND_DEPLOY.md](documentation/GIT_WORKFLOW_AND_DEPLOY.md) | **Butun jamoa** | Konfliktsiz parallel Git branch qoidalari va AWS Ubuntu (PostgreSQL + Node 22 + PM2 + Nginx/HTTPS) deploy |
 
 ### Workspace README fayllari
@@ -51,7 +48,7 @@ SmartGuide/
 │   │       └── services/       # ⚙️ Backend Dev zonasi: landmark, roadmap, analytics, cache servislari
 │   ├── tourist/                # 🎨 Frontend Dev zonasi: Next.js 15 PWA (Port 3000)
 │   └── dashboard/              # 🎨 Frontend Dev zonasi: React 19 + Vite B2B Panel (Port 5173)
-└── documentation/              # Biznes Model, Smeta, Arxitektura, Roadmap, API Contract, 3 ta TZ
+└── documentation/              # Biznes Model, Smeta, Arxitektura, Roadmap, API Contract, Deploy
 ```
 
 ---

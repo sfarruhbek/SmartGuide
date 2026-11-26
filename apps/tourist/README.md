@@ -20,4 +20,4 @@ npm run typecheck --workspace=@smartguide/tourist
 npm run build --workspace=@smartguide/tourist
 ```
 
-Batafsil TZ: [TZ_FRONTEND.md](../../documentation/TZ_FRONTEND.md)
+Batafsil spetsifikatsiya: [API_CONTRACT.md](../../documentation/API_CONTRACT.md) · [ARCHITECTURE.md](../../documentation/ARCHITECTURE.md)

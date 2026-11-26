@@ -17,4 +17,4 @@ npm run typecheck --workspace=@smartguide/dashboard
 npm run build --workspace=@smartguide/dashboard
 ```
 
-Batafsil TZ: [TZ_FRONTEND.md](../../documentation/TZ_FRONTEND.md) · [BUSINESS_MODEL.md](../../documentation/BUSINESS_MODEL.md)
+Batafsil spetsifikatsiya: [API_CONTRACT.md](../../documentation/API_CONTRACT.md) · [BUSINESS_MODEL.md](../../documentation/BUSINESS_MODEL.md)

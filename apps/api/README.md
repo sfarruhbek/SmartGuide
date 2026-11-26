@@ -17,4 +17,4 @@ npm run typecheck --workspace=@smartguide/api
 npm run build --workspace=@smartguide/api
 ```
 
-Batafsil TZ'lar: [TZ_BACKEND.md](../../documentation/TZ_BACKEND.md) · [TZ_AI_RAG.md](../../documentation/TZ_AI_RAG.md) · [API_CONTRACT.md](../../documentation/API_CONTRACT.md)
+Batafsil spetsifikatsiya: [API_CONTRACT.md](../../documentation/API_CONTRACT.md) · [ARCHITECTURE.md](../../documentation/ARCHITECTURE.md)
