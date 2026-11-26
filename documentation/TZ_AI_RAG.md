@@ -42,6 +42,12 @@ Sizning ishingiz 3 ta kuchli AI modulini bitta yopiq **Self-Learning Flywheel** 
 #### `AI-01` — `ichan-qala-landmarks.json` ni Emotsional Profillar va Teglangan Mavzular (`taggedTopics`) Bilan Boyitish `[P0 · ENG MUHIM]`
 - **Fayl:** `apps/api/data/ichan-qala-landmarks.json`
 - Har bir obida (`kalta-minor`, `juma-mosque`, `tosh-hovli`, `kunya-ark`, `pahlavon-mahmud`) uchun quyidagi yangi maydonlarni qo'shing:
+  - **Haqiqiy Xiva GPS koordinatalari (`latitude`, `longitude`, `triggerRadiusMeters`):** (Har bir obidada QR-kod bo'lmagani uchun ilova joylashuvdan kelib chiqib aynan shu koordinatalar orqali obyektni taklif qiladi!):
+    - `kalta-minor`: `latitude: 41.37828`, `longitude: 60.35833`, `triggerRadiusMeters: 45`
+    - `kunya-ark`: `latitude: 41.37922`, `longitude: 60.35789`, `triggerRadiusMeters: 55`
+    - `juma-mosque`: `latitude: 41.37826`, `longitude: 60.35969`, `triggerRadiusMeters: 45`
+    - `pahlavon-mahmud`: `latitude: 41.37717`, `longitude: 60.35947`, `triggerRadiusMeters: 50`
+    - `tosh-hovli`: `latitude: 41.37864`, `longitude: 60.36233`, `triggerRadiusMeters: 55`
   - `estimatedVisitMinutes`: `20` (Kalta Minor), `25` (Juma Mosque), `35` (Tosh-Hovli), `30` (Kunya-Ark), `25` (Pahlavon Mahmud).
   - `vibeTags`: `["legends", "photography", "architecture", "royalty", "spiritual"]` dan mos 2–3 tasi.
   - `emotionalPromise` (**6 tilda:** `en, uz, ru, ja, ko, es`): Sayyoh aynan shu joydan qanday hissiyot/maza/foyda olishi!

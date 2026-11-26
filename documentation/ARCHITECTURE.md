@@ -8,15 +8,19 @@ Ushbu hujjat **SmartGuide** ning yakuniy mahsulot arxitekturasini — **Emotsion
 
 ```mermaid
 flowchart TB
-    subgraph S1["1-QADAM: Kirishda Shaxsiy Emotsional Roadmap"]
-        PREF["Sayyoh profili:\nTil · Vaqt (1h/2h/4h) · Qiziqish (Afsona/Me'morchilik/Foto/Tarix)"]
-        RM_GEN["POST /api/roadmap/generate\nSignal-Weighted Roadmap Engine"]
-        RM_UI["Emotsional Roadmap:\nQayerga? Nega? Qanday hissiyot/foyda oladi?\n(Real sayyohlar reytingi bilan!)"]
-        PREF --> RM_GEN --> RM_UI
+    subgraph S0["0-QADAM: Reklama & Kirish Nuqtalari (Har obidada QR YO'Q!)"]
+        PROMO["Kassa / Mehmonxona / Info-Kiosk / Vokzal\nPromo QR-kod (/?ref=west-gate-kiosk)"]
     end
 
-    subgraph S2["2-QADAM: Obida Oldida Jonli AI Suhbat"]
-        VISIT["Obidaga yetib kelish\n(Roadmap tap · QR-kod · Snap & Ask foto)"]
+    subgraph S1["1-QADAM: GPS Joylashuv + Shaxsiy Emotsional Roadmap"]
+        PREF["Sayyoh profili + GPS (lat, lng):\nTil · Vaqt (1h/2h/4h) · Qiziqish (Vibes) · Joriy lokatsiya"]
+        RM_GEN["POST /api/roadmap/generate & GET /api/landmarks/nearby\nGPS + Signal-Weighted Roadmap Engine"]
+        RM_UI["Emotsional Roadmap + 📍 Eng yaqin obyekt kartasi:\nQayerga? Nega? Qanday hissiyot/foyda oladi?"]
+        PROMO --> PREF --> RM_GEN --> RM_UI
+    end
+
+    subgraph S2["2-QADAM: GPS Yaqinlashuv → Obida Oldida Jonli AI Suhbat"]
+        VISIT["Sayyoh obyektga yaqinlashadi:\nApp GPS orqali avtomatik taklif qiladi (yoki Snap & Ask foto)"]
         ASK["POST /api/guide/ask\nVerified Local RAG + Gemini Vision + Gemini 3.8 TTS"]
         FEEDBACK["Sayyoh munosabati\n(Suhbat matni + Micro-reaksiya: 🔥/🤯/😐)"]
         RM_UI --> VISIT --> ASK --> FEEDBACK
@@ -24,8 +28,8 @@ flowchart TB
 
     subgraph S3["3-QADAM: Tourist Interest & Signal/Noise Flywheel (MOAT)"]
         EXTRACT["Interest & Impression Extractor\n(Mavzu · Hissiyot/Sentiment · Signal vs Noise · Curiosity Gap)"]
-        PG[("PostgreSQL Intelligence DB\nlandmarks · roadmaps · interactions · landmark_topic_signals")]
-        B2B["B2B Experience Intelligence Dashboard\nSignal vs Noise Heatmap · Sentiment · Revenue Share · QR Generator"]
+        PG[("PostgreSQL Intelligence DB\nlandmarks (lat/lng) · roadmaps · interactions · landmark_topic_signals")]
+        B2B["B2B Experience Intelligence Dashboard\nSignal vs Noise Heatmap · Sentiment · Promo Attribution · Revenue"]
         FEEDBACK --> EXTRACT --> PG
         PG -->|"Real-time 5s Poll"| B2B
     end
@@ -48,17 +52,19 @@ sequenceDiagram
     participant TTS as Gemini 3.8 Flash-Lite TTS
     participant DASH as apps/dashboard (B2B)
 
-    Note over T,DB: 1-BOSQICH: Emotsional va Foyda Asosidagi Shaxsiy Roadmap
-    T->>PWA: Ilovaga kiradi, til + vaqt + qiziqish (vibe) tanlaydi
-    PWA->>API: POST /api/roadmap/generate { language, durationMinutes, interests, sessionId }
-    API->>DB: 5 ta obida + real landmark_topic_signals (eng yuqori Signal reytinglari) ni o'qiydi
-    API->>AI: Signal reytinglariga tayangan holda tartiblangan Emotsional Roadmap tuzadi
-    AI-->>API: Har bir stop uchun: nega borish, qanday hissiyot/foyda, top signal fakt
-    API->>DB: roadmaps jadvaliga yozadi
-    API-->>PWA: Shaxsiy Roadmap kartalari
+    Note over T,DB: 1-BOSQICH: Promo QR/Kiosk → GPS Joylashuv + Emotsional Roadmap
+    T->>PWA: Kirishdagi reklama QR/kiosk orqali ilovani ochadi (?ref=west-gate-kiosk)
+    PWA->>PWA: GPS (lat, lng) ni oladi (yoki Demo Mode'da Ichan-Qal'a nuqtasini tanlaydi)
+    T->>PWA: Til + vaqt + qiziqish (vibe) tanlaydi
+    PWA->>API: POST /api/roadmap/generate { language, durationMinutes, vibes, lat, lng, refSource, sessionId }
+    API->>DB: 5 ta obida (GPS koordinatalar) + real landmark_topic_signals ni o'qiydi
+    API->>AI: Joylashuv + Signal reytinglariga tayangan Emotsional Roadmap tuzadi
+    AI-->>API: Har bir stop uchun: masofa (m), nega borish, qanday hissiyot/foyda, top signal fakt
+    API->>DB: roadmaps jadvaliga yozadi (refSource bilan)
+    API-->>PWA: Shaxsiy Roadmap + 📍 Eng yaqin obyekt kartasi
 
-    Note over T,DB: 2-BOSQICH: Obida Oldida Jonli Suhbat + Signal/Noise Yig'ish
-    T->>PWA: Obidaga boradi (/l/kalta-minor), savol beradi yoki rasmga oladi
+    Note over T,DB: 2-BOSQICH: GPS Yaqinlashuv → Jonli Suhbat + Signal/Noise Yig'ish
+    T->>PWA: Obida yoniga keladi — App GPS bo'yicha obyektni taklif qiladi (/l/kalta-minor)
     PWA->>API: POST /api/guide/ask { landmarkSlug, question, language, sessionId, imageBase64? }
     API->>DB: Tasdiqlangan muzey pasporti + top Signal faktlarni oladi
     API->>AI: Strict RAG + Signal-first javob + Interest/Sentiment JSON tahlili
@@ -95,6 +101,9 @@ erDiagram
         text built_year
         text architect
         text location_in_site
+        double latitude "GPS kenglik (41.37828)"
+        double longitude "GPS uzunlik (60.35833)"
+        integer trigger_radius_m "GPS yaqinlik radiusi (45m)"
         text archive_code "IQ-KH-001..005"
         integer estimated_visit_minutes "15..35 min"
         jsonb emotional_promise "6 tilda: nima his qiladi/foyda oladi"

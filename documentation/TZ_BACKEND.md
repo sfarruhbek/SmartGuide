@@ -24,7 +24,7 @@ Sizning mas'uliyatingiz — SmartGuide'ning **Data Flywheel (O'z-o'zidan aqllila
 - **Yangi qo'shiladi (Yakuniy Konsepsiya):**
   1. `roadmaps` jadvali (sayyohlarga tuzilgan Emotsional Roadmap'larni saqlash)
   2. `landmark_topic_signals` jadvali (har bir obidaning har bir fakti/mavzusi bo'yicha `ask_count`, `positive_reactions`, `negative_reactions`, `signal_score`)
-  3. `qr_scans` jadvali (QR skan / obida ochish hodisalari)
+  3. `landmark_visits` jadvali (GPS yaqinlik, Roadmap, Snap & Ask yoki reklama QR/kiosk `?ref=` orqali obida ochilishi)
   4. `interactions` jadvaliga insight ustunlari (`detected_topic_key`, `detected_topic_label`, `signal_category`, `sentiment`, `interest_score`, `user_feedback`, `curiosity_gap`, `roadmap_id`)
 
 ---
@@ -36,9 +36,10 @@ Sizning mas'uliyatingiz — SmartGuide'ning **Data Flywheel (O'z-o'zidan aqllila
 #### `BE-01` — PostgreSQL Sxemasini Kengaytirish (`schema.ts` + `index.ts`) `[P0]`
 - **Fayl:** `apps/api/src/db/schema.ts`, `apps/api/src/db/index.ts`, `packages/shared/src/index.ts` *(jamoa bilan kelishib)*
 - **Aniq ustunlar:**
-  - `landmarks` ga qo'shilsin: `estimatedVisitMinutes` (`integer`, default `20`), `emotionalPromise` (`jsonb` — 6 til), `vibeTags` (`jsonb` — `string[]`), `taggedTopics` (`jsonb` — `{ topicKey, topicLabel, category, baselineScore }[]`).
-  - `roadmaps` yangi jadvali: `id`, `sessionId`, `language`, `durationMinutes`, `selectedVibes` (`jsonb`), `stopsJson` (`jsonb`), `createdAt`.
+  - `landmarks` ga qo'shilsin: `latitude` (`doublePrecision`, masalan `41.37828`), `longitude` (`doublePrecision`, masalan `60.35833`), `triggerRadiusMeters` (`integer`, default `45`), `estimatedVisitMinutes` (`integer`, default `20`), `emotionalPromise` (`jsonb` — 6 til), `vibeTags` (`jsonb` — `string[]`), `taggedTopics` (`jsonb` — `{ topicKey, topicLabel, category, baselineScore }[]`).
+  - `roadmaps` yangi jadvali: `id`, `sessionId`, `language`, `durationMinutes`, `selectedVibes` (`jsonb`), `refSource` (`text`, reklama QR/kiosk manbasi), `stopsJson` (`jsonb`), `createdAt`.
   - `landmark_topic_signals` yangi jadvali: `id`, `landmarkId` (FK), `landmarkSlug`, `topicKey` (unique with `landmarkId`), `topicLabel`, `category`, `askCount`, `positiveReactions`, `negativeReactions`, `signalScore` (`real`, default `50`), `updatedAt`.
+  - `landmark_visits` (yoki `qr_scans` o'rniga): `id`, `landmarkId`, `landmarkSlug`, `sessionId`, `language`, `source` (`gps_nearby | roadmap | promo_qr | snap_photo`), `refSource`, `createdAt`.
   - `interactions` ga qo'shilsin: `roadmapId` (nullable FK), `detectedTopicKey`, `detectedTopicLabel`, `signalCategory`, `sentiment` (`awe | fascinated | curious | neutral | bored`), `interestScore` (`integer`, 1..5), `userFeedback` (`fascinating | surprising | not_relevant | null`), `curiosityGap` (`text`, nullable).
   - `ensureSchemaExists()` da `ALTER TABLE ... ADD COLUMN IF NOT EXISTS` va `CREATE TABLE IF NOT EXISTS` yozilsin (mavjud lokal DB buzilmasdan avtomatik yangilanishi uchun!).
 
@@ -99,9 +100,10 @@ Sizning mas'uliyatingiz — SmartGuide'ning **Data Flywheel (O'z-o'zidan aqllila
 - `hasImage === false` so'rovlar uchun `${slug}:${lang}:${normalizedQuestion}:${includeAudio}` kaliti bo'yicha LRU kesh (max 150 yozuv, TTL 12h).
 - **Qat'iy qoida:** Kesh hit bo'lganda Gemini'ga so'rov ketmaydi (`<100ms`, `$0`), **lekin `interactions` va `landmark_topic_signals.ask_count` HAR DOIM yangilanadi!**
 
-#### `BE-08` — `POST /api/landmarks/:slug/scan` + `GET /api/analytics/export` (UTF-8 CSV) `[P1]`
-- `POST /api/landmarks/:slug/scan`: QR / Roadmap tashrifini `qr_scans` ga yozadi.
-- `GET /api/analytics/export`: UTF-8 BOM (`\uFEFF`) bilan Excel'da buzilmaydigan to'liq CSV (savol, obida, til, aniqlangan mavzu, sentiment, qiziqish balli, foydalanuvchi bahosi).
+#### `BE-08` — GPS Yaqinlik (`GET /api/landmarks/nearby`), Tashrif Attribution (`POST /api/landmarks/:slug/visit`) & CSV Eksport `[P1]`
+- **`GET /api/landmarks/nearby?lat=...&lng=...`:** Haversine formulasi bilan sayyoh koordinatasidan 5 ta obidagacha masofani (`distanceMeters`) hisoblab, eng yaqinidan uzoqqa tartiblab qaytaradi (`inSiteRange: distance <= 3000m`, `isWithinTriggerRadius: distance <= triggerRadiusMeters`).
+- **`POST /api/landmarks/:slug/visit`:** Sayyoh obidani qaysi yo'l bilan ochganini (`gps_nearby | roadmap | promo_qr | snap_photo`) va qaysi reklama QR/kioskdan kelganini (`refSource`) `landmark_visits` ga yozadi (har obidada fizik QR bo'lmagani uchun bu B2B marketing attribution uchun juda qimmatli!).
+- **`GET /api/analytics/export`:** UTF-8 BOM (`\uFEFF`) bilan Excel'da buzilmaydigan to'liq CSV (savol, obida, til, aniqlangan mavzu, sentiment, qiziqish balli, foydalanuvchi bahosi).
 
 #### `BE-09` — Rate Limiter, HTTP Logger & `npm run db:reset` `[P1]`
 - NAT-xavfsiz rate limiter (`sessionId` bo'yicha `25 req/min`, IP bo'yicha `90 req/min` — Demo Day zalidagi 15 hakam bitta Wi-Fi'da bloklanmasligi uchun!).

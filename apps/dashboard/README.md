@@ -8,7 +8,7 @@
 - **Signal vs. Noise Content Matrix:** Sayyohlarni eng ko'p hayratga solgan **TOP Signal** faktlar vs. e'tibor berilmayotgan **Low-Signal Noise** ma'lumotlar (avtomatik filtrlangan).
 - **Tourist Impressions & Curiosity Gaps:** Sayyohlar hissiyoti (Awe / Fascinated / Curious / Bored) + muzey arxivida yetishmayotgan savollar ro'yxati.
 - **B2B Revenue Simulator:** Muzey direktori uchun kunlik sayyohlar soni bo'yicha oylik/yillik daromad kalkulyatori.
-- **QR Code Plaque Generator & CSV Export:** 5 ta obida + kirish eshigi uchun chop etiladigan A4/A5 QR plakatlar (`PNG`, `Print All`) va UTF-8 CSV hisobot.
+- **Marketing & Partner Promo QR Generator & CSV Export:** Kirish darvozasi, kassa, vokzal, info-kiosk va hamkor mehmonxonalar uchun kuzatiladigan (`?ref=...`) reklama QR-stendlari (`PNG`, `Print All`) va UTF-8 CSV hisobot. *(Eslatma: QR-kod faqat ilovani tanitish/kirish uchun; obidalar ichkarida GPS orqali taklif qilinadi.)*
 
 ## Buyruqlar
 ```bash

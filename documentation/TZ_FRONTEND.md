@@ -12,14 +12,15 @@
 
 Siz quradigan interfeys hakamlarga mahsulotimiz boshqa oddiy AI chat-botlardan nimasi bilan tubdan farq qilishini **30 soniyada ko'rsatib berishi** kerak:
 
-1. **Ekran #1 — Shaxsiy Emotsional Roadmap (`apps/tourist`, `/`):**
-   - Sayyoh ilovaga kirishi bilan darhol oddiy ro'yxat emas, balki **10 soniyalik tanlov** (Til + Vaqt `1h / 2h / 4h` + Qiziqish/Hissiyot: *Afsonalar & Drama*, *Me'morchilik & Foto*, *Shohlar Tarixi*, *Ruhiy & Sirli Joylar*) ko'radi.
-   - 1 klikda unga **Shaxsiy Sayohat Roadmap'i** (vizual vertikal marshrut chizig'i!) chizib beriladi: har bir bekatda **Nega aynan shu yerga borish kerak?**, **Qanday hissiyot/maza/foyda olasiz?** va **Avvalgi sayyohlarning 90%+ ni hayratga solgan TOP Signal fakt** ko'rsatiladi!
+1. **Ekran #1 — GPS Yaqin Obyekt Taklifi + Shaxsiy Emotsional Roadmap (`apps/tourist`, `/`):**
+   - **Muhim konsepsiya:** Har bir obidaga alohida QR-kod yopishtirilmaydi! QR-kod va kiosklar faqat kirish darvozasi/mehmonxona/vokzalda reklama sifatida sayyohni `/` sahifasiga olib kiradi (`?ref=west-gate-kiosk`).
+   - Ichkarida esa brauzer **GPS geolokatsiyasi (`navigator.geolocation`)** sayyohning joylashuvini aniqlab, **📍 "Siz hozir Kalta Minor yonidasiz (28m) — Jonli suhbatni boshlang!"** kartasini avtomatik chiqaradi (Toshkentdagi xakaton zali ichida sinash uchun esa *"Demo GPS Simulator"* tugmasi bo'ladi!).
+   - Shu sahifada 10 soniyalik tanlov (Til + Vaqt `1h / 2h / 4h` + Qiziqish/Hissiyot) orqali **Shaxsiy Sayohat Roadmap'i** chizib beriladi: har bir bekatda **masofa (m / daqiqa)**, **Nega borish kerak?**, **Qanday hissiyot/maza/foyda olasiz?** va **Avvalgi sayyohlarning 90%+ ni hayratga solgan TOP Signal fakt** ko'rsatiladi!
 2. **Ekran #2 — Obida Oldida Jonli Suhbat + Taassurot Yig'ish (`apps/tourist`, `/l/[slug]`):**
-   - Sayyoh Roadmap'dagi bekatni bosib (yoki QR skanerlab) obidaga kirganda, tepada uning marshrut progressi (*"1-bekat / 4 · Keyingi bekat: Juma masjidi"*) ko'rinadi.
+   - Sayyoh GPS yaqinlik kartasidan yoki Roadmap bekatidan obidaga kirganda, tepada uning marshrut progressi (*"1-bekat / 4 · Keyingi bekat: Juma masjidi · 140m"*) ko'rinadi.
    - AI javob bergach, javob ostida **1-tap Micro-Feedback tugmalari** (`🔥 Juda qiziq` · `🤯 Hayratlanarli` · `😐 Menga kerak emas`) chiqadi — foydalanuvchi bosishi bilan `POST /api/guide/feedback` ketadi va tizim o'rganadi!
 3. **Ekran #3 — B2B Experience Intelligence Dashboard (`apps/dashboard`):**
-   - Oddiy tashriflar soni emas — **"Signal vs. Noise" (Kerakli vs Ahamiyatsiz ma'lumotlar)** jadvali, **Sayyohlar Taassuroti (Sentiment)** grafigi, **Javobsiz Qolgan Qiziqishlar (Curiosity Gaps)**, **Muzey Daromad Kalkulyatori** va **Chop Etiladigan QR Plakatlar**!
+   - **"Signal vs. Noise" (Kerakli vs Ahamiyatsiz ma'lumotlar)** jadvali, **Sayyohlar Taassuroti (Sentiment)** grafigi, **Javobsiz Qolgan Qiziqishlar (Curiosity Gaps)**, **Muzey Daromad Kalkulyatori** va **Reklama / Hamkor Promo QR Generator** (kiosk, kirish darvozasi, mehmonxona, vokzal uchun `?ref=` kuzatiladigan promo QR'lar)!
 
 ---
 
@@ -58,6 +59,14 @@ Siz quradigan interfeys hakamlarga mahsulotimiz boshqa oddiy AI chat-botlardan n
   4. Yaratilgan Roadmap `localStorage` da saqlansin (sayyoh `/l/[slug]` dan orqaga qaytsa yoki sahifani yangilasa yo'qolib ketmasin; *"Marshrutni qayta tuzish"* tugmasi ham tursin).
   5. Pastki qismda baribir barcha 5 ta obidaning tezkor kartalari va **"Snap & Identify"** kamera tugmasi saqlanib qolsin.
 - **Qabul mezoni:** Foydalanuvchi 2 klikda o'z tilida shaxsiy Emotsional Roadmap oladi va har bir bekatdan to'g'ridan-to'g'ri `/l/[slug]` ga o'ta oladi.
+
+#### `FE-01B` — Tourist PWA (`/`): GPS Joylashuv Bo'yicha Eng Yaqin Obyekt Taklifi + Demo GPS Simulator `[P0 · ENG MUHIM]`
+- **Fayllar:** yangi `apps/tourist/src/components/NearbyLandmarkBanner.tsx`, `apps/tourist/src/lib/geo.ts`, `TouristHomeClient.tsx`
+- **Aniq UX qoidalari:**
+  1. Sayyoh `/` ni ochganda `navigator.geolocation.getCurrentPosition(...)` (ixtiyoriy ruxsat bilan) orqali uning joriy `(lat, lng)` koordinatasi olinadi va `GET /api/landmarks/nearby?lat=...&lng=...` ga yuboriladi.
+  2. Agar sayyoh Ichan-Qal'a hududida bo'lsa (`inSiteRange: true`), ekranning yuqorisida yorqin firuza/oltin **"📍 Sizning joylashuvingiz bo'yicha eng yaqin obyekt"** kartasi chiqadi: masalan, *"Kalta Minor minorasi · 28 metr narida (1 daqiqa piyoda) → Jonli AI-gid bilan suhbatni boshlash"*.
+  3. **Xakaton Zali Uchun Demo GPS Simulator (JUDA MUHIM!):** Hakamlar CAEx Toshkentda o'tirgani uchun (Xivadan 750 km uzoqda!) `inSiteRange: false` bo'ladi. Shunday paytda chiroyli ixcham *"🧭 Demo rejim: Ichan-Qal'ada yurishni simulyatsiya qilish"* tugmasi chiqsin — bosilganda 5 ta Xiva GPS nuqtasidan birini (masalan, *Ota-Darvoza / Kalta Minor yonida* yoki *Juma masjidi yonida*) tanlab, haqiqiy GPS yaqinlik kartasi qanday avtomatik ishlashini sahnada jonli ko'rsatish mumkin bo'lsin!
+  4. URL'dagi `?ref=west-gate-kiosk` (reklama QR/kiosk manbasi) `sessionStorage` da saqlanib, `POST /api/roadmap/generate` va `POST /api/landmarks/:slug/visit` ga yuborilsin.
 
 #### `FE-02` — Tourist PWA (`/l/[slug]`): Roadmap Progressi va "Keyingi Bekat" Yo'naltirgichi `[P0]`
 - **Fayl:** `apps/tourist/src/components/LandmarkGuideClient.tsx`
@@ -118,10 +127,17 @@ Siz quradigan interfeys hakamlarga mahsulotimiz boshqa oddiy AI chat-botlardan n
   - **SmartGuide 70% ulushi**
   - **Real Gemini API xarajati (`$0.04 / sayyoh`)** va **~96%+ yalpi marja**!
 
-#### `FE-09` — Dashboard: KPI Yangilanishi, Filtrlar, CSV Eksport va A4 QR Plakatlar `[P1]`
+#### `FE-09` — Dashboard: KPI Yangilanishi, Filtrlar, CSV Eksport va Reklama Promo QR Generator `[P1]`
 - `KpiCards.tsx` da qo'shimcha kichik ko'rsatkich: `Roadmaps Generated` soni va o'rtacha `Interest Score (4.7/5)`.
 - `LiveQuestionsFeed.tsx` da har bir savol yonida `detectedTopic`, `sentiment` emojisi va `userFeedback` (`🔥/🤯/😐`) badge'i + Obida/Til filtri + **"Export CSV"** tugmasi (`GET /api/analytics/export`).
-- `QrCodeGenerator.tsx` da A4/A5 chop etishga tayyor plakat dizayni (`Print All`) + 1-klik `Current Host` URL tugmasi.
+- **`QrCodeGenerator.tsx` ni "Marketing & Partner Promo QR Generator" ga aylantirish:**
+  - Har bir obidaga emas, balki **reklama va kirish kanallari** uchun kuzatiladigan (`?ref=...`) QR-kodlar yaratilsin (hammasi asosiy `/` — Emotsional Roadmap + GPS sahifasiga olib kiradi!):
+    1. `Ichan-Qala West Gate Info-Kiosk` → `${baseUrl}/?ref=west-gate-kiosk`
+    2. `Ticket Office Acrylic Stand` → `${baseUrl}/?ref=ticket-desk`
+    3. `Khiva Train Station Roll-Up` → `${baseUrl}/?ref=khiva-station`
+    4. `Partner Boutique Hotels` → `${baseUrl}/?ref=partner-hotel`
+    5. `Demo Day Pitch Slide (Judges)` → `${baseUrl}/?ref=demo-stage`
+  - Foydalanuvchi o'zi yangi hamkor nomini (masalan `hotel-orient-star`) kiritib darhol maxsus promo QR yarata olsin, `PNG` yuklab olsin va `Print All` qila olsin!
 
 ---
 

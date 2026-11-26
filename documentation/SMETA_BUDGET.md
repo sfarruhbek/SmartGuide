@@ -22,8 +22,9 @@
 | **`.uz` domen (`smartguide.uz`)** | **`33,000 – 35,000 UZS / yil`** (`~$2.80 / yil`) | UZINFOCOM (`cctld.uz` / akkreditatsiyalangan registratorlar) |
 | **HTTPS SSL Sertifikat (Let's Encrypt)** | **`$0 / yil`** (Certbot + Nginx avtomatik yangilanish) | Let's Encrypt |
 | **Click / Payme internet-ekvayring komissiyasi** | **`1.5% – 2.0%`** har bir onlayn to'lovdan | Click Business / Payme Business |
-| **Akril UV-bosma QR stol stendi (100×150 mm, 3 mm)** | **`45,000 – 80,000 UZS / dona`** (`~$3.60 – $6.40`) | Toshkent reklama ishlab chiqarish bozori |
-| **Ko'cha sharoitiga chidamli kompozit/alyuminiy QR lavha (A4/A5)** | **`150,000 – 250,000 UZS / dona`** (`~$12.00 – $20.00`) | Toshkent/Xiva tashqi reklama bozori |
+| **Akril UV-bosma reklama QR stol stendi (kassa/mehmonxona uchun, 100×150 mm)** | **`45,000 – 80,000 UZS / dona`** (`~$3.60 – $6.40`) | Toshkent reklama ishlab chiqarish bozori |
+| **Roll-Up reklama banneri (85×200 cm, alyuminiy stend + bosma — kirish darvozasi/vokzal uchun)** | **`250,000 – 450,000 UZS / dona`** (`~$20 – $36`; premium `~$45`) | Toshkent reklama-poligrafiya bozori |
+| **Interaktiv pol info-kioski (32"–43" sensor ekran — 2-bosqich flagman aeroport/vokzal uchun)** | **`$800 – $1,800 / dona`** (O'zbekiston bozori) | Toshkent info-kiosk yetkazib beruvchilari (`utouch.uz`, `barakatexnika.uz`) |
 
 ---
 
@@ -64,19 +65,19 @@ Faraz qilaylik, 1 nafar sayyoh Ichan-Qal'a bo'ylab to'liq sayohat qiladi:
 
 ---
 
-### SMETA B: 1-Bosqich — Xiva Ichan-Qal'a 3 Oylik Real Pilot (5 → 15 Obida)
+### SMETA B: 1-Bosqich — Xiva Ichan-Qal'a 3 Oylik Real Pilot (15 Obida GPS + Reklama QR Nuqtalari)
 
-*Maqsad: Ichan-Qal'a ma'muriyati bilan rasmiy pilot o'tkazish, 15 ta asosiy obidaga ob-havoga chidamli QR-lavhalar o'rnatish, 3 oyda 3 000 ta pullik sayyohga xizmat ko'rsatish va Tourist Interest bazasini shakllantirish.*
+*Maqsad: Har bir obidaga qimmat QR-lavha qotirmasdan (GPS joylashuv orqali ilova ichida obyektni avtomatik taklif qilish!), faqat kirish darvozasi, Xiva vokzali va hamkor mehmonxonalarga reklama QR-stend va roll-up bannerlar qo'yish orqali 3 oyda 3 000 ta pullik sayyohga xizmat ko'rsatish.*
 
 #### 1. Bir martalik kapital xarajatlar (CAPEX — 1-oy)
 | # | Xarajat moddasi | Miqdor | Birlik narxi | Jami (USD) | Jami (UZS) |
 | :---: | :--- | :---: | :---: | :---: | :---: |
-| 1 | Ko'cha sharoitiga chidamli alyuminiy/kompozit QR lavhalar (15 ta obida) | 15 dona | `$16.00` | `$240.00` | `3,000,000` |
-| 2 | Kassa va mehmonxonalar uchun akril UV-bosma QR stol stendlari | 20 dona | `$5.00` | `$100.00` | `1,250,000` |
-| 3 | Xiva tarixchilari / muzey ilmiy xodimlari bilan 15 ta obida RAG pasportini tasdiqlatish (gonorar) | 15 obida | `$25.00` | `$375.00` | `4,687,500` |
-| 4 | Xivaga pilot o'rnatish va shartnoma safari (2 kishi, poyezd + 2 kun mehmonxona) | 1 safar | `$260.00` | `$260.00` | `3,250,000` |
+| 1 | Kirish darvozasi (Ota-Darvoza) va Xiva vokzali uchun Roll-Up reklama bannerlari (85×200 cm) | 4 dona | `$35.00` | `$140.00` | `1,750,000` |
+| 2 | Kassa va hamkor mehmonxona resepshnlari uchun akril UV-bosma reklama QR stol stendlari | 20 dona | `$5.00` | `$100.00` | `1,250,000` |
+| 3 | Xiva tarixchilari / muzey ilmiy xodimlari bilan 15 ta obida RAG pasporti + GPS nuqtalarini tasdiqlatish | 15 obida | `$25.00` | `$375.00` | `4,687,500` |
+| 4 | Xivaga pilot o'rnatish va mehmonxona/kassa shartnomalari safari (2 kishi, 2 kun) | 1 safar | `$260.00` | `$260.00` | `3,250,000` |
 | 5 | Click / Payme merchant ulash va yuridik (YaTT/MChJ) ro'yxatdan o'tish xarajatlari | 1 paket | `$120.00` | `$120.00` | `1,500,000` |
-| | **Jami CAPEX (Bir martalik)** | | | **`$1,095.00`** | **`13,687,500 so'm`** |
+| | **Jami CAPEX (Bir martalik — obida lavhalarisiz yengil start!)** | | | **`$995.00`** | **`12,437,500 so'm`** |
 
 #### 2. 3 Oylik Operatsion Xarajatlar (OPEX — 3 oy uchun)
 | # | Xarajat moddasi | Oylik | 3 Oy Jami (USD) | 3 Oy Jami (UZS) |
@@ -89,28 +90,28 @@ Faraz qilaylik, 1 nafar sayyoh Ichan-Qal'a bo'ylab to'liq sayohat qiladi:
 | | **Jami OPEX (3 oy — founder jamoa ulushda ishlaydi)** | **`$323.00`** | **`$969.00`** | **`12,112,500 so'm`** |
 
 #### 3. 3 Oylik Pilot Natijasi va Qoplash Nuqtasi (Break-Even)
-- **Pilot Umumiy Byudjeti (CAPEX + 3 oy OPEX):** **`$2,064`** (`25.8 mln so'm`)
+- **Pilot Umumiy Byudjeti (CAPEX + 3 oy OPEX):** **`$1,964`** (`24.55 mln so'm`)
 - **Pilot Daromadi (3,000 sayyoh × `$4`):** `$12,000` Gross
   - Muzey ulushi (30%): **`$3,600`** *(Muzey $0 tikib $3,600 sof foyda + Data Panel oladi!)*
   - SmartGuide ulushi (70%): **`$8,400`**
-- **SmartGuide Sof Foydasi (3 oy yakuni):** `$8,400 - $2,064` = **`+$6,336`** (**ROI: 307%!**)
-- **Qoplash nuqtasi (Break-Even):** Bor-yo'g'i **`770 ta` pullik sayyoh** (Xiva mavsumida **~20–25 kun** ichida barcha pilot xarajatlari to'liq qoplanadi!).
+- **SmartGuide Sof Foydasi (3 oy yakuni):** `$8,400 - $1,964` = **`+$6,436`** (**ROI: 328%!**)
+- **Qoplash nuqtasi (Break-Even):** Bor-yo'g'i **`735 ta` pullik sayyoh** (Xiva mavsumida **~20 kun** ichida barcha pilot xarajatlari to'liq qoplanadi!).
 
 ---
 
 ### SMETA C: 2-Bosqich — 12 Oylik O'zbekiston Bo'ylab Kengayish (10 ta Kompleks: Xiva, Samarqand, Buxoro, Toshkent)
 
-*Maqsad: 10 ta yirik tarixiy kompleks/muzey (~100 ta obida), yiliga 50,000 pullik sayyoh + 10 ta B2B SaaS shartnoma.*
+*Maqsad: 10 ta yirik tarixiy kompleks/muzey (~100 ta GPS obida), yiliga 50,000 pullik sayyoh + 10 ta B2B SaaS shartnoma.*
 
 | Kategoriya | Tarkibi | Yillik Xarajat (USD) | Izoh |
 | :--- | :--- | :---: | :--- |
 | **1. Infratuzilma & AI** | AWS EC2 (`t3.large` + Managed PostgreSQL RDS `db.t4g.small` + S3/CloudFront ~`$145/oy`) + Gemini API (50K sayyoh × `$0.04` = `$2,000`) + domenlar | **`$3,740`** | Yuqori yuklama (Multi-AZ backup) |
-| **2. Fizik QR Infratuzilma** | 100 ta obida uchun metall QR lavhalar (`$1,600`) + 100 ta akril kassa/mehmonxona stendlari (`$500`) | **`$2,100`** | 10 ta kompleksni to'liq qamrash |
-| **3. Kontent & Mahalliy RAG** | 100 ta obida uchun tarixchilar/muzey ekspertlari tekshiruvi (`$30 × 100`) | **`$3,000`** | 0% gallyutsinatsiya kafolati |
+| **2. Reklama Kiosk & Promo Stendlar** | 2 ta flagman 32" info-kiosk (Xiva/Samarqand kirish — `2 × $1,200 = $2,400`) + 20 ta Roll-Up banner (`$700`) + 100 ta mehmonxona/kassa akril QR stendi (`$500`) | **`$3,600`** | Faqat kirish nuqtalarida reklama — obida devorlariga QR kerak emas! |
+| **3. Kontent & Mahalliy RAG** | 100 ta obida uchun tarixchilar/muzey ekspertlari tekshiruvi + GPS xaritalash (`$30 × 100`) | **`$3,000`** | 0% gallyutsinatsiya kafolati |
 | **4. Jamoa (Core Team, 12 oy)** | 1 Backend/DevOps + 1 Frontend + 1 AI/RAG + 1 B2B Sales/Ops (O'zbekiston startap bosqichi o'rtacha oylik `$800–$1,200` / kishi) | **`$48,000`** | To'liq shtatga o'tish (tushumdan qoplanadi) |
 | **5. Sotuv, Safarlar & Ekvayring** | Click/Payme 2% (`$4,000`) + hududiy safarlar/TITF ko'rgazma (`$3,500`) + buxgalteriya/yuridik (`$2,400`) | **`$9,900`** | B2B sotuv va soliq hisobi |
-| **6. Zaxira fondi (10%)** | Kutilmagan texnik/operatsion xarajatlar | **`$6,674`** | Xavfsizlik yostiqchasi |
-| **JAMI 12 OYLIK SMETA** | | **`$73,414`** | |
+| **6. Zaxira fondi (10%)** | Kutilmagan texnik/operatsion xarajatlar | **`$6,824`** | Xavfsizlik yostiqchasi |
+| **JAMI 12 OYLIK SMETA** | | **`$75,064`** | |
 
 #### 12 Oylik Moliyaviy Prognoz (P&L Xulosa)
 | Ko'rsatkich | Konservativ (30K sayyoh) | Bazaviy Maqsad (50K sayyoh) | Optimistik (85K sayyoh) |
@@ -120,15 +121,15 @@ Faraz qilaylik, 1 nafar sayyoh Ichan-Qal'a bo'ylab to'liq sayohat qiladi:
 | SmartGuide Chipta Ulushi (70%) | `$84,000` | `$140,000` | `$238,000` |
 | B2B Experience Intelligence SaaS (`10 × $150/oy`) | `$12,000` | `$18,000` | `$30,000` |
 | **SmartGuide Jami Sof Tushumi** | **`$96,000`** | **`$158,000`** | **`$268,000`** |
-| Jami Yillik Xarajatlar (Smeta C) | `$69,000` | `$73,414` | `$81,500` |
-| **Yillik Operatsion Foyda (EBITDA)** | **`+$27,000`** | **`+$84,586`** | **`+$186,500`** |
+| Jami Yillik Xarajatlar (Smeta C) | `$70,600` | `$75,064` | `$83,200` |
+| **Yillik Operatsion Foyda (EBITDA)** | **`+$25,400`** | **`+$82,936`** | **`+$184,800`** |
 
 ---
 
 ## 4. Xakaton Mukofoti (`50 000 000 so'm ≈ $4,000`) Taqsimot Rejasi
 
 Agar **Tourism Hackathon 2026** 3-trekda 1-o'rin (`50 mln so'm ≈ $4,000`) olinsa, mablag' 100% maqsadli ravishda **Ichan-Qal'a Pilotini** ishga tushirishga sarflanadi:
-- **`$1,095` (27%)** — Ichan-Qal'a 15 ta obidasi uchun QR lavhalar, kassa stendlari, tarixchilar ekspertizasi va Xiva safari (Smeta B CAPEX).
+- **`$995` (25%)** — Ichan-Qal'a kirish bannerlari, 20 ta kassa/mehmonxona reklama QR stendlari, 15 obida RAG/GPS ekspertizasi va Xiva safari (Smeta B CAPEX).
 - **`$969` (24%)** — 3 oylik AWS server, Gemini API kvotasi, kassa promo va monitoring (Smeta B OPEX).
-- **`$1,200` (30%)** — Samarqand (Registon) va Toshkent (Temuriylar muzeyi) 2-pilot obyektlarini tayyorlash.
-- **`$736` (19%)** — Yuridik rasmiylashtirish, soliq/ekvayring va zaxira fondi.
+- **`$1,200` (30%)** — Samarqand (Registon) va Toshkent (Temuriylar muzeyi) 2-pilot obyektlarini tayyorlash (yoki 1 ta flagman 32" reklama info-kioski).
+- **`$836` (21%)** — Yuridik rasmiylashtirish, soliq/ekvayring va zaxira fondi.

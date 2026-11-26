@@ -36,9 +36,9 @@ Ushbu hujjat **Frontend (`apps/tourist`, `apps/dashboard`)**, **Backend (`apps/a
 
 ---
 
-## 2. Shaxsiy Emotsional Roadmap Yaratish — `POST /api/roadmap/generate` *(1-QADAM — YANGI ASOSIY OQIM!)*
+## 2. Shaxsiy Emotsional Roadmap Yaratish — `POST /api/roadmap/generate` *(1-QADAM — GPS + EMOTSIONAL ROADMAP)*
 
-Sayyoh ilovaga kirishi bilan unga **aynan qaysi obidalarga**, **qaysi tartibda** borishi va **har bir joydan qanday hissiyot/taassurot/foyda olishini** real sayyohlar qiziqishi (`landmark_topic_signals`) asosida chizib beradi.
+Sayyoh kirishdagi reklama QR/kiosk orqali ilovani ochishi bilan uning **GPS joylashuvi (`lat/lng`)**, vaqti va qiziqishlariga hamda real sayyohlar qiziqishi (`landmark_topic_signals`) bazasiga tayangan holda **eng yaqin obyektlardan boshlab Emotsional Roadmap** chizib beradi. *(Har bir obidada QR-kod bo'lishi shart emas!)*
 
 ### Request Body (`GenerateRoadmapRequest`)
 ```json
@@ -46,11 +46,16 @@ Sayyoh ilovaga kirishi bilan unga **aynan qaysi obidalarga**, **qaysi tartibda**
   "sessionId": "visitor-8a71b2c3d4e5",
   "language": "en",
   "durationMinutes": 120,
-  "vibes": ["legends", "photography"]
+  "vibes": ["legends", "photography"],
+  "lat": 41.3781,
+  "lng": 60.3580,
+  "refSource": "west-gate-kiosk"
 }
 ```
 - `durationMinutes`: `60` (2–3 obida), `120` (4 obida), `240` (barcha 5 obida).
 - `vibes`: `TravelVibe[]` (1 dan 3 tagacha).
+- `lat`, `lng` *(ixtiyoriy)*: sayyohning joriy GPS koordinatalari (berilsa, masofa `distanceMeters` va eng yaqin boshlash nuqtasi hisoblanadi; berilmasa Ota-Darvoza kirish darvozasidan boshlanadi).
+- `refSource` *(ixtiyoriy)*: sayyoh qaysi reklama QR-kodi yoki kioskdan kirgani (`west-gate-kiosk`, `hotel-orient`, `khiva-station`, `direct`) — B2B marketing attribution uchun!
 
 ### Response `200 OK` (`GenerateRoadmapResponse`)
 ```json
@@ -66,8 +71,12 @@ Sayyoh ilovaga kirishi bilan unga **aynan qaysi obidalarga**, **qaysi tartibda**
       "order": 1,
       "slug": "kalta-minor",
       "name": "Kalta Minor Minaret",
+      "latitude": 41.37828,
+      "longitude": 60.35833,
+      "distanceMeters": 34,
+      "walkingMinutesFromPrev": 1,
       "estimatedMinutes": 20,
-      "whyVisit": "Start with instant awe: Khiva's glowing turquoise unfinished giant right inside the West Gate.",
+      "whyVisit": "Start with instant awe: Khiva's glowing turquoise unfinished giant right beside you.",
       "emotionalPayoff": "Wonder & iconic Silk Road photography",
       "topSignalHighlight": "92% of visitors loved the secret legend of the architect escaping on wings & why the tower halted at 29m.",
       "noiseFilteredNote": "Skipping dry 19th-century tax chronicles — focused on the drama and blue glaze secret.",
@@ -77,6 +86,10 @@ Sayyoh ilovaga kirishi bilan unga **aynan qaysi obidalarga**, **qaysi tartibda**
       "order": 2,
       "slug": "juma-mosque",
       "name": "Juma Mosque",
+      "latitude": 41.37826,
+      "longitude": 60.35969,
+      "distanceMeters": 148,
+      "walkingMinutesFromPrev": 2,
       "estimatedMinutes": 25,
       "whyVisit": "Step out of the desert sun into a 1,000-year-old forest of 213 carved wooden pillars cooled naturally by skylights.",
       "emotionalPayoff": "Serenity, cool atmosphere & magical light-shaft photos",
@@ -91,11 +104,24 @@ Sayyoh ilovaga kirishi bilan unga **aynan qaysi obidalarga**, **qaysi tartibda**
 
 ---
 
-## 3. Obidalar Ro'yxati va Tafsiloti — `GET /api/landmarks` & `GET /api/landmarks/:slug`
+## 3. Obidalar Ro'yxati, GPS Yaqinlik va Tafsilot — `GET /api/landmarks`, `GET /api/landmarks/nearby`, `GET /api/landmarks/:slug`
 
-- `GET /api/landmarks` → barcha 5 ta obida ro'yxati (`slug`, `localizedNames`, `era`, `builtYear`, `emotionalPromise`, `estimatedVisitMinutes`, `vibeTags`, `topSignalScore`, `suggestedQuestions`).
+- `GET /api/landmarks` → barcha 5 ta obida ro'yxati (`slug`, `localizedNames`, `latitude`, `longitude`, `triggerRadiusMeters`, `era`, `builtYear`, `emotionalPromise`, `estimatedVisitMinutes`, `vibeTags`, `topSignalScore`, `suggestedQuestions`).
+- `GET /api/landmarks/nearby?lat=41.3782&lng=60.3584` → Haversine masofa bo'yicha eng yaqin obyektlarni tartiblab qaytaradi:
+  ```json
+  {
+    "inSiteRange": true,
+    "nearest": {
+      "slug": "kalta-minor",
+      "name": "Kalta Minor Minaret",
+      "distanceMeters": 11,
+      "isWithinTriggerRadius": true
+    },
+    "landmarks": [{ "slug": "kalta-minor", "distanceMeters": 11 }, "..."]
+  }
+  ```
 - `GET /api/landmarks/:slug` → bitta obidaning to'liq tasdiqlangan muzey pasporti (`historicalFacts`, `architecturalDetails`, `localLegends`, `visualCues`, `topSignals`, `archiveCode`).
-- `POST /api/landmarks/:slug/scan` → `{ sessionId, language }` → `201 Created { ok: true, scanId }` (QR skan yoki Roadmap'dan obidaga kirish hodisasi).
+- `POST /api/landmarks/:slug/visit` → `{ sessionId, language, source: "gps_nearby" | "roadmap" | "promo_qr" | "snap_photo", refSource? }` → `201 Created { ok: true, visitId }` (obida ochilishi va reklama kanali attribution hodisasi).
 
 ---
 

@@ -1,7 +1,7 @@
 # SmartGuide — Shaxsiylashtirilgan Emotsional Roadmap + Jonli AI-Gid + Sayyohlar Qiziqishi Intellekti
 
 > **Tourism Hackathon 2026 (25–27 noyabr, CAEx Toshkent) · 3-trek: Kichik turbiznes va infratuzilmani raqamlashtirish**  
-> **Yakuniy mahsulot konsepsiyasi:** Sayyoh ilovaga kirishi bilan unga **qaysi obidalarga nega borishi va qanday hissiyot/foyda olishi** bo'yicha shaxsiy **Roadmap** chiziladi → obida oldida **jonli ovozli/foto AI suhbat** quradi → har bir suhbatdan **qaysi obida va qaysi ma'lumot sayyohlarga haqiqatan qiziq ("Signal") va qaysilari ahamiyatsiz ("Noise")** ekani avtomatik yig'ilib, ham keyingi sayyohlarning Roadmap'ini mukammallashtiradi, ham muzeylarga **B2B Experience Intelligence** beradi!
+> **Yakuniy mahsulot konsepsiyasi:** Kirish darvozasi, vokzal, mehmonxona yoki info-kioskdagi **reklama QR-kodi** orqali sayyoh ilovani 1 soniyada ochadi (har bir obidaga alohida QR yopishtirish shart emas!). Ilovaga kirishi bilan uning **GPS joylashuvi va qiziqishiga** qarab **Emotsional Roadmap** chiziladi → yurish davomida **GPS geolokatsiya** eng yaqin obyektni avtomatik taklif qiladi → obida oldida **jonli ovozli/foto AI suhbat** quradi → har bir suhbatdan **Signal vs. Noise** bazasi yig'ilib, keyingi sayyohlar marshrutini mukammallashtiradi va muzeylarga **B2B Experience Intelligence** beradi!
 
 ---
 
@@ -29,7 +29,7 @@
 
 ## Boshqa AI'lardan (ChatGPT, Google Maps) Asosiy Farqimiz
 
-1. **Kirishdayoq "Nega borish kerak?" degan Emotsional Roadmap:** Quruq joylar ro'yxati emas — har bir obida sizga **qanday hissiyot, estetik zavq yoki hikoya berishi** aniq ko'rsatilgan shaxsiy yo'nalish.
+1. **Kirishdayoq "Nega borish kerak?" degan Emotsional Roadmap + GPS Yaqin Obyekt Taklifi:** Har bir tarixiy devorga QR yopishtirmaymiz (UNESCO obidalariga zarar yetmaydi, 10× tez kengayadi!). QR-kod va kiosklar faqat kirish nuqtalarida dasturni tanitish/reklama uchun turadi; ichkarida esa sayyohning **GPS joylashuvi (`lat/lng`)** va marshrutiga qarab eng yaqin obyekt ilovaning o'zida avtomatik taklif qilinadi.
 2. **Real Suhbatlardan O'rganuvchi "Signal vs. Noise" Bazasi:** Sayyohlar obida oldida jonli suhbat qurganda, tizim qaysi faktlar hayrat uyg'otganini (`Signal`) va qaysilari qiziq emasligini (`Noise`) ajratib oladi. Keyingi sayyoh uzun, zerikarli matn emas — **aynan eng kuchli, sinalgan ma'lumot va eng ideal marshrutni** oladi!
 3. **100% Muzey Tasdiqlagan Mahalliy RAG (0% Gallyutsinatsiya):** Xivaning Ichan-Qal'a 5 ta asosiy obidasi (`kalta-minor`, `juma-mosque`, `tosh-hovli`, `kunya-ark`, `pahlavon-mahmud`) bo'yicha rasmiy tarixiy pasportlar + 6 tilda jonli **Gemini 3.8 Flash-Lite TTS** ovoz.
 
