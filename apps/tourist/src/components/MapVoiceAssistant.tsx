@@ -53,7 +53,7 @@ export function MapVoiceAssistant({open,onClose,city,language,location,focusPlac
         const changed=lastRole.current!==role;lastRole.current=role;
         if(role==='user'){setHeard(old=>(changed?text:old+text).slice(-3000));if(changed)setAnswer('');}
         else setAnswer(old=>(changed?text:old+text).slice(-5000));
-      },references(data){setReferences(data);onPlaces(data.focusPlace?[...data.nearby,data.focusPlace]:data.nearby);},
+      },references(data){setReferences(data);onPlaces([...new Map([...data.nearby,...(data.focusPlace?[data.focusPlace]:[])].map(place=>[place.id,place])).values()]);},
     });
     client.current=connection;
     void connection.start(context).finally(()=>{ /* Connection stays active until the user ends it. */ });
