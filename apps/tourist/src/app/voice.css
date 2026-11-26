@@ -2,7 +2,7 @@
 .map-voice-launch svg {flex-shrink:0;}
 .tourist-location-dot {position:absolute;z-index:3;width:17px;height:17px;border:3px solid white;border-radius:50%;background:#2775e5;box-shadow:0 0 0 9px #2775e52a;transform:translate(-50%,-50%);pointer-events:none;}
 .voice-place-pin span {background:#dce9e0;border:1px solid #1c5843;}
-.map-voice-dialog {position:fixed;inset:auto 22px calc(96px + env(safe-area-inset-bottom)) auto;margin:0;width:min(440px,calc(100vw - 28px));max-width:calc(100vw - 28px);max-height:calc(100dvh - 140px - env(safe-area-inset-bottom));padding:0;border:1px solid #d4dccf;border-radius:24px;background:#faf9f5;color:#20352a;box-shadow:0 18px 90px #123e343d;z-index:120;overflow:hidden;}
+.map-voice-dialog {position:fixed;inset:auto 22px calc(var(--journey-nav-clearance,0px) + 16px) auto;margin:0;width:min(440px,calc(100vw - 28px));max-width:calc(100vw - 28px);max-height:calc(100dvh - var(--journey-nav-clearance,0px) - 40px);padding:0;border:1px solid #d4dccf;border-radius:24px;background:#faf9f5;color:#20352a;box-shadow:0 18px 90px #123e343d;z-index:120;overflow:hidden;}
 .map-voice-dialog[open] {display:flex;flex-direction:column;}
 .voice-header {display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:21px 22px 14px;border-bottom:1px solid #e3e6da;flex-shrink:0;}
 .voice-eyebrow {font-size:10px;font-weight:650;letter-spacing:.14em;text-transform:uppercase;color:#56705d;}
@@ -46,5 +46,5 @@
 .voice-nearby button span {min-width:0;overflow-wrap:anywhere;}
 .voice-nearby small {white-space:nowrap;color:#789065;font-size:11px;}
 .voice-sources a {display:block;color:#386e54;text-decoration:underline;overflow-wrap:anywhere;line-height:1.5;margin:10px 0;}
-@media(max-width:700px){.map-voice-dialog{right:14px;bottom:calc(88px + env(safe-area-inset-bottom));max-height:calc(100dvh - 120px - env(safe-area-inset-bottom));border-radius:20px;}.voice-header{padding:17px 18px 13px;}.voice-body{padding:15px 18px 20px;}.voice-header h2{font-size:23px;}.voice-orb{width:86px;height:86px;margin:20px auto 12px;}.map-voice-launch{font-size:12px;padding:11px 13px;}}
+@media(max-width:700px){.map-voice-dialog{right:14px;border-radius:20px;}.voice-header{padding:17px 18px 13px;}.voice-body{padding:15px 18px 20px;}.voice-header h2{font-size:23px;}.voice-orb{width:86px;height:86px;margin:20px auto 12px;}.map-voice-launch{font-size:12px;padding:11px 13px;}}
 @media(prefers-reduced-motion:reduce){.voice-orb i{animation:none;}}

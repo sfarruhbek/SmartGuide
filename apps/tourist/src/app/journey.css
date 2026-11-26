@@ -325,7 +325,8 @@
     0 2px 10px #183d3855;
 }
 .journey-app {
-  --journey-nav-height: 76px;
+  --journey-nav-height: 68px;
+  --journey-nav-clearance: 0px;
   --ink: #183d38;
   --paper: #faf8f5;
   --clay: #b45f40;
@@ -1334,9 +1335,10 @@
 }
 @media (max-width: 700px) {
   .journey-app {
-    padding-bottom: calc(
-      var(--journey-nav-height) + env(safe-area-inset-bottom, 0px)
+    --journey-nav-clearance: calc(
+      var(--journey-nav-height) + 12px + env(safe-area-inset-bottom, 0px)
     );
+    padding-bottom: calc(var(--journey-nav-clearance) + 24px);
   }
   .journey-main {
     padding: 0 22px;
@@ -1349,41 +1351,62 @@
   }
   .journey-nav {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    left: max(14px, env(safe-area-inset-left, 0px));
+    right: max(14px, env(safe-area-inset-right, 0px));
     z-index: 40;
-    background: #faf8f5f5;
-    backdrop-filter: blur(10px);
-    gap: 0;
+    width: auto;
+    max-width: 420px;
+    margin-inline: auto;
+    background: #fffefaf5;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    gap: 4px;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    height: calc(var(--journey-nav-height) + env(safe-area-inset-bottom, 0px));
-    padding: 8px max(8px, env(safe-area-inset-right, 0px))
-      calc(8px + env(safe-area-inset-bottom, 0px))
-      max(8px, env(safe-area-inset-left, 0px));
-    border-top: 1px solid #d7ddcc;
-    border-bottom: 0;
+    height: var(--journey-nav-height);
+    padding: 6px;
+    border: 1px solid #dce1d7;
+    border-radius: 24px;
+    box-shadow: 0 8px 32px #183d3821, 0 2px 6px #183d380a;
+    isolation: isolate;
   }
   .journey-nav button {
     flex-direction: column;
-    gap: 5px;
+    gap: 4px;
     font-size: 12px;
+    font-weight: 550;
     line-height: 1.25;
     min-height: 44px;
     justify-content: center;
     border: 0;
     min-width: 0;
     width: 100%;
-    border-radius: 8px;
+    padding: 5px 4px;
+    border-radius: 18px;
+    color: #52675f;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 160ms ease, color 160ms ease;
   }
   .journey-nav button[aria-current] {
-    color: #183d38;
-    background: #e7ede4;
+    color: #fffef8;
+    background: #183d38;
+  }
+  .journey-nav button:focus-visible {
+    outline-offset: 2px;
+  }
+  .nav-mobile-label {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .journey-nav svg {
-    width: 19px;
-    height: 19px;
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    stroke-width: 1.8;
   }
   .nav-dot {
     position: absolute;
