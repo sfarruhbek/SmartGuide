@@ -247,3 +247,20 @@ export function normalizeVoicePreferences(
 }
 
 export const CATALOG_CITY_IDS = catalog.cities.map((c) => c.id);
+
+/** Extracts any catalog city IDs mentioned inside a free-form multilingual instruction. */
+export function extractMentionedCityIds(text: string): string[] {
+  const token = cleanToken(text);
+  if (!token) return [];
+  const found = new Set<string>();
+  for (const [alias, id] of Object.entries(CITY_ALIASES)) {
+    if (alias.length >= 4 && token.includes(alias)) found.add(id);
+  }
+  for (const city of catalog.cities) {
+    if (token.includes(city.id)) found.add(city.id);
+    for (const label of Object.values(city.name)) {
+      if (label && label.length >= 3 && token.includes(cleanToken(label))) found.add(city.id);
+    }
+  }
+  return [...found];
+}
