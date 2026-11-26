@@ -1,0 +1,1919 @@
+{
+  "dataset": "SmartGuide — Uzbekistan & Khorezm Traditional Crafts, Pottery & Museum Artifacts RAG Dataset (6 Languages: en, uz, ru, ja, ko, es)",
+  "generatedAt": "2026-11-26",
+  "supportedLanguages": [
+    "en",
+    "uz",
+    "ru",
+    "ja",
+    "ko",
+    "es"
+  ],
+  "schemaCompatibility": "Matches @smartguide/shared LandmarkDetail RAG fields + originCentury, craftSchool, and Wikimedia credits.",
+  "count": 22,
+  "artifacts": [
+    {
+      "slug": "afrasiyab-inscribed-bowl",
+      "category": "archaeological-pottery",
+      "region": "Samarqand (Afrosiyob)",
+      "originCentury": "IX–XI asrlar (ushbu eksponat: X asr)",
+      "era": "Samanid Era · Islamic Renaissance (9th–11th Century)",
+      "builtYear": "10th century CE (Samanid period, 819–1005)",
+      "architect": "Afrasiyab epigraphic slipware potters of Samarkand",
+      "locationInSite": "State Museum of History of Culture of Uzbekistan, Samarkand (Reserve A-1-27)",
+      "accentColor": "#78350F",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia, Wikimedia Commons Samarkand Museum Archive A-1-27, Smarthistory)",
+      "archiveCode": "UZ-ART-001",
+      "name": "Afrasiyab Inscribed Ceramic Bowl (10th Century)",
+      "localizedNames": {
+        "en": "Afrasiyab Inscribed Ceramic Bowl (10th Century)",
+        "uz": "Afrosiyob xattotlik yozuvli sopol kosasi (X asr)",
+        "ru": "Афрасиабская эпиграфическая керамическая чаша (X век)",
+        "ja": "アフラシアブ銘文入り陶器鉢（10世紀）",
+        "ko": "아프라시압 명문 도자기 그릇 (10세기)",
+        "es": "Cuenco Epigráfico de Afrasiab (Siglo X)"
+      },
+      "shortDescription": "A 10th-century Samanid ceramic bowl from Afrasiyab (Samarkand) bearing stylized Kufic wisdom calligraphy painted on white slip under clear lead-silica glaze.",
+      "localizedShortDescriptions": {
+        "en": "A 10th-century Samanid ceramic bowl from Afrasiyab (Samarkand) bearing stylized Kufic wisdom calligraphy painted on white slip under clear lead-silica glaze.",
+        "uz": "Somoniylar davrida Samarqandda (Afrosiyob) X asrda yasalgan, oq angob ustiga kufiy xatida hikmatli so'z bitilgan sirli sopol kosa.",
+        "ru": "Саманидская керамическая чаша X века из Афрасиаба (Самарканд) с куфической каллиграфией по белому ангобу под прозрачной глазурью.",
+        "ja": "10世紀サーマーン朝時代のサマルカンド（アフラシアブ）で作られた、白化粧土にクーフィー書体の格言を描いた施釉陶器。",
+        "ko": "10세기 사만 왕조 시기 사마르칸트(아프라시압)에서 제작된 백토 슬립 위 쿠피체 서예가 그려진 유약 도자기 그릇입니다.",
+        "es": "Cuenco cerámico samánida del siglo X procedente de Afrasiab (Samarcanda) con caligrafía cúfica sobre engobe blanco."
+      },
+      "historicalFacts": [
+        "Produced during the height of the Samanid Empire (819–1005 CE), when Afrasiyab (pre-Mongol Samarkand) and Nishapur led Central Asia's luxury ceramic revolution.",
+        "This specific 10th-century museum artifact (Reserve A-1-27, State Museum of History of Culture of Uzbekistan) is inscribed with the maxim: 'Renunciation of desire is the noblest of riches.'",
+        "Afrasiyab epigraphic ware represents one of the earliest chapters in world Islamic art where Arabic calligraphy served as the primary decorative ornament on pottery.",
+        "Inscriptions typically combined moral aphorisms and blessings (baraka) revealed gradually as diners finished food at communal banquets."
+      ],
+      "architecturalDetails": [
+        "Buff or reddish earthenware body coated smoothly with liquid white clay slip (engobe).",
+        "Calligraphic bands painted in dark manganese-brown/black or iron-red pigment and sealed beneath a glossy transparent lead-silica glaze."
+      ],
+      "localLegends": [
+        "Cultural Function: Scholars note that Samanid banquet guests admired witty moral proverbs hidden beneath the food—turning everyday dining dishes into philosophical conversation pieces."
+      ],
+      "visualCues": [
+        "Flared shallow bowl with off-white/cream background",
+        "Bold angular black-brown Kufic calligraphic strokes curving around the inner rim or center",
+        "Clear glassy glaze sheen showing museum display aging"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "Which century and empire produced this Afrasiyab bowl?",
+          "What does the calligraphy inside the bowl say?",
+          "How did Samanid potters keep the dark writing from running in the kiln?"
+        ],
+        "uz": [
+          "Bu kosa nechanchi asrda va qaysi sulola davrida yasalgan?",
+          "Kosa ichidagi kufiy yozuvda qanday hikmat bitilgan?",
+          "Oq angob va sir texnologiyasi qanday bajarilgan?"
+        ],
+        "ru": [
+          "К какому веку и государству относится эта чаша из Афрасиаба?",
+          "Что написано в каллиграфической надписи внутри?",
+          "Как делали подглазурную роспись по белому ангобу?"
+        ],
+        "ja": [
+          "このアフラシアブの鉢は何世紀のどの王朝で作られましたか？",
+          "内側のカリグラフィーには何が書かれていますか？"
+        ],
+        "ko": [
+          "이 아프라시압 그릇은 어느 세기 어느 왕조 시대의 유물인가요?",
+          "그릇 안쪽 서예 문구에는 어떤 뜻이 담겨 있나요?"
+        ],
+        "es": [
+          "¿De qué siglo y dinastía es este cuenco de Afrasiab?",
+          "¿Qué significa la inscripción cúfica de su interior?"
+        ]
+      },
+      "sources": [
+        "https://en.wikipedia.org/wiki/Afrasiyab,_Samarkand",
+        "https://commons.wikimedia.org/wiki/File:Bowl_decorated_with_inscription_-_Uzbekistan_-_Afrasiab_(Samarkand)_-_10th_century_-_Reserve_A-1-27.jpg"
+      ],
+      "localImage": "/artifacts/afrasiyab-inscribed-bowl.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Bowl decorated with inscription - Uzbekistan - Afrasiab (Samarkand) - 10th century - Reserve A-1-27.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Bowl_decorated_with_inscription_-_Uzbekistan_-_Afrasiab_(Samarkand)_-_10th_century_-_Reserve_A-1-27.jpg",
+        "author": "Faqscl",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 1280,
+        "bytes": 279612
+      }
+    },
+    {
+      "slug": "uzbek-museum-ceramic-vessel",
+      "category": "ceramic-vessel",
+      "region": "O'zbekiston (Toshkent Amaliy san'at muzeyi)",
+      "originCentury": "XIX–XX asrlar an'anaviy maktabi",
+      "era": "Traditional Uzbek Ceramics · 19th–20th Century",
+      "builtYear": "19th–20th century museum collection",
+      "architect": "Regional master potters of Uzbekistan",
+      "locationInSite": "State Museum of Applied Arts of Uzbekistan, Tashkent",
+      "accentColor": "#0E7490",
+      "verifiedBy": "SmartGuide Research Import (Wikimedia Commons Applied Arts Museum collection)",
+      "archiveCode": "UZ-ART-002",
+      "name": "Uzbekistan Applied Arts Museum Ceramic Vessel",
+      "localizedNames": {
+        "en": "Uzbekistan Applied Arts Museum Ceramic Vessel",
+        "uz": "O'zbekiston amaliy san'at muzeyi sopol idishi",
+        "ru": "Керамический сосуд (Музей прикладного искусства Узбекистана)",
+        "ja": "ウズベキスタン応用美術館の伝統陶器",
+        "ko": "우즈베키스탄 응용미술박물관 전통 도자기",
+        "es": "Vasija Cerámica del Museo de Artes Aplicadas de Uzbekistán"
+      },
+      "shortDescription": "Glazed handmade ceramic vessel preserved in Tashkent's State Museum of Applied Arts, illustrating Uzbekistan's rich regional pottery schools.",
+      "localizedShortDescriptions": {
+        "en": "Glazed handmade ceramic vessel preserved in Tashkent's State Museum of Applied Arts, illustrating Uzbekistan's rich regional pottery schools.",
+        "uz": "Toshkentdagi O'zbekiston amaliy san'at muzeyida saqlanayotgan, milliy kulolchilik maktablari an'analarini aks ettiruvchi sirli sopol idish.",
+        "ru": "Глазурованный керамический сосуд ручной работы из собрания Государственного музея прикладного искусства Узбекистана в Ташкенте.",
+        "ja": "タシケントのウズベキスタン応用美術館に所蔵される、地域の伝統的陶芸様式を伝える手づくり施釉陶器。",
+        "ko": "타슈켄트 우즈베키스탄 응용미술박물관에 소장된 전통 수공예 유약 도자기 유물입니다.",
+        "es": "Vasija artesanal esmaltada conservada en el Museo Estatal de Artes Aplicadas de Uzbekistán en Taskent."
+      },
+      "historicalFacts": [
+        "Preserved in the State Museum of Applied Arts of Uzbekistan (Tashkent), which holds curated 19th–20th-century vessels from Khorezm, Rishtan, Gijduvan, Bukhara, Samarkand, and Tashkent.",
+        "Traditional Uzbek glazed vessels served both utilitarian roles (water, dairy storage, dining) and ceremonial display in courtyard niches (tokcha)."
+      ],
+      "architecturalDetails": [
+        "Wheel-thrown local clay body decorated with hand-painted floral/geometric motifs under lead or plant-ash (ishkor) glazes."
+      ],
+      "localLegends": [
+        "Craft Heritage: Master-apprentice (ustoz-shogird) guilds preserved regional glaze recipes and brushstroke signatures over centuries."
+      ],
+      "visualCues": [
+        "Museum-displayed glazed earthenware bowl or vessel with painted traditional motifs inside a vitrine"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "Which museum houses this ceramic vessel?",
+          "How are Uzbek pottery schools distinguished by color and glaze?"
+        ],
+        "uz": [
+          "Bu sopol idish qaysi muzeyda saqlanadi?",
+          "O'zbekistondagi asosiy kulolchilik maktablari ranglari bilan qanday farqlanadi?"
+        ],
+        "ru": [
+          "В каком музее хранится этот сосуд?",
+          "Чем различаются основные керамические школы Узбекистана?"
+        ],
+        "ja": [
+          "この陶器はどの博物館に収蔵されていますか？"
+        ],
+        "ko": [
+          "이 도자기는 어느 박물관에 소장되어 있나요?"
+        ],
+        "es": [
+          "¿En qué museo se conserva esta vasija y qué escuelas cerámicas existen en Uzbekistán?"
+        ]
+      },
+      "sources": [
+        "https://commons.wikimedia.org/wiki/File:Sopol_idish._O%CA%BBzbekiston_amaliy_san%CA%BCat_muzeyida_saqlanayotgan_eksponat._02.jpg"
+      ],
+      "localImage": "/artifacts/uzbek-museum-ceramic-vessel.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Sopol idish. Oʻzbekiston amaliy sanʼat muzeyida saqlanayotgan eksponat. 02.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Sopol_idish._O%CA%BBzbekiston_amaliy_san%CA%BCat_muzeyida_saqlanayotgan_eksponat._02.jpg",
+        "author": "Panpanchik",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 926,
+        "bytes": 250163
+      }
+    },
+    {
+      "slug": "gijduvan-sopol-koza",
+      "category": "pottery-jug",
+      "region": "G'ijduvon, Buxoro viloyati",
+      "originCentury": "~1,500–2,000 yillik maktab (namunalar XIX–XXI asr)",
+      "era": "Gijduvan Pottery School · Bukhara Oasis",
+      "builtYear": "Continuous 1,500–2,000 year regional tradition",
+      "architect": "Gijduvan ceramicists (including the multi-generation Narzullaev dynasty)",
+      "locationInSite": "Gijduvan, Bukhara Region",
+      "accentColor": "#65A30D",
+      "verifiedBy": "SmartGuide Research Import (Uzbekistan.travel, Wikimedia Commons AIDEPCUL, Folkartmarket)",
+      "archiveCode": "UZ-ART-003",
+      "name": "Gijduvan Glazed Ceramic Jug (Sopol Ko'za)",
+      "localizedNames": {
+        "en": "Gijduvan Glazed Ceramic Jug (Sopol Ko'za)",
+        "uz": "G'ijduvon sopol ko'zasi",
+        "ru": "Гиждуванский глазурованный кувшин (сопол куза)",
+        "ja": "ギジュドゥヴァン釉薬陶器水差し（コザ）",
+        "ko": "기즈두반 유약 도자기 물병 (코자)",
+        "es": "Cántaro Cerámico Vidriado de Gijduvan (Ko'za)"
+      },
+      "shortDescription": "Traditional Gijduvan ceramic pitcher distinguished by warm earthy green, ochre-yellow, and brown lead glazes painted with expressive floral strokes.",
+      "localizedShortDescriptions": {
+        "en": "Traditional Gijduvan ceramic pitcher distinguished by warm earthy green, ochre-yellow, and brown lead glazes painted with expressive floral strokes.",
+        "uz": "G'ijduvon maktabiga xos issiq yashil, sariq-oxra va jigarrang rangli sir bilan bezatilgan an'anaviy sopol ko'za.",
+        "ru": "Традиционный гиждуванский керамический кувшин, узнаваемый по тёплой зелёно-жёлтой и коричневой глазури с выразительной росписью.",
+        "ja": "温かみのある緑・黄土色・茶色の鉛釉と筆致豊かな文様で知られるギジュドゥヴァン伝統の陶器水差し。",
+        "ko": "따뜻한 녹색, 황토색, 갈색 유약과 힘 있는 붓질 장식이 돋보이는 기즈두반 전통 도자기 물병입니다.",
+        "es": "Cántaro cerámico tradicional de Gijduvan caracterizado por esmaltes cálidos en verde, amarillo ocre y marrón."
+      },
+      "historicalFacts": [
+        "Gijduvan near Bukhara hosts one of Uzbekistan's oldest pottery traditions, tracing local clay craft back 1,500 to 2,000 years.",
+        "Unlike the turquoise ash glazes of Rishtan and Khorezm, Gijduvan ceramics stand out for warm green, amber-yellow, and brown lead glazes.",
+        "Hereditary artisan families such as the Narzullaev dynasty preserved hand-throwing and brush techniques across generations."
+      ],
+      "architecturalDetails": [
+        "Wheel-thrown swollen belly tapering to a narrow pouring neck with an arched side handle.",
+        "Painted freehand over light engobe with floral rosettes and bands before kiln firing."
+      ],
+      "localLegends": [
+        "Artisan Tradition: Porous unglazed clay jugs naturally cool water via evaporation, while glazed Gijduvan pitchers protect liquids and decorate household shelves."
+      ],
+      "visualCues": [
+        "Bulbous earthenware pitcher/jug with handle and flaring lip",
+        "Warm olive-green, mustard-yellow, and brown glazed floral patterns on light ground"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "How do you recognize a Gijduvan jug vs. Rishtan pottery?",
+          "How old is Gijduvan's pottery tradition?",
+          "What were ceramic ko'za jugs used for?"
+        ],
+        "uz": [
+          "G'ijduvon ko'zasini Rishton yoki Xorazm sopolidan qanday ajratish mumkin?",
+          "G'ijduvon kulolchilik maktabi necha yillik tarixga ega?",
+          "Sopol ko'zalar ro'zg'orda nima uchun ishlatilgan?"
+        ],
+        "ru": [
+          "Как отличить гиждуванский кувшин от риштанской керамики?",
+          "Сколько веков гиждуванской школе гончарства?"
+        ],
+        "ja": [
+          "ギジュドゥヴァンの水差しとリシタン陶器の見分け方は？",
+          "ギジュドゥヴァンの陶芸はどれほど古い歴史がありますか？"
+        ],
+        "ko": [
+          "기즈두반 물병을 리시탄 도자기와 어떻게 구별하나요?",
+          "기즈두반 도자기 전통은 얼마나 오래되었나요?"
+        ],
+        "es": [
+          "¿En qué se diferencia la cerámica de Gijduvan de la de Rishtan?",
+          "¿Qué antigüedad tiene la tradición alfarera de Gijduvan?"
+        ]
+      },
+      "sources": [
+        "https://uzbekistan.travel/en/",
+        "https://commons.wikimedia.org/wiki/File:Sopol_ko%E2%80%99za.png"
+      ],
+      "localImage": "/artifacts/gijduvan-sopol-koza.png",
+      "imageCredit": {
+        "commonsTitle": "File:Sopol ko’za.png",
+        "page": "https://commons.wikimedia.org/wiki/File:Sopol_ko%E2%80%99za.png",
+        "author": "AIDEPCUL",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "width": 960,
+        "height": 540,
+        "bytes": 504951
+      }
+    },
+    {
+      "slug": "gijduvan-sopol-lagan",
+      "category": "pottery-platter",
+      "region": "G'ijduvon, Buxoro viloyati",
+      "originCentury": "XIX–XXI asrlar (qadimiy Buxoro maktabi)",
+      "era": "Gijduvan Pottery School",
+      "builtYear": "Traditional multi-century craft (modern museum/workshop specimen)",
+      "architect": "Gijduvan school ceramic painters",
+      "locationInSite": "Gijduvan, Bukhara Region",
+      "accentColor": "#B45309",
+      "verifiedBy": "SmartGuide Research Import (Uzbekistan.travel, Wikimedia Commons AIDEPCUL)",
+      "archiveCode": "UZ-ART-004",
+      "name": "Gijduvan Hand-Painted Ceramic Platter (Lagan)",
+      "localizedNames": {
+        "en": "Gijduvan Hand-Painted Ceramic Platter (Lagan)",
+        "uz": "G'ijduvon sopol lagani",
+        "ru": "Гиждуванский керамический ляган (блюдо)",
+        "ja": "ギジュドゥヴァン手描き大皿（ラガン）",
+        "ko": "기즈두반 수채 도자기 큰 접시 (라간)",
+        "es": "Fuente Cerámica Pintada a Mano de Gijduvan (Lagan)"
+      },
+      "shortDescription": "Wide, shallow Gijduvan serving platter (lagan) used for communal plov and celebratory feasts, painted in warm yellow, green, and brown glazes.",
+      "localizedShortDescriptions": {
+        "en": "Wide, shallow Gijduvan serving platter (lagan) used for communal plov and celebratory feasts, painted in warm yellow, green, and brown glazes.",
+        "uz": "Palov va bayram taomlari tortiladigan, G'ijduvon uslubida sariq, yashil va jigarrang ranglarda qo'lda chizilgan keng sopol lagan.",
+        "ru": "Широкое блюдо (ляган) гиждуванской школы для плова и праздников, расписанное вручную жёлтыми, зелёными и коричневыми узорами.",
+        "ja": "プロフや祝宴料理を盛る広口の伝統大皿（ラガン）。ギジュドゥヴァン特有の黄・緑・茶色の釉薬で手描きされています。",
+        "ko": "플로브와 잔치 음식을 담는 넓은 접시(라간)로, 기즈두반 특유의 노랑·초록·갈색 유약으로 손수 그려졌습니다.",
+        "es": "Amplia fuente cerámica (lagan) utilizada para servir plov, decorada con los tonos verdes, amarillos y marrones de Gijduvan."
+      },
+      "historicalFacts": [
+        "The lagan is Central Asia's signature communal platter for serving plov, roasted dishes, and fruit, as well as a prized wall ornament.",
+        "Gijduvan platters blend stylized floral medallions, comb motifs, and bold geometric borders under warm translucent glazes."
+      ],
+      "architecturalDetails": [
+        "Wide flat-rimmed earthenware dish formed on a potter's wheel and hand-brushed over light clay slip."
+      ],
+      "localLegends": [
+        "Hospitality Symbol: Placing a richly decorated lagan in the center of the dastarkhan table symbolizes abundance and welcome."
+      ],
+      "visualCues": [
+        "Wide circular glazed ceramic platter showing concentric floral/star ornament in green, ochre-yellow, and brown"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "What is a lagan used for at Uzbek feasts?",
+          "Why are Gijduvan lagans painted in yellow, green, and brown?"
+        ],
+        "uz": [
+          "Sopol lagan o'zbek dasturxonida qanday o'rin tutadi?",
+          "G'ijduvon laganlari rang palitrasi nimasi bilan ajralib turadi?"
+        ],
+        "ru": [
+          "Для каких блюд предназначен узбекский ляган?",
+          "Чем примечательна палитра гиждуванских ляганов?"
+        ],
+        "ja": [
+          "ウズベキスタンの食卓でラガンはどのように使われますか？"
+        ],
+        "ko": [
+          "우즈베키스탄 식문화에서 라간 접시는 어떤 용도로 쓰이나요?"
+        ],
+        "es": [
+          "¿Para qué platos se utiliza el lagan en la mesa uzbeka?"
+        ]
+      },
+      "sources": [
+        "https://uzbekistan.travel/en/",
+        "https://commons.wikimedia.org/wiki/File:Sopol_lagan_11.png"
+      ],
+      "localImage": "/artifacts/gijduvan-sopol-lagan.png",
+      "imageCredit": {
+        "commonsTitle": "File:Sopol lagan 11.png",
+        "page": "https://commons.wikimedia.org/wiki/File:Sopol_lagan_11.png",
+        "author": "AIDEPCUL",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "width": 960,
+        "height": 540,
+        "bytes": 608329
+      }
+    },
+    {
+      "slug": "bukhara-decorative-koza",
+      "category": "pottery-jug",
+      "region": "Buxoro viloyati",
+      "originCentury": "XIX–XX asrlar Buxoro an'anaviy maktabi",
+      "era": "Bukhara Oasis Ceramic Art",
+      "builtYear": "19th–20th century Bukhara school style",
+      "architect": "Bukhara school potters",
+      "locationInSite": "Bukhara Region",
+      "accentColor": "#047857",
+      "verifiedBy": "SmartGuide Research Import (Wikimedia Commons AIDEPCUL metadata)",
+      "archiveCode": "UZ-ART-005",
+      "name": "Bukhara Decorative Ceramic Jug",
+      "localizedNames": {
+        "en": "Bukhara Decorative Ceramic Jug",
+        "uz": "Buxoro dekorativ sopol ko'zasi",
+        "ru": "Бухарский декоративный керамический кувшин",
+        "ja": "ブハラ装飾陶器水差し",
+        "ko": "부하라 장식용 도자기 물병",
+        "es": "Cántaro Cerámico Decorativo de Bujará"
+      },
+      "shortDescription": "Artistic ceramic jug showcasing the graceful silhouette and decorative ornamental grammar of the Bukhara school of pottery.",
+      "localizedShortDescriptions": {
+        "en": "Artistic ceramic jug showcasing the graceful silhouette and decorative ornamental grammar of the Bukhara school of pottery.",
+        "uz": "Buxoro kulolchilik maktabining nafis shakli va bezak uslubini aks ettiruvchi badiiy dekorativ sopol ko'za.",
+        "ru": "Декоративный керамический кувшин с характерным орнаментом и силуэтом бухарской гончарной школы.",
+        "ja": "ブハラ陶芸派の優美なフォルムと装飾文様を体現した芸術的な陶器水差し。",
+        "ko": "부하라 도예 유파의 우아한 형태와 장식 문양을 담은 예술적 도자기 물병입니다.",
+        "es": "Cántaro artístico que refleja la silueta elegante y los motivos ornamentales de la escuela cerámica de Bujará."
+      },
+      "historicalFacts": [
+        "Bukhara pottery workshops produced both practical household jugs and ornamental pitchers placed in carved wall niches (tokcha) of urban houses.",
+        "Historically linked closely with Gijduvan and Vobkent oasis pottery traditions."
+      ],
+      "architecturalDetails": [
+        "Balanced rounded vessel body with slender neck, flared spout rim, curved handle, and hand-painted glazed ornament."
+      ],
+      "localLegends": [
+        "Interior Tradition: Decorative Bukhara jugs often stood in symmetrical pairs inside plaster niches (tokcha) to signify a cultured, hospitable home."
+      ],
+      "visualCues": [
+        "Tall slender-necked decorative ceramic jug with loop handle and glazed surface pattern"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "How were decorative jugs displayed in historic Bukhara homes?",
+          "How does Bukhara pottery relate to Gijduvan?"
+        ],
+        "uz": [
+          "Buxoro uylarida dekorativ ko'zalar qayerga qo'yilgan?",
+          "Buxoro kulolchiligi G'ijduvon maktabi bilan qanday bog'liq?"
+        ],
+        "ru": [
+          "Где в бухарских домах ставили декоративные кувшины?"
+        ],
+        "ja": [
+          "ブハラの伝統住宅では装飾水差しをどこに飾っていましたか？"
+        ],
+        "ko": [
+          "부하라 전통 가옥에서는 장식용 물병을 어디에 진열했나요?"
+        ],
+        "es": [
+          "¿Dónde se exhibían estos cántaros decorativos en las casas de Bujará?"
+        ]
+      },
+      "sources": [
+        "https://commons.wikimedia.org/wiki/File:Dekorativ_sopol_ko%E2%80%99za.png"
+      ],
+      "localImage": "/artifacts/bukhara-decorative-koza.png",
+      "imageCredit": {
+        "commonsTitle": "File:Dekorativ sopol ko’za.png",
+        "page": "https://commons.wikimedia.org/wiki/File:Dekorativ_sopol_ko%E2%80%99za.png",
+        "author": "AIDEPCUL",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "width": 960,
+        "height": 540,
+        "bytes": 506158
+      }
+    },
+    {
+      "slug": "rishtan-ceramics-workshop",
+      "category": "ceramics-school",
+      "region": "Rishton, Farg'ona vodiysi",
+      "originCentury": "800+ yillik maktab (arxeologik izlari mil. avv. davrdan)",
+      "era": "Ancient & Living Craft · Fergana Valley",
+      "builtYear": "800+ years continuous glazed pottery tradition (settlement layers pre-CE & IX–XII c.)",
+      "architect": "Rishtan master lineages (incl. Rustam Usmanov workshop)",
+      "locationInSite": "Rishtan, Fergana Region",
+      "accentColor": "#0284C7",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia ru, UNESCO ICH, Wikimedia Commons)",
+      "archiveCode": "UZ-ART-006",
+      "name": "Rishtan Turquoise Ishkor Ceramics",
+      "localizedNames": {
+        "en": "Rishtan Turquoise Ishkor Ceramics",
+        "uz": "Rishton feruza ishqorli kulolchiligi",
+        "ru": "Риштанская бирюзовая керамика с ишкором",
+        "ja": "リシタンのターコイズ釉薬陶器（イシュコル）",
+        "ko": "리시탄 청록색 이쉬코르 유약 도자기",
+        "es": "Cerámica Turquesa Ishkor de Rishtan"
+      },
+      "shortDescription": "Over 800 years old Fergana Valley pottery school famed for luminous blue-turquoise glaze derived from desert plant ash (ishkor) over red khoki-surkh clay.",
+      "localizedShortDescriptions": {
+        "en": "Over 800 years old Fergana Valley pottery school famed for luminous blue-turquoise glaze derived from desert plant ash (ishkor) over red khoki-surkh clay.",
+        "uz": "800 yildan ortiq tarixga ega Rishton kulolchiligi — qizil loy («xoki surx») va cho'l o'simligi kulidan olingan yorqin feruza «ishqor» siri.",
+        "ru": "Риштанская школа керамики (более 800 лет): красная глина «хоки-сурх» и светящаяся бирюзовая глазурь «ишкор» из золы растений.",
+        "ja": "800年以上の歴史を持つリシタン陶芸。地元の赤土と砂漠植物の灰（イシュコル）から生まれる鮮やかなトルコブルーの釉薬が特徴です。",
+        "ko": "800년 이상의 역사를 지닌 리시탄 도예로, 붉은 점토와 사막 식물 재(이쉬코르)로 만든 영롱한 청록색 유약이 특징입니다.",
+        "es": "Escuela cerámica con más de 800 años de historia famosa por su esmalte turquesa 'ishkor' obtenido de ceniza de plantas del desierto."
+      },
+      "historicalFacts": [
+        "Archaeological digs in 1939 and 1998–1999 uncovered ancient kilns, ceramic pipes from the 9th–12th centuries, and settlement layers dating back to pre-CE times.",
+        "Rishtan's name links to the Sogdian word 'Rash/Rush' ('red earth'), referring to the pure red clay (khoki-surkh) mined locally without requiring additives.",
+        "Its celebrated bright blue and turquoise glaze comes from natural alkali (ishkor) extracted from burned desert shrubs, shared in principle with Khorezm's Madir pottery school."
+      ],
+      "architecturalDetails": [
+        "Hand-thrown red-clay platters, jugs, and bowls covered in white quartz slip and hand-painted with mineral cobalt and copper oxides before firing."
+      ],
+      "localLegends": [
+        "UNESCO Heritage & Craft Secret: Rishtan masters guard the gathering season and firing balance of wild desert plants to keep the ishkor glaze shimmering like sky and water."
+      ],
+      "visualCues": [
+        "Shelves or workshop display of vivid sky-blue, cobalt, and turquoise glazed ceramic plates, bowls, and tall jugs with delicate floral brushwork"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "What does the name 'Rishtan' mean and what kind of clay is used?",
+          "How do potters make the bright turquoise ishkor glaze?",
+          "How old are the kiln remains found in Rishtan?"
+        ],
+        "uz": [
+          "«Rishton» nomi nimani anglatadi va u yerda qanday loy ishlatiladi?",
+          "Yorqin feruza rang beruvchi «ishqor» siri nimadan olinadi?",
+          "Rishtondagi arxeologik xumdon qoldiqlari nechanchi asrlarga oid?"
+        ],
+        "ru": [
+          "Что означает слово «Риштан» и какая глина там добывается?",
+          "Из чего получают знаменитую бирюзовую глазурь «ишкор»?"
+        ],
+        "ja": [
+          "「リシタン」という地名の意味と使われる粘土の特徴は？",
+          "鮮やかなトルコブルーのイシュコル釉薬はどう作られますか？"
+        ],
+        "ko": [
+          "'리시탄' 지명의 뜻과 사용되는 점토의 특징은 무엇인가요?",
+          "선명한 청록색 이쉬코르 유약은 어떻게 만드나요?"
+        ],
+        "es": [
+          "¿Qué significa 'Rishtan' y cómo se elabora el esmalte turquesa ishkor?"
+        ]
+      },
+      "sources": [
+        "https://ru.wikipedia.org/wiki/%D0%9A%D0%B5%D1%80%D0%B0%D0%BC%D0%B8%D0%BA%D0%B0_%D0%A0%D0%B8%D1%88%D1%82%D0%B0%D0%BD%D0%B0",
+        "https://ich.unesco.org/"
+      ],
+      "localImage": "/artifacts/rishtan-ceramics-workshop.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:10 Taller ceràmic de Rustam Usmanov, Burhoniddin Roshidoni Ko'chasi 6 (Rixtan).jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:10_Taller_cer%C3%A0mic_de_Rustam_Usmanov,_Burhoniddin_Roshidoni_Ko%27chasi_6_(Rixtan).jpg",
+        "author": "Enric",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 698,
+        "bytes": 295369
+      }
+    },
+    {
+      "slug": "khiva-nurullaboy-oftoba",
+      "category": "metalware-jug",
+      "region": "Xiva (Nurullaboy saroyi), Xorazm",
+      "originCentury": "XIX asr oxiri — XX asr boshi",
+      "era": "Khanate of Khiva Coppersmithing",
+      "builtYear": "Late 19th – early 20th century",
+      "architect": "Khivan coppersmiths & kandakor engravers",
+      "locationInSite": "Nurullaboy Palace Museum, Khiva",
+      "accentColor": "#D97706",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia uz Obdasta, Wikimedia Commons)",
+      "archiveCode": "UZ-ART-007",
+      "name": "Khiva Chased Copper Oftoba Ewer (Nurullaboy Palace)",
+      "localizedNames": {
+        "en": "Khiva Chased Copper Oftoba Ewer (Nurullaboy Palace)",
+        "uz": "Xiva mis oftobasi (Nurullaboy saroyi eksponati)",
+        "ru": "Хивинский чеканный медный кувшин офтоба (Дворец Нуруллабай)",
+        "ja": "ヒヴァの打ち出し銅製水差し「オフトバ」（ヌルッラバイ宮殿）",
+        "ko": "히바 세공 구리 물주전자 '오프토바' (누룰라보이 궁전)",
+        "es": "Aguamanil de Cobre Repujado Oftoba de Jiva (Palacio Nurullaboy)"
+      },
+      "shortDescription": "Slender-spouted engraved copper water ewer (oftoba / obdasta) preserved at Khiva's Nurullaboy Palace, exemplifying Khivan coppersmithing (misgarlik).",
+      "localizedShortDescriptions": {
+        "en": "Slender-spouted engraved copper water ewer (oftoba / obdasta) preserved at Khiva's Nurullaboy Palace, exemplifying Khivan coppersmithing (misgarlik).",
+        "uz": "Nurullaboy saroyida saqlanayotgan, Xiva misgarlik va kandakorlik san'atini namoyon etuvchi uzun jo'mrakli o'yma naqshli mis oftoba.",
+        "ru": "Изящный медный кувшин офтоба с длинным изогнутым носиком и гравировкой, хранящийся во дворце Нуруллабай в Хиве.",
+        "ja": "ヒヴァのヌルッラバイ宮殿に展示されている、細長い注ぎ口と緻密な彫金が施された伝統的銅製水差し（オフトバ）。",
+        "ko": "히바 누룰라보이 궁전에 소장된 가늘고 긴 주둥이와 정교한 문양이 돋보이는 전통 구리 물병(오프토바)입니다.",
+        "es": "Aguamanil de cobre cincelado (oftoba) con pico largo y fino conservado en el Palacio Nurullaboy de Jiva."
+      },
+      "historicalFacts": [
+        "From Persian 'obdasta' ('water and handle'), the oftoba was an essential Central Asian copper ewer used to pour water over guests' hands before and after meals.",
+        "Khivan, Bukharan, and Tashkent coppersmiths fashioned distinct silhouettes known poetically as duck-shaped (o'rdak), peacock-shaped (tovus), or camel-neck (tuyabo'yin) obdastas.",
+        "Displayed inside the historic Nurullaboy Palace museum complex in Khiva."
+      ],
+      "architecturalDetails": [
+        "Hammered from copper sheet with soldered seams, domed hinged lid, S-curved spout, and hand-chased floral/calligraphic engraving (kandakorlik)."
+      ],
+      "localLegends": [
+        "Hospitality Ritual: Pouring warm water from a chased copper oftoba into a matching basin (dastsho'y/chilopchin) before plov was a cherished symbol of Khivan home etiquette."
+      ],
+      "visualCues": [
+        "Tall slender-necked hammered copper or brass pitcher",
+        "Long thin S-curved pouring spout on one side and curved handle opposite",
+        "Intricately engraved floral/arabesque surface ornamentation"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "What was a copper oftoba used for in Khivan homes?",
+          "Why do Uzbek copper ewers have such long slender spouts?",
+          "What poetic shapes did Uzbek coppersmiths give to oftobas?"
+        ],
+        "uz": [
+          "Oftoba (obdasta) Xiva xonadonlarida qanday vazifani bajargan?",
+          "O'zbek misgarlari oftobani qanday shakllarda (tovus, tuyabo'yin) yasagan?",
+          "Kandakorlik naqshlari mis yuzasiga qanday tushiriladi?"
+        ],
+        "ru": [
+          "Для чего в домах Хивы использовали медный кувшин офтоба?",
+          "Какие образные названия давали мастерами разным формам офтоб?"
+        ],
+        "ja": [
+          "ヒヴァの家庭で銅製オフトバはどのように使われていましたか？",
+          "なぜ注ぎ口がこんなに細長いのですか？"
+        ],
+        "ko": [
+          "히바 가정에서 구리 오프토바는 어떤 용도로 사용되었나요?",
+          "왜 주둥이가 이토록 가늘고 길게 만들어졌나요?"
+        ],
+        "es": [
+          "¿Para qué se utilizaba la oftoba de cobre en las casas de Jiva?",
+          "¿Por qué tiene un pico tan largo y estrecho?"
+        ]
+      },
+      "sources": [
+        "https://uz.wikipedia.org/wiki/Obdasta",
+        "https://commons.wikimedia.org/wiki/File:Oftoba_(Nurullaboy_saroyi).jpg"
+      ],
+      "localImage": "/artifacts/khiva-nurullaboy-oftoba.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Oftoba (Nurullaboy saroyi).jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Oftoba_(Nurullaboy_saroyi).jpg",
+        "author": "Panpanchik",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 1440,
+        "bytes": 185590
+      }
+    },
+    {
+      "slug": "uzbek-museum-oftoba",
+      "category": "metalware-jug",
+      "region": "O'zbekiston (Toshkent Amaliy san'at muzeyi)",
+      "originCentury": "XIX — XX asr boshi",
+      "era": "Central Asian Chased Copperware · 19th–Early 20th Century",
+      "builtYear": "19th–early 20th century museum exhibit",
+      "architect": "Regional kandakor coppersmiths",
+      "locationInSite": "State Museum of Applied Arts of Uzbekistan, Tashkent",
+      "accentColor": "#B45309",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia uz Obdasta, Wikimedia Commons Applied Arts Museum)",
+      "archiveCode": "UZ-ART-008",
+      "name": "Engraved Copper Oftoba (Applied Arts Museum)",
+      "localizedNames": {
+        "en": "Engraved Copper Oftoba (Applied Arts Museum)",
+        "uz": "O'yma naqshli mis oftoba (Amaliy san'at muzeyi)",
+        "ru": "Резная медная офтоба (Музей прикладного искусства)",
+        "ja": "彫金銅製オフトバ（応用美術館所蔵）",
+        "ko": "조각 구리 오프토바 (응용미술박물관 소장)",
+        "es": "Oftoba de Cobre Cincelado (Museo de Artes Aplicadas)"
+      },
+      "shortDescription": "Antique chased copper hand-washing ewer (oftoba) from the Applied Arts Museum in Tashkent, showcasing dense chased arabesques and regional metalwork.",
+      "localizedShortDescriptions": {
+        "en": "Antique chased copper hand-washing ewer (oftoba) from the Applied Arts Museum in Tashkent, showcasing dense chased arabesques and regional metalwork.",
+        "uz": "O'zbekiston amaliy san'at muzeyida saqlanayotgan, kandakor ustalar tomonidan nozik naqshlar bilan bezatilgan XIX–XX asr mis oftobasi.",
+        "ru": "Старинная медная офтоба с тонкой чеканкой из Музея прикладного искусства Узбекистана, известная также как обдаста или ибрик.",
+        "ja": "タシケントの応用美術館に所蔵される19〜20世紀初頭の彫金銅製水差し「オフトバ」。",
+        "ko": "타슈켄트 응용미술박물관에 소장된 19~20세기 초 정교한 아라베스크 문양이 새겨진 구리 물병입니다.",
+        "es": "Antigua jarra oftoba de cobre cincelado conservada en el Museo Estatal de Artes Aplicadas de Taskent."
+      },
+      "historicalFacts": [
+        "Known regionally across Uzbekistan as oftoba, obdasta (Fergana Valley), or ibriq (Kashkadarya).",
+        "Fine ceremonial obdastas were crafted from copper and brass, engraved with floral islimi scrollwork, and occasionally inlaid with decorative stones."
+      ],
+      "architecturalDetails": [
+        "Rounded pear-shaped body tapering to a ringed collar, lidded finial, curved strap handle, and narrow angled spout."
+      ],
+      "localLegends": [
+        "Regional Lore: In traditional hospitality, a host held the oftoba while a basin rested below—honoring the guest with clean water before sharing bread."
+      ],
+      "visualCues": [
+        "Antique metallic bronze-copper ewer inside a museum showcase with tall finial lid and thin curved spout"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "What regional names are used for the oftoba across Uzbekistan?",
+          "How did kandakor artisans carve patterns into copper?"
+        ],
+        "uz": [
+          "Oftoba O'zbekistonning turli hududlarida yana qanday nomlar (obdasta, ibriq) bilan ataladi?",
+          "Kandakorlik va misgarlik o'rtasidagi farq nimada?"
+        ],
+        "ru": [
+          "Как в разных регионах Узбекистана называют этот кувшин?",
+          "Чем отличается работа медника-мисгара от чеканщика-кандакора?"
+        ],
+        "ja": [
+          "ウズベキスタンの地域ごとにオフトバはどのような別名で呼ばれますか？"
+        ],
+        "ko": [
+          "우즈베키스탄 지역별로 오프토바는 어떤 다른 이름으로 불리나요?"
+        ],
+        "es": [
+          "¿Qué nombres regionales recibe la oftoba en Uzbekistán?"
+        ]
+      },
+      "sources": [
+        "https://uz.wikipedia.org/wiki/Obdasta",
+        "https://commons.wikimedia.org/wiki/File:Oftoba._O%CA%BBzbekiston_amaliy_san%CA%BCat_muzeyida_saqlanayotgan_eksponat.jpg"
+      ],
+      "localImage": "/artifacts/uzbek-museum-oftoba.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Oftoba. Oʻzbekiston amaliy sanʼat muzeyida saqlanayotgan eksponat.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Oftoba._O%CA%BBzbekiston_amaliy_san%CA%BCat_muzeyida_saqlanayotgan_eksponat.jpg",
+        "author": "Panpanchik",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 1160,
+        "bytes": 288750
+      }
+    },
+    {
+      "slug": "khiva-carved-wooden-gate",
+      "category": "wood-carving",
+      "region": "Xiva (Ichan-Qal'a), Xorazm",
+      "originCentury": "XVIII–XIX asrlar (maktab ildizlari X asr Juma masjidi ustunlarigacha)",
+      "era": "Khivan Monumental Wood Carving · 10th–19th Century",
+      "builtYear": "18th–19th century gates (tradition documented from 10th-century columns)",
+      "architect": "Khivan master woodcarvers (ustas)",
+      "locationInSite": "Ichan-Qala palaces, mosques, and madrasahs, Khiva",
+      "accentColor": "#78350F",
+      "verifiedBy": "SmartGuide Research Import (UNESCO List #543, Wikimedia Commons)",
+      "archiveCode": "UZ-ART-009",
+      "name": "Khiva Carved Wooden Gate & Columns",
+      "localizedNames": {
+        "en": "Khiva Carved Wooden Gate & Columns",
+        "uz": "Xiva o'ymakor yog'och darvozasi va ustunlari",
+        "ru": "Хивинские резные деревянные ворота и колонны",
+        "ja": "ヒヴァの彫刻木製門扉と木柱",
+        "ko": "히바 조각 목재 대문과 기둥",
+        "es": "Puertas y Columnas de Madera Tallada de Jiva"
+      },
+      "shortDescription": "Monumental Khivan wood carving executed in seasoned black elm (karagach), walnut, or mulberry—covering doors and palace pillars in deep spiral islimi reliefs.",
+      "localizedShortDescriptions": {
+        "en": "Monumental Khivan wood carving executed in seasoned black elm (karagach), walnut, or mulberry—covering doors and palace pillars in deep spiral islimi reliefs.",
+        "uz": "Qayrag'och (gujum), tut va yong'oq yog'ochidan chuqur o'yma islimiy va girih naqshlari bilan ishlangan Xivaning mashhur yog'och o'ymakorligi.",
+        "ru": "Знаменитая хивинская резьба по дереву (карагач, орех, тутовник), украшающая массивные ворота и колонны спиральными узорами ислими.",
+        "ja": "何年も乾燥させたニレ（カラガチ）やクルミ材に深い唐草・幾何学浮彫を施したヒヴァ伝統のモニュメンタル木彫。",
+        "ko": "오래 건조한 느릅나무(카라가치)·호두나무에 깊은 식물·기하학 부조를 새긴 히바의 전통 목각 공예입니다.",
+        "es": "Monumental talla en madera de olmo (karagach) y nogal en Jiva, cubierta de profundos relieves vegetales y geométricos."
+      },
+      "historicalFacts": [
+        "Khiva possesses one of the Islamic world's longest unbroken monumental wood-carving traditions—surviving carved columns in Juma Mosque date back to the 10th–12th centuries.",
+        "During the 18th–19th centuries Khivan ustas elevated double doors, gates, and ayvan pillars into multi-layered relief sculptures without metal nails in decorative faces.",
+        "Master carvers seasoned dense local black elm (karagach/gujum), walnut, or mulberry timber in shade for years to prevent splitting under extreme desert heat."
+      ],
+      "architecturalDetails": [
+        "Double-leaf wooden doors divided into recessed geometric panels filled with densely intertwined floral spirals (islimi) and star polygons (girih)."
+      ],
+      "localLegends": [
+        "Craftsman Tradition: Elders in Khiva taught that well-seasoned gujum timber hardens almost like stone over centuries, allowing 1,000-year-old carvings to remain crisp."
+      ],
+      "visualCues": [
+        "Heavy dark-brown double wooden door or gate completely covered in deep carved floral spirals and rectangular panel frames"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "Which wood species did Khiva carvers prefer and why?",
+          "How old are the earliest surviving carved wood pieces in Khiva?",
+          "What are islimi and girih patterns on these doors?"
+        ],
+        "uz": [
+          "Xiva ustalari eshik va ustunlar uchun qaysi yog'ochni tanlagan va nega?",
+          "Xivadagi eng qadimiy o'ymakor yog'och namunasi nechanchi asrga oid?",
+          "Eshikdagi islimiy va girih naqshlari nimasi bilan ajralib turadi?"
+        ],
+        "ru": [
+          "Из какой древесины вырезали хивинские ворота и как её сушили?",
+          "К каким векам относятся древнейшие резные колонны Хивы?"
+        ],
+        "ja": [
+          "ヒヴァの木彫職人はなぜニレ材を好んで使ったのですか？",
+          "現存する最古の木彫は何世紀のものですか？"
+        ],
+        "ko": [
+          "히바 목각 장인들은 왜 느릅나무(구줌)를 선호했나요?",
+          "히바에 남아 있는 가장 오래된 목각 유물은 몇 세기 것인가요?"
+        ],
+        "es": [
+          "¿Qué madera utilizaban los talladores de Jiva y cómo la curaban?",
+          "¿Qué antigüedad tienen las tallas más antiguas de la ciudad?"
+        ]
+      },
+      "sources": [
+        "https://whc.unesco.org/en/list/543",
+        "https://commons.wikimedia.org/wiki/File:Carved_wood_gate_in_Khiva.jpg"
+      ],
+      "localImage": "/artifacts/khiva-carved-wooden-gate.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Carved wood gate in Khiva.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Carved_wood_gate_in_Khiva.jpg",
+        "author": "Dudva",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 1446,
+        "bytes": 521436
+      }
+    },
+    {
+      "slug": "bukhara-ganch-carving",
+      "category": "architectural-plaster",
+      "region": "Buxoro / Samarqand / Xiva / Toshkent",
+      "originCentury": "Ilk o'rta asrlardan XXI asrgacha",
+      "era": "Central Asian Architectural Stucco Art",
+      "builtYear": "Medieval to contemporary continuous tradition",
+      "architect": "Usto ganchkor masters of Uzbekistan",
+      "locationInSite": "Palaces, mosques, and traditional courtyards across Bukhara, Khiva, and Samarkand",
+      "accentColor": "#64748B",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia uz Ganchkorlik, National Encyclopedia of Uzbekistan)",
+      "archiveCode": "UZ-ART-010",
+      "name": "Ganchkorlik (Carved Gypsum Plaster Panel)",
+      "localizedNames": {
+        "en": "Ganchkorlik (Carved Gypsum Plaster Panel)",
+        "uz": "Ganchkorlik (Uymakori o'yma ganch bezagi)",
+        "ru": "Ганчкори (художественная резьба по ганчу)",
+        "ja": "ガンチコリ（漆喰・石膏透かし彫り装飾）",
+        "ko": "간치코를리크 (전통 석고 부조 공예)",
+        "es": "Ganchkorlik (Talla Ornamental en Yeso Ganch)"
+      },
+      "shortDescription": "Ancient Central Asian art of carving geometric stars and floral arabesques into local gypsum-clay plaster (ganch) using freehand uymakori or molded qolipaki methods.",
+      "localizedShortDescriptions": {
+        "en": "Ancient Central Asian art of carving geometric stars and floral arabesques into local gypsum-clay plaster (ganch) using freehand uymakori or molded qolipaki methods.",
+        "uz": "O'zbekiston me'morchiligida qadimdan devor va shiftlarni bezashda qo'llanadigan, uymakori va qolipaki usulda ishlanadigan o'yma ganch san'ati.",
+        "ru": "Древнее искусство резьбы по алебастровому раствору (ганчу) для украшения интерьеров дворцов и мечетей методами уймакори и колипаки.",
+        "ja": "宮殿やモスクの壁・天井を彩る伝統的な石膏（ガンチ）彫刻技術。生乾きの漆喰に直接彫る技法と型抜き技法があります。",
+        "ko": "궁전과 모스크 실내 벽면을 장식하는 전통 석고(간치) 조각 공예로, 직접 파내는 우이마코리 기법 등이 쓰입니다.",
+        "es": "Arte tradicional de tallar motivos geométricos y florales en yeso ganch para decorar salones palaciegos y mezquitas."
+      },
+      "historicalFacts": [
+        "Abundant gypsum-clay deposits across Uzbekistan fostered ganchkorlik from antiquity alongside brick, ceramic tile, and wood carving.",
+        "Masters apply two main methods: 'uymakori' (carving directly onto damp wall plaster before it sets) and 'qolipaki' (casting modular plaques from carved molds).",
+        "Ganch surfaces also naturally regulate indoor humidity, insulate heat, and improve room acoustics."
+      ],
+      "architecturalDetails": [
+        "Crisp white plaster panels carved in multi-level geometric polygons (six- and eight-pointed stars) enclosing delicate floral stems and muqarnas stalactites."
+      ],
+      "localLegends": [
+        "Architectural Craft: In historic Bukhara and Khiva reception halls, ganch panels sometimes incorporated tiny mirror or colored glass inserts to catch candlelight."
+      ],
+      "visualCues": [
+        "Bright white plaster wall panel carved with crisp raised geometric hexagons/stars and symmetrical floral tracery"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "What is the difference between uymakori and qolipaki ganch carving?",
+          "Why was ganch plaster favored for desert palaces and mosques?"
+        ],
+        "uz": [
+          "Ganchkorlikdagi «uymakori» va «qolipaki» usullari nimasi bilan farq qiladi?",
+          "Ganch bezaklari xona harorati va akustikasiga qanday ta'sir qiladi?"
+        ],
+        "ru": [
+          "В чём разница между методами резьбы уймакори и колипаки?",
+          "Какую практическую пользу даёт ганч в жарком климате?"
+        ],
+        "ja": [
+          "ガンチ彫刻の「ウイマコリ」と「コリパキ」の違いは何ですか？"
+        ],
+        "ko": [
+          "간치 조각의 '우이마코리'와 '콜리파키' 기법의 차이는 무엇인가요?"
+        ],
+        "es": [
+          "¿Qué diferencia hay entre las técnicas uymakori y qolipaki en el yeso ganch?"
+        ]
+      },
+      "sources": [
+        "https://uz.wikipedia.org/wiki/Ganchkorlik",
+        "https://commons.wikimedia.org/wiki/File:Ganchkorlik_namunasi.png"
+      ],
+      "localImage": "/artifacts/bukhara-ganch-carving.png",
+      "imageCredit": {
+        "commonsTitle": "File:Ganchkorlik namunasi.png",
+        "page": "https://commons.wikimedia.org/wiki/File:Ganchkorlik_namunasi.png",
+        "author": "AIDEPCUL",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "width": 960,
+        "height": 540,
+        "bytes": 446446
+      }
+    },
+    {
+      "slug": "uzbek-suzani-embroidery",
+      "category": "textile-embroidery",
+      "region": "Karmana / Buxoro / Nurota / Shahrisabz / Toshkent",
+      "originCentury": "XVIII–XIX asrlar klassik maktabi (ushbu namuna: XIX asr 1-yarmi)",
+      "era": "19th-Century Central Asian Textile Art",
+      "builtYear": "First half of the 19th century (Kermina group specimen)",
+      "architect": "Women needlework artisans of Uzbekistan",
+      "locationInSite": "Museum & private textile collections (Kermina/Bukhara school, 260 × 172 cm)",
+      "accentColor": "#BE123C",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia en/ru, Wikimedia Commons VOK Collection #13)",
+      "archiveCode": "UZ-ART-011",
+      "name": "Uzbek Suzani Embroidered Textile (Early 19th Century)",
+      "localizedNames": {
+        "en": "Uzbek Suzani Embroidered Textile (Early 19th Century)",
+        "uz": "O'zbek so'zanasi (XIX asr birinchi yarmi)",
+        "ru": "Узбекское вышитое панно сюзане (первая половина XIX века)",
+        "ja": "ウズベキスタンのスザニ刺繍（19世紀前半）",
+        "ko": "우즈베키스탄 수자니 자수 직물 (19세기 전반)",
+        "es": "Tapiz Bordado Suzani Uzbeko (Principios del Siglo XIX)"
+      },
+      "shortDescription": "Large hand-embroidered dowry wall hanging (early 19th c., 260 × 172 cm) worked in luminous silk threads with solar medallions, tulips, and pomegranate vines.",
+      "localizedShortDescriptions": {
+        "en": "Large hand-embroidered dowry wall hanging (early 19th c., 260 × 172 cm) worked in luminous silk threads with solar medallions, tulips, and pomegranate vines.",
+        "uz": "Kelin sepining asosiy bezagi sifatida qo'lda ipak ip bilan tikilgan, quyosh, lola va anor gullari tasvirlangan XIX asr boshidagi katta so'zana.",
+        "ru": "Крупное вышитое вручную шёлком настенное панно сюзане (первая половина XIX века, 260 × 172 см), главная реликвия приданого невесты.",
+        "ja": "19世紀前半（260×172cm）の花嫁衣装道具として手刺繍された大型タペストリー。太陽やザクロ、チューリップの吉祥文様が描かれています。",
+        "ko": "19세기 전반(260×172cm) 신부 혼수로 비단 실을 수놓아 만든 대형 벽걸이 자수로 태양과 석류, 꽃 문양이 가득합니다.",
+        "es": "Gran tapiz nupcial bordado a mano en seda (primera mitad del siglo XIX, 260 × 172 cm) con rosetones solares y granadas."
+      },
+      "historicalFacts": [
+        "Derived from Persian/Tajik 'suzan' ('needle'), suzani wall hangings were crafted primarily in Uzbekistan and Tajikistan, with classical surviving pieces peaking in the late 18th and 19th centuries.",
+        "This authentic Kermina-group museum piece (260 × 172 cm) dates to the first half of the 19th century and features silk chain-stitch embroidery on joined cotton strips.",
+        "Historically stitched by mothers and brides over months or years as the centerpiece of a wedding dowry."
+      ],
+      "architecturalDetails": [
+        "Multiple narrow loom-woven cotton strips were embroidered separately by family members and sewn together, explaining slight creative shifts in motif scale.",
+        "Stitches include dense chain stitch (ilmoq), couching (bosma), and satin stitch creating a metallic sheen across red, orange, aubergine, and green silk threads."
+      ],
+      "localLegends": [
+        "Symbolic Meaning: Sun/moon disks, blooming tulips, vines, and pomegranates express wishes for fertility, harmony, and protection for the newlywed home; artisans sometimes left one motif unfinished to symbolize human humility and ongoing life."
+      ],
+      "visualCues": [
+        "Large cream or beige cotton textile wall hanging densely covered in crimson, orange, deep purple, and green silk embroidery",
+        "Central diamond or grid medallions surrounded by large circular floral rosettes and vine borders"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "Why were suzanis sewn in separate narrow strips and stitched together later?",
+          "What do the circular flowers and pomegranates on a suzani symbolize?",
+          "Which century does this Kermina suzani come from?"
+        ],
+        "uz": [
+          "Nega so'zana avval bo'lak-bo'lak matolarga tikilib, keyin birlashtirilgan?",
+          "So'zanadagi quyoshsimon gullar va anor tasvirlari nimani anglatadi?",
+          "Ushbu muzey so'zanasi nechanchi asrga mansub?"
+        ],
+        "ru": [
+          "Почему сюзане вышивали на отдельных узких полосах ткани?",
+          "Что символизируют розетки, тюльпаны и гранаты на сюзане?"
+        ],
+        "ja": [
+          "なぜスザニは細長い布ごとに刺繍してから縫い合わせたのですか？",
+          "円形の花やザクロの文様にはどんな意味がありますか？"
+        ],
+        "ko": [
+          "왜 수자니는 여러 좁은 천 조각에 나누어 수를 놓은 뒤 이어 붙였나요?",
+          "꽃과 석류 문양은 어떤 의미를 담고 있나요?"
+        ],
+        "es": [
+          "¿Por qué se bordaban los suzanis por tiras antes de unirlas?",
+          "¿Qué simbolizan las rosetas solares y granadas?"
+        ]
+      },
+      "sources": [
+        "https://en.wikipedia.org/wiki/Suzani",
+        "https://ru.wikipedia.org/wiki/%D0%A1%D1%8E%D0%B7%D0%B0%D0%BD%D0%B5",
+        "https://commons.wikimedia.org/wiki/File:Kermina_Suzani.jpg"
+      ],
+      "localImage": "/artifacts/uzbek-suzani-embroidery.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Kermina Suzani.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Kermina_Suzani.jpg",
+        "author": "Unknown artisan. Photo by auctioneer",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "width": 960,
+        "height": 1416,
+        "bytes": 813731
+      }
+    },
+    {
+      "slug": "chust-doppi-skullcap",
+      "category": "traditional-headwear",
+      "region": "Chust, Namangan (va butun O'zbekiston)",
+      "originCentury": "XIX–XX asrlar (qadimiy bosh kiyim an'anasi)",
+      "era": "Uzbek Traditional Dress · 19th–20th Century",
+      "builtYear": "19th–20th century specimen (Chust school)",
+      "architect": "Chust do'ppido'z embroidery artisans",
+      "locationInSite": "Chust, Namangan Region (worn nationwide across Uzbekistan)",
+      "accentColor": "#18181B",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia en/uz, Wikimedia Commons)",
+      "archiveCode": "UZ-ART-012",
+      "name": "Chust Embroidered Skullcap (Do'ppi)",
+      "localizedNames": {
+        "en": "Chust Embroidered Skullcap (Do'ppi)",
+        "uz": "Chust do'ppisi (XIX–XX asrlar)",
+        "ru": "Чустская тюбетейка (дуппи, XIX–XX века)",
+        "ja": "チュストの刺繍帽子「ドッピ」（19〜20世紀）",
+        "ko": "추스트 전통 모자 '도피' (19~20세기)",
+        "es": "Gorro Tradicional Bordado de Chust (Do'ppi)"
+      },
+      "shortDescription": "Iconic square-crowned black velvet/satin skullcap embroidered in crisp white silk with protective pepper-pod (qalampir) motifs and 16-arch rim borders.",
+      "localizedShortDescriptions": {
+        "en": "Iconic square-crowned black velvet/satin skullcap embroidered in crisp white silk with protective pepper-pod (qalampir) motifs and 16-arch rim borders.",
+        "uz": "Qora matoga oq ipak ip bilan «qalampir» (bodom) va 16 arkli hoshiya tikilgan, O'zbekistonning eng mashhur Chust milliy do'ppisi.",
+        "ru": "Знаменитая четырёхгранная чёрная тюбетейка из Чуста с белым шёлковым узором «калампир» (стручковый перец) и 16 арочками по краю.",
+        "ja": "黒地に白い絹糸で魔除けの唐辛子（カランピル）文様と16のアーチ模様を刺繍した、ウズベキスタンを代表するチュスト帽。",
+        "ko": "검은 바탕에 흰 비단 실로 고추(칼람피르) 문양과 16개의 아치 테두리를 수놓은 우즈베키스탄 대표 추스트 모자입니다.",
+        "es": "Emblemático gorro uzbeko de cuatro lados de Chust, bordado en seda blanca con motivos protectores de guindilla (qalampir)."
+      },
+      "historicalFacts": [
+        "Every region of Uzbekistan developed distinct doppis—including Chust, Margilan, Tashkent, Shahrisabz, Bukhara, and Khorezm—worn by men, women, and children.",
+        "Originally peaked skullcaps evolved to fit neatly beneath wound turbans (salla) before flattening into folded square shapes.",
+        "Constructed from three tailored components: crown (tepa), side band (kizak), and trim binding (jiyak)."
+      ],
+      "architecturalDetails": [
+        "Black cotton/velvet/satin fabric stiffened internally with layered paper/cotton and embroidered in raised white silk stitches."
+      ],
+      "localLegends": [
+        "Protective Symbolism: The four stylized pepper pods (qalampir) and 16 arched gates around the band symbolize purity and protection from the evil eye in all four cardinal directions."
+      ],
+      "visualCues": [
+        "Four-sided square-crowned black cap with bold white curved almond/pepper-pod embroidery on top",
+        "Row of uniform white arched motifs along the side band"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "What are the three structural parts of a traditional Uzbek do'ppi?",
+          "What does the white qalampir motif signify?",
+          "How do Chust doppis compare to Bukhara or Khorezm styles?"
+        ],
+        "uz": [
+          "O'zbek do'ppisi qaysi 3 ta asosiy qismdan tuziladi?",
+          "Chust do'ppisidagi oq «qalampir» va 16 ark nimani anglatadi?",
+          "Viloyat do'ppilari (Chust, Marg'ilon, Buxoro, Xorazm) qanday farq qiladi?"
+        ],
+        "ru": [
+          "Из каких трёх частей шьётся узбекская тюбетейка?",
+          "Что символизирует узор «калампир» на чустской дуппи?"
+        ],
+        "ja": [
+          "ドッピの3つの基本パーツとは何ですか？",
+          "白い唐辛子文様にはどのような意味がありますか？"
+        ],
+        "ko": [
+          "우즈베크 전통 도피의 3가지 기본 구조는 무엇인가요?",
+          "흰색 칼람피르(고추) 문양의 상징은 무엇인가요?"
+        ],
+        "es": [
+          "¿Cuáles son las tres partes estructurales de un do'ppi?",
+          "¿Qué simboliza el motivo blanco qalampir?"
+        ]
+      },
+      "sources": [
+        "https://en.wikipedia.org/wiki/Tubeteika",
+        "https://uz.wikipedia.org/wiki/Do%CA%BBppi",
+        "https://commons.wikimedia.org/wiki/File:Chust_ayollar_do%27ppisi.jpg"
+      ],
+      "localImage": "/artifacts/chust-doppi-skullcap.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Chust ayollar do'ppisi.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Chust_ayollar_do%27ppisi.jpg",
+        "author": "Usmonov Gayrat",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "width": 960,
+        "height": 1280,
+        "bytes": 402869
+      }
+    },
+    {
+      "slug": "margilan-khan-atlas",
+      "category": "silk-textile",
+      "region": "Marg'ilon, Farg'ona vodiysi",
+      "originCentury": "1,000+ yillik Ipak yo'li an'anasi",
+      "era": "Silk Road Heritage · Over One Millennium",
+      "builtYear": "Over 1,000 years continuous tradition (UNESCO 2017 Register)",
+      "architect": "Margilan master weavers & abrbandi dyers",
+      "locationInSite": "Margilan, Fergana Region (e.g. Yodgorlik traditional workshop)",
+      "accentColor": "#DB2777",
+      "verifiedBy": "SmartGuide Research Import (UNESCO ICH, Wikipedia uz, Uzbekistan.travel)",
+      "archiveCode": "UZ-ART-013",
+      "name": "Margilan Khan-Atlas Silk Weaving",
+      "localizedNames": {
+        "en": "Margilan Khan-Atlas Silk Weaving",
+        "uz": "Marg'ilon Xon-atlasi (Abrbandi ipak to'qish)",
+        "ru": "Маргиланский хан-атлас и шелкоткачество",
+        "ja": "マルギランのハン・アトラス（絹イカット織り）",
+        "ko": "마르길란 칸 아틀라스 비단 직조",
+        "es": "Tejido de Seda Khan-Atlas de Margilan"
+      },
+      "shortDescription": "Margilan's pure glossy silk woven via the thousand-year-old abrbandi ('cloud-binding') ikat resist-dyeing technique, recognized on UNESCO's Intangible Heritage register.",
+      "localizedShortDescriptions": {
+        "en": "Margilan's pure glossy silk woven via the thousand-year-old abrbandi ('cloud-binding') ikat resist-dyeing technique, recognized on UNESCO's Intangible Heritage register.",
+        "uz": "Ming yillik tarixga ega Marg'ilonda ipak tolalarini to'qishdan oldin bog'lab bo'yash («abrbandi») usulida yaratiladigan, UNESCO ro'yxatidagi shoyi mato.",
+        "ru": "Знаменитый маргиланский хан-атлас из чистого шёлка, создаваемый по тысячелетней технике абрового окрашивания («абрбанди»).",
+        "ja": "1000年以上の歴史を持つマルギランの純絹織り。織る前に縦糸を括って染める「アブルバンディ（雲結び）」技法で生み出されます。",
+        "ko": "1000년 역사의 마르길란 순수 비단 직조로, 베틀에 올리기 전 실을 묶어 염색하는 '아브르반디(구름 묶기)' 기법으로 제작됩니다.",
+        "es": "Seda pura de Margilan tejida mediante la técnica milenaria abrbandi ('atado de nubes'), reconocida por la UNESCO."
+      },
+      "historicalFacts": [
+        "Margilan has served as Central Asia's premier silk-weaving capital along the Silk Road for over a millennium.",
+        "In 2017, the Margilan Crafts Development Centre's traditional technology of making atlas and adras was inscribed on UNESCO's Register of Good Safeguarding Practices.",
+        "Historically called 'Khan-Atlas' ('Royal Silk') because its vivid multi-color patterns were treasured at royal courts and gifted as high honors."
+      ],
+      "architecturalDetails": [
+        "Warp threads are meticulously bound in segments before dyeing ('abrbandi' — cloud-binding), dyed sequentially from light to dark natural colors (madder, pomegranate rind, walnut, indigo), and woven on manual wooden looms."
+      ],
+      "localLegends": [
+        "Poetic Origin: Legend says a weaver inspired by clouds reflected in a sunlit stream after rain created the blurred rainbow edges of abrbandi ('bound clouds') silk."
+      ],
+      "visualCues": [
+        "Wooden traditional handloom strung with shimmering rainbow-colored silk threads and feathered ikat patterns"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "What does 'abrbandi' mean in silk weaving?",
+          "When did UNESCO recognize Margilan's atlas and adras craft?",
+          "Why was pure silk ikat named 'Khan-Atlas'?"
+        ],
+        "uz": [
+          "Ipak to'qishdagi «abrbandi» usuli qanday ishlaydi?",
+          "Marg'ilon atlas-adras texnologiyasi qachon UNESCO ro'yxatiga kiritilgan?",
+          "Nima uchun bu mato «Xon-atlas» deb nomlangan?"
+        ],
+        "ru": [
+          "Что означает термин «абрбанди» и как окрашиваются нити?",
+          "Когда традиция маргиланского атласа и адраса была отмечена ЮНЕСКО?"
+        ],
+        "ja": [
+          "「アブルバンディ」とはどのような染色技法ですか？",
+          "マルギランの絹織物はいつユネスコに認定されましたか？"
+        ],
+        "ko": [
+          "'아브르반디' 염색 기법은 어떻게 이루어지나요?",
+          "마르길란의 아틀라스 직조는 언제 유네스코에 등재되었나요?"
+        ],
+        "es": [
+          "¿Qué significa 'abrbandi' en el tejido de seda?",
+          "¿Cuándo reconoció la UNESCO esta técnica de Margilan?"
+        ]
+      },
+      "sources": [
+        "https://ich.unesco.org/",
+        "https://uz.wikipedia.org/wiki/Xonatlas",
+        "https://uzbekistan.travel/en/"
+      ],
+      "localImage": "/artifacts/margilan-khan-atlas.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Margilan silk production1.JPG",
+        "page": "https://commons.wikimedia.org/wiki/File:Margilan_silk_production1.JPG",
+        "author": "Geoffreywatson",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 720,
+        "bytes": 183360
+      }
+    },
+    {
+      "slug": "uzbek-adras-ikat",
+      "category": "silk-textile",
+      "region": "O'zbekiston (Marg'ilon / Buxoro / Samarqand)",
+      "originCentury": "XIX–XX asrlar (ko'p asrlik abrbandi an'anasi)",
+      "era": "Uzbek Semi-Silk Textile Craft",
+      "builtYear": "19th–20th century (1990s museum fabric sample)",
+      "architect": "Traditional Uzbek ikat weavers",
+      "locationInSite": "Uzbekistan textile workshops & museums",
+      "accentColor": "#E11D48",
+      "verifiedBy": "SmartGuide Research Import (Uzbekistan.travel, Wikimedia Commons)",
+      "archiveCode": "UZ-ART-014",
+      "name": "Uzbek Adras Semi-Silk Ikat Fabric",
+      "localizedNames": {
+        "en": "Uzbek Adras Semi-Silk Ikat Fabric",
+        "uz": "Adras matosi (Ipak va paxta ikat)",
+        "ru": "Адрас (полушёлковая абровая ткань)",
+        "ja": "ウズベキスタンの半絹イカット「アドラス」",
+        "ko": "우즈베키스탄 반견 이카트 직물 '아드라스'",
+        "es": "Tela Ikat Semiseda Adras de Uzbekistán"
+      },
+      "shortDescription": "Durable, breathable semi-silk Uzbek textile woven with resist-dyed silk warp and crisp cotton weft—ideal for traditional robes (chapan) and hot climates.",
+      "localizedShortDescriptions": {
+        "en": "Durable, breathable semi-silk Uzbek textile woven with resist-dyed silk warp and crisp cotton weft—ideal for traditional robes (chapan) and hot climates.",
+        "uz": "Tandasi ipak, arqog'i paxtadan to'qiladigan, issiqqa chidamli va xushbichim an'anaviy abrbandi o'zbek matosi.",
+        "ru": "Прочная дышащая полушёлковая ткань (шёлковая основа, хлопковый уток), традиционно используемая для чапанов и платьев.",
+        "ja": "縦糸に絹、横糸に綿を使って織られる通気性と耐久性に優れた伝統的イカット布地「アドラス」。",
+        "ko": "날실은 비단, 씨실은 면으로 짜여 통기성과 내구성이 뛰어난 전통 반견 이카트 직물입니다.",
+        "es": "Tejido tradicional uzbeko con urdimbre de seda teñida y trama de algodón, resistente y fresco para climas cálidos."
+      },
+      "historicalFacts": [
+        "Whereas atlas is 100% pure silk with a glossy satin finish, adras combines a dyed silk warp with a sturdy cotton weft.",
+        "Its balanced matte texture made adras the favorite fabric for tailored chapans (quilted robes), everyday coats, and heirloom textiles across Khiva, Bukhara, and Margilan."
+      ],
+      "architecturalDetails": [
+        "Crisp horizontal cotton rib texture overlaid with feathered ikat diamonds, ram-horn curls, and floral medallions."
+      ],
+      "localLegends": [
+        "Material Wisdom: Because cotton absorbs moisture while silk reflects heat, artisans prized adras as natural desert climatewear."
+      ],
+      "visualCues": [
+        "Woven textile swatch showing slightly matte textured fabric with blurred red, black, yellow, or blue ikat diamond patterns"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "How is adras different from pure khan-atlas?",
+          "Why was adras widely used for traditional chapans and robes?"
+        ],
+        "uz": [
+          "Adras matosi toza Xon-atlasdan nimasi bilan farq qiladi?",
+          "Nega milliy choponlar ko'proq adrasdan tikilgan?"
+        ],
+        "ru": [
+          "Чем полушёлковый адрас отличается от чистого атласа?",
+          "Почему из адраса часто шили традиционные чапаны?"
+        ],
+        "ja": [
+          "アドラスと純絹ハン・アトラスの違いは何ですか？"
+        ],
+        "ko": [
+          "아드라스와 순수 칸 아틀라스 비단의 차이는 무엇인가요?"
+        ],
+        "es": [
+          "¿En qué se diferencia el tejido adras de la seda pura atlas?"
+        ]
+      },
+      "sources": [
+        "https://uzbekistan.travel/en/",
+        "https://commons.wikimedia.org/wiki/File:Adras_(Ikat)._1990s._Silk,_cotton_(3).jpg"
+      ],
+      "localImage": "/artifacts/uzbek-adras-ikat.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Adras (Ikat). 1990s. Silk, cotton (3).jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Adras_(Ikat)._1990s._Silk,_cotton_(3).jpg",
+        "author": "Panpanchik",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 1408,
+        "bytes": 509403
+      }
+    },
+    {
+      "slug": "bukhara-zardozi-boots",
+      "category": "gold-embroidery",
+      "region": "Buxoro (Sitorai Mohi Xosa muzeyi)",
+      "originCentury": "XVI–XX asrlar (ushbu namuna: XX asr boshi)",
+      "era": "Emirate of Bukhara Court Craft · 16th–Early 20th Century",
+      "builtYear": "Early 20th century (peak craft era 16th–19th centuries)",
+      "architect": "Bukhara palace gold-embroidery workshops (karkhanas)",
+      "locationInSite": "Sitora-i Mohi Khosa Museum, Bukhara",
+      "accentColor": "#EAB308",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia uz, OrexCA, Wikimedia Commons)",
+      "archiveCode": "UZ-ART-015",
+      "name": "Bukhara Zardozi Gold Embroidery (Early 20th Century)",
+      "localizedNames": {
+        "en": "Bukhara Zardozi Gold Embroidery (Early 20th Century)",
+        "uz": "Buxoro zardo'zligi (Zardo'zi etik, XX asr boshi)",
+        "ru": "Бухарское золотое шитьё зардузи (сапоги, начало XX века)",
+        "ja": "ブハラ金糸刺繍ザルドゥーズィー（20世紀初頭のブーツ）",
+        "ko": "부하라 금실 자수 자르두지 (20세기 초 장화)",
+        "es": "Bordado en Oro Zardozi de Bujará (Principios del Siglo XX)"
+      },
+      "shortDescription": "Lavish ceremonial boots embroidered in metallic gold thread (zardozi), a strictly royal Bukhara craft peaking between the 16th and 19th centuries.",
+      "localizedShortDescriptions": {
+        "en": "Lavish ceremonial boots embroidered in metallic gold thread (zardozi), a strictly royal Bukhara craft peaking between the 16th and 19th centuries.",
+        "uz": "XVI–XIX asrlarda Buxoro amirlari saroyida avj olgan, oltin va kumush zar iplar bilan baxmal va charmga tikilgan zardo'zi mahsi/etik.",
+        "ru": "Парадные мужские сапоги из дворца Ситораи Мохи-Хоса (начало XX века), расшитые золотыми нитями в традиции бухарского зардузи XVI–XIX веков.",
+        "ja": "16〜19世紀ブハラ・アミール国宮廷で最高峰に達した金銀糸刺繍ザルドゥーズィーを施した20世紀初頭の儀式用ブーツ。",
+        "ko": "16~19세기 부하라 궁정 공방에서 전성기를 누린 금은실 자수(자르두지)로 장식한 20세기 초 의례용 장화입니다.",
+        "es": "Botas ceremoniales bordadas con hilo de oro (zardozi) de Bujará, oficio cortesano que alcanzó su apogeo entre los siglos XVI y XIX."
+      },
+      "historicalFacts": [
+        "Gold embroidery (zardozi) flourished in Bukhara from the 16th to the 19th century, historically restricted to male artisans working inside the Emir's palace workshops (karkhanas).",
+        "Artisans crafted ceremonial robes (chapans), turbans, horse saddles, and boots worn by courtiers or presented to foreign envoys.",
+        "This specific early 20th-century pair is preserved in the exhibition at Sitora-i Mohi Khosa, the summer residence of the last Bukharan Emirs."
+      ],
+      "architecturalDetails": [
+        "Patterns traced onto heavy paper templates (akhta qog'oz) are tacked onto velvet, silk, or leather stretched in a rectangular wooden frame (korcho'p), then couched tightly with gold-plated thread (kalabatu) so the reverse shows only fastening stitches."
+      ],
+      "localLegends": [
+        "Court Prestige: Wearing solid zardozi garments historically required royal rank or direct permission from the Emir of Bukhara."
+      ],
+      "visualCues": [
+        "Dark velvet or leather high boots covered densely in shimmering raised metallic gold-thread floral and palmette embroidery"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "Who was allowed to make and wear zardozi embroidery under the Bukharan Emirs?",
+          "How is the raised gold pattern stitched using paper templates?",
+          "Where are these early 20th-century boots displayed?"
+        ],
+        "uz": [
+          "Buxoro amirligida zardo'zlik buyumlarini kimlar tikkan va kimlar kiygan?",
+          "Axta qog'oz qolipi va korcho'p yordamida zar ip qanday tikiladi?",
+          "Ushbu XX asr boshi etigi qayerda saqlanadi?"
+        ],
+        "ru": [
+          "Кто мог заниматься золотым шитьём при дворе эмира Бухары?",
+          "Как мастера использовали бумажные трафареты (ахта) и пяльцы корчуп?"
+        ],
+        "ja": [
+          "ブハラ・アミール時代、誰がザルドゥーズィーを制作・着用できたのですか？",
+          "紙の型紙を使った金糸の立体刺繍はどのように作られますか？"
+        ],
+        "ko": [
+          "부하라 아미르 시대에 누가 자르두지를 만들고 입을 수 있었나요?",
+          "종이 본을 대고 금실을 수놓는 방식은 어떻게 이루어지나요?"
+        ],
+        "es": [
+          "¿Quiénes elaboraban y vestían el zardozi en la corte de Bujará?",
+          "¿Cómo se borda el hilo de oro sobre las plantillas de papel?"
+        ]
+      },
+      "sources": [
+        "https://uz.wikipedia.org/wiki/Zardo%CA%BBzlik",
+        "https://commons.wikimedia.org/wiki/File:Bukhara-embroidered_boots-1120275.jpg"
+      ],
+      "localImage": "/artifacts/bukhara-zardozi-boots.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Bukhara-embroidered boots-1120275.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Bukhara-embroidered_boots-1120275.jpg",
+        "author": "Fabienkhan",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 1168,
+        "bytes": 253989
+      }
+    },
+    {
+      "slug": "khiva-silk-carpet",
+      "category": "carpet-weaving",
+      "region": "Xiva, Xorazm viloyati",
+      "originCentury": "Ko'p asrlik Xorazm gilamchiligi",
+      "era": "Khorezmian Carpet Weaving & Natural Dyeing",
+      "builtYear": "Multi-century oasis weaving tradition",
+      "architect": "Khiva carpet-weaving workshops inside Ichan-Qala",
+      "locationInSite": "Ichan-Qala Carpet Workshops, Khiva",
+      "accentColor": "#0F766E",
+      "verifiedBy": "SmartGuide Research Import (Wikimedia Commons Khiva Workshop photo)",
+      "archiveCode": "UZ-ART-016",
+      "name": "Khiva Hand-Knotted Silk Carpet Weaving",
+      "localizedNames": {
+        "en": "Khiva Hand-Knotted Silk Carpet Weaving",
+        "uz": "Xiva ipak gilamlari va tabiiy bo'yash san'ati",
+        "ru": "Хивинское шёлковое ковроткачество и природное крашение",
+        "ja": "ヒヴァの手織りシルク絨毯と天然染色",
+        "ko": "히바 수작업 실크 카펫 직조와 천연 염색",
+        "es": "Tejido de Alfombras de Seda y Tintes Naturales de Jiva"
+      },
+      "shortDescription": "Fine hand-knotted silk carpets crafted in Khiva using botanical dyes like indigo, pomegranate rind, and walnut husks alongside classic Khorezmian motifs.",
+      "localizedShortDescriptions": {
+        "en": "Fine hand-knotted silk carpets crafted in Khiva using botanical dyes like indigo, pomegranate rind, and walnut husks alongside classic Khorezmian motifs.",
+        "uz": "Indigo, anor po'sti va yong'oq po'chog'i kabi tabiiy bo'yoqlarda bo'yalgan ipak ipdan Xivada qo'lda to'qiladigan nafis gilamlar.",
+        "ru": "Шёлковые ковры ручной работы из Хивы, окрашенные природными красителями (индиго, гранатовая корка, орех).",
+        "ja": "インディゴやザクロの皮、クルミなどの天然染料で染めた絹糸を用い、ヒヴァの工房で手結びで織り上げられる高級シルク絨毯。",
+        "ko": "쪽빛 인디고, 석류 껍질, 호두 등 천연 염료로 물들인 비단 실을 히바 공방에서 한 올씩 매듭지어 짠 실크 카펫입니다.",
+        "es": "Alfombras de seda anudadas a mano en Jiva usando tintes vegetales como índigo, cáscara de granada y nogal."
+      },
+      "historicalFacts": [
+        "Traditional Khiva workshops weave silk carpets inspired by 15th–19th-century manuscript miniatures, tilework, and Khorezmian wood carvings.",
+        "Yarn skeins are dyed in large heated vats using natural botanical pigments such as indigo, walnut skins, madder, and pomegranate rinds.",
+        "A single finely knotted silk carpet takes skilled weavers several months to over a year to complete by hand."
+      ],
+      "architecturalDetails": [
+        "Continuous-warp vertical looms packed with tens of thousands of asymmetrical or symmetrical hand-tied silk knots per square meter."
+      ],
+      "localLegends": [
+        "Artisan Note: Natural plant dyes resist fading in sunlight and soften gracefully with age, giving historic silk carpets an iridescent sheen depending on viewing direction."
+      ],
+      "visualCues": [
+        "Vertical wooden carpet loom in a traditional workshop next to dyed yarn skeins and a large indigo dye vat"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "What natural plant ingredients dye Khiva silk carpets?",
+          "How long does it take to hand-knot one silk carpet?"
+        ],
+        "uz": [
+          "Xiva ipak gilamlari uchun iplar qanday tabiiy o'simliklardan bo'yaladi?",
+          "Bitta ipak gilamni qo'lda to'qish qancha vaqt oladi?"
+        ],
+        "ru": [
+          "Из каких растений готовят натуральные красители для хивинских ковров?",
+          "Сколько месяцев занимает ткачество одного шёлкового ковра?"
+        ],
+        "ja": [
+          "ヒヴァのシルク絨毯にはどんな天然染料が使われますか？",
+          "1枚の絨毯を織り上げるのにどのくらい時間がかかりますか？"
+        ],
+        "ko": [
+          "히바 실크 카펫에는 어떤 천연 염료가 사용되나요?",
+          "카펫 한 장을 손으로 짜는 데 얼마나 걸리나요?"
+        ],
+        "es": [
+          "¿Qué tintes botánicos se usan en las alfombras de seda de Jiva?",
+          "¿Cuánto tiempo lleva tejer una alfombra a mano?"
+        ]
+      },
+      "sources": [
+        "https://commons.wikimedia.org/wiki/File:Silk_Carpet_Workshop,_Khiva_(480769).jpg"
+      ],
+      "localImage": "/artifacts/khiva-silk-carpet.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Silk Carpet Workshop, Khiva (480769).jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Silk_Carpet_Workshop,_Khiva_(480769).jpg",
+        "author": "upyernoz from Haverford, USA",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "width": 960,
+        "height": 1440,
+        "bytes": 259226
+      }
+    },
+    {
+      "slug": "uzbek-handcrafted-knives",
+      "category": "blacksmithing-knives",
+      "region": "Chust (Namangan) / Shahrixon (Andijon) / Samarqand",
+      "originCentury": "Ko'p asrlik temirchilik an'anasi (eksponat: XIX–XX asr muzeyi)",
+      "era": "Uzbek Blacksmithing & Cutlery Heritage",
+      "builtYear": "Centuries-old craft tradition (Applied Arts Museum display)",
+      "architect": "Master cutlers (pichoqchi) of Chust, Shahrixon, and Samarkand",
+      "locationInSite": "State Museum of Applied Arts of Uzbekistan, Tashkent",
+      "accentColor": "#475569",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia ru Pchak, Wikimedia Commons)",
+      "archiveCode": "UZ-ART-017",
+      "name": "Traditional Uzbek Handcrafted Knives (Pichoq / Pchak)",
+      "localizedNames": {
+        "en": "Traditional Uzbek Handcrafted Knives (Pichoq / Pchak)",
+        "uz": "O'zbek milliy pichoqlari (Chust / Shahrixon maktabi)",
+        "ru": "Традиционные узбекские ножи (пчак / пичок)",
+        "ja": "ウズベキスタンの伝統手打ちナイフ（ピチョク）",
+        "ko": "우즈베키스탄 전통 수제 칼 (피초크)",
+        "es": "Cuchillos Artesanales Uzbekos (Pichoq / Pchak)"
+      },
+      "shortDescription": "Forged Central Asian carbon-steel knives (pichoq) famed for broad single-bevel blades, upswept points (tolbargi), inlaid horn/bone handles, and fitted leather sheaths.",
+      "localizedShortDescriptions": {
+        "en": "Forged Central Asian carbon-steel knives (pichoq) famed for broad single-bevel blades, upswept points (tolbargi), inlaid horn/bone handles, and fitted leather sheaths.",
+        "uz": "Uglerodli po'latdan bolg'alangan tig'i, shox/suyakdan qadama dastasi va charm qini bilan mashhur Chust hamda Shahrixon milliy pichoqlari.",
+        "ru": "Традиционные узбекские кованые ножи пчак из углеродистой стали с рукоятями из рога или кости и кожаными ножнами.",
+        "ja": "炭素鋼の鍛造刃と角・骨の象嵌ハンドル、革鞘で知られるチュストやシャフリハン伝統の手打ちナイフ（ピチョク）。",
+        "ko": "탄소강 단조 칼날과 뿔·뼈 상감 손잡이, 가죽 칼집으로 유명한 우즈베키스탄 전통 수제 칼(피초크)입니다.",
+        "es": "Cuchillos forjados tradicionales (pichoq) de acero al carbono, con mango incrustado de hueso o cuerno y funda de cuero."
+      },
+      "historicalFacts": [
+        "Major historic blade-making centers in Uzbekistan include Chust, Shahrixon, and Samarkand.",
+        "Traditionally classified by purpose—such as meat-cutting qassob-pichoq or noodle-slicing norin-pichoq—and blade profile like willow-leaf (tolbargi) or straight-spine (to'g'ri).",
+        "Worn tucked at the belt in straight embossed leather sheaths as both an everyday tool and emblem of craftsmanship."
+      ],
+      "architecturalDetails": [
+        "Wide wedge-cross-section carbon steel blade sometimes grooved along the spine, paired with a slim round handle mounted flush at the spine from horn, bone, or wood inlaid with brass/mother-of-pearl stars."
+      ],
+      "localLegends": [
+        "Craftsman Lore: Master blacksmiths stamp tiny maker's marks (tamga) near the bolster and test edge sharpness directly before sheathing."
+      ],
+      "visualCues": [
+        "Array of curved broad-bladed steel knives with slender dark horn/decorated handles alongside stitched leather sheaths"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "Which Uzbek towns are most famous for handcrafted pichoq knives?",
+          "What materials are used for the blade and inlaid handle?",
+          "What do blade shapes like 'tolbargi' mean?"
+        ],
+        "uz": [
+          "O'zbekistonda pichoqchilik bilan qaysi shaharlar eng mashhur?",
+          "Milliy pichoqning tig'i va dastasi nimalardan tayyorlanadi?",
+          "«Tolbargi» va «to'g'ri» pichoq shakllari nimasi bilan farq qiladi?"
+        ],
+        "ru": [
+          "Какие города Узбекистана славятся изготовлением пчаков?",
+          "Из чего делают клинок и рукоять традиционного ножа пичок?"
+        ],
+        "ja": [
+          "ウズベキスタンで伝統ナイフ作りが有名な町はどこですか？",
+          "刃と柄にはどのような素材が使われていますか？"
+        ],
+        "ko": [
+          "우즈베키스탄에서 전통 칼 제작으로 가장 유명한 도시는 어디인가요?",
+          "칼날과 손잡이에는 어떤 재료가 사용되나요?"
+        ],
+        "es": [
+          "¿Qué ciudades de Uzbekistán son famosas por fabricar cuchillos pichoq?",
+          "¿De qué materiales se hacen la hoja y el mango?"
+        ]
+      },
+      "sources": [
+        "https://ru.wikipedia.org/wiki/%D0%9F%D1%87%D0%B0%D0%BA",
+        "https://commons.wikimedia.org/wiki/File:Pichoqlar._O%CA%BBzbekiston_amaliy_san%CA%BCat_muzeyida_saqlanayotgan_eksponatlar.jpg"
+      ],
+      "localImage": "/artifacts/uzbek-handcrafted-knives.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Pichoqlar. Oʻzbekiston amaliy sanʼat muzeyida saqlanayotgan eksponatlar.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Pichoqlar._O%CA%BBzbekiston_amaliy_san%CA%BCat_muzeyida_saqlanayotgan_eksponatlar.jpg",
+        "author": "Panpanchik",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 490,
+        "bytes": 70330
+      }
+    },
+    {
+      "slug": "uzbek-tillaqosh-jewelry",
+      "category": "traditional-jewelry",
+      "region": "O'zbekiston (Toshkent / Buxoro / Samarqand / Xorazm)",
+      "originCentury": "XIX–XX asrlar (qadimiy zargarlik an'anasi)",
+      "era": "Traditional Uzbek Bridal Jewelry",
+      "builtYear": "19th–20th century (Applied Arts Museum exhibit)",
+      "architect": "Regional Uzbek goldsmiths & silversmiths (zargarlar)",
+      "locationInSite": "State Museum of Applied Arts of Uzbekistan, Tashkent",
+      "accentColor": "#CA8A04",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia uz Tillaqosh, Wikimedia Commons)",
+      "archiveCode": "UZ-ART-018",
+      "name": "Tillaqosh (Traditional Uzbek Bridal Forehead Diadem)",
+      "localizedNames": {
+        "en": "Tillaqosh (Traditional Uzbek Bridal Forehead Diadem)",
+        "uz": "Tillaqosh (An'anaviy ayollar peshona taqinchog'i)",
+        "ru": "Тиллакош (традиционное налобное украшение невесты)",
+        "ja": "ティッラコシ（伝統的ウズベキスタン花嫁の額飾り）",
+        "ko": "틸라코쉬 (전통 우즈베키스탄 신부 이마 장신구)",
+        "es": "Tillaqosh (Diadema Nupcial Tradicional Uzbeka)"
+      },
+      "shortDescription": "Gilded silver crescent-shaped bridal diadem ('golden eyebrows') worn on the forehead, set with turquoise, coral, a central ruby-like stone (la'l), and dangling chains.",
+      "localizedShortDescriptions": {
+        "en": "Gilded silver crescent-shaped bridal diadem ('golden eyebrows') worn on the forehead, set with turquoise, coral, a central ruby-like stone (la'l), and dangling chains.",
+        "uz": "Bosh kiyim ustidan peshonaga taqiladigan, markaziga la'l va atrofiga feruza-marjon qadalgan qayrilma qosh shaklidagi tilla zargarlik toji.",
+        "ru": "Позолоченная свадебная диадема в форме изогнутых бровей («золотая бровь»), украшенная бирюзой, кораллами, лалом и подвесками.",
+        "ja": "「黄金の眉」を意味する花嫁の額用ティアラ。中央の紅玉（ラール）を囲むトルコ石・珊瑚と揺れる鎖飾りが特徴です。",
+        "ko": "'황금 눈썹'이라는 뜻을 지닌 신부의 이마 왕관 장신구로, 중앙의 붉은 보석과 터키석·산호·방울 장식이 특징입니다.",
+        "es": "Diadema nupcial de plata dorada ('cejas de oro') adornada con turquesa, coral, piedra central la'l y cadenillas colgantes."
+      },
+      "historicalFacts": [
+        "Meaning 'Golden Eyebrow', the tillaqosh is worn on the forehead over a bride's skullcap or headdress and traditionally pairs in a matching ensemble with temple pendants (gajak), earrings, and necklace (zebigardon).",
+        "Regional variants include 'bargak' in the Fergana Valley and 'bolo abru' (without openwork crest) in Bukhara."
+      ],
+      "architecturalDetails": [
+        "Constructed from two arched eyebrow-shaped gilded silver wings joined by a central red gemstone (la'l), topped by a triangular openwork filigree crown bordered in turquoise and coral beads with alternating short-and-long dangling leaf chains."
+      ],
+      "localLegends": [
+        "Protective Lore: Turquoise stones and delicate ringing leaf pendants were traditionally believed to shield the bride from envy and bring joy and fertility to her marriage."
+      ],
+      "visualCues": [
+        "Arched gold-colored metal forehead crown shaped like joined curved eyebrows",
+        "Central red gem, turquoise-blue border stones, openwork triangular crest, and hanging fringe chains"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "What does 'Tillaqosh' mean and how is it worn?",
+          "What are regional variations like bargak and bolo abru?",
+          "What stones and metals compose a traditional tillaqosh?"
+        ],
+        "uz": [
+          "«Tillaqosh» so'zi nimani anglatadi va u bosh kiyimning qayeriga taqiladi?",
+          "Farg'ona («bargak») va Buxoro («bolo abru») turlari qanday farqlanadi?",
+          "Tillaqosh qaysi metall va toshlardan tayyorlanadi?"
+        ],
+        "ru": [
+          "Что означает «тиллакош» и с какими другими украшениями он носился?",
+          "Из каких камней и металлов изготавливали свадебную диадему?"
+        ],
+        "ja": [
+          "「ティッラコシ」の意味と花嫁のどこに着用する飾りですか？"
+        ],
+        "ko": [
+          "'틸라코쉬'의 뜻과 신부가 어느 부위에 착용하는 장신구인가요?"
+        ],
+        "es": [
+          "¿Qué significa 'Tillaqosh' y qué gemas incorpora tradicionalmente?"
+        ]
+      },
+      "sources": [
+        "https://uz.wikipedia.org/wiki/Tillaqosh",
+        "https://commons.wikimedia.org/wiki/File:Tillaqosh._O%CA%BBzbekiston_amaliy_san%CA%BCat_muzeyida_saqlanayotgan_eksponat.jpg"
+      ],
+      "localImage": "/artifacts/uzbek-tillaqosh-jewelry.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Tillaqosh. Oʻzbekiston amaliy sanʼat muzeyida saqlanayotgan eksponat.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Tillaqosh._O%CA%BBzbekiston_amaliy_san%CA%BCat_muzeyida_saqlanayotgan_eksponat.jpg",
+        "author": "Panpanchik",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 791,
+        "bytes": 168104
+      }
+    },
+    {
+      "slug": "uzbek-dutar-dayereh",
+      "category": "musical-instrument",
+      "region": "O'zbekiston (Xorazm, Farg'ona, Buxoro, Samarqand)",
+      "originCentury": "XV asrdan beri ma'lum (XVI asr yozma risolalari)",
+      "era": "Classical & Folk Central Asian Music · 15th Century–Present",
+      "builtYear": "Origins documented around 15th–16th century",
+      "architect": "Traditional Uzbek instrument makers (sozgarlar)",
+      "locationInSite": "Museum collections & Khorezm/Uzbekistan music heritage",
+      "accentColor": "#92400E",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia en/uz Dutar/Dutor, UNESCO heritage)",
+      "archiveCode": "UZ-ART-019",
+      "name": "Dutar & Dayereh (Traditional Lute and Frame Drum)",
+      "localizedNames": {
+        "en": "Dutar & Dayereh (Traditional Lute and Frame Drum)",
+        "uz": "Dutor va Doira (Milliy cholg'u asboblari)",
+        "ru": "Дутар и дойра (традиционные музыкальные инструменты)",
+        "ja": "ドゥタールとドイラ（伝統的2弦リュートと枠太鼓）",
+        "ko": "두타르와 도이라 (전통 2현 류트와 프레임 드럼)",
+        "es": "Dutar y Dayereh (Laúd de Dos Cuerdas y Pandero)"
+      },
+      "shortDescription": "Iconic musical duo of Uzbekistan: the sweet-toned two-stringed mulberry lute (dutar, documented since the 15th–16th c.) and the metal-ringed frame drum (doira).",
+      "localizedShortDescriptions": {
+        "en": "Iconic musical duo of Uzbekistan: the sweet-toned two-stringed mulberry lute (dutar, documented since the 15th–16th c.) and the metal-ringed frame drum (doira).",
+        "uz": "XV asrdan ma'lum ikki torli uzun dastali tut cholg'usi — dutor hamda Shashmaqom va xalq sayillarining asosiy zarbli sozi — doira.",
+        "ru": "Классический дуэт узбекской музыки: двухструнный лютневый инструмент дутар (известен с XV века) и звонкий бубен дойра.",
+        "ja": "15世紀頃から記録に残る桑材製の甘い音色の2弦リュート「ドゥタール」と、金属輪付きの枠太鼓「ドイラ」の名コンビ。",
+        "ko": "15세기부터 기록된 뽕나무 2현 류트 '두타르'와 금속 고리가 달린 전통 북 '도이라'입니다.",
+        "es": "Dúo emblemático de la música uzbeka: el laúd de dos cuerdas de morera (dutar, siglo XV) y el pandero con anillas (doira)."
+      },
+      "historicalFacts": [
+        "Named from Persian 'do tār' ('two strings'), the dutar is thought to have emerged around the 15th century; the earliest surviving written account appears in Zaynulobidin al-Husayni's 16th-century music treatise.",
+        "In Khorezm, Samarkand, Fergana, and Tashkent, distinct performance schools flourished; 16th–17th-century virtuosos even bore the pen name 'Dutoriy'.",
+        "Paired with the dayereh (doira) frame drum, both instruments anchor classical Shashmaqom and Khorezmian bakhshi storytelling traditions."
+      ],
+      "architecturalDetails": [
+        "Dutar resonator bowl is hollowed from aged mulberry or apricot wood and inlaid with bone fretwork along a long slender neck with two silk/nylon strings.",
+        "Doira consists of a bent willow/walnut hoop strung inside with jingling metal rings and covered by stretched animal membrane."
+      ],
+      "localLegends": [
+        "Musical Tradition: Strings were originally spun from gut and later twisted raw silk along the Silk Road, giving the dutar its gentle, velvety timbre."
+      ],
+      "visualCues": [
+        "Pear-shaped wooden long-necked lute with two strings beside a circular drum with wooden hoop rim"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "When did the dutar first appear in historical records?",
+          "What wood and string materials are used for a traditional dutar?",
+          "What role do the dutar and doira play in Khorezmian music?"
+        ],
+        "uz": [
+          "Dutor haqidagi ilk yozma ma'lumot qaysi asrga oid?",
+          "Dutor nomi nimani bildiradi va qanday yog'ochdan yasaladi?",
+          "Xorazm musiqasida dutor va doiraning o'rni qanday?"
+        ],
+        "ru": [
+          "Когда появились первые письменные упоминания о дутаре?",
+          "Из какого дерева делают дутар и как переводятся его название?"
+        ],
+        "ja": [
+          "ドゥタールが歴史書に最初に記録されたのは何世紀ですか？",
+          "名前の意味と素材は？"
+        ],
+        "ko": [
+          "두타르가 역사 문헌에 처음 등장한 것은 언제인가요?",
+          "두타르 이름의 뜻과 제작 나무는 무엇인가요?"
+        ],
+        "es": [
+          "¿Desde qué siglo está documentado el dutar y qué significa su nombre?"
+        ]
+      },
+      "sources": [
+        "https://en.wikipedia.org/wiki/Dutar",
+        "https://uz.wikipedia.org/wiki/Dutor",
+        "https://commons.wikimedia.org/wiki/File:Dutar_and_Dayereh.jpg"
+      ],
+      "localImage": "/artifacts/uzbek-dutar-dayereh.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Dutar and Dayereh.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Dutar_and_Dayereh.jpg",
+        "author": "Miss Kamola",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 720,
+        "bytes": 263523
+      }
+    },
+    {
+      "slug": "uzbek-rubob",
+      "category": "musical-instrument",
+      "region": "O'zbekiston (Toshkent Amaliy san'at muzeyi)",
+      "originCentury": "Qadimiy va o'rta asrlar Sharq cholg'usi",
+      "era": "Classical Central Asian Musical Heritage",
+      "builtYear": "Ancient multi-century tradition (museum specimen)",
+      "architect": "Central Asian lute makers (sozgarlar)",
+      "locationInSite": "State Museum of Applied Arts of Uzbekistan, Tashkent",
+      "accentColor": "#7C2D12",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia uz Rubob, Wikimedia Commons)",
+      "archiveCode": "UZ-ART-020",
+      "name": "Uzbek Rubob Plucked String Instrument",
+      "localizedNames": {
+        "en": "Uzbek Rubob Plucked String Instrument",
+        "uz": "O'zbek rubobi (Amaliy san'at muzeyi)",
+        "ru": "Узбекский рубоб (Музей прикладного искусства)",
+        "ja": "ウズベキスタンの撥弦楽器「ルボブ」",
+        "ko": "우즈베키스탄 전통 현악기 '루보브'",
+        "es": "Instrumento de Cuerda Rubob Uzbeko"
+      },
+      "shortDescription": "Ancient skin-bellied lute (80–100 cm long) played with a plectrum (noxun), recognized by its twin curved horns flanking a mother-of-pearl inlaid neck.",
+      "localizedShortDescriptions": {
+        "en": "Ancient skin-bellied lute (80–100 cm long) played with a plectrum (noxun), recognized by its twin curved horns flanking a mother-of-pearl inlaid neck.",
+        "uz": "Noxun (mediator) bilan chalinadigan, kosasi teri bilan qoplangan va dastasiga sadaf qadalgan qadimiy o'zbek torli cholg'usi (80–100 sm).",
+        "ru": "Древний щипковый инструмент (80–100 см) с кожаной мембраной и двумя характерными рожками на корпусе, украшенный перламутром.",
+        "ja": "革張りの共鳴胴と真珠母貝（螺鈿）の象嵌、2本の角状突起が特徴の伝統的撥弦楽器（全長80〜100cm）。",
+        "ko": "가죽 울림통과 자개 상감, 2개의 뿔 모양 장식이 특징이며 채(노훈)로 연주하는 전통 현악기입니다.",
+        "es": "Antiguo laúd de caja cubierta de piel (80–100 cm), tocado con púa y reconocible por sus dos cuernos curvos y nácar."
+      },
+      "historicalFacts": [
+        "One of the oldest string instruments of Central and South Asia; some musicologists link bowed early two-stringed rubabs to the ancestral evolution of the violin.",
+        "Three classic regional types are recognized in Uzbekistan and neighboring lands: Kashgar rubob, Afghan/Bukharan (Tajik) rubob, and Pamir rubob.",
+        "The Kashgar rubob measures 80–100 cm long and carries 19 to 23 frets (historically tied from gut)."
+      ],
+      "architecturalDetails": [
+        "Ladle-like soundbox hollowed from dense mulberry wood and covered in animal skin membrane, flanked by twin horn-shaped projections (gajak) that act as left-hand rests for high notes.",
+        "Long curved pegbox neck decorated with white bone or mother-of-pearl inlay."
+      ],
+      "localLegends": [
+        "Musical Heritage: Played briskly with a small plectrum (noxun), the rubob's bright resonant voice carries both lyrical Maqom melodies and energetic celebratory dances."
+      ],
+      "visualCues": [
+        "Long-necked plucked instrument with skin-covered round bowl, two curved horn projections above the bowl, and white pearl/bone geometric neck inlay"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "What are the three types of rubob found in Central Asia?",
+          "Why does a Kashgar rubob have two curved horns near the bowl?",
+          "How long is it and how many frets does it carry?"
+        ],
+        "uz": [
+          "Rubobning qaysi uchta asosiy turi mavjud?",
+          "Qashqar rubobidagi ikki shoxsimon gajak nima vazifani bajaradi?",
+          "Rubobning uzunligi va pardalari soni nechta?"
+        ],
+        "ru": [
+          "Какие три разновидности рубоба существуют?",
+          "Зачем на корпусе кашгарского рубоба два изогнутых рожка?"
+        ],
+        "ja": [
+          "ルボブの3つの種類と共鳴胴の上の2本の角の役割は何ですか？"
+        ],
+        "ko": [
+          "루보브의 세 가지 유형과 울림통 위 2개 뿔 장식의 역할은 무엇인가요?"
+        ],
+        "es": [
+          "¿Cuáles son los tres tipos de rubob y para qué sirven sus dos cuernos curvos?"
+        ]
+      },
+      "sources": [
+        "https://uz.wikipedia.org/wiki/Rubob",
+        "https://commons.wikimedia.org/wiki/File:Rubob._O%CA%BBzbekiston_amaliy_san%CA%BCat_muzeyida_saqlanayotgan_eksponat.jpg"
+      ],
+      "localImage": "/artifacts/uzbek-rubob.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Rubob. Oʻzbekiston amaliy sanʼat muzeyida saqlanayotgan eksponat.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Rubob._O%CA%BBzbekiston_amaliy_san%CA%BCat_muzeyida_saqlanayotgan_eksponat.jpg",
+        "author": "Panpanchik",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 1544,
+        "bytes": 299177
+      }
+    },
+    {
+      "slug": "uzbek-beshik-cradle",
+      "category": "traditional-woodcraft",
+      "region": "O'zbekiston (Toshkent Amaliy san'at muzeyi)",
+      "originCentury": "Ko'p asrlik xalq yog'ochsozlik an'anasi",
+      "era": "Traditional Uzbek Family & Woodcraft Heritage",
+      "builtYear": "Multi-century folk craft (Applied Arts Museum specimen)",
+      "architect": "Master cradle makers (beshiksozlar)",
+      "locationInSite": "State Museum of Applied Arts of Uzbekistan, Tashkent",
+      "accentColor": "#D97706",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia uz Beshik, Wikimedia Commons)",
+      "archiveCode": "UZ-ART-021",
+      "name": "Traditional Uzbek Carved Cradle (Beshik)",
+      "localizedNames": {
+        "en": "Traditional Uzbek Carved Cradle (Beshik)",
+        "uz": "O'zbek beshigi (Amaliy san'at muzeyi)",
+        "ru": "Узбекская резная колыбель бешик",
+        "ja": "ウズベキスタンの伝統的木製ゆりかご「ベシク」",
+        "ko": "우즈베키스탄 전통 목제 요람 '베시크'",
+        "es": "Cuna Tradicional Tallada Uzbeka (Beshik)"
+      },
+      "shortDescription": "Ergonomic carved wooden rocking cradle (1–1.05 m long) made from mulberry or willow, richly painted and central to the Uzbek 'beshik-to'yi' celebration.",
+      "localizedShortDescriptions": {
+        "en": "Ergonomic carved wooden rocking cradle (1–1.05 m long) made from mulberry or willow, richly painted and central to the Uzbek 'beshik-to'yi' celebration.",
+        "uz": "Tut va tol yog'ochidan yasaladigan (1–1.05 m), naqshinkor bezakli va maxsus gigiyenik tuzilishga ega an'anaviy o'zbek beshigi.",
+        "ru": "Традиционная деревянная расписная колыбель (1–1,05 м) из тутовника или ивы с эргономичной конструкцией, центр обряда «бешик-туй».",
+        "ja": "桑や柳の木で作られ（長さ約1m）、鮮やかな装飾と赤ちゃんを清潔に保つ工夫が凝らされた伝統的な木製ゆりかご。",
+        "ko": "뽕나무나 버드나무로 만든(길이 약 1m) 화려한 채색과 독창적인 위생 설계가 돋보이는 우즈베키스탄 전통 요람입니다.",
+        "es": "Cuna mecedora ergonómica de madera de morera o sauce (1–1,05 m), ricamente pintada y protagonista del rito 'beshik-to'yi'."
+      },
+      "historicalFacts": [
+        "Measuring 1 to 1.05 meters long and 50–60 cm high, the beshik has been crafted in Central Asia for centuries out of mulberry, willow, or apricot wood.",
+        "Presenting the decorated cradle and first swaddling a newborn is celebrated through the joyous family ceremony 'beshik to'yi', accompanied by mother's lullabies (alla)."
+      ],
+      "architecturalDetails": [
+        "Curved rocking runners (yo'rg'a oyoq) connect to an arched overhead handle (egmoch) with turned wooden finials (qubba).",
+        "A central slotted deck holds a hygienic drainage tube (sumak) and collection pot (tuvak) beneath tailored cotton/silk bedding so the infant stays dry."
+      ],
+      "localLegends": [
+        "Family Custom: Traditionally gifted by the maternal grandparents, a well-crafted wooden beshik is often passed down through multiple generations of children."
+      ],
+      "visualCues": [
+        "Low rocking wooden infant cradle with curved arched bottom runners, long overhead carry bar, turned wooden spheres, and bright painted lacquer motifs"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "What woods and dimensions are standard for an Uzbek beshik?",
+          "How does the beshik keep a baby clean and dry?",
+          "What happens during a 'beshik to'yi' celebration?"
+        ],
+        "uz": [
+          "O'zbek beshigi qaysi yog'ochdan yasaladi va o'lchami qancha bo'ladi?",
+          "Beshikning gigiyenik tuzilishi (sumak va tuvak) qanday ishlaydi?",
+          "«Beshik to'yi» marosimi qanday o'tkaziladi?"
+        ],
+        "ru": [
+          "Из какой древесины делают бешик и каковы его размеры?",
+          "Как устроена традиционная гигиеническая система колыбели бешик?"
+        ],
+        "ja": [
+          "ベシクはどの木から作られ、どのような工夫で赤ちゃんを清潔に保ちますか？"
+        ],
+        "ko": [
+          "베시크는 어떤 나무로 만들며 어떤 위생 구조가 있나요?"
+        ],
+        "es": [
+          "¿De qué madera se fabrica el beshik y qué simboliza la fiesta 'beshik to'yi'?"
+        ]
+      },
+      "sources": [
+        "https://uz.wikipedia.org/wiki/Beshik",
+        "https://commons.wikimedia.org/wiki/File:Beshik._O%CA%BBzbekiston_amaliy_san%CA%BCat_muzeyida_saqlanayotgan_eksponat.jpg"
+      ],
+      "localImage": "/artifacts/uzbek-beshik-cradle.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Beshik. Oʻzbekiston amaliy sanʼat muzeyida saqlanayotgan eksponat.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Beshik._O%CA%BBzbekiston_amaliy_san%CA%BCat_muzeyida_saqlanayotgan_eksponat.jpg",
+        "author": "Panpanchik",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 812,
+        "bytes": 242994
+      }
+    },
+    {
+      "slug": "uzbek-clay-tandir",
+      "category": "culinary-craft",
+      "region": "O'zbekiston (Xorazm, Samarqand, Buxoro, Toshkent)",
+      "originCentury": "Antik davrdan bugungacha (ming yillik an'ana)",
+      "era": "Ancient & Living Culinary Craft",
+      "builtYear": "Millennia-old Central Asian clay oven craft",
+      "architect": "Master tandoor builders (tandirsozlar)",
+      "locationInSite": "Courtyards and bakeries throughout Khorezm and Uzbekistan",
+      "accentColor": "#EA580C",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia en/uz Tandoor/Tandir, Wikimedia Commons)",
+      "archiveCode": "UZ-ART-022",
+      "name": "Traditional Uzbek Clay Tandoor (Tandir)",
+      "localizedNames": {
+        "en": "Traditional Uzbek Clay Tandoor (Tandir)",
+        "uz": "O'zbek loy tandiri (Nonvoylik o'chog'i)",
+        "ru": "Традиционный узбекский глиняный тандыр",
+        "ja": "ウズベキスタンの伝統粘土窯「タンディール」",
+        "ko": "우즈베키스탄 전통 진흙 화덕 '탄디르'",
+        "es": "Horno Tradicional de Barro Tandir Uzbeko"
+      },
+      "shortDescription": "Vase-shaped clay oven reinforced with goat or camel wool fibers (~0.8 m diameter), fired up to ~480°C to bake Uzbek flatbreads (non) and samsa.",
+      "localizedShortDescriptions": {
+        "en": "Vase-shaped clay oven reinforced with goat or camel wool fibers (~0.8 m diameter), fired up to ~480°C to bake Uzbek flatbreads (non) and samsa.",
+        "uz": "Pishiq sariq loyga echki yoki tuya juni qo'shib yasaladigan (~0.8 m diametr), 480°C gacha qizib o'zbek noni va somsa pishiradigan loy tandir.",
+        "ru": "Глиняная печь-жаровня (~0,8 м в диаметре), замешанная с верблюжьей или козьей шерстью, в которой пекут узбекские лепёшки и самсу.",
+        "ja": "ラクダやヤギの毛を混ぜた粘土で作られ、最大約480℃の高温でナンやサムサを焼き上げる伝統の壺型窯（タンディール）。",
+        "ko": "낙타나 염소 털을 섞은 점토로 빚어 약 480°C까지 달구어 우즈베크 전통 빵(논)과 삼사를 굽는 화덕입니다.",
+        "es": "Horno de barro en forma de tinaja reforzado con lana de cabra o camello (~0,8 m), usado para hornear pan non y samsa."
+      },
+      "historicalFacts": [
+        "Etymologically linked back to Persian 'tanūr' and ancient Akkadian 'tinūru' ('mud + fire'), clay tandoor ovens have operated across Central Asia for millennia.",
+        "Home tandoors typically measure ~0.8 meters inside diameter and stand 0.8–1 meter above ground; internal temperatures can reach ~480 °C (900 °F).",
+        "Regional styles differ: in Bukhara, Samarkand, and Khorezm tandoors generally face upward vertically, while in Tashkent and the Fergana Valley they are often mounted horizontally."
+      ],
+      "architecturalDetails": [
+        "Yellow clay is kneaded with goat or camel hair (preventing thermal cracking), salted, aged, built in coiled strips (80–90 cm × 20–30 cm), and cured with cottonseed oil and a 24-hour firing."
+      ],
+      "localLegends": [
+        "Baker's Craft: Coating a brand-new tandoor interior with cottonseed oil and burning a gentle fire for a full day seals the clay so baked non bread releases cleanly without crumbs sticking."
+      ],
+      "visualCues": [
+        "Brick-walled raised hearth enclosing a round-mouthed dome clay oven with charred ash opening at the base"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "Why is goat or camel wool mixed into tandoor clay?",
+          "How do Bukhara/Khorezm tandoors differ in mounting angle from Tashkent tandoors?",
+          "How hot does a clay tandoor get while baking non?"
+        ],
+        "uz": [
+          "Tandir loyiga nega echki yoki tuya juni qo'shiladi?",
+          "Xorazm va Buxoro tandirlari Toshkent/Farg'ona tandirlaridan o'rnatilishiga ko'ra qanday farq qiladi?",
+          "Yangi tandirni ishlatishdan oldin nega paxta yog'i surkalib olov yoqiladi?"
+        ],
+        "ru": [
+          "Зачем в глину при лепке тандыра добавляют верблюжью или козью шерсть?",
+          "Чем отличается установка тандыра в Бухаре/Хорезме от Ташкента?"
+        ],
+        "ja": [
+          "なぜタンディールの粘土にヤギやラクダの毛を混ぜるのですか？",
+          "地域によって窯の向きがどう違いますか？"
+        ],
+        "ko": [
+          "왜 탄디르 점토에 염소나 낙타 털을 섞나요?",
+          "부하라·호레즘식 탄디르와 타슈켄트식 탄디르의 설치 각도는 어떻게 다른가요?"
+        ],
+        "es": [
+          "¿Por qué se mezcla lana de cabra o camello con el barro del tandir?",
+          "¿Cómo varía la orientación del horno según la región de Uzbekistán?"
+        ]
+      },
+      "sources": [
+        "https://en.wikipedia.org/wiki/Tandoor",
+        "https://uz.wikipedia.org/wiki/Tandir",
+        "https://commons.wikimedia.org/wiki/File:Tandir_in_Uzbekistan.jpg"
+      ],
+      "localImage": "/artifacts/uzbek-clay-tandir.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Tandir in Uzbekistan.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Tandir_in_Uzbekistan.jpg",
+        "author": "Miss Kamola",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 720,
+        "bytes": 287627
+      }
+    }
+  ]
+}

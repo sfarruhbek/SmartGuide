@@ -1,0 +1,2311 @@
+{
+  "dataset": "SmartGuide — Khorezm Region Verified RAG Dataset (6 Languages: en, uz, ru, ja, ko, es)",
+  "generatedAt": "2026-11-26",
+  "supportedLanguages": [
+    "en",
+    "uz",
+    "ru",
+    "ja",
+    "ko",
+    "es"
+  ],
+  "schemaCompatibility": "Matches @smartguide/shared LandmarkDetail RAG fields + localImage, coordinates, and Wikimedia credits.",
+  "existingCoreKhivaCount": 5,
+  "existingCoreKhivaRefs": [
+    {
+      "slug": "kalta-minor",
+      "localImage": "/landmarks/kalta-minor.webp"
+    },
+    {
+      "slug": "juma-mosque",
+      "localImage": "/landmarks/juma-mosque.webp"
+    },
+    {
+      "slug": "tosh-hovli",
+      "localImage": "/landmarks/tosh-hovli.webp"
+    },
+    {
+      "slug": "kunya-ark",
+      "localImage": "/landmarks/kunya-ark.webp"
+    },
+    {
+      "slug": "pahlavon-mahmud",
+      "localImage": "/landmarks/pahlavon-mahmud.webp"
+    }
+  ],
+  "newKhorezmPlacesCount": 23,
+  "downloadedLocalImagesCount": 22,
+  "places": [
+    {
+      "slug": "islam-khoja-minaret",
+      "cluster": "khiva-ichan-qala",
+      "city": "khiva",
+      "district": "Xiva shahri (Ichan-Qal'a)",
+      "category": "landmark",
+      "interests": [
+        "history",
+        "sacred",
+        "local"
+      ],
+      "coordinates": {
+        "lat": 41.37658,
+        "lng": 60.36012
+      },
+      "name": "Islam Khoja Minaret & Madrasah",
+      "localizedNames": {
+        "en": "Islam Khoja Minaret & Madrasah",
+        "uz": "Islom Xoʻja minorasi va madrasasi",
+        "ru": "Минарет и медресе Ислам-Ходжа",
+        "ja": "イスラム・ホジャ・ミナレットとマドラサ",
+        "ko": "이슬람 호자 미나레트와 마드라사",
+        "es": "Minarete y Madraza de Islam Khoja"
+      },
+      "era": "Khanate of Khiva · Early 20th Century Reform Era",
+      "builtYear": "1908–1910",
+      "architect": "Built under Grand Vizier & reformer Islam Khoja during the reign of Asfandiyar Khan",
+      "locationInSite": "Southeastern sector of Ichan-Qala, Khiva",
+      "accentColor": "#0D9488",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia, UNESCO List #543, OpenStreetMap, Uzbekistan.travel)",
+      "archiveCode": "KHZ-KH-006",
+      "shortDescription": "Khiva's tallest minaret (56.6–57 m) and compact 42-hujra madrasah, celebrated for alternating unglazed brick and turquoise tile bands.",
+      "localizedShortDescriptions": {
+        "en": "Khiva's tallest minaret (56.6–57 m) and compact 42-hujra madrasah, celebrated for alternating unglazed brick and turquoise tile bands.",
+        "uz": "56.6–57 metr balandlikdagi Xivaning eng baland minorasi va 42 hujrali madrasa majmuasi; sirli feruza koshin halqalari bilan mashhur.",
+        "ru": "Самый высокий минарет Хивы (56,6–57 м) и медресе на 42 худжры, знаменитые чередованием кирпича и бирюзовых изразцовых поясов.",
+        "ja": "高さ約56.6〜57mを誇るヒヴァ最高のミナレットと42室のマドラサ複合施設。素焼きレンガとターコイズタイルの帯模様が特徴です。",
+        "ko": "높이 약 56.6~57m의 히바에서 가장 높은 미나레트와 42개 방의 마드라사 복합 단지로, 청록색 타일 띠 장식이 돋보입니다.",
+        "es": "El minarete más alto de Jiva (56,6–57 m) junto a una madraza de 42 celdas, famoso por sus franjas horizontales de cerámica turquesa."
+      },
+      "historicalFacts": [
+        "Constructed between 1908 and 1910 at the initiative of Islam Khoja, the progressive Grand Vizier of the Khiva Khanate under Asfandiyar Khan.",
+        "Standing roughly 56.6 to 57 meters high, it is the tallest monument in Khiva and ranks among the tallest historic minarets in Central Asia.",
+        "Its upper viewing platform sits at approximately 45 meters and offers a panoramic view over all of Ichan-Qala and Dishan-Qala.",
+        "The adjacent madrasah is small yet finely proportioned, featuring 42 student cells (hujras) and a domed central hall."
+      ],
+      "architecturalDetails": [
+        "The shaft tapers steeply upward like early medieval towers, visually accentuating its dramatic height.",
+        "Horizontal ornamental bands alternate warm baked brick with bright turquoise, white, and cobalt glazed ceramic tiles.",
+        "A narrow internal spiral staircase of stone/brick steps leads up to the lantern gallery."
+      ],
+      "localLegends": [
+        "Cultural Tradition: Islam Khoja is remembered in Khiva as a modernizer who championed secular schools, telegraph lines, a hospital, and wider bridges before his assassination in 1913; the minaret became a lasting symbol of his legacy."
+      ],
+      "visualCues": [
+        "Tallest slender brick minaret rising above Khiva's mudbrick skyline",
+        "Alternating horizontal rings of bright turquoise-white glazed tiles and plain tan brick",
+        "Open arched lantern cupola near the summit above a flared decorative cornice",
+        "Compact single-story madrasah facade directly attached to the minaret base"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "How tall is Islam Khoja Minaret and when was it built?",
+          "Who was Islam Khoja and why is this complex significant?",
+          "How many student rooms are in the madrasah?"
+        ],
+        "uz": [
+          "Islom Xo'ja minorasining balandligi necha metr va u qachon qurilgan?",
+          "Islom Xo'ja kim bo'lgan va majmuaning ahamiyati nimada?",
+          "Madrasa tarkibida nechta hujra bor?"
+        ],
+        "ru": [
+          "Какова высота минарета Ислам-Ходжа и когда его построили?",
+          "Кем был Ислам-Ходжа и чем известен этот комплекс?",
+          "Сколько худжр в соседнем медресе?"
+        ],
+        "ja": [
+          "イスラム・ホジャ・ミナレットの高さと建設年は？",
+          "イスラム・ホジャとはどのような人物でしたか？",
+          "隣接するマドラサにはいくつ部屋がありますか？"
+        ],
+        "ko": [
+          "이슬람 호자 미나레트의 높이와 건립 연도는 언제인가요?",
+          "이슬람 호자는 어떤 인물이었나요?",
+          "인접한 마드라사에는 몇 개의 방이 있나요?"
+        ],
+        "es": [
+          "¿Cuál es la altura del minarete de Islam Khoja y cuándo se construyó?",
+          "¿Quién fue Islam Khoja y qué papel tuvo en Jiva?",
+          "¿Cuántas celdas tiene la madraza contigua?"
+        ]
+      },
+      "sources": [
+        "https://uzbekistan.travel/en/",
+        "https://whc.unesco.org/en/list/543",
+        "https://www.openstreetmap.org/"
+      ],
+      "localImage": "/khorezm/islam-khoja-minaret.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Khiva. Minaret Islam Khoja.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Khiva._Minaret_Islam_Khoja.jpg",
+        "author": "Akka005",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 960,
+        "bytes": 284980
+      }
+    },
+    {
+      "slug": "nurullaboy-palace",
+      "cluster": "khiva-dishan-qala",
+      "city": "khiva",
+      "district": "Xiva shahri (Dishan-Qal'a)",
+      "category": "landmark",
+      "interests": [
+        "history",
+        "local"
+      ],
+      "coordinates": {
+        "lat": 41.3825,
+        "lng": 60.3564
+      },
+      "name": "Nurullaboy Palace",
+      "localizedNames": {
+        "en": "Nurullaboy Palace",
+        "uz": "Nurullaboy saroyi",
+        "ru": "Дворец Нуруллабай",
+        "ja": "ヌルッラバイ宮殿",
+        "ko": "누룰라보이 궁전",
+        "es": "Palacio de Nurullaboy"
+      },
+      "era": "Khanate of Khiva · Late 19th–Early 20th Century",
+      "builtYear": "1904–1912 (planned in the 1890s)",
+      "architect": "Khivan master artisans alongside invited Russian and German specialists",
+      "locationInSite": "Northwest Khiva in Dishan-Kala, outside the inner walls of Ichan-Qala",
+      "accentColor": "#B45309",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia, Uzbekistan.travel)",
+      "archiveCode": "KHZ-KH-007",
+      "shortDescription": "A royal Dishan-Kala palace built in 1904–1912 where traditional Khivan wood and ganch artistry meets Russian and European Modernist reception rooms.",
+      "localizedShortDescriptions": {
+        "en": "A royal Dishan-Kala palace built in 1904–1912 where traditional Khivan wood and ganch artistry meets Russian and European Modernist reception rooms.",
+        "uz": "1904–1912-yillarda Dishan-Qal'ada qurilgan, Xorazm yog'och-ganch san'ati bilan rus va Yevropa modern interyerlarini birlashtirgan xon saroyi.",
+        "ru": "Дворец в Дишан-Кале (1904–1912), объединивший хорезмийскую резьбу по дереву и ганчу с залами в русском и европейском стиле модерн.",
+        "ja": "1904〜1912年にディシャン・カラに建てられた宮殿。ホラズムの伝統的な木彫・漆喰細工とロシア・欧州のモダン様式が融合しています。",
+        "ko": "1904~1912년 디샨 칼라에 세워진 궁전으로, 호레즘 전통 목각·석고 공예와 러시아·유럽 모던 양식이 조화를 이룹니다.",
+        "es": "Palacio construido entre 1904 y 1912 en Dishan-Kala que fusiona la artesanía tradicional de Jiva con salones modernistas europeos."
+      },
+      "historicalFacts": [
+        "Planned in the 1890s because Ichan-Qala lacked space for a new garden-palace, construction began in 1904 under Muhammad Rahim Khan II for his son Asfandiyar Khan.",
+        "After Muhammad Rahim Khan II's death in 1910, Asfandiyar Khan expanded the complex through 1912 as his official ceremonial reception hall.",
+        "Both Khivan masters and specialists from Russia and Germany contributed to the palace's hybrid architectural design and materials.",
+        "Its rooms feature Russian glazed ceramic tile fireplaces, European parquet flooring, crystal chandeliers, and Venetian mirrors."
+      ],
+      "architecturalDetails": [
+        "Primary one-story palace buildings stand about 7.5 meters tall, arranged around enclosed inner courtyards and high brick perimeter walls.",
+        "Wooden carved columns, painted ceilings, and intricate ganch plasterwork sit side-by-side with arched European-style windows and stoves."
+      ],
+      "localLegends": [
+        "Documented Naming Story: The site belonged to a wealthy merchant named Nurullaboy, who agreed to sell his orchard to the Khan only on condition that the new palace permanently bear his name."
+      ],
+      "visualCues": [
+        "High tan-brick outer palace wall with carved arched gate in Dishan-Kala",
+        "Blend of tall European-framed windows and traditional Khivan wooden veranda columns",
+        "Reception halls containing glazed Russian tiled stoves, parquet floors, and painted floral ceilings"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "Why is the palace named after Nurullaboy?",
+          "How does Nurullaboy Palace mix Khivan and European architecture?",
+          "When and for whom was the palace constructed?"
+        ],
+        "uz": [
+          "Saroy nega savdogar Nurullaboy nomi bilan atalgan?",
+          "Saroyda sharqona va Yevropa uslubi qanday uyg'unlashgan?",
+          "Saroy qachon va kim uchun qurilgan?"
+        ],
+        "ru": [
+          "Почему дворец назван в честь купца Нуруллабая?",
+          "Как во дворце сочетаются хивинский и европейский стили?",
+          "Когда и для кого был построен комплекс?"
+        ],
+        "ja": [
+          "なぜこの宮殿はヌルッラバイの名で呼ばれているのですか？",
+          "ホラズム様式とヨーロッパ様式はどのように融合していますか？",
+          "いつ誰のために建てられましたか？"
+        ],
+        "ko": [
+          "왜 궁전 이름이 누룰라보이로 불리게 되었나요?",
+          "히바 전통 양식과 유럽 양식이 어떻게 결합되어 있나요?",
+          "언제 누구를 위해 지어졌나요?"
+        ],
+        "es": [
+          "¿Por qué el palacio lleva el nombre de Nurullaboy?",
+          "¿Cómo combina la arquitectura de Jiva con el estilo europeo?",
+          "¿Cuándo y para quién se construyó?"
+        ]
+      },
+      "sources": [
+        "https://en.wikipedia.org/wiki/Nurullabai_Palace",
+        "https://uzbekistan.travel/en/"
+      ],
+      "localImage": "/khorezm/nurullaboy-palace.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Nurullah Bai Palace, Khiva (481513).jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Nurullah_Bai_Palace,_Khiva_(481513).jpg",
+        "author": "upyernoz from Haverford, USA",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "width": 960,
+        "height": 640,
+        "bytes": 207079
+      }
+    },
+    {
+      "slug": "allakuli-khan-madrasah",
+      "cluster": "khiva-ichan-qala",
+      "city": "khiva",
+      "district": "Xiva shahri (Ichan-Qal'a)",
+      "category": "landmark",
+      "interests": [
+        "history",
+        "sacred"
+      ],
+      "coordinates": {
+        "lat": 41.3774,
+        "lng": 60.362
+      },
+      "name": "Allakuli Khan Madrasah",
+      "localizedNames": {
+        "en": "Allakuli Khan Madrasah",
+        "uz": "Olloqulixon madrasasi",
+        "ru": "Медресе Аллакули-хана",
+        "ja": "アラクル・ハン・マドラサ",
+        "ko": "알라쿨리 칸 마드라사",
+        "es": "Madraza de Allakuli Khan"
+      },
+      "era": "Khanate of Khiva · 19th Century",
+      "builtYear": "1834–1835",
+      "architect": "Commissioned by Khiva ruler Allakuli Khan along the eastern city wall",
+      "locationInSite": "Eastern Ichan-Qala between the Covered Bazaar (Tim) and Palvan-Darvoza gate, facing Khojamberdibiy Madrasah",
+      "accentColor": "#0284C7",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia uz/ru, UNESCO List #543)",
+      "archiveCode": "KHZ-KH-008",
+      "shortDescription": "Built in 1834–1835 atop a 3-meter artificial platform, this 99-hujra madrasah once housed Khiva's central library and today hosts the Ibn Sina Medical History Museum.",
+      "localizedShortDescriptions": {
+        "en": "Built in 1834–1835 atop a 3-meter artificial platform, this 99-hujra madrasah once housed Khiva's central library and today hosts the Ibn Sina Medical History Museum.",
+        "uz": "1834–1835-yillarda 3 metrlik sun'iy tepalik ustiga qurilgan 99 hujrali madrasa; bir paytlar butun Xiva talabalari foydalangan kutubxonasi bo'lgan.",
+        "ru": "Медресе 1834–1835 годов на 3-метровой платформе (99 худжр), некогда хранившее общую библиотеку для всех медресе Хивы.",
+        "ja": "1834〜1835年に高さ3mの基壇上に建てられた99室のマドラサ。かつてヒヴァ全土の学生が利用する大図書館がありました。",
+        "ko": "1834~1835년 3m 높이의 기단 위에 지어진 99개 방의 마드라사로, 히바 전체 학생들이 이용하던 도서관이 있었습니다.",
+        "es": "Construida en 1834–1835 sobre una plataforma de 3 m con 99 celdas; albergó una gran biblioteca y hoy acoge el museo médico Ibn Sina."
+      },
+      "historicalFacts": [
+        "Erected in 1834–1835 by order and funds of Allakuli Khan on the line of Ichan-Qala's eastern wall beside his caravanserai and covered market.",
+        "The madrasah spans roughly 62.5 × 47 meters with 99 student hujras (90 in some counts), winter and summer mosques, and a lecture hall (darskhana).",
+        "A large library (kitabkhana) above the entrance served students from every madrasah across Khiva.",
+        "Inscribed as part of UNESCO World Heritage site Itchan Kala in 1990; today it houses the Abu Ali ibn Sina Museum of Medical History."
+      ],
+      "architecturalDetails": [
+        "Built atop a ~3-meter raised artificial mound so its facade towers prominently over surrounding roofs.",
+        "Its portal faces the courtyard of the older Khojamberdibiy Madrasah in the Central Asian 'kosh' (paired) layout; because of the irregular junction, Khojamberdibiy gained the nickname 'Khurjum' (saddlebag).",
+        "Exterior portal and courtyard iwans are richly clad in classic Khorezmian black, white, and blue-turquoise majolica, whereas student cells inside were left smoothly plastered in plain ganch."
+      ],
+      "localLegends": [
+        "Historical Architectural Context: Cutting the madrasah straight into the eastern fortress wall forced builders to divide neighboring Khojamberdibiy Madrasah into two symmetrical halves, inspiring locals to call the complex 'Khurjum' (a woven double saddlebag)."
+      ],
+      "visualCues": [
+        "Elevated two-story brick madrasah standing higher than nearby buildings near Palvan-Darvoza",
+        "Tall peshtak portal covered in blue, turquoise, white, and dark majolica arabesques",
+        "Four courtyard iwans with two tiers of arched student rooms"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "Why was Allakuli Khan Madrasah built on a 3-meter platform?",
+          "What museum is located inside this madrasah today?",
+          "Why did the neighboring courtyard get called 'Khurjum'?"
+        ],
+        "uz": [
+          "Olloqulixon madrasasi nega 3 metrlik tepalik ustiga qurilgan?",
+          "Madrasa ustidagi kutubxona va hozirgi muzey haqida aytib bering",
+          "Qo'shni hovli nega 'Xurjum' deb atalgan?"
+        ],
+        "ru": [
+          "Зачем медресе построили на искусственном холме высотой 3 метра?",
+          "Какой музей сегодня находится внутри медресе?",
+          "Почему комплекс рядом прозвали «Хурджум» (перемётная сума)?"
+        ],
+        "ja": [
+          "なぜ3メートルの高台の上に建てられたのですか？",
+          "現在このマドラサの中には何の博物館がありますか？",
+          "隣接する中庭が「フルジュム」と呼ばれる理由は？"
+        ],
+        "ko": [
+          "왜 이 마드라사를 3m 높이의 단 위에 세웠나요?",
+          "현재 마드라사 내부에는 어떤 박물관이 있나요?",
+          "인접한 마당이 '후르줌'이라 불린 이유는 무엇인가요?"
+        ],
+        "es": [
+          "¿Por qué se construyó sobre una plataforma artificial de 3 metros?",
+          "¿Qué museo alberga hoy en día?",
+          "¿Por qué el patio contiguo recibió el apodo de 'Khurjum'?"
+        ]
+      },
+      "sources": [
+        "https://uz.wikipedia.org/wiki/Olloqulixon_madrasasi",
+        "https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D0%B4%D1%80%D0%B5%D1%81%D0%B5_%D0%90%D0%BB%D0%BB%D0%B0%D0%BA%D1%83%D0%BB%D0%B8-%D1%85%D0%B0%D0%BD%D0%B0"
+      ],
+      "localImage": "/khorezm/allakuli-khan-madrasah.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Alla Kouli Khan madrasa facade.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Alla_Kouli_Khan_madrasa_facade.jpg",
+        "author": "Adam Harangozó",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 640,
+        "bytes": 117918
+      }
+    },
+    {
+      "slug": "muhammad-amin-khan-madrasah",
+      "cluster": "khiva-ichan-qala",
+      "city": "khiva",
+      "district": "Xiva shahri (Ichan-Qal'a)",
+      "category": "landmark",
+      "interests": [
+        "history",
+        "local"
+      ],
+      "coordinates": {
+        "lat": 41.378,
+        "lng": 60.3575
+      },
+      "name": "Muhammad Amin Khan Madrasah",
+      "localizedNames": {
+        "en": "Muhammad Amin Khan Madrasah",
+        "uz": "Muhammad Aminxon madrasasi",
+        "ru": "Медресе Мухаммад Амин-хана",
+        "ja": "ムハンマド・アミン・ハン・マドラサ",
+        "ko": "무함마드 아민 칸 마드라사",
+        "es": "Madraza de Muhammad Amin Khan"
+      },
+      "era": "Khanate of Khiva · Qungrat Dynasty",
+      "builtYear": "1851–1855",
+      "architect": "Design by master Abdulla 'Jin' (selected in an 1851 competition)",
+      "locationInSite": "Western Ichan-Qala, right inside Ata-Darvoza beside Kalta Minor Minaret",
+      "accentColor": "#0E7490",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia en/uz, UNESCO List #543)",
+      "archiveCode": "KHZ-KH-009",
+      "shortDescription": "Khiva's largest and most richly tiled madrasah (78 × 60 m, 125 hujras for 260 students), famous for its rare second-story open loggias beside Kalta Minor.",
+      "localizedShortDescriptions": {
+        "en": "Khiva's largest and most richly tiled madrasah (78 × 60 m, 125 hujras for 260 students), famous for its rare second-story open loggias beside Kalta Minor.",
+        "uz": "1851–1855-yillarda qurilgan Xivadagi eng yirik madrasa (78 × 60 m, 125 hujra, 260 talaba); ikkinchi qavatidagi ochiq ravoqli ayvonlari bilan noyob.",
+        "ru": "Крупнейшее медресе Хивы (1851–1855, 78 × 60 м, 125 худжр для 260 учеников), отличающееся редкими лоджиями второго этажа.",
+        "ja": "ヒヴァ最大のマドラサ（1851〜1855年、78×60m、125室・学生260人）。2階の開放的なロッジア（バルコニー）が特徴です。",
+        "ko": "히바 최대 규모의 마드라사(1851~1855년, 78×60m, 125실·학생 260명)로 2층 개방형 로지아가 특징입니다.",
+        "es": "La madraza más grande de Jiva (78 × 60 m, 125 celdas para 260 estudiantes), famosa por sus galerías abiertas en el segundo piso."
+      },
+      "historicalFacts": [
+        "In 1851 Muhammad Amin Khan (reigned 1846–1855) held a design competition for a monumental madrasah and minaret; the plan by master Abdulla 'Jin' won approval.",
+        "Built between 1852 and 1855 (some sources note work started in 1851), it stands as the largest madrasah in Khiva with dimensions of roughly 78 × 60 meters.",
+        "Its 125 multi-room student hujras accommodated up to 260 scholars at a time, and also historically hosted the Khan's supreme court chamber.",
+        "Part of UNESCO World Heritage site Itchan Kala since 1990; today it operates as an exhibition space and tourist complex."
+      ],
+      "architecturalDetails": [
+        "Two-story brick building topped by five domes and flanked by cylindrical corner towers (guldastas), with a portal rising ~25 meters.",
+        "Distinctive open arched balconies (loggias) run along the outer second-story facade—a rare structural touch among Central Asian madrasahs.",
+        "Historically connected on the second level to Kalta Minor Minaret via an arched wooden bridge."
+      ],
+      "localLegends": [
+        "Craftsman Lore: Master tilemaker and architect Abdulla earned the nickname 'Abdulla Jin' ('Genie') because locals marveled at the extraordinary symmetry and gleaming turquoise ceramics he produced."
+      ],
+      "visualCues": [
+        "Massive two-story tan-brick facade standing directly next to the turquoise Kalta Minor Minaret",
+        "Row of deep arched balconies (loggias) along the second floor facing the square",
+        "Grand central peshtak portal framed by glazed blue-and-white tile bands"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "How many students could study at Muhammad Amin Khan Madrasah?",
+          "Who designed the madrasah and how was the architect chosen?",
+          "What architectural feature makes its upper facade unusual?"
+        ],
+        "uz": [
+          "Muhammad Aminxon madrasasida nechta talaba o'qishi mumkin bo'lgan?",
+          "Madrasa loyihasini kim va qanday tanlovda yutib chizgan?",
+          "Ikkinchi qavat fasadining o'ziga xos jihati nimada?"
+        ],
+        "ru": [
+          "Сколько студентов вмещало медресе Мухаммад Амин-хана?",
+          "Кто победил в конкурсе на проект этого медресе в 1851 году?",
+          "Чем необычен второй ярус главного фасада?"
+        ],
+        "ja": [
+          "このマドラサには最大何人の学生が収容できましたか？",
+          "1851年のコンペで設計を勝ち取ったのは誰ですか？",
+          "2階ファサードの珍しい建築特徴は何ですか？"
+        ],
+        "ko": [
+          "이 마드라사는 몇 명의 학생을 수용할 수 있었나요?",
+          "1851년 설계 공모전에서 누가 당선되었나요?",
+          "2층 외관의 독특한 건축적 특징은 무엇인가요?"
+        ],
+        "es": [
+          "¿Cuántos estudiantes podía albergar la madraza?",
+          "¿Quién diseñó el edificio tras el concurso de 1851?",
+          "¿Qué detalle hace especial la fachada del segundo piso?"
+        ]
+      },
+      "sources": [
+        "https://en.wikipedia.org/wiki/Muhammad_Aminkhan_Madrasah",
+        "https://uz.wikipedia.org/wiki/Muhammad_Aminxon_madrasasi"
+      ],
+      "localImage": "/khorezm/muhammad-amin-khan-madrasah.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Muhammad Amin Khan Madrasa, Khiva, Uzbekistan.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Muhammad_Amin_Khan_Madrasa,_Khiva,_Uzbekistan.jpg",
+        "author": "Benjamin Goetzinger",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 640,
+        "bytes": 133819
+      }
+    },
+    {
+      "slug": "muhammad-rahim-khan-madrasah",
+      "cluster": "khiva-ichan-qala",
+      "city": "khiva",
+      "district": "Xiva shahri (Ichan-Qal'a)",
+      "category": "landmark",
+      "interests": [
+        "history",
+        "sacred"
+      ],
+      "coordinates": {
+        "lat": 41.37851,
+        "lng": 60.35937
+      },
+      "name": "Muhammad Rahim Khan Madrasah",
+      "localizedNames": {
+        "en": "Muhammad Rahim Khan Madrasah",
+        "uz": "Muhammad Rahimxon (Feruz) madrasasi",
+        "ru": "Медресе Мухаммад Рахим-хана",
+        "ja": "ムハンマド・ラヒム・ハン・マドラサ",
+        "ko": "무함마드 라힘 칸 마드라사",
+        "es": "Madraza de Muhammad Rahim Khan"
+      },
+      "era": "Khanate of Khiva · Late 19th Century Literary Renaissance",
+      "builtYear": "1871–1876",
+      "architect": "Commissioned by Khan Muhammad Rahim II (pen name Feruz)",
+      "locationInSite": "Central Ichan-Qala, directly opposite the eastern gate of Kunya-Ark",
+      "accentColor": "#2563EB",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia en/uz, OpenStreetMap)",
+      "archiveCode": "KHZ-KH-010",
+      "shortDescription": "Khiva's last monumental madrasah (1871–1876, 62 × 50 m), founded opposite Kunya-Ark by the poet-khan Muhammad Rahim II ('Feruz') with 76 cells for 152 scholars.",
+      "localizedShortDescriptions": {
+        "en": "Khiva's last monumental madrasah (1871–1876, 62 × 50 m), founded opposite Kunya-Ark by the poet-khan Muhammad Rahim II ('Feruz') with 76 cells for 152 scholars.",
+        "uz": "Ko'hna Ark qarshisida shoir-xon Muhammad Rahimxon II (Feruz) qurdirgan Xivadagi so'nggi yirik madrasa (1871–1876, 76 hujra, 152 talaba).",
+        "ru": "Последнее из крупных медресе Хивы (1871–1876, 62 × 50 м, 76 худжр на 152 учеников), основанное ханом-поэтом Ферузом напротив Куня-Арка.",
+        "ja": "1871〜1876年に詩人ハーンのムハンマド・ラヒム2世（フェルズ）がクニャ・アルクの正面に建てたヒヴァ最後の大規模マドラサ（76室）。",
+        "ko": "1871~1876년 시인 칸 무함마드 라힘 2세(페루즈)가 쿠냐 아르크 맞은편에 세운 히바 최후의 대형 마드라사(76개 방)입니다.",
+        "es": "La última gran madraza de Jiva (1871–1876, 62 × 50 m), fundada frente a Kunya-Ark por el jan poeta Muhammad Rahim II (Feruz)."
+      },
+      "historicalFacts": [
+        "Construction began in 1871 by decree of Muhammad Rahim Khan II (reigned 1863–1910), an enlightened ruler and poet known by the pen name Feruz Shah.",
+        "Completed in 1876—three years after Khiva became a protectorate of the Russian Empire—it stands directly opposite Kunya-Ark's main eastern entrance.",
+        "Measuring 62 × 50 meters, it was the last large madrasah built in Khiva and housed 76 single-story cells designed for 152 students.",
+        "Poets including Komil Khorezmi composed celebratory chronogram verses commemorating its completion."
+      ],
+      "architecturalDetails": [
+        "Rectangular complex enclosing a four-iwan courtyard with corner towers, winter and summer mosques, a classroom (darskhana), and a library.",
+        "Its monumental portal opens through a five-span arcade vestibule; student cells are roofed with traditional Balkhi domes."
+      ],
+      "localLegends": [
+        "Literary Tradition: Khan Feruz actively cultivated music, lithography, and classical poetry in Khiva—today the madrasah also houses exhibits honoring Khorezmian literature and Feruz's cultural circle."
+      ],
+      "visualCues": [
+        "Wide paved forecourt framed by low brick perimeter wall directly facing Kunya-Ark",
+        "Blue-and-white majolica-tiled entrance portal with twin corner guldasta towers",
+        "Single-story courtyard facade lined with 76 domed student cells"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "Who was 'Feruz' and why did he build this madrasah?",
+          "How many students lived in its 76 hujras?",
+          "When was construction completed relative to 1873?"
+        ],
+        "uz": [
+          "Feruz taxallusli xon kim bo'lgan va bu madrasani nima uchun qurdirgan?",
+          "76 ta hujrada nechta tolibi ilm ta'lim olgan?",
+          "Madrasa qurilishi qachon boshlanib, qachon tugallangan?"
+        ],
+        "ru": [
+          "Кто такой хан-поэт Феруз и когда он построил это медресе?",
+          "Сколько студентов обучалось в 76 худжрах медресе?",
+          "Какие помещения входили в состав комплекса?"
+        ],
+        "ja": [
+          "詩人ハーン「フェルズ」とは誰で、いつこのマドラサを建てましたか？",
+          "76の部屋で何人の学生が学びましたか？",
+          "クニャ・アルクとの位置関係は？"
+        ],
+        "ko": [
+          "시인 칸 '페루즈'는 누구이며 언제 이 마드라사를 건립했나요?",
+          "76개의 방에서 몇 명의 학생이 공부했나요?",
+          "이 마드라사의 건축 구조는 어떠한가요?"
+        ],
+        "es": [
+          "¿Quién fue el jan poeta Feruz y cuándo fundó la madraza?",
+          "¿Cuántos alumnos estudiaban en sus 76 celdas?",
+          "¿Qué papel cultural tuvo en la Jiva del siglo XIX?"
+        ]
+      },
+      "sources": [
+        "https://en.wikipedia.org/wiki/Muhammad_Rahim_Khan_Madrasah",
+        "https://uz.wikipedia.org/wiki/Muhammad_Rahimxon_madrasasi",
+        "https://www.openstreetmap.org/"
+      ],
+      "localImage": "/khorezm/muhammad-rahim-khan-madrasah.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Mohammed Rahim Khan madrasa, entrance.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Mohammed_Rahim_Khan_madrasa,_entrance.jpg",
+        "author": "Adam Harangozó",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 640,
+        "bytes": 132287
+      }
+    },
+    {
+      "slug": "allakuli-tim-bazaar",
+      "cluster": "khiva-ichan-qala",
+      "city": "khiva",
+      "district": "Xiva shahri (Ichan-Qal'a)",
+      "category": "landmark",
+      "interests": [
+        "history",
+        "local"
+      ],
+      "coordinates": {
+        "lat": 41.3775,
+        "lng": 60.3616
+      },
+      "name": "Allakuli Khan Covered Bazaar (Tim)",
+      "localizedNames": {
+        "en": "Allakuli Khan Covered Bazaar (Tim)",
+        "uz": "Olloqulixon timi (Yopiq bozor)",
+        "ru": "Крытый базар (Тим) Аллакули-хана",
+        "ja": "アラクル・ハン屋根付きバザール（ティム）",
+        "ko": "알라쿨리 칸 실내 시장 (팀)",
+        "es": "Bazar Cubierto (Tim) de Allakuli Khan"
+      },
+      "era": "Khanate of Khiva · 19th Century Silk Road Trade",
+      "builtYear": "1832–1833 (alongside Allakuli Khan Caravanserai)",
+      "architect": "Commissioned by Allakuli Khan adjacent to Palvan-Darvoza",
+      "locationInSite": "Eastern Ichan-Qala, connecting Palvan-Darvoza to Allakuli Khan Madrasah and Caravanserai",
+      "accentColor": "#D97706",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia uz/ru, Wikimedia Commons)",
+      "archiveCode": "KHZ-KH-011",
+      "shortDescription": "A multi-domed brick trading arcade built around 1832–1833 to link Khiva's eastern gate and caravanserai with cool, shaded Silk Road merchant stalls.",
+      "localizedShortDescriptions": {
+        "en": "A multi-domed brick trading arcade built around 1832–1833 to link Khiva's eastern gate and caravanserai with cool, shaded Silk Road merchant stalls.",
+        "uz": "1832–1833-yillarda Polvon-Darvoza va karvonsaroy yonida qurilgan ko'p gumbazli yopiq savdo yo'lagi; Ipak yo'li savdogarlari rastasi.",
+        "ru": "Многокупольный кирпичный крытый рынок (ок. 1832–1833), соединивший ворота Палван-Дарваза с караван-сараем и медресе Аллакули-хана.",
+        "ja": "1832〜1833年頃に建てられた多ドームのレンガ造り屋根付き市場。シルクロード商人に涼しい取引の場を提供しました。",
+        "ko": "1832~1833년경 팔반 다르바자 문과 대상 숙소를 잇기 위해 세워진 다중 돔 벽돌 실내 시장입니다.",
+        "es": "Galería comercial cubierta de ladrillo con múltiples cúpulas (c. 1832–1833), ubicada junto a la puerta Palvan-Darvoza."
+      },
+      "historicalFacts": [
+        "Built around 1832–1833 under Allakuli Khan as part of an integrated commercial district beside his caravanserai and eastern Palvan-Darvoza gate.",
+        "Once the Tim and caravanserai opened, trade shifted from inside the neighboring Palvan-Darvoza corridor into these dedicated vaulted market halls.",
+        "The Khan invested customs and shop rent revenues from the Tim directly as waqf income supporting his new madrasah and public works."
+      ],
+      "architecturalDetails": [
+        "Constructed from baked brick as an elongated gallery covered by a sequence of spherical domes with central roof oculus openings.",
+        "Thick masonry walls and high skylights naturally ventilated the bazaar and buffered 45°C summer desert heat."
+      ],
+      "localLegends": [
+        "Trade Heritage: Merchants from Bukhara, Iran, and Russia traded silk, tea, carpets, and spices beneath these brick domes, and artisans still exhibit textiles and woodwork along its vaulted passage today."
+      ],
+      "visualCues": [
+        "Long vaulted brick passage lined with arched merchant alcoves and hanging silk/suzani textiles",
+        "Row of circular baked-brick domes visible from the street or gate roof"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "When was the Tim built and why was it placed next to Palvan-Darvoza?",
+          "How did the domed roof keep merchants cool in summer?",
+          "How was bazaar revenue connected to Allakuli Khan Madrasah?"
+        ],
+        "uz": [
+          "Olloqulixon timi qachon va nega aynan Polvon-Darvoza yonida qurilgan?",
+          "Ko'p gumbazli tom yozda bozorni qanday salqin saqlagan?",
+          "Tim daromadlari madrasa bilan qanday bog'liq bo'lgan?"
+        ],
+        "ru": [
+          "Когда был построен Тим Аллакули-хана и зачем он соединялся с караван-сараем?",
+          "Как купольная архитектура защищала торговцев от жары?",
+          "На что шли доходы от торговых лавок Тима?"
+        ],
+        "ja": [
+          "ティムはいつ建設され、なぜパルヴァン・ダルヴァザの隣に配置されたのですか？",
+          "連続するドーム屋根は夏にどのような効果がありましたか？"
+        ],
+        "ko": [
+          "팀 시장은 언제 지어졌으며 왜 팔반 다르바자 옆에 세워졌나요?",
+          "연속된 돔 지붕은 여름철 더위를 어떻게 막아주었나요?"
+        ],
+        "es": [
+          "¿Cuándo se construyó el Tim y por qué está junto a Palvan-Darvoza?",
+          "¿Cómo mantenían frescas las tiendas sus bóvedas de ladrillo?"
+        ]
+      },
+      "sources": [
+        "https://uz.wikipedia.org/wiki/Polvon_darvoza",
+        "https://uz.wikipedia.org/wiki/Olloqulixon_madrasasi",
+        "https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D0%B4%D1%80%D0%B5%D1%81%D0%B5_%D0%90%D0%BB%D0%BB%D0%B0%D0%BA%D1%83%D0%BB%D0%B8-%D1%85%D0%B0%D0%BD%D0%B0"
+      ],
+      "localImage": "/khorezm/allakuli-tim-bazaar.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Тим Аллакули Хан, Хива (Allakuli Covered Bazaar in Khiva, Ollo-qulixon timi).jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:%D0%A2%D0%B8%D0%BC_%D0%90%D0%BB%D0%BB%D0%B0%D0%BA%D1%83%D0%BB%D0%B8_%D0%A5%D0%B0%D0%BD,_%D0%A5%D0%B8%D0%B2%D0%B0_(Allakuli_Covered_Bazaar_in_Khiva,_Ollo-qulixon_timi).jpg",
+        "author": "Petar Milošević",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 720,
+        "bytes": 199587
+      }
+    },
+    {
+      "slug": "ata-darvoza",
+      "cluster": "khiva-ichan-qala",
+      "city": "khiva",
+      "district": "Xiva shahri (Ichan-Qal'a)",
+      "category": "landmark",
+      "interests": [
+        "history"
+      ],
+      "coordinates": {
+        "lat": 41.3786,
+        "lng": 60.3571
+      },
+      "name": "Ata-Darvoza (West Gate)",
+      "localizedNames": {
+        "en": "Ata-Darvoza (West Gate)",
+        "uz": "Ota-Darvoza (G'arbiy darvoza)",
+        "ru": "Ата-Дарваза (Западные ворота)",
+        "ja": "アタ・ダルヴァザ（西門）",
+        "ko": "아타 다르바자 (서문)",
+        "es": "Ata-Darvoza (Puerta Oeste)"
+      },
+      "era": "Khanate of Khiva · 19th Century Fortifications",
+      "builtYear": "1828–1829 (reconstructed in the 20th century)",
+      "architect": "Built under Khiva ruler Allakuli Khan",
+      "locationInSite": "Western entrance of Ichan-Qala between Kunya-Ark and Muhammad Amin Khan Madrasah",
+      "accentColor": "#92400E",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia uz, UNESCO List #543)",
+      "archiveCode": "KHZ-KH-012",
+      "shortDescription": "The iconic western gateway to Ichan-Qala (1828–1829), historically housing customs, currency exchange, and guard towers beside Kalta Minor.",
+      "localizedShortDescriptions": {
+        "en": "The iconic western gateway to Ichan-Qala (1828–1829), historically housing customs, currency exchange, and guard towers beside Kalta Minor.",
+        "uz": "1828–1829-yillarda Olloqulixon davrida qurilgan Ichan-Qal'aning g'arbiy bosh darvozasi; ichida bojxona va sarrofxona bo'lgan.",
+        "ru": "Знаковые западные ворота Ичан-Калы (1828–1829), где размещались таможня, меняльная лавка (саррафхана) и дозорные башни.",
+        "ja": "1828〜1829年に建設されたイチャン・カラの象徴的な西門。かつて内部には税関や両替所、見張り塔がありました。",
+        "ko": "1828~1829년 세워진 이찬 칼라의 상징적인 서문으로, 과거 세관과 환전소, 망루가 자리하고 있었습니다.",
+        "es": "La icónica puerta occidental de Ichan-Qala (1828–1829), que albergaba aduana, casa de cambio y torres de vigilancia."
+      },
+      "historicalFacts": [
+        "Built in 1828–1829 during the reign of Allakuli Khan and also called 'Shermuhammad Ota' gate; it was restored in the 20th century after earlier demolition.",
+        "Inside the gate complex operated a customs post, a currency exchange booth (sarrofxona), guard rooms, and 13 covered market stalls.",
+        "Positioned directly between the Khan's Kunya-Ark citadel on the left and Muhammad Amin Khan Madrasah on the right, making it the ceremonial entrance for most visitors today."
+      ],
+      "architecturalDetails": [
+        "Flanked by two heavy cylindrical defensive towers connected to the mudbrick fortress walls with crenellated battlements.",
+        "Features an arched main passage surmounted by an upper observation platform for watchmen."
+      ],
+      "localLegends": [
+        "Historical Naming Context: Also known as Shermuhammad Ota Gate in honor of a respected local figure buried nearby outside the western wall."
+      ],
+      "visualCues": [
+        "Wide recessed brick portal flanked by twin rounded mudbrick/brick towers",
+        "Crenellated wall ramparts stretching left and right with turquoise Kalta Minor visible behind the arch"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "What facilities operated inside Ata-Darvoza during the 19th century?",
+          "When was Ata-Darvoza built and which landmarks stand right behind it?"
+        ],
+        "uz": [
+          "XIX asrda Ota-Darvoza ichida qanday xizmatlar (bojxona, sarrofxona) bo'lgan?",
+          "Ota-Darvoza qachon qurilgan va uning ortida qaysi obidalar turadi?"
+        ],
+        "ru": [
+          "Какие службы размещались внутри ворот Ата-Дарваза в XIX веке?",
+          "Когда построили западные ворота и какие памятники стоят сразу за ними?"
+        ],
+        "ja": [
+          "19世紀にアタ・ダルヴァザの内部にはどのような施設がありましたか？",
+          "西門はいつ建てられ、すぐ奥には何が見えますか？"
+        ],
+        "ko": [
+          "19세기에 아타 다르바자 내부에는 어떤 시설들이 있었나요?",
+          "서문은 언제 지어졌고 바로 뒤에는 어떤 유적이 있나요?"
+        ],
+        "es": [
+          "¿Qué funciones cumplían la aduana y la casa de cambio dentro de Ata-Darvoza?",
+          "¿Cuándo se construyó la puerta oeste?"
+        ]
+      },
+      "sources": [
+        "https://uz.wikipedia.org/wiki/Ota_darvoza",
+        "https://whc.unesco.org/en/list/543"
+      ],
+      "localImage": "/khorezm/ata-darvoza.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Ota Darvaza aka West Gates, Khiva (Ota Darvaza, Ата-дарваза).jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Ota_Darvaza_aka_West_Gates,_Khiva_(Ota_Darvaza,_%D0%90%D1%82%D0%B0-%D0%B4%D0%B0%D1%80%D0%B2%D0%B0%D0%B7%D0%B0).jpg",
+        "author": "Petar Milošević",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 696,
+        "bytes": 122199
+      }
+    },
+    {
+      "slug": "palvan-darvoza",
+      "cluster": "khiva-ichan-qala",
+      "city": "khiva",
+      "district": "Xiva shahri (Ichan-Qal'a)",
+      "category": "landmark",
+      "interests": [
+        "history",
+        "local"
+      ],
+      "coordinates": {
+        "lat": 41.37721,
+        "lng": 60.36217
+      },
+      "name": "Palvan-Darvoza (East Gate)",
+      "localizedNames": {
+        "en": "Palvan-Darvoza (East Gate)",
+        "uz": "Polvon-Darvoza (Sharqiy darvoza)",
+        "ru": "Палван-Дарваза (Восточные ворота)",
+        "ja": "パルヴァン・ダルヴァザ（東門）",
+        "ko": "팔반 다르바자 (동문)",
+        "es": "Palvan-Darvoza (Puerta Este)"
+      },
+      "era": "Khanate of Khiva · Early 19th Century",
+      "builtYear": "1806 (rebuilt in baked brick under Eltuzar Khan)",
+      "architect": "Rebuilt by Eltuzar Khan; western section reshaped in 1835 under Allakuli Khan",
+      "locationInSite": "Eastern wall of Ichan-Qala, leading to the Amu Darya side & Dishan-Kala bazaar",
+      "accentColor": "#78350F",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia uz, OpenStreetMap)",
+      "archiveCode": "KHZ-KH-013",
+      "shortDescription": "Khiva's main eastern entrance rebuilt in 1806 by Eltuzar Khan—a long domed corridor guarded by a mirshab and seven soldiers above a water-filled moat.",
+      "localizedShortDescriptions": {
+        "en": "Khiva's main eastern entrance rebuilt in 1806 by Eltuzar Khan—a long domed corridor guarded by a mirshab and seven soldiers above a water-filled moat.",
+        "uz": "1806-yilda Eltuzarxon pishgan g'ishtdan qurdirgan Ichan-Qal'aning sharqiy bosh darvozasi; oldida suvli xandaq va ko'tarma ko'prik bo'lgan.",
+        "ru": "Главные восточные ворота Ичан-Калы, перестроенные Эльтузар-ханом в 1806 году в жжёном кирпиче с длинным купольным проходом.",
+        "ja": "1806年にエルトゥザル・ハンが焼成レンガで再建したイチャン・カラの東門。かつて跳ね橋と堀で守られていました。",
+        "ko": "1806년 엘투자르 칸이 구운 벽돌로 재건한 이찬 칼라의 동문으로, 과거 도개교와 해자로 방어되었습니다.",
+        "es": "Puerta oriental principal de Ichan-Qala reconstruida en 1806 en ladrillo cocido por Eltuzar Khan, protegida por un foso y puente levadizo."
+      },
+      "historicalFacts": [
+        "Rebuilt in baked brick in 1806 under Eltuzar Khan; its current form integrates modifications from 1832–1835 when Allakuli Khan built the Tim and madrasah.",
+        "Historically served as Khiva's primary city gate, guarded by a commander (mirshab) and seven armed guards (navkars), whose commander drew the same salary as the captain of the Khan's citadel.",
+        "A canal fed by the Amu Darya formed a defensive moat around the wall, crossed by a drawbridge raised each night."
+      ],
+      "architecturalDetails": [
+        "Features an elongated multi-domed interior corridor (dolon) that originally housed small market stalls along its arched bays.",
+        "Twin flanking watchtowers project seamlessly from the city's outer defensive wall, allowing watchmen to survey approaches from the east."
+      ],
+      "localLegends": [
+        "Folklore & Nicknames: Named 'Palvan-Darvoza' after Khiva's patron wrestler-poet Pahlavon Mahmud; earlier generations also grimly referred to it as 'Poshshob' (Executioner's) or 'Qul' (Slave) Gate because decrees and slave markets historically operated near the eastern approach."
+      ],
+      "visualCues": [
+        "Arched baked-brick gate set between thick defensive towers facing outward from Ichan-Qala",
+        "Long shadowed vaulted corridor lined with niches leading inward to the Tim domes"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "How was Palvan-Darvoza guarded at night in the 19th century?",
+          "Why did it have nicknames like Poshshob and Qul Gate?",
+          "When did Eltuzar Khan rebuild it in baked brick?"
+        ],
+        "uz": [
+          "Polvon-Darvoza kechasi va kunduzi qanday qo'riqlangan?",
+          "Darvoza nega xalq orasida boshqa nomlar bilan ham atalgan?",
+          "Eltuzarxon uni qachon pishgan g'ishtdan qayta qurgan?"
+        ],
+        "ru": [
+          "Как охранялись ворота Палван-Дарваза и зачем нужен был подъёмный мост?",
+          "Почему в народе их также называли воротами Пошшоб?",
+          "Когда Эльтузар-хан перестроил ворота в жжёном кирпиче?"
+        ],
+        "ja": [
+          "19世紀、パルヴァン・ダルヴァザの夜間警備はどのように行われましたか？",
+          "なぜ別の呼び名もあったのですか？"
+        ],
+        "ko": [
+          "19세기에 팔반 다르바자는 어떻게 경비되었나요?",
+          "이 문에 다른 별명들이 붙었던 이유는 무엇인가요?"
+        ],
+        "es": [
+          "¿Cómo se protegía Palvan-Darvoza durante la noche?",
+          "¿Por qué recibió otros apodos populares en el pasado?"
+        ]
+      },
+      "sources": [
+        "https://uz.wikipedia.org/wiki/Polvon_darvoza"
+      ],
+      "localImage": "/khorezm/palvan-darvoza.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Palwan-Darwaza.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Palwan-Darwaza.jpg",
+        "author": "Gregor Rom",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 720,
+        "bytes": 133178
+      }
+    },
+    {
+      "slug": "sayid-alauddin-mausoleum",
+      "cluster": "khiva-ichan-qala",
+      "city": "khiva",
+      "district": "Xiva shahri (Ichan-Qal'a)",
+      "category": "landmark",
+      "interests": [
+        "history",
+        "sacred"
+      ],
+      "coordinates": {
+        "lat": 41.37782,
+        "lng": 60.35858
+      },
+      "name": "Mausoleum of Sayid Alauddin",
+      "localizedNames": {
+        "en": "Mausoleum of Sayid Alauddin",
+        "uz": "Sayid Alouddin maqbarasi",
+        "ru": "Мавзолей Сейида Аллауддина",
+        "ja": "サイード・アラウッディン廟",
+        "ko": "사이드 알라우딘 영묘",
+        "es": "Mausoleo de Sayid Alauddin"
+      },
+      "era": "Golden Horde / 14th Century Khorezm",
+      "builtYear": "First half of 14th century (ziaratkhona added 17th c.; restored 1825)",
+      "architect": "14th-century Khorezmian masters; 1825 restoration ordered by Allakuli Khan",
+      "locationInSite": "Central Ichan-Qala, adjoining the eastern wall of Matniyaz Divanbegi Madrasah",
+      "accentColor": "#059669",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia ru, OpenStreetMap, Pugachenkova 1976)",
+      "archiveCode": "KHZ-KH-014",
+      "shortDescription": "One of Khiva's oldest surviving monuments (14th century), housing a rare raised-relief majolica cenotaph over the tomb of Sufi Sheikh Sayid Alauddin (d. 1303).",
+      "localizedShortDescriptions": {
+        "en": "One of Khiva's oldest surviving monuments (14th century), housing a rare raised-relief majolica cenotaph over the tomb of Sufi Sheikh Sayid Alauddin (d. 1303).",
+        "uz": "Xivadagi eng qadimgi saqlangan obidalardan biri (XIV asr); 1303-yilda vafot etgan so'fiy shayx qabri ustida bo'rtma mayolika sag'ana saqlanadi.",
+        "ru": "Один из древнейших памятников Хивы (XIV век) над могилой суфийского шейха Сайида Алауддина (ум. 1303) с уникальным майоликовым надгробием.",
+        "ja": "ヒヴァ最古級の現存建築（14世紀）。1303年没のスーフィー指導者サイード・アラウッディンの墓上に希少な浮彫マヨリカ石棺があります。",
+        "ko": "히바에서 가장 오래된 현존 유적 중 하나(14세기)로, 1303년 사망한 수피 성자 묘 위에 독특한 부조 마욜리카 석관이 남아 있습니다.",
+        "es": "Uno de los monumentos más antiguos de Jiva (siglo XIV), con un singular cenotafio de mayólica en relieve sobre la tumba del jeque Sayid Alauddin."
+      },
+      "historicalFacts": [
+        "Built over the burial site of the revered Sufi sheikh Sayid Alauddin, who died in 1303.",
+        "The domed tomb chamber (gurkhana) and its extraordinary glazed majolica cenotaph date to the first half of the 14th century, making it older than almost every other standing building in Ichan-Qala.",
+        "In the 17th century a prayer/pilgrimage hall (ziaratkhona) was added onto the original tomb.",
+        "In 1825, Allakuli Khan ordered a major restoration of the monument."
+      ],
+      "architecturalDetails": [
+        "Partially recessed relative to the raised modern street level due to centuries of surrounding urban buildup.",
+        "Famous for its stepped tombstone covered in relief-carved turquoise, cobalt, and white majolica floral and calligraphic motifs."
+      ],
+      "localLegends": [
+        "Pilgrimage Tradition: Sayid Alauddin is honored locally as an early spiritual mentor in Khiva, and the shrine has remained a quiet place of reverence for seven centuries."
+      ],
+      "visualCues": [
+        "Low historic baked-brick mausoleum tucked beside Matniyaz Divanbegi Madrasah",
+        "Interior holding an ornate turquoise-blue and white relief majolica sarcophagus"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "Why is Sayid Alauddin Mausoleum older than most Khiva monuments?",
+          "What makes the cenotaph inside unique?",
+          "When were the ziaratkhona and Allakuli Khan restoration completed?"
+        ],
+        "uz": [
+          "Sayid Alouddin maqbarasi Xivadagi boshqa obidalardan nega qadimiyroq?",
+          "Maqbara ichidagi mayolika sag'ana nimasi bilan noyob?",
+          "Ziyoratxona va ta'mirlash ishlari qachon qilingan?"
+        ],
+        "ru": [
+          "Почему мавзолей Сайида Алауддина старше большинства зданий Ичан-Калы?",
+          "Чем уникально майоликовое надгробие внутри усыпальницы?",
+          "Когда была пристроена зиаратхона и проведён ремонт?"
+        ],
+        "ja": [
+          "なぜこの廟はイチャン・カラの他の建物より古いのですか？",
+          "内部のマヨリカ石棺の特徴は何ですか？"
+        ],
+        "ko": [
+          "왜 이 영묘가 이찬 칼라의 다른 유적보다 오래되었나요?",
+          "내부 마욜리카 석관의 특별한 점은 무엇인가요?"
+        ],
+        "es": [
+          "¿Por qué este mausoleo es más antiguo que la mayoría de edificios de Ichan-Qala?",
+          "¿Qué hace único a su cenotafio de mayólica?"
+        ]
+      },
+      "sources": [
+        "https://ru.wikipedia.org/wiki/%D0%9C%D0%B0%D0%B2%D0%B7%D0%BE%D0%BB%D0%B5%D0%B9_%D0%A1%D0%B0%D0%B8%D0%B4%D0%B0_%D0%90%D0%BB%D0%BB%D0%B0%D1%83%D0%B4%D0%B4%D0%B8%D0%BD%D0%B0",
+        "https://www.openstreetmap.org/"
+      ],
+      "localImage": "/khorezm/sayid-alauddin-mausoleum.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:KhivaSayidAlauddin.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:KhivaSayidAlauddin.jpg",
+        "author": "Doron",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "width": 960,
+        "height": 1439,
+        "bytes": 514065
+      }
+    },
+    {
+      "slug": "dishan-kala",
+      "cluster": "khiva-dishan-qala",
+      "city": "khiva",
+      "district": "Xiva shahri (Dishan-Qal'a)",
+      "category": "landmark",
+      "interests": [
+        "history",
+        "local"
+      ],
+      "coordinates": {
+        "lat": 41.37778,
+        "lng": 60.36111
+      },
+      "name": "Dishan-Kala (Outer Fortress)",
+      "localizedNames": {
+        "en": "Dishan-Kala (Outer Fortress)",
+        "uz": "Dishan-Qal'a (Tashqi shahar)",
+        "ru": "Дишан-Кала (Внешний город)",
+        "ja": "ディシャン・カラ（外城）",
+        "ko": "디샨 칼라 (외성)",
+        "es": "Dishan-Kala (Ciudadela Exterior)"
+      },
+      "era": "Khanate of Khiva · 19th Century Urban Expansion",
+      "builtYear": "1842 (records note either 6 weeks of rapid mobilization or 3 years of phased work)",
+      "architect": "Ordered by Allakuli Khan; soil excavated at Govukkol 2 km north of Khiva",
+      "locationInSite": "Outer historic ring encircling Ichan-Qala in Khiva",
+      "accentColor": "#CA8A04",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia en/uz, Ogahi chronicles)",
+      "archiveCode": "KHZ-KH-015",
+      "shortDescription": "Khiva's 6.25 km outer defensive wall (7–8 m high, 10 gates) raised in 1842 under Allakuli Khan to protect craftsmen's quarters and gardens beyond Ichan-Qala.",
+      "localizedShortDescriptions": {
+        "en": "Khiva's 6.25 km outer defensive wall (7–8 m high, 10 gates) raised in 1842 under Allakuli Khan to protect craftsmen's quarters and gardens beyond Ichan-Qala.",
+        "uz": "1842-yilda Olloqulixon davrida qurilgan 6,250 metrlik tashqi mudofaa devori (balandligi 7–8 m, 10 ta darvoza) va tarixiy mahallalar hududi.",
+        "ru": "Внешний оборонительный пояс Хивы (стена 6 250 м, высота 7–8 м, 10 ворот), возведённый при Аллакули-хане в 1842 году.",
+        "ja": "1842年にアラクル・ハンが築いた全長6,250m・高さ7〜8m・10の門を持つヒヴァの外城壁と歴史的職人街。",
+        "ko": "1842년 알라쿨리 칸이 축조한 길이 6,250m, 높이 7~8m, 10개 성문을 갖춘 히바의 외성 구역입니다.",
+        "es": "Muralla exterior de Jiva (6.250 m de longitud, 7–8 m de alto, 10 puertas) erigida en 1842 bajo el mandato de Allakuli Khan."
+      },
+      "historicalFacts": [
+        "Commissioned in 1842 by Allakuli Khan to defend Khiva's growing outer suburbs (rabat) against raids by Yomut Turkmen tribes.",
+        "The outer pakhsa wall measured 6,250 meters long, 7 to 8 meters high, and 5 to 6 meters thick, originally pierced by 10 gates (of which Hazorasp and Qosh Gates still stand).",
+        "Khivan poet and historian Agahi recorded that Allakuli Khan mobilized over 200,000 workers—requiring subjects to contribute 12 days of unpaid labor—digging clay from Govukkol north of the city.",
+        "Monumental landmarks in Dishan-Kala include Nurullaboy Palace, Sayidboy Madrasah, Tort Shabbaz, and Abdolbobo complexes."
+      ],
+      "architecturalDetails": [
+        "Built of rammed clay (pakhsa) and sun-dried mudbrick along wide radial avenues (Hazorasp, Bogi Shamol, Shohimardon, Qosh).",
+        "Traditional residential quarters preserve carved wooden ayvan verandas, clay courtyards, and craft workshops."
+      ],
+      "localLegends": [
+        "Chronicle Note: Sources vary on construction speed—popular accounts speak of intense 6-week emergency mobilization, while Agahi's written chronicle describes 3 years of seasonal 12-day corvée labor."
+      ],
+      "visualCues": [
+        "Traditional earthen-walled Khiva neighborhood lanes and shaded wooden ayvan porches outside Ichan-Qala",
+        "Surviving brick city gates such as Hazorasp (Qo'y) and Qosh Darvoza"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "How long and thick was the Dishan-Kala wall?",
+          "How many gates did Dishan-Kala originally have and which survive?",
+          "Why did Allakuli Khan build an outer wall in 1842?"
+        ],
+        "uz": [
+          "Dishan-Qal'a devorining uzunligi, balandligi va qalinligi qancha bo'lgan?",
+          "Dastlab nechta darvozasi bo'lgan va bugun qaysilari saqlangan?",
+          "Olloqulixon 1842-yilda tashqi qal'ani nima sababdan qurdirgan?"
+        ],
+        "ru": [
+          "Какова была длина и толщина стен Дишан-Калы?",
+          "Сколько ворот имела внешняя крепость и какие сохранились?",
+          "От кого Аллакули-хан защищал Дишан-Калу в 1842 году?"
+        ],
+        "ja": [
+          "ディシャン・カラの城壁の長さと厚さはどれくらいでしたか？",
+          "もともといくつの門があり、現在どれが残っていますか？"
+        ],
+        "ko": [
+          "디샨 칼라 성벽의 길이와 두께는 얼마나 되었나요?",
+          "원래 몇 개의 문이 있었고 현재 어떤 문이 남아 있나요?"
+        ],
+        "es": [
+          "¿Cuánto medía la muralla de Dishan-Kala y cuántas puertas tenía?",
+          "¿Por qué se construyó en 1842?"
+        ]
+      },
+      "sources": [
+        "https://en.wikipedia.org/wiki/Dishan_Kala",
+        "https://uz.wikipedia.org/wiki/Dishan_qal%CA%BCa"
+      ],
+      "localImage": "/khorezm/dishan-kala.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Ditchan Kala houses.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Ditchan_Kala_houses.jpg",
+        "author": "Davide Mauro",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 640,
+        "bytes": 119908
+      }
+    },
+    {
+      "slug": "avesto-monument",
+      "cluster": "urgench-city",
+      "city": "urgench",
+      "district": "Urganch shahri",
+      "category": "landmark",
+      "interests": [
+        "history",
+        "local"
+      ],
+      "coordinates": {
+        "lat": 41.54722,
+        "lng": 60.62611
+      },
+      "name": "Avesto Monument & Park Complex",
+      "localizedNames": {
+        "en": "Avesto Monument & Park Complex",
+        "uz": "«Avesto» yodgorlik majmuasi va bog'i",
+        "ru": "Мемориальный комплекс «Авеста»",
+        "ja": "アヴェスター記念碑・公園",
+        "ko": "아베스타 기념비 및 공원",
+        "es": "Monumento y Parque del Avesta"
+      },
+      "era": "Contemporary Commemorative Architecture · 2001",
+      "builtYear": "2001",
+      "architect": "Designed by Urgench architect Polvonnazar Solayev",
+      "locationInSite": "Avesto Park along Shavat Canal area, central Urgench",
+      "accentColor": "#DC2626",
+      "verifiedBy": "SmartGuide Research Import (Uzbekistan.travel, Wikipedia coordinates)",
+      "archiveCode": "KHZ-UR-001",
+      "shortDescription": "An 18-meter open-book monument and underground museum in Urgench inaugurated in 2001 to honor the 2,700th anniversary of the Avesta in ancient Khorezm.",
+      "localizedShortDescriptions": {
+        "en": "An 18-meter open-book monument and underground museum in Urgench inaugurated in 2001 to honor the 2,700th anniversary of the Avesta in ancient Khorezm.",
+        "uz": "2001-yilda UNESCO shafeligida nishonlangan «Avesto»ning 2700 yilligi sharafiga Urganchda qurilgan 18 metrlik yodgorlik va muzey majmuasi.",
+        "ru": "18-метровый монумент в виде раскрытой книги и музей в Ургенче, открытые в 2001 году к 2700-летию «Авесты».",
+        "ja": "アヴェスター生誕2700周年を記念して2001年にウルゲンチに建てられた高さ18mの開いた書物型モニュメントと博物館。",
+        "ko": "아베스타 2700주년을 기념해 2001년 우르겐치에 세워진 높이 18m의 펼쳐진 책 형태 기념비와 박물관입니다.",
+        "es": "Monumento de 18 metros en forma de libro abierto y museo en Urgench, inaugurado en 2001 por el 2.700 aniversario del Avesta."
+      },
+      "historicalFacts": [
+        "Inaugurated in 2001 during UNESCO-supported celebrations marking 2,700 years since the creation of the Avesta, the sacred Zoroastrian compendium.",
+        "Many scholars connect ancient Khorezm ('Airyanem Vaejah') with the early historical and cultural cradle of the Avestan tradition.",
+        "Beneath the central sculptural plaza sits a museum dedicated to Zoroastrian history and ancient Khorezmian heritage."
+      ],
+      "architecturalDetails": [
+        "Designed by local architect Polvonnazar Solayev, the central monument rises 18 meters tall.",
+        "White arched pages form an open stone book flanked by striking red-and-white sculptural elements symbolizing eternal sacred fire."
+      ],
+      "localLegends": [
+        "Cultural Symbolism: The motto 'Good Thoughts, Good Words, Good Deeds' (Ezgulik fikr, ezgulik so'z, ezgulik amal) from the Avesta is celebrated across Khorezm's civic memory as a bridge between ancient ethics and modern heritage."
+      ],
+      "visualCues": [
+        "Large white arched open-book sculpture standing atop a stone plaza",
+        "Red-and-white vertical flame-shaped elements beside or framing the open pages"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "Why was the Avesto Monument built in Urgench in 2001?",
+          "What do the open book and red-and-white forms represent?",
+          "What is inside the museum beneath the monument?"
+        ],
+        "uz": [
+          "Urganchda «Avesto» yodgorligi qachon va nima munosabat bilan ochilgan?",
+          "Ochiq kitob va qizil-oq shakllar nimani anglatadi?",
+          "Monument ostidagi muzeyda nimalar ko'rsatiladi?"
+        ],
+        "ru": [
+          "К какому юбилею был возведён монумент «Авеста» в 2001 году?",
+          "Что символизируют раскрытая книга и красно-белые элементы?",
+          "Что расположено в музее под площадью монумента?"
+        ],
+        "ja": [
+          "ウルゲンチにアヴェスター記念碑が建てられた理由は？",
+          "開いた書物と赤白の造形は何を象徴していますか？"
+        ],
+        "ko": [
+          "우르겐치에 아베스타 기념비가 세워진 이유는 무엇인가요?",
+          "펼쳐진 책과 붉은·흰색 조형물은 무엇을 상징하나요?"
+        ],
+        "es": [
+          "¿Con qué motivo se erigió el Monumento del Avesta en 2001?",
+          "¿Qué simbolizan el libro abierto y los elementos rojos y blancos?"
+        ]
+      },
+      "sources": [
+        "https://uzbekistan.travel/en/"
+      ],
+      "localImage": "/khorezm/avesto-monument.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Авесто хайкали.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:%D0%90%D0%B2%D0%B5%D1%81%D1%82%D0%BE_%D1%85%D0%B0%D0%B9%D0%BA%D0%B0%D0%BB%D0%B8.jpg",
+        "author": "Ташова Ширин",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 720,
+        "bytes": 146190
+      }
+    },
+    {
+      "slug": "jaloliddin-manguberdi-monument",
+      "cluster": "urgench-city",
+      "city": "urgench",
+      "district": "Urganch shahri (Al-Xorazmiy va Islom Karimov ko'chalari kesishmasi)",
+      "category": "landmark",
+      "interests": [
+        "history"
+      ],
+      "coordinates": {
+        "lat": 41.53444,
+        "lng": 60.62472
+      },
+      "name": "Jaloliddin Manguberdi Memorial Complex",
+      "localizedNames": {
+        "en": "Jaloliddin Manguberdi Memorial Complex",
+        "uz": "Jaloliddin Manguberdi yodgorlik majmuasi",
+        "ru": "Мемориальный комплекс Джалолиддина Мангуберди",
+        "ja": "ジャラールッディーン・メングベルディ記念複合施設",
+        "ko": "잘랄 웃딘 망구베르디 기념 단지",
+        "es": "Complejo Memorial de Jaloliddin Manguberdi"
+      },
+      "era": "Contemporary Commemorative Complex · 2022",
+      "builtYear": "Inaugurated August 29, 2022",
+      "architect": "Monumental bronze equestrian statue & 8–10 hectare memorial plaza in central Urgench",
+      "locationInSite": "Intersection of Al-Khwarizmi and Islam Karimov streets, Urgench",
+      "accentColor": "#B91C1C",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia uz, official ceremony reports)",
+      "archiveCode": "KHZ-UR-002",
+      "shortDescription": "Central Urgench memorial square inaugurated in August 2022 around a towering bronze equestrian statue of Khwarazmian commander Jaloliddin Manguberdi (1198–1231).",
+      "localizedShortDescriptions": {
+        "en": "Central Urgench memorial square inaugurated in August 2022 around a towering bronze equestrian statue of Khwarazmian commander Jaloliddin Manguberdi (1198–1231).",
+        "uz": "2022-yil 29-avgustda Urganch markazida ochilgan Xorazmshohlar sarkardasi Jaloliddin Manguberdining bronza otliq haykali va keng majmua.",
+        "ru": "Мемориальная площадь в центре Ургенча с бронзовым конным памятником полководцу Джалолиддину Мангуберди (открыт 29 августа 2022 года).",
+        "ja": "ホラズム・シャー朝の英雄ジャラールッディーン・メングベルディ（1198–1231）を称え、2022年8月にウルゲンチ中心部に開園した記念広場。",
+        "ko": "화라즘 제국의 영웅 잘랄 웃딘 망구베르디(1198~1231)를 기려 2022년 8월 우르겐치 중심에 개장한 청동 기마상 광장입니다.",
+        "es": "Plaza conmemorativa inaugurada en agosto de 2022 en Urgench con la estatua ecuestre de bronce del sultán Jaloliddin Manguberdi."
+      },
+      "historicalFacts": [
+        "Honors Jaloliddin Manguberdi (1198–1231), the last Sultan of the Khwarazmian Empire who led an 11-year campaign of resistance against Genghis Khan's Mongol armies.",
+        "Unveiled on August 29, 2022 at the intersection of Al-Khwarizmi and Islam Karimov streets across an 8–10 hectare landscaped memorial park.",
+        "A carved stone stele in front of the statue records Quranic verses and Jaloliddin Manguberdi's royal genealogy."
+      ],
+      "architecturalDetails": [
+        "Monumental cast-bronze equestrian sculpture mounted on a high stepped stone pedestal.",
+        "Surrounded by illuminated pedestrian promenades, fountains, and landscaped green lawns."
+      ],
+      "localLegends": [
+        "Historical Account: Chronicles describe how after the Battle of the Indus (Sindh River) in 1221, Jaloliddin leaped from a cliff on horseback across the raging river to continue fighting—an act that reportedly moved even Genghis Khan to remark on his courage."
+      ],
+      "visualCues": [
+        "Dramatic bronze equestrian statue of a helmeted warrior on a rearing horse atop a tall dark/light stone pedestal",
+        "Genealogy stele and wide manicured square in modern Urgench"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "Who was Jaloliddin Manguberdi and how long did he resist the Mongols?",
+          "When was the memorial square in Urgench inaugurated?",
+          "What is inscribed on the stone stele in front of the monument?"
+        ],
+        "uz": [
+          "Jaloliddin Manguberdi kim bo'lgan va mo'g'ullarga qarshi necha yil kurashgan?",
+          "Urganchdagi haykal va majmua qachon ochilgan?",
+          "Haykal oldidagi bitiktoshda nimalar yozilgan?"
+        ],
+        "ru": [
+          "Кем был Джалолиддин Мангуберди и чем прославился в истории Хорезма?",
+          "Когда открылся мемориальный комплекс в центре Ургенча?",
+          "Что высечено на стеле перед конным памятником?"
+        ],
+        "ja": [
+          "ジャラールッディーン・メングベルディとは何者で、どのようにモンゴル軍に抵抗しましたか？",
+          "ウルゲンチの記念広場はいつ開園しましたか？"
+        ],
+        "ko": [
+          "잘랄 웃딘 망구베르디는 어떤 인물이며 몽골군에 어떻게 맞섰나요?",
+          "우르겐치 기념 광장은 언제 개장했나요?"
+        ],
+        "es": [
+          "¿Quién fue Jaloliddin Manguberdi y cuánto duró su resistencia?",
+          "¿Cuándo se inauguró el complejo memorial en Urgench?"
+        ]
+      },
+      "sources": [
+        "https://uz.wikipedia.org/wiki/Jaloliddin_Manguberdi_haykali"
+      ],
+      "localImage": "/khorezm/jaloliddin-manguberdi-monument.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Jaloladdin Manguberdi haykai Urgench.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Jaloladdin_Manguberdi_haykai_Urgench.jpg",
+        "author": "Ташова Ширин",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 1280,
+        "bytes": 299039
+      }
+    },
+    {
+      "slug": "urgench-khiva-trolleybus",
+      "cluster": "urgench-city",
+      "city": "urgench",
+      "district": "Urganch — Xiva shaharlararo yo'nalishi",
+      "category": "discovery",
+      "interests": [
+        "local",
+        "history"
+      ],
+      "coordinates": {
+        "lat": 41.55421,
+        "lng": 60.61956
+      },
+      "name": "Urgench–Khiva Intercity Trolleybus",
+      "localizedNames": {
+        "en": "Urgench–Khiva Intercity Trolleybus",
+        "uz": "Urganch — Xiva trolleybus yo'nalishi",
+        "ru": "Междугородний троллейбус Ургенч — Хива",
+        "ja": "ウルゲンチ・ヒヴァ都市間トロリーバス",
+        "ko": "우르겐치–히바 도시간 트롤리버스",
+        "es": "Trolebús Interurbano Urgench–Jiva"
+      },
+      "era": "Modern Khorezm Transit Heritage · Opened 1997",
+      "builtYear": "Opened October 20, 1997",
+      "architect": "Operated by Khorezm Trolleybus Administration (36.3 km intercity corridor)",
+      "locationInSite": "Connects Urgench central avenue with Khiva along a 36.3 km oasis highway",
+      "accentColor": "#0369A1",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia ru, OpenStreetMap)",
+      "archiveCode": "KHZ-UR-003",
+      "shortDescription": "Uzbekistan's only active trolleybus system, inaugurated in October 1997 for Khiva's 2,500th anniversary and spanning 36.3 km between Urgench and Khiva.",
+      "localizedShortDescriptions": {
+        "en": "Uzbekistan's only active trolleybus system, inaugurated in October 1997 for Khiva's 2,500th anniversary and spanning 36.3 km between Urgench and Khiva.",
+        "uz": "Xiva 2500 yilligi munosabati bilan 1997-yil 20-oktyabrda ochilgan O'zbekistondagi yagona faol trolleybus tizimi (uzunligi 36.3 km).",
+        "ru": "Единственная действующая в Узбекистане троллейбусная система (36,3 км между Ургенчем и Хивой), открытая 20 октября 1997 года к 2500-летию Хивы.",
+        "ja": "ヒヴァ2500周年を記念して1997年10月に開通した、ウズベキスタン唯一の現役トロリーバス路線（全長36.3km）。",
+        "ko": "히바 2500주년을 기념해 1997년 10월 개통된 우즈베키스탄 유일의 현역 트롤리버스 노선(36.3km)입니다.",
+        "es": "Único sistema de trolebuses activo en Uzbekistán (36,3 km entre Urgench y Jiva), inaugurado en octubre de 1997."
+      },
+      "historicalFacts": [
+        "Launched on October 20, 1997 to celebrate the 2,500th anniversary of Khiva.",
+        "After Uzbekistan's other regional trolleybus networks closed in the late 2000s, the Urgench–Khiva intercity line became the country's sole surviving trolleybus route.",
+        "Spanning 36.3 km across the Khorezm oasis, it ranks among the longest intercity trolleybus routes in the world; Škoda 24Tr vehicles arrived in 2013 (replacing older Škoda 14Tr units) with newer Yutong additions documented in 2026."
+      ],
+      "architecturalDetails": [
+        "Overhead twin catenary wires stretch across green oasis boulevards and irrigation channels between Urgench and Khiva's outer walls."
+      ],
+      "localLegends": [
+        "Traveler Experience: Riding the silent electric trolleybus between Urgench and Khiva is a favorite local slow-travel experience for transit enthusiasts and budget solo travelers."
+      ],
+      "visualCues": [
+        "Electric trolleybus with twin roof poles connected to overhead street wires along the Urgench–Khiva road"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "When and why was the Urgench–Khiva trolleybus opened?",
+          "How long is the route and why is it unique in Uzbekistan?"
+        ],
+        "uz": [
+          "Urganch–Xiva trolleybusi qachon va nima munosabat bilan ochilgan?",
+          "Yo'nalish uzunligi necha km va u nega O'zbekistonda yagona?"
+        ],
+        "ru": [
+          "Когда открылся троллейбус Ургенч — Хива и какова длина маршрута?",
+          "Почему эта система уникальна для всего Узбекистана?"
+        ],
+        "ja": [
+          "ウルゲンチ・ヒヴァ間のトロリーバスはいつ開通し、全長は何kmですか？"
+        ],
+        "ko": [
+          "우르겐치–히바 트롤리버스는 언제 개통되었고 노선 길이는 얼마인가요?"
+        ],
+        "es": [
+          "¿Cuándo se inauguró el trolebús Urgench–Jiva y cuánto mide su recorrido?"
+        ]
+      },
+      "sources": [
+        "https://ru.wikipedia.org/wiki/%D0%A3%D1%80%D0%B3%D0%B5%D0%BD%D1%87%D1%81%D0%BA%D0%B8%D0%B9_%D1%82%D1%80%D0%BE%D0%BB%D0%BB%D0%B5%D0%B9%D0%B1%D1%83%D1%81",
+        "https://www.openstreetmap.org/"
+      ],
+      "localImage": "/khorezm/urgench-khiva-trolleybus.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Urganch, Škoda 14Tr (01).jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Urganch,_%C5%A0koda_14Tr_(01).jpg",
+        "author": "Felix O",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "width": 960,
+        "height": 651,
+        "bytes": 159235
+      }
+    },
+    {
+      "slug": "urgench-shavat-canal",
+      "cluster": "urgench-city",
+      "city": "urgench",
+      "district": "Urganch shahri markazi",
+      "category": "discovery",
+      "interests": [
+        "local",
+        "nature"
+      ],
+      "coordinates": {
+        "lat": 41.55,
+        "lng": 60.63333
+      },
+      "name": "Shavat Canal Waterfront (Urgench)",
+      "localizedNames": {
+        "en": "Shavat Canal Waterfront (Urgench)",
+        "uz": "Shovot kanali sohilbo'yi sayilgohi",
+        "ru": "Набережная канала Шават в Ургенче",
+        "ja": "ウルゲンチ・シャヴァト運河プロムナード",
+        "ko": "우르겐치 샤바트 운하 산책로",
+        "es": "Paseo del Canal Shavat (Urgench)"
+      },
+      "era": "Khorezm Oasis Irrigation & Modern Civic Center",
+      "builtYear": "Modern Urgench founded 2nd half of 19th century along Shavat Canal",
+      "architect": "Historic Khorezm oasis irrigation waterway & modern city embankments",
+      "locationInSite": "Central Urgench (~450 km west of Bukhara across the Kyzylkum)",
+      "accentColor": "#0284C7",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia en, Wikimedia Commons)",
+      "archiveCode": "KHZ-UR-004",
+      "shortDescription": "Tree-lined waterfront promenade along the Shavat Canal cutting through Urgench—capital of Khorezm Region and historical Amu Darya oasis hub.",
+      "localizedShortDescriptions": {
+        "en": "Tree-lined waterfront promenade along the Shavat Canal cutting through Urgench—capital of Khorezm Region and historical Amu Darya oasis hub.",
+        "uz": "Xorazm viloyati markazi Urganch shahridan oqib o'tuvchi tarixiy Shovot kanali bo'yidagi salqin sohil va sayilgoh.",
+        "ru": "Зелёная набережная вдоль канала Шават в центре Ургенча — столицы Хорезмской области и ключевого водного канала оазиса.",
+        "ja": "ホラズム州の州都ウルゲンチ中心部を流れる歴史的シャヴァト運河沿いの並木遊歩道。",
+        "ko": "호레즘 주의 주도 우르겐치 중심을 가로지르는 역사적 샤바트 운하를 따라 조성된 수변 산책로입니다.",
+        "es": "Paseo arbolado junto al histórico canal de riego Shavat que atraviesa Urgench, capital de la región de Jorezm."
+      },
+      "historicalFacts": [
+        "Modern Urgench grew in the second half of the 19th century along the Shavat irrigation canal fed by the Amu Darya, distinct from ancient Konye-Urgench in Turkmenistan (abandoned after the river shifted course in the 16th century).",
+        "Located 450 km west of Bukhara across the Kyzylkum Desert, Urgench today is Khorezm Region's administrative, airport, and rail gateway (population ~145,000 in 2021 estimates)."
+      ],
+      "architecturalDetails": [
+        "Wide masonry canal embankments crossed by pedestrian bridges, shaded parks, and recreational walkways."
+      ],
+      "localLegends": [
+        "Geography Note: Visitors often confuse New Urgench (Uzbekistan) with Konye-Urgench ('Old Urgench' / Gurgench in Turkmenistan)—it was the 16th-century shift of the Amu Darya riverbed that forced the ancient capital's relocation."
+      ],
+      "visualCues": [
+        "Calm turquoise/silty irrigation canal flowing through modern Urgench lined by stone embankments and greenery"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "Why are there two cities named Urgench—New Urgench and Old Urgench?",
+          "What is the role of the Shavat Canal in Khorezm?"
+        ],
+        "uz": [
+          "Nega ikkita Urganch (Urganch va Ko'hna Urganch) mavjud?",
+          "Shovot kanali Xorazm vohasida qanday ahamiyatga ega?"
+        ],
+        "ru": [
+          "Почему существуют два города с названием Ургенч (Ургенч и Куня-Ургенч)?",
+          "Откуда берёт воду канал Шават?"
+        ],
+        "ja": [
+          "なぜウズベキスタンのウルゲンチとトルクメニスタンのクニャ・ウルゲンチの2つがあるのですか？"
+        ],
+        "ko": [
+          "왜 우르겐치와 쿠냐 우르겐치 두 도시가 존재하나요?"
+        ],
+        "es": [
+          "¿Por qué existen dos ciudades llamadas Urgench (Nueva y Antigua)?"
+        ]
+      },
+      "sources": [
+        "https://en.wikipedia.org/wiki/Urgench"
+      ],
+      "localImage": "/khorezm/urgench-shavat-canal.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Waterfront of Shavat canal in Urganch.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Waterfront_of_Shavat_canal_in_Urganch.jpg",
+        "author": "Carpodacus",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 720,
+        "bytes": 156714
+      }
+    },
+    {
+      "slug": "ulli-hovli",
+      "cluster": "khorezm-fortresses",
+      "city": "urgench",
+      "district": "Urganch tumani (G'oybu qishlog'i, Turkmanlar mahallasi)",
+      "category": "landmark",
+      "interests": [
+        "history",
+        "local"
+      ],
+      "coordinates": {
+        "lat": 41.4946,
+        "lng": 60.57199
+      },
+      "name": "Ulli Hovli Historical Complex",
+      "localizedNames": {
+        "en": "Ulli Hovli Historical Complex",
+        "uz": "Ulli Hovli majmuasi",
+        "ru": "Исторический комплекс Улли-Ховли",
+        "ja": "ウッリ・ホヴリ歴史複合施設",
+        "ko": "울리 호블리 역사 단지",
+        "es": "Complejo Histórico Ulli Hovli"
+      },
+      "era": "Khanate of Khiva · 17th Century Abulghazi Bahadur Khan Era",
+      "builtYear": "1640–1694",
+      "architect": "Built under Khiva Khan Abulghazi Bahadur Khan for Uzbek and Turkmen clans",
+      "locationInSite": "Turkmanlar Mahalla, G'oybu village, Urgench District",
+      "accentColor": "#D97706",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia uz, Wikidata Q122676179, Uzbekistan.travel)",
+      "archiveCode": "KHZ-FR-001",
+      "shortDescription": "A 17th-century fortified clay clan courtyard ('Big Yard') built in 1640–1694 under Abulghazi Bahadur Khan for joint Uzbek-Turkmen settlement in Urgench District.",
+      "localizedShortDescriptions": {
+        "en": "A 17th-century fortified clay clan courtyard ('Big Yard') built in 1640–1694 under Abulghazi Bahadur Khan for joint Uzbek-Turkmen settlement in Urgench District.",
+        "uz": "1640–1694-yillarda Abulg'ozi Bahodirxon davrida Urganch tumanida o'zbek va turkman urug'lari uchun qurilgan tarixiy paxsa qo'rg'on-hovli.",
+        "ru": "Укреплённая усадьба XVII века («Большой двор», 1640–1694) эпохи Абулгази Бахадур-хана в Ургенчском районе, ныне этнографический центр.",
+        "ja": "1640〜1694年にアブルガーズィー・バハドゥル・ハンの時代にウズベク人とトルクメン人の共同防衛集落として築かれた土壁の要塞屋敷。",
+        "ko": "1640~1694년 아불가지 바하두르 칸 시대에 우즈베크와 투르크멘 부족의 공동 정착지로 지어진 흙벽 요새 저택입니다.",
+        "es": "Fortaleza residencial de adobe del siglo XVII (1640–1694) construida bajo Abulgazi Bahadur Jan como asentamiento conjunto uzbeko-turcomano."
+      },
+      "historicalFacts": [
+        "Meaning 'Big Yard' ('Uly Howly' in Turkmen), the fortified residential complex was built between 1640 and 1694 during the reign of scholar-ruler Abulghazi Bahadur Khan.",
+        "An inscription on the entrance gate records that Abulghazi Bahadur Khan ordered it built at the request of Salor Turkmen elders Khojamberdi and Shermamatboy.",
+        "Originally planned around a 100-room fortified compound housing 15 large extended families; 35 traditional living quarters survive today.",
+        "In 2009, scholars from the Khorezm Mamun Academy and Urgench State University conducted architectural studies here; it now welcomes visitors as an open-air Uzbek-Turkmen ethnographic complex."
+      ],
+      "architecturalDetails": [
+        "Surrounded by tall rammed-earth (pakhsa) outer perimeter walls with defensive corner towers and a massive wooden double gate.",
+        "Interior courtyards preserve traditional clay homes, shaded wooden terraces, millstones, and yurt demonstration grounds."
+      ],
+      "localLegends": [
+        "Shared Heritage: Referenced in the Khivan chronicle 'Firdavs ul-Iqbol' by Munis and Agahi, Ulli Hovli stands as a living monument to centuries of shared Uzbek and Turkmen brotherhood in the Khorezm oasis."
+      ],
+      "visualCues": [
+        "Tall sloping mud-clay (pakhsa) fortress wall with rounded corner bastion and recessed arched brick entrance gate",
+        "Rural ethnographic courtyard displaying mudbrick rooms and Turkmen yurts"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "What does 'Ulli Hovli' mean and who built it in the 17th century?",
+          "What inscription appears on the entrance gate?",
+          "How many families lived there originally and how is it used today?"
+        ],
+        "uz": [
+          "«Ulli Hovli» so'zi nimani anglatadi va u kimning davrida qurilgan?",
+          "Darvoza va devordagi qadimiy bitikda nima yozilgan?",
+          "Dastlab nechta oila yashagan va bugungi kunda u yerda nima bor?"
+        ],
+        "ru": [
+          "Что означает название «Улли-Ховли» и кто основал усадьбу в XVII веке?",
+          "Что написано в надписи над входом в комплекс?",
+          "Как используется усадьба сегодня?"
+        ],
+        "ja": [
+          "「ウッリ・ホヴリ」とはどういう意味で、誰の時代に築かれましたか？",
+          "入口の門にはどのような碑文がありますか？"
+        ],
+        "ko": [
+          "'울리 호블리'는 무슨 뜻이며 누구의 시대에 지어졌나요?",
+          "입구 성문에는 어떤 비문이 새겨져 있나요?"
+        ],
+        "es": [
+          "¿Qué significa 'Ulli Hovli' y quién lo construyó en el siglo XVII?",
+          "¿Qué dice la inscripción de la puerta de entrada?"
+        ]
+      },
+      "sources": [
+        "https://uz.wikipedia.org/wiki/Ulli_Hovli",
+        "https://uzbekistan.travel/en/",
+        "https://www.wikidata.org/wiki/Q122676179"
+      ],
+      "localImage": "/khorezm/ulli-hovli.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Ulli hovli majmuasi 1.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Ulli_hovli_majmuasi_1.jpg",
+        "author": "Khasan azim1",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 720,
+        "bytes": 93229
+      }
+    },
+    {
+      "slug": "hazorasp-fortress",
+      "cluster": "khorezm-fortresses",
+      "city": "hazorasp",
+      "district": "Xazorasp tumani (Urganchdan 45 km janubi-sharqda)",
+      "category": "landmark",
+      "interests": [
+        "history"
+      ],
+      "coordinates": {
+        "lat": 41.31667,
+        "lng": 61.06667
+      },
+      "name": "Hazorasp Fortress",
+      "localizedNames": {
+        "en": "Hazorasp Fortress",
+        "uz": "Xazorasp qal'asi",
+        "ru": "Крепость Хазарасп",
+        "ja": "ハザラスプ要塞",
+        "ko": "하자라스프 요새",
+        "es": "Fortaleza de Hazorasp"
+      },
+      "era": "Ancient Khorezm (1st Millennium BCE) — Khanate of Khiva",
+      "builtYear": "Archaeological layers date back to the 1st half of the 1st millennium BCE (>3,000 years)",
+      "architect": "Ancient Khorezmian & medieval Silk Road fortress builders",
+      "locationInSite": "Hazorasp town, southeastern Khorezm Region along the lower Amu Darya oasis border",
+      "accentColor": "#A16207",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia en/uz, UNESCO Tentative List)",
+      "archiveCode": "KHZ-FR-002",
+      "shortDescription": "One of Central Asia's oldest fortified towns ('Thousand Horses'), guarding Khorezm's southern Silk Road gateway for over 3,000 years and listed on Uzbekistan's UNESCO Tentative list.",
+      "localizedShortDescriptions": {
+        "en": "One of Central Asia's oldest fortified towns ('Thousand Horses'), guarding Khorezm's southern Silk Road gateway for over 3,000 years and listed on Uzbekistan's UNESCO Tentative list.",
+        "uz": "3000 yildan ortiq tarixga ega («Ming ot»), Xorazmning janubiy «oltin darvozasi» sanalgan qadimiy qal'a-shahar va UNESCO dastlabki ro'yxati obyekti.",
+        "ru": "Один из древнейших городов Средней Азии («Тысяча коней», свыше 3000 лет истории), южные ворота Хорезма из предварительного списка ЮНЕСКО.",
+        "ja": "3,000年以上の歴史を持つ中央アジア最古級の城塞都市（「千頭の馬」）。ホラズム南部の玄関口でユネスコ暫定リスト掲載遺産です。",
+        "ko": "3,000년 이상의 역사를 지닌 중앙아시아 최고(最古) 성채 도시 중 하나('천 마리의 말')로 유네스코 잠정 목록에 등재되어 있습니다.",
+        "es": "Una de las fortalezas urbanas más antiguas de Asia Central ('Mil Caballos'), con más de 3.000 años de historia y en la lista indicativa de la UNESCO."
+      },
+      "historicalFacts": [
+        "Archaeological strata with ceramic finds and towered fortress walls date to the first half of the 1st millennium BCE, giving Hazorasp over 3,000 years of urban history.",
+        "Its Persian name 'Hazarasp' translates to 'Thousand Horses'; major medieval battles took place here involving Mahmud of Ghazni (1017), Seljuq Sultan Ahmad Sanjar vs. Khwarazmshah Atsiz (1147), and the Mongol invasion.",
+        "Later served as a stronghold for Arabshahid princes of Khiva and was captured during the 1873 Russian campaign.",
+        "Included on Uzbekistan's UNESCO World Heritage Tentative List."
+      ],
+      "architecturalDetails": [
+        "Massive surviving earthen pakhsa ramparts and bastion ruins enclose a large quadrilateral citadel site beside historic irrigation canals."
+      ],
+      "localLegends": [
+        "Etymology Lore: Regional legend links the name 'Thousand Horses' to legendary winged steeds or royal cavalry garrisons stationed at the southern approach to Khorezm."
+      ],
+      "visualCues": [
+        "Monumental weathered earthen fortress walls and bastion mounds rising beside modern Hazorasp streets and water channels"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "What does the name 'Hazorasp' mean and how old is the city?",
+          "Which famous medieval rulers fought battles at Hazorasp?",
+          "Why is it called the southern gateway of Khorezm?"
+        ],
+        "uz": [
+          "«Xazorasp» nomi nimani anglatadi va shahar yoshi nechada?",
+          "Xazoraspda qaysi mashhur tarixiy janglar bo'lib o'tgan?",
+          "Nega Xazorasp Xorazmning janubiy darvozasi hisoblanadi?"
+        ],
+        "ru": [
+          "Что означает название «Хазарасп» и сколько лет крепости?",
+          "Какие известные исторические битвы происходили у стен Хазараспа?"
+        ],
+        "ja": [
+          "「ハザラスプ」という名前の意味と都市の古さは？",
+          "この要塞をめぐってどのような歴史的戦いがありましたか？"
+        ],
+        "ko": [
+          "'하자라스프'라는 이름의 의미와 도시는 얼마나 오래되었나요?",
+          "이 요새에서 어떤 유명한 중세 전투가 벌어졌나요?"
+        ],
+        "es": [
+          "¿Qué significa el nombre 'Hazorasp' y qué antigüedad tiene la ciudad?",
+          "¿Qué batallas históricas ocurrieron aquí?"
+        ]
+      },
+      "sources": [
+        "https://en.wikipedia.org/wiki/Hazorasp",
+        "https://uz.wikipedia.org/wiki/Hazorasp"
+      ],
+      "localImage": "/khorezm/hazorasp-fortress.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Hazorasp.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Hazorasp.jpg",
+        "author": "LittleT889",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "width": 960,
+        "height": 793,
+        "bytes": 149731
+      }
+    },
+    {
+      "slug": "qalajiq-qala",
+      "cluster": "khorezm-fortresses",
+      "city": "bogot",
+      "district": "Bog'ot tumani (Qal'ajiq)",
+      "category": "landmark",
+      "interests": [
+        "history",
+        "nature"
+      ],
+      "coordinates": {
+        "lat": 41.27611,
+        "lng": 60.72589
+      },
+      "name": "Qalajik Fortress & Salt Lake Oasis",
+      "localizedNames": {
+        "en": "Qalajik Fortress & Salt Lake Oasis",
+        "uz": "Qal'ajiq qal'a va sho'r ko'l majmuasi",
+        "ru": "Крепость Каладжик и солёное озеро",
+        "ja": "カラジク要塞と塩湖オアシス",
+        "ko": "칼라지크 요새와 소금 호수 오아시스",
+        "es": "Fortaleza de Qalajik y Oasis del Lago Salado"
+      },
+      "era": "Ancient Khorezm Frontier Fortifications",
+      "builtYear": "Ancient Khorezmian era (tourism sources cite ~3,000-year antiquity)",
+      "architect": "Ancient Khorezmian frontier earthwork builders",
+      "locationInSite": "Bogot District (~90 km from Urgench), edge of the Karakum/Kyzylkum transition",
+      "accentColor": "#0F766E",
+      "verifiedBy": "SmartGuide Research Import (Uzbekistan.travel, OpenStreetMap)",
+      "archiveCode": "KHZ-FR-003",
+      "shortDescription": "Ancient desert earthen ramparts (up to 14 m high) overlooking Bogot's buoyant hypersaline lake—combining Khorezm archaeology with natural wellness sand and salt baths.",
+      "localizedShortDescriptions": {
+        "en": "Ancient desert earthen ramparts (up to 14 m high) overlooking Bogot's buoyant hypersaline lake—combining Khorezm archaeology with natural wellness sand and salt baths.",
+        "uz": "Bog'ot tumanida balandligi 14 metrgacha yetuvchi qadimiy loy qal'a devorlari va sho'r shifobaxsh ko'l yonidagi eko-sog'lomlashtirish majmuasi.",
+        "ru": "Древние глиняные стены высотой до 14 м в Багатском районе на берегу солёного целебного озера, сочетающие историю и оздоровительный отдых.",
+        "ja": "ボゴト地区の塩湖のほとりに残る高さ最大14mの古代土壁要塞。砂漠の考古遺跡と天然塩湖セラピーが共存しています。",
+        "ko": "보고트 지역의 염호 옆에 남은 최대 높이 14m의 고대 흙벽 요새로, 고고학 유적과 소금물·모래 치유 휴양지를 겸하고 있습니다.",
+        "es": "Antiguas murallas de tierra de hasta 14 m junto a un lago hipersalino terapéutico en el distrito de Bogot."
+      },
+      "historicalFacts": [
+        "Situated in Bogot District roughly 90 km from Urgench at the desert edge of the Khorezm oasis.",
+        "Built to protect nearby agricultural lands, canals, and caravan approaches from desert raids.",
+        "Surviving sections of its clay walls reach up to 14 meters in height and roughly 2.5 meters in thickness.",
+        "Adjacent Lake Qalajik is heavily mineralized and hypersaline—allowing bathers to float effortlessly—and supports traditional hot sand therapy (psammotherapy) alongside yurt camps."
+      ],
+      "architecturalDetails": [
+        "Thick packed-clay frontier ramparts overlooking an oasis depression filled by a desert salt lake."
+      ],
+      "localLegends": [
+        "Wellness & Oasis Tradition: For centuries travelers and locals visited the shores of Qalajik Lake to soothe joint and rheumatic pain in its buoyant mineral waters and sunlit desert sands. (Note: no open-licensed photo of Bogot's Qalajik fortress was found on Wikimedia Commons, so localImage remains null until an authentic on-site photograph is added.)"
+      ],
+      "visualCues": [
+        "Tall eroded clay fortress walls rising beside desert sand dunes and a bright saline lake shore"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "Why can visitors float effortlessly in Qalajik Salt Lake?",
+          "How high are the surviving fortress ramparts at Qalajik?",
+          "How far is Qalajik from Urgench and what eco-tourism facilities exist there?"
+        ],
+        "uz": [
+          "Qal'ajiq sho'r ko'lida nega odam cho'kmaydi?",
+          "Qal'aning saqlanib qolgan devorlari balandligi necha metr?",
+          "Qal'ajiq Urganchdan necha km masofada va u yerda qanday dam olish xizmatlari bor?"
+        ],
+        "ru": [
+          "Почему в солёном озере Каладжик легко держаться на воде?",
+          "Какова высота сохранившихся стен крепости Каладжик?"
+        ],
+        "ja": [
+          "カラジク塩湖ではなぜ体が浮くのですか？",
+          "現存する城壁の高さは何メートルですか？"
+        ],
+        "ko": [
+          "칼라지크 소금 호수에서는 왜 몸이 쉽게 뜨나요?",
+          "남아 있는 성벽의 높이는 몇 미터인가요?"
+        ],
+        "es": [
+          "¿Por qué se flota con facilidad en el lago salado de Qalajik?",
+          "¿Qué altura alcanzan las murallas conservadas?"
+        ]
+      },
+      "sources": [
+        "https://uzbekistan.travel/en/",
+        "https://www.openstreetmap.org/"
+      ],
+      "localImage": null,
+      "imageCredit": null
+    },
+    {
+      "slug": "ayaz-kala",
+      "cluster": "khorezm-oasis-circuit",
+      "city": "ellikkala-oasis",
+      "district": "Ellikqal'a tumani, Qoraqalpog'iston (Xiva cho'l qal'alari marshruti)",
+      "category": "landmark",
+      "interests": [
+        "history",
+        "nature"
+      ],
+      "coordinates": {
+        "lat": 42.00972,
+        "lng": 61.02722
+      },
+      "name": "Ayaz-Kala",
+      "localizedNames": {
+        "en": "Ayaz-Kala",
+        "uz": "Ayazqal'a",
+        "ru": "Аяз-Кала",
+        "ja": "アヤズ・カラ",
+        "ko": "아야즈 칼라",
+        "es": "Ayaz-Kala"
+      },
+      "era": "Ancient Khorezm · 4th Century BCE – 7th Century CE",
+      "builtYear": "4th century BCE – 7th century CE (incl. 2nd-century CE Kushan expansion)",
+      "architect": "Ancient Khorezmian & Kushan frontier engineers",
+      "locationInSite": "Hilltop overlooking the Kyzylkum Desert (administratively Ellikqala District, Karakalpakstan; classic Khiva desert circuit)",
+      "accentColor": "#D97706",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia en, Uzbekistan.travel)",
+      "archiveCode": "KHZ-OA-001",
+      "shortDescription": "Iconic trio of ancient Khorezm desert fortresses (4th c. BCE–7th c. CE) perched on a dramatic mesa above the Kyzylkum sands on the Khiva oasis tour.",
+      "localizedShortDescriptions": {
+        "en": "Iconic trio of ancient Khorezm desert fortresses (4th c. BCE–7th c. CE) perched on a dramatic mesa above the Kyzylkum sands on the Khiva oasis tour.",
+        "uz": "Qizilqum cho'liga qaragan baland tepalik ustidagi uch qismli antik Xorazm qal'asi (mil. avv. IV asr — mil. VII asr); Xiva turlarining mashhur bekati.",
+        "ru": "Трёхчастная древнехорезмийская крепость (IV в. до н. э. — VII в. н. э.) на вершине холма над Кызылкумами на маршруте из Хивы.",
+        "ja": "キジルクム砂漠を見下ろす台地上に築かれた紀元前4世紀〜紀元7世紀の古代ホラズム三連要塞。ヒヴァ発砂漠ツアーの定番です。",
+        "ko": "키질쿰 사막이 내려다보이는 언덕 위에 세워진 기원전 4세기~서기 7세기 고대 호레즘 3부작 사막 요새입니다.",
+        "es": "Icónica tríada de fortalezas del antiguo Jorezm (ss. IV a. C.–VII d. C.) sobre una colina frente al desierto de Kyzylkum."
+      },
+      "historicalFacts": [
+        "Consists of three interconnected ancient fortresses constructed between the 4th century BCE and the 7th century CE.",
+        "Ayaz-Kala 1 dates to the late 4th or early 3rd century BCE, built when Khorezm gained independence from Achaemenid Persia to guard oasis settlements from steppe nomad raids.",
+        "Sections of the complex (including Ayaz-Kala 2) were developed in the 2nd century CE during the Kushan period.",
+        "Administratively located in Ellikqala District (Karakalpakstan), right across the Amu Darya on the historic Khorezm oasis loop from Khiva."
+      ],
+      "architecturalDetails": [
+        "Ayaz-Kala 1 crowns a steep flat-topped limestone/clay plateau with semicircular bastion towers and arrow-slit galleries.",
+        "Ayaz-Kala 2 sits atop a steep conical outcrop connected to a ramp, while Ayaz-Kala 3 lies below on the desert plain as a large walled garrison."
+      ],
+      "localLegends": [
+        "Local Legend: Folklore links the fortress to a brave warrior-slave named Ayaz who built an impregnable hilltop citadel and won the heart of a royal princess through courage and wit."
+      ],
+      "visualCues": [
+        "Crenellated desert clay fortress walls crowning a flat rocky plateau overlooking endless Kyzylkum desert plains",
+        "Semicircular mudbrick towers with vertical narrow loopholes"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "How many fortresses make up Ayaz-Kala and which centuries do they span?",
+          "Why was Ayaz-Kala built on a hilltop overlooking the Kyzylkum?",
+          "Is Ayaz-Kala inside Khorezm Region or Karakalpakstan?"
+        ],
+        "uz": [
+          "Ayazqal'a nechta qal'adan iborat va ular nechanchi asrlarga tegishli?",
+          "Qal'a nima maqsadda baland tepalik ustiga qurilgan?",
+          "Ayazqal'a ma'muriy jihatdan qaysi hududda joylashgan?"
+        ],
+        "ru": [
+          "Из скольких крепостей состоит Аяз-Кала и к каким векам они относятся?",
+          "Зачем её построили на высокой столовой возвышенности над пустыней?"
+        ],
+        "ja": [
+          "アヤズ・カラはいくつの要塞から成り、何世紀に建てられましたか？",
+          "なぜキジルクム砂漠を見下ろす丘の上に築かれたのですか？"
+        ],
+        "ko": [
+          "아야즈 칼라는 몇 개의 요새로 이루어져 있으며 어느 시대에 지어졌나요?",
+          "왜 키질쿰 사막이 내려다보이는 언덕 위에 세웠나요?"
+        ],
+        "es": [
+          "¿Cuántas fortalezas forman Ayaz-Kala y de qué siglos datan?",
+          "¿Por qué se construyó sobre esa colina frente al desierto?"
+        ]
+      },
+      "sources": [
+        "https://en.wikipedia.org/wiki/Ayaz-Kala",
+        "https://uzbekistan.travel/en/"
+      ],
+      "localImage": "/khorezm/ayaz-kala.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Ayaz-Kala-2.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Ayaz-Kala-2.jpg",
+        "author": "Bernard Gagnon",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "width": 960,
+        "height": 594,
+        "bytes": 276392
+      }
+    },
+    {
+      "slug": "toprak-kala",
+      "cluster": "khorezm-oasis-circuit",
+      "city": "ellikkala-oasis",
+      "district": "Ellikqal'a tumani, Qoraqalpog'iston (Xiva cho'l qal'alari marshruti)",
+      "category": "landmark",
+      "interests": [
+        "history"
+      ],
+      "coordinates": {
+        "lat": 41.92719,
+        "lng": 60.82217
+      },
+      "name": "Toprak-Kala",
+      "localizedNames": {
+        "en": "Toprak-Kala",
+        "uz": "Tuproqqal'a",
+        "ru": "Топрак-Кала",
+        "ja": "トプラク・カラ",
+        "ko": "토프라크 칼라",
+        "es": "Toprak-Kala"
+      },
+      "era": "Ancient Chorasmian Kingdom · 1st–5th Century CE",
+      "builtYear": "1st–5th century CE (royal capital in 2nd–3rd century CE)",
+      "architect": "Built by Chorasmian king Artav (Artabanos); excavated by S. Tolstov (1938)",
+      "locationInSite": "Ellikqala District, Karakalpakstan (14 km northeast of Akchakhan-Kala; Khiva desert circuit)",
+      "accentColor": "#9A3412",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia en, Chorasmian Archaeological Expedition)",
+      "archiveCode": "KHZ-OA-002",
+      "shortDescription": "Ancient royal capital of Chorasmia (2nd–3rd c. CE) where archaeologists uncovered palace halls, Zoroastrian wall paintings, Kushan coins, and ancient state archives.",
+      "localizedShortDescriptions": {
+        "en": "Ancient royal capital of Chorasmia (2nd–3rd c. CE) where archaeologists uncovered palace halls, Zoroastrian wall paintings, Kushan coins, and ancient state archives.",
+        "uz": "Milodiy II–III asrlarda qadimgi Xorazm poytaxti bo'lgan saroy-shahar; zardushtiy ilohlar devoriy suratlari va Xorazm yozuvi arxivlari topilgan.",
+        "ru": "Древняя столица Хорезма (II–III вв. н. э.), где экспедиция С. Толстова нашла настенные росписи, монеты и государственные архивы.",
+        "ja": "紀元2〜3世紀に古代ホラズム王国の首都だった宮殿都市。壁画、クシャーナ朝の貨幣、古代文書アーカイブが発見されました。",
+        "ko": "서기 2~3세기 고대 호레즘 왕국의 수도였던 궁전 도시로, 벽화와 쿠샨 화폐, 고대 문서 보관소가 발굴되었습니다.",
+        "es": "Antigua capital real de Corasmia (ss. II–III d. C.) donde se descubrieron salones palaciegos, pinturas murales y archivos estatales."
+      },
+      "historicalFacts": [
+        "Constructed in the 1st–2nd century CE by Chorasmian ruler Artav (Artabanos), functioning through the 5th century CE as a royal palace-city of the 'Fifty Fortresses Oasis'.",
+        "Excavated beginning in 1938 by the Chorasmian Archaeological Expedition led by Sergey Tolstov.",
+        "Discoveries inside the palace include Kushan coins of Vima Kadphises and Kanishka, Chorasmian royal coins, wall paintings depicting Zoroastrian deities, and rare administrative archives written on leather and wood."
+      ],
+      "architecturalDetails": [
+        "Planned rectangular city layout anchored by an elevated monumental high palace with three massive square citadel towers and ceremonial halls (Hall of Kings, Hall of Warriors, Hall of Dancing Masks)."
+      ],
+      "localLegends": [
+        "Archaeological Landmark: Because its written leather and wooden records revealed the ancient Chorasmian calendar, tax rolls, and military rosters, historians often call Toprak-Kala the 'archive palace' of pre-Islamic Khorezm."
+      ],
+      "visualCues": [
+        "Grid of eroded brown mudbrick palace rooms and massive layered clay walls rising above flat desert scrub"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "When was Toprak-Kala the royal capital of ancient Khorezm?",
+          "What major archaeological treasures were uncovered by Sergey Tolstov in 1938?",
+          "Which Kushan rulers' coins were found inside the palace?"
+        ],
+        "uz": [
+          "Tuproqqal'a nechanchi asrlarda qadimgi Xorazm poytaxti bo'lgan?",
+          "1938-yilgi qazishmalarda u yerdan qanday muhim topilmalar chiqqan?",
+          "Saroydan qaysi Kushon hukmdorlarining tangalari topilgan?"
+        ],
+        "ru": [
+          "Когда Топрак-Кала была столицей Древнего Хорезма?",
+          "Что обнаружила экспедиция Сергея Толстова в 1938 году?"
+        ],
+        "ja": [
+          "トプラク・カラが古代ホラズムの首都だったのは何世紀ですか？",
+          "1938年の発掘調査では何が発見されましたか？"
+        ],
+        "ko": [
+          "토프라크 칼라는 언제 고대 호레즘의 수도였나요?",
+          "1938년 발굴 조사에서 어떤 유물들이 발견되었나요?"
+        ],
+        "es": [
+          "¿En qué siglos fue Toprak-Kala la capital real de Corasmia?",
+          "¿Qué tesoros arqueológicos halló la expedición de 1938?"
+        ]
+      },
+      "sources": [
+        "https://en.wikipedia.org/wiki/Toprak-Kala",
+        "https://uzbekistan.travel/en/"
+      ],
+      "localImage": "/khorezm/toprak-kala.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Toprak-Kala 01.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Toprak-Kala_01.jpg",
+        "author": "Bernard Gagnon",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "width": 960,
+        "height": 569,
+        "bytes": 170465
+      }
+    },
+    {
+      "slug": "khorezm-national-park",
+      "cluster": "khorezm-nature-culinary",
+      "city": "urgench",
+      "district": "Tuproqqal'a, Xiva, Yangibozor, Urganch va Xonqa tumanlari",
+      "category": "discovery",
+      "interests": [
+        "nature"
+      ],
+      "coordinates": {
+        "lat": 41.8231,
+        "lng": 60.4974
+      },
+      "name": "Khorezm National Nature Park",
+      "localizedNames": {
+        "en": "Khorezm National Nature Park",
+        "uz": "Xorazm milliy tabiat bog'i",
+        "ru": "Хорезмский национальный природный парк",
+        "ja": "ホラズム国立自然公園",
+        "ko": "호레즘 국립 자연공원",
+        "es": "Parque Natural Nacional de Jorezm"
+      },
+      "era": "Protected Lower Amu Darya Ecosystem",
+      "builtYear": "Protected national nature park across 5 Khorezm districts",
+      "architect": "Natural Amu Darya tugai riparian & desert oasis reserve",
+      "locationInSite": "Spanning Tuproqqala (19,538.8 ha), Khiva (1,163 ha), Yangibozor (743.2 ha), Urgench (197.5 ha), and Khonqa (45 ha)",
+      "accentColor": "#15803D",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia uz, Wikidata, Uzbekistan.travel)",
+      "archiveCode": "KHZ-NT-001",
+      "shortDescription": "A 21,687.5-hectare nature reserve protecting rare Amu Darya tugai riparian forests, Red Book Bukhara deer, Persian gazelles (jayron), and riverside eco-routes.",
+      "localizedShortDescriptions": {
+        "en": "A 21,687.5-hectare nature reserve protecting rare Amu Darya tugai riparian forests, Red Book Bukhara deer, Persian gazelles (jayron), and riverside eco-routes.",
+        "uz": "Amudaryo bo'yidagi to'qay o'rmonlari, Qizil kitobdagi Buxoro bug'usi va jayronlarni asrovchi 21,687.5 gektarlik muhofaza etiladigan tabiat bog'i.",
+        "ru": "Природный парк площадью 21 687,5 га в пойме Амударьи, охраняющий тугайные леса, бухарского оленя и джейранов.",
+        "ja": "アムダリヤ川流域のトゥガイ森林や絶滅危惧種のブハラシカ、ガゼルを守る21,687.5ヘクタールの自然保護区。",
+        "ko": "아무다리야 강변의 투가이 숲과 멸종 위기 부하라 사슴, 가젤을 보호하는 21,687.5헥타르 규모의 자연공원입니다.",
+        "es": "Reserva natural de 21.687,5 hectáreas que protege los bosques de galería del Amu Daria, ciervos de Bujará y gacelas."
+      },
+      "historicalFacts": [
+        "Covers 21,687.5 hectares across five Khorezm districts—the largest share in Tuproqqala (19,538.8 ha), plus Khiva (1,163 ha), Yangibozor (743.2 ha), Urgench (197.5 ha), and Khonqa (45 ha).",
+        "Safeguards native Amu Darya tugai gallery forests, medicinal desert plants, migratory birds, and Red Book fauna.",
+        "A 3.5-hectare fenced rehabilitation nursery along the Amu Darya in Yangibozor District breeds and protects Bukhara deer (xongul) and Persian gazelles (jayron)."
+      ],
+      "architecturalDetails": [
+        "Designated ecotourism routes include riverside recreation zones, yurt camps, bird-watching points, and restored tugai woodland."
+      ],
+      "localLegends": [
+        "Ecological Context: Tugai forests act as Khorezm's natural green shield along the Amu Darya riverbanks, contrasting strikingly with the surrounding Kyzylkum sand dunes."
+      ],
+      "visualCues": [
+        "Broad winding Amu Darya riverbanks bordered by dense riparian reeds, poplar/tugai scrub, and sandy river bluffs"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "How large is Khorezm National Nature Park and which districts does it cover?",
+          "Which rare Red Book animals are protected inside the park?",
+          "What is a tugai forest along the Amu Darya?"
+        ],
+        "uz": [
+          "Xorazm milliy tabiat bog'ining umumiy maydoni necha gektar?",
+          "Bog'da Qizil kitobga kirgan qaysi hayvonlar asraladi?",
+          "Amudaryo bo'yidagi to'qay o'rmonlari nimasi bilan muhim?"
+        ],
+        "ru": [
+          "Какова площадь Хорезмского природного парка и какие районы он охватывает?",
+          "Какие редкие животные из Красной книги охраняются в парке?"
+        ],
+        "ja": [
+          "ホラズム国立自然公園の広さと保護されている希少動物は何ですか？"
+        ],
+        "ko": [
+          "호레즘 국립 자연공원의 면적과 보호 중인 희귀 동물은 무엇인가요?"
+        ],
+        "es": [
+          "¿Cuál es la superficie del Parque Natural de Jorezm y qué fauna protege?"
+        ]
+      },
+      "sources": [
+        "https://uz.wikipedia.org/wiki/Xorazm_milliy_tabiat_bog%CA%BBi",
+        "https://uzbekistan.travel/en/"
+      ],
+      "localImage": "/khorezm/khorezm-national-park.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:LAmou Darya (Khorezm, Ouzbékistan) (5609625559).jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:LAmou_Darya_(Khorezm,_Ouzb%C3%A9kistan)_(5609625559).jpg",
+        "author": "Jean-Pierre Dalbéra from Paris, France",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "width": 960,
+        "height": 640,
+        "bytes": 208246
+      }
+    },
+    {
+      "slug": "ulli-shorkol",
+      "cluster": "khorezm-nature-culinary",
+      "city": "yangiariq",
+      "district": "Yangiariq tumani (Xivadan 14 km janubi-sharqda)",
+      "category": "discovery",
+      "interests": [
+        "nature",
+        "local"
+      ],
+      "coordinates": {
+        "lat": 41.24528,
+        "lng": 60.50583
+      },
+      "name": "Ulli Shorkol Lake ('Khorezm Sea')",
+      "localizedNames": {
+        "en": "Ulli Shorkol Lake ('Khorezm Sea')",
+        "uz": "Ulug'sho'rko'l («Ulli Sho'rko'l»)",
+        "ru": "Озеро Улугшоркуль («Хорезмское море»)",
+        "ja": "ウッリ・ショルクル湖（「ホラズムの海」）",
+        "ko": "울리 쇼르쿨 호수 ('호레즘의 바다')",
+        "es": "Lago Ulli Shorkol ('Mar de Jorezm')"
+      },
+      "era": "Natural Desert Lake & Recreation Zone",
+      "builtYear": "Natural tectonic/collector-fed lake basin",
+      "architect": "Natural aquatic ecosystem in southern Khorezm",
+      "locationInSite": "14 km southeast of Khiva (6 km south of Chigirchi village, Yangiariq District, extending south to the Turkmen border)",
+      "accentColor": "#0EA5E9",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia uz, National Encyclopedia of Uzbekistan, Uzbekistan.travel)",
+      "archiveCode": "KHZ-NT-002",
+      "shortDescription": "A 14.8 km² saline lake stretching 16 km just 14 km southeast of Khiva—nicknamed the 'Khorezm Sea' for desert lakeside relaxation and fishing.",
+      "localizedShortDescriptions": {
+        "en": "A 14.8 km² saline lake stretching 16 km just 14 km southeast of Khiva—nicknamed the 'Khorezm Sea' for desert lakeside relaxation and fishing.",
+        "uz": "Xivadan 14 km janubi-sharqda joylashgan 14.8 km² maydonli (uzunligi 16 km) yirik ko'l; xalq orasida «Xorazm dengizi» deb ataladi.",
+        "ru": "Крупное солёное озеро (14,8 км², длина 16 км) в 14 км к юго-востоку от Хивы, известное в народе как «Хорезмское море».",
+        "ja": "ヒヴァの南東14kmに位置する面積14.8km²・全長16kmの湖。「ホラズムの海」と呼ばれ、砂漠のオアシス休暇地となっています。",
+        "ko": "히바에서 남동쪽으로 14km 떨어진 면적 14.8km², 길이 16km의 대형 호수로 현지에서는 '호레즘의 바다'로 불립니다.",
+        "es": "Lago salino de 14,8 km² y 16 km de longitud situado a 14 km al sureste de Jiva, conocido localmente como el 'Mar de Jorezm'."
+      },
+      "historicalFacts": [
+        "Located 14 km southeast of Khiva in Yangiariq District at an elevation of 86 meters above sea level, with its southern tip extending into Dashoguz Province, Turkmenistan.",
+        "According to the National Encyclopedia of Uzbekistan, the wedge-shaped lake measures 16 km long, up to 4 km wide in the north, and covers 14.8 km².",
+        "Fed by drainage/collector waters from oasis agriculture; its saline waters support local Khorezmian fisheries and waterfront ecotourism."
+      ],
+      "architecturalDetails": [
+        "Natural reed-lined northern shore contrasting with bordering desert sands."
+      ],
+      "localLegends": [
+        "Local Nickname: Residents affectionately call Ulugshorkol the 'Khorezm Sea' because its wide northern horizon feels like an inland sea amid arid desert terrain."
+      ],
+      "visualCues": [
+        "Wide blue-grey desert lake framed by shoreline reed beds and gentle arid embankments"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "How large is Ulli Shorkol and how far is it from Khiva?",
+          "Why do locals call it the 'Khorezm Sea'?"
+        ],
+        "uz": [
+          "Ulug'sho'rko'lning uzunligi, maydoni va Xivadan masofasi qancha?",
+          "Nega uni xalq orasida «Xorazm dengizi» deyishadi?"
+        ],
+        "ru": [
+          "Какова площадь озера Улугшоркуль и как далеко оно от Хивы?",
+          "Почему местные жители называют его «Хорезмским морем»?"
+        ],
+        "ja": [
+          "ウッリ・ショルクル湖の広さとヒヴァからの距離は？"
+        ],
+        "ko": [
+          "울리 쇼르쿨 호수의 크기와 히바에서의 거리는 얼마인가요?"
+        ],
+        "es": [
+          "¿Qué dimensiones tiene el lago Ulli Shorkol y a qué distancia está de Jiva?"
+        ]
+      },
+      "sources": [
+        "https://uz.wikipedia.org/wiki/Ulug%CA%BBsho%CA%BBrko%CA%BBl",
+        "https://uzbekistan.travel/en/"
+      ],
+      "localImage": "/khorezm/ulli-shorkol.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Ulugshurkul.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Ulugshurkul.jpg",
+        "author": "Carpodacus",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 720,
+        "bytes": 161541
+      }
+    },
+    {
+      "slug": "shivit-oshi",
+      "cluster": "khorezm-nature-culinary",
+      "city": "khiva",
+      "district": "Xiva va Urganch an'anaviy oshxonalari",
+      "category": "discovery",
+      "interests": [
+        "food",
+        "local"
+      ],
+      "coordinates": {
+        "lat": 41.3782,
+        "lng": 60.3595
+      },
+      "name": "Shivit Oshi (Khorezmian Green Dill Noodles)",
+      "localizedNames": {
+        "en": "Shivit Oshi (Khorezmian Green Dill Noodles)",
+        "uz": "Shivit oshi (Xorazm yashil lag'moni)",
+        "ru": "Шивит оши (хорезмская зелёная лапша)",
+        "ja": "シヴィト・オシ（ホラズムの緑のディル麺）",
+        "ko": "시빗 오시 (호레즘 초록 딜 국수)",
+        "es": "Shivit Oshi (Fideos Verdes con Eneldo de Jorezm)"
+      },
+      "era": "Traditional Khorezmian Culinary Heritage",
+      "builtYear": "Originated in Khiva; popularized in Tashkent in 1958 by Khivan chef Rajab Sattarov",
+      "architect": "Traditional Khivan culinary craft",
+      "locationInSite": "Served across family kitchens and traditional restaurants in Khiva & Urgench",
+      "accentColor": "#16A34A",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia uz, Khorezm culinary documentation)",
+      "archiveCode": "KHZ-FD-001",
+      "shortDescription": "Khiva's signature vibrant-green noodle dish infused with fresh chopped dill (shivit), topped with rich meat-and-vegetable stew and cooling suzma yogurt.",
+      "localizedShortDescriptions": {
+        "en": "Khiva's signature vibrant-green noodle dish infused with fresh chopped dill (shivit), topped with rich meat-and-vegetable stew and cooling suzma yogurt.",
+        "uz": "Xamiriga barra shivit qo'shib tayyorlanadigan, go'shtli qayla va suzma bilan tortiladigan Xivaning mashhur yashil lag'moni.",
+        "ru": "Фирменное блюдо Хивы — зелёная лапша с укропом, подаваемая с тушёной мясной подливой и густым кислым молоком (сузьмой).",
+        "ja": "生地に新鮮なディルを練り込んだヒヴァ名物の鮮やかな緑色の麺料理。牛肉の煮込みと濃厚なヨーグルト（スズマ）を添えて食べます。",
+        "ko": "반죽에 신선한 딜(시빗)을 넣어 초록빛을 띠는 히바 대표 국수 요리로, 고기 스튜와 수즈마 요거트를 곁들여 먹습니다.",
+        "es": "Plato emblemático de Jiva: fideos verdes aromatizados con eneldo fresco, servidos con guiso de carne y yogur espeso (suzma)."
+      },
+      "historicalFacts": [
+        "Culinary sources trace the origin of Shivit Oshi ('dill meal') directly to Khiva, though it is now prepared across every district of Khorezm.",
+        "The dish gained wider national recognition in 1958 when Khivan master chef Rajab Sattarov moved to Tashkent and shared the traditional recipe.",
+        "Recommended especially during hot Khorezm summers because the fresh dill herb and sour-milk suzma (chakka) provide vitamins, minerals, and cooling balance."
+      ],
+      "architecturalDetails": [
+        "Fresh finely minced dill (or dill infusion) is kneaded directly into wheat noodle dough, giving boiled strands a bright emerald-green color.",
+        "Served on a platter topped with tender beef, tomato, pepper, and potato stew (qayla) alongside strained yogurt (suzma)."
+      ],
+      "localLegends": [
+        "Culinary Tradition: Food travelers visiting Ichan-Qala consider tasting authentic green Shivit Oshi an essential Khivan ritual alongside Khorezm plov and tuxum barak."
+      ],
+      "visualCues": [
+        "Plate of bright emerald-green hand-pulled/cut noodles topped with red-brown meat stew and a side of white suzma yogurt"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "What makes Shivit Oshi noodles bright green?",
+          "Who helped popularize the Khivan recipe outside Khorezm in 1958?",
+          "Why is it especially popular in summer?"
+        ],
+        "uz": [
+          "Shivit oshining ugrasi nima hisobiga yashil rangda bo'ladi?",
+          "1958-yilda bu taom retseptini kim Toshkentda tanitgan?",
+          "Nega shivit oshini yozda iste'mol qilish tavsiya etiladi?"
+        ],
+        "ru": [
+          "Почему лапша шивит оши имеет ярко-зелёный цвет?",
+          "Кто популяризировал рецепт этого хивинского блюда в 1958 году?"
+        ],
+        "ja": [
+          "シヴィト・オシの麺が鮮やかな緑色をしている理由は？",
+          "夏に特におすすめされるのはなぜですか？"
+        ],
+        "ko": [
+          "시빗 오시 면이 선명한 초록색을 띠는 이유는 무엇인가요?",
+          "여름철에 특히 인기 있는 이유는 무엇인가요?"
+        ],
+        "es": [
+          "¿Qué ingrediente da su color verde característico al Shivit Oshi?",
+          "¿Con qué acompañamientos se sirve tradicionalmente?"
+        ]
+      },
+      "sources": [
+        "https://uz.wikipedia.org/wiki/Shivit_oshi"
+      ],
+      "localImage": "/khorezm/shivit-oshi.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Shivit osh.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Shivit_osh.jpg",
+        "author": "Miss Kamola",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "width": 960,
+        "height": 897,
+        "bytes": 217628
+      }
+    },
+    {
+      "slug": "tuxum-barak",
+      "cluster": "khorezm-nature-culinary",
+      "city": "urgench",
+      "district": "Urganch va Xiva milliy oshxonalari",
+      "category": "discovery",
+      "interests": [
+        "food",
+        "local"
+      ],
+      "coordinates": {
+        "lat": 41.55,
+        "lng": 60.63333
+      },
+      "name": "Tuxum Barak (Khorezmian Egg Dumplings)",
+      "localizedNames": {
+        "en": "Tuxum Barak (Khorezmian Egg Dumplings)",
+        "uz": "Tuxum barak (Yumurta barak)",
+        "ru": "Тухум барак (хорезмские пельмени с яйцом)",
+        "ja": "トゥフム・バラク（ホラズムの卵入り水餃子）",
+        "ko": "투훔 바락 (호레즘 계란 만두)",
+        "es": "Tuxum Barak (Empanadillas de Huevo de Jorezm)"
+      },
+      "era": "Ancient Khorezmian Culinary Heritage",
+      "builtYear": "Ancient traditional dish preserved uniquely in Khorezm",
+      "architect": "Traditional Khorezmian home & teahouse cuisine",
+      "locationInSite": "Prepared in traditional eateries across Urgench, Khiva, and Khorezm districts",
+      "accentColor": "#EAB308",
+      "verifiedBy": "SmartGuide Research Import (Wikipedia uz)",
+      "archiveCode": "KHZ-FD-002",
+      "shortDescription": "Ancient Khorezmian delicacy ('egg dumplings'): thin hand-sealed dough pockets filled with liquid whipped egg and milk right before dropping into boiling water.",
+      "localizedShortDescriptions": {
+        "en": "Ancient Khorezmian delicacy ('egg dumplings'): thin hand-sealed dough pockets filled with liquid whipped egg and milk right before dropping into boiling water.",
+        "uz": "Faqat Xorazmda saqlanib qolgan qadimiy milliy taom: yupqa xamir konvert ichiga suyuq tuxum va sut quyib 4–5 daqiqa qaynatib pishiriladi.",
+        "ru": "Древнее хорезмское блюдо («яичные пельмени»): тонкие конвертики из теста, куда перед самой варкой вливают смесь яйца и молока.",
+        "ja": "ホラズム地方にのみ残る古代の伝統料理。薄い生地の袋に溶き卵と牛乳を流し込んで茹でる繊細な水餃子です。",
+        "ko": "호레즘 지역에만 보존된 고대 전통 요리로, 얇은 만두피 속에 달걀·우유 혼합물을 부어 끓는 물에 삶아 냅니다.",
+        "es": "Antigua especialidad exclusiva de Jorezm: finas bolsas de masa rellenas de huevo batido y leche justo antes de hervirlas."
+      },
+      "historicalFacts": [
+        "Widely regarded as one of Khorezm's oldest traditional dishes, preserved uniquely in the Khorezm oasis and also known as 'Yumurta barak'.",
+        "Dough is rolled to 1–2 mm thickness, cut into 7–8 cm rounds/squares, folded with two edges sealed, filled carefully with seasoned egg, milk, and melted butter, and boiled for 4–5 minutes until the custard sets inside.",
+        "Served warm with yogurt (qatiq/ayran) or butter; a standard serving provides around 435 calories and is prized locally as a light, restorative meal."
+      ],
+      "architecturalDetails": [
+        "Requires practiced speed: pouring liquid egg mixture into the tiny top opening and pinching it shut right over boiling salted water."
+      ],
+      "localLegends": [
+        "Cultural Tradition: Considered both a special hospitality dish for honored guests and a nourishing diet food traditionally recommended to restore strength."
+      ],
+      "visualCues": [
+        "Square/rectangular pillow-shaped boiled white pasta dumplings glistened with butter alongside a bowl of sour milk/suzma"
+      ],
+      "suggestedQuestions": {
+        "en": [
+          "How do cooks get liquid egg inside Tuxum Barak without spilling?",
+          "Why is Tuxum Barak considered unique to Khorezm?",
+          "How long does it boil and what is it served with?"
+        ],
+        "uz": [
+          "Tuxum barak ichiga suyuq tuxum qanday qilib to'kilmasdan quyiladi?",
+          "Nega tuxum barak faqat Xorazmga xos qadimiy taom hisoblanadi?",
+          "U necha daqiqa qaynatiladi va nima bilan yeyiladi?"
+        ],
+        "ru": [
+          "Как хозяйки умудряются залить жидкое яйцо внутрь тухум барака?",
+          "Почему это блюдо сохранилось именно в Хорезме?"
+        ],
+        "ja": [
+          "トゥフム・バラクの中にどうやって液状の卵をこぼさず入れるのですか？",
+          "なぜホラズム固有の料理とされているのですか？"
+        ],
+        "ko": [
+          "투훔 바락 속에 액체 상태의 계란을 어떻게 흘리지 않고 넣나요?",
+          "왜 이 요리가 호레즘 고유의 음식으로 꼽히나요?"
+        ],
+        "es": [
+          "¿Cómo se introduce el huevo líquido en el Tuxum Barak sin derramarlo?",
+          "¿Por qué es un plato exclusivo de Jorezm?"
+        ]
+      },
+      "sources": [
+        "https://uz.wikipedia.org/wiki/Tuxum_barak"
+      ],
+      "localImage": "/khorezm/tuxum-barak.jpg",
+      "imageCredit": {
+        "commonsTitle": "File:Tuxumbarak.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Tuxumbarak.jpg",
+        "author": "Diwikiped",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "width": 960,
+        "height": 867,
+        "bytes": 153325
+      }
+    }
+  ]
+}
