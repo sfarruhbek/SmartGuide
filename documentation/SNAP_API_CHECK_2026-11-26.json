@@ -1,0 +1,14 @@
+{
+  "checkedAt": "2026-11-26T13:04:52.029Z",
+  "selectedCity": "bukhara",
+  "actualPhoto": "kalta-minor",
+  "photoModel": "qwen/qwen3.8-27b",
+  "answerModel": "openai/gpt-oss-120b",
+  "photo": {
+    "status": "possible-match",
+    "placeId": "kalta-minor",
+    "observation": "A tall, cylindrical minaret structure dominates the scene, characterized by its glossy finish and bands of geometric tilework in shades of turquoise, cyan, blue, and white. The structure features horizontal bands of calligraphic script and a flat, horizontal unfinished rim at the top, with no lantern cupola or pointed dome present. It stands immediately adjacent to a building with a brick facade and a row of carved wooden arched doorways, where garments and hats are displayed. To the left, a long, high earthen-painted wall runs parallel to a paved walkway where several pedestrians are passing."
+  },
+  "focusPlace": "kalta-minor",
+  "answer": "На фотографии изображён Кальта‑Минор — недостроенный, покрытый цветными плитками минарет в Ичан‑Кале, Хиве; его основание широкое, а фасад украшен синими, бирюзовыми и зелёными геометрическими орнаментами и надписями в стиле нас-Талиq."
+}

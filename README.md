@@ -5,15 +5,19 @@
 > - **Toʻliq Roadmap ichida nima bor:** har bir kun uchun vaqt jadvali, obidalar va mahalliy kashfiyotlar ketma-ketligi, ovqatlanish, mahalliy/shaharlararo transport, kirish chiptalari, yashash va 10% zaxira byudjet (USD) hisob-kitobi, interaktiv OpenStreetMap xarita, manbali hikoyalar hamda shaxsiy topilmalar qoralamasi.
 > - **Ichan-Qal'a (Xiva) nima?** U mahsulot chegarasi emas, balki **1-bosqich chuqurlashtirilgan AI-pilot hududi** (5 ta muzey-arxiv dossierli obida, Snap & Ask rasm tanish, `/khiva` qisqa piyoda yurish rejimi va B2B muzey analitikasi piloti).
 
-**Butun Oʻzbekiston — mahsulot geografiyasi.** Milliy frontend Groq server planneriga ulangan: 16 shahar tanlovi va toʻrtta shahardagi 15 planner joyi. Xaritada **Gemini Live ovozli popup** bor: suhbat, foto va ixtiyoriy GPS, Groq orqali manbali maʼlumot hamda yetishmagan joylarni Wikipediaʼdan keshga olish. Alohida besh Xiva obidasi dossier piloti saqlangan. Xarita katalogi hali butun mamlakatdagi barcha obyektlarni qamramaydi; jonli narxlar, moderatsiya va toʻlovlar tayyor emas. [API konfiguratsiyasi](documentation/LIVE_API_SETUP.md), [Live yordamchi va backend topshirish](documentation/LIVE_VOICE_ASSISTANT.md).
+**Butun Oʻzbekiston — mahsulot geografiyasi.** Milliy frontend Groq server planneriga ulangan: 16 shahar tanlovi, 15 asosiy joy va mavjud ommaviy source records. Xaritada **Gemini Live ovozli popup** bor: suhbat, foto va ixtiyoriy GPS, Groq orqali manbali maʼlumot hamda yetishmagan joylarni Wikipediaʼdan keshga olish. Alohida besh Xiva obidasi dossier piloti saqlangan. Xarita katalogi hali butun mamlakatdagi barcha obyektlarni qamramaydi; jonli narxlar, moderatsiya va toʻlovlar tayyor emas. [API konfiguratsiyasi](documentation/LIVE_API_SETUP.md), [Live yordamchi va backend topshirish](documentation/LIVE_VOICE_ASSISTANT.md).
 
 PWA (`manifest.webmanifest`, `sw.js`, PNG iconlar) o‘rnatishga tayyor; navigatsiya network-first, API so‘rovlari keshlanmaydi.
+
+**Stitch yangilanishi:** yangi mobil dizayn toʻliq ko‘chirildi: tanishuv → qoʻlda yoki Live yordamchi bilan AI reja → Roadmap, GPS xarita, Snap, Live AI-gid va Pass. Mehmon avval bepul sinaydi: 1 reja + jami 3 minut Live + 3 turli foto; registratsiya faqat kerakli limit tugaganda taklif qilinadi. Rejani matn/tugma/ovoz bilan oʻzgartirish mumkin. Parol serverda xeshlanadi, sessiya HttpOnly cookie bilan ishlaydi; oxirgi trip private server workspace va qurilmada saqlanadi. Turist kartalarida tashqi manba tugmalari olib tashlandi, litsenziyalar alohida sahifada. Pass savdosi hali ochilmagan. [Amaldagi holat va backend topshirish](documentation/STITCH_IMPLEMENTATION.md).
 
 ## Hujjatlar
 
 | Hujjat | Mazmun |
 | --- | --- |
 | [Frontend product](documentation/FRONTEND_PRODUCT.md) | Joriy ekranlar, imkoniyatlar, cheklovlar va egalik |
+| [Stitch implementation](documentation/STITCH_IMPLEMENTATION.md) | Yangi ekranlar, haqiqiy auth, Snap, tekshiruv va backend qolgan ishlari |
+| [Trial and planning](documentation/TRIAL_AND_PLANNING.md) | Qoʻlda/Live reja, oʻzgartirish, server trial, registratsiya va saqlash chegaralari |
 | [Business model](documentation/BUSINESS_MODEL.md) | User/customer/payer, monetizatsiya gipotezalari, validatsiya |
 | [Smeta](documentation/SMETA_BUDGET.md) | Tariflar, farazlar va qayta hisoblangan cash ssenariylar |
 | [Architecture](documentation/ARCHITECTURE.md) | Ishlayotgan qatlamlar va keyingi integratsiya |

@@ -2,7 +2,7 @@
 
 26-noyabr 2026. **Amaldagi shared tiplari:** [packages/shared/src/index.ts](../packages/shared/src/index.ts). Quyidagi statuslar repodagi Express route lar bilan solishtirilgan. Dizayn taklifi route yoki DB migratsiyasi tayyorligini bildirmaydi.
 
-> **Mahsulot va pilot chegarasi:** SmartGuide'ning **asosiy mahsulot API'si** — butun Oʻzbekiston (16+ shahar va erkin shaharlar) boʻylab toʻliq kunlik sayohat Roadmap'i va byudjet smetasini chizuvchi **`POST /api/trips/generate`** endpointidir. Quyidagi 5 ta Xiva (Ichan-Qal'a) slug'i (`kalta-minor`, `juma-mosque`, `tosh-hovli`, `kunya-ark`, `pahlavon-mahmud`), `/api/guide/ask` va `/api/roadmap/generate` esa faqat **1-bosqich chuqurlashtirilgan RAG/Vision pilot hududi**ga tegishli boʻlib, butun mahsulot geografiyasini cheklamaydi.
+> **Mahsulot va pilot chegarasi:** SmartGuide'ning **asosiy mahsulot API'si** — butun Oʻzbekiston (16+ shahar va erkin shaharlar) boʻylab toʻliq kunlik sayohat Roadmap'i va byudjet smetasini chizuvchi **`POST /api/trips/compose`** endpointidir; eski `/api/trips/generate` compatibility uchun saqlangan. Quyidagi 5 ta Xiva (Ichan-Qal'a) slug'i (`kalta-minor`, `juma-mosque`, `tosh-hovli`, `kunya-ark`, `pahlavon-mahmud`), `/api/guide/ask` va `/api/roadmap/generate` esa faqat **1-bosqich chuqurlashtirilgan RAG/Vision pilot hududi**ga tegishli boʻlib, butun mahsulot geografiyasini cheklamaydi.
 
 Base URL `http://localhost:4000`, JSON. Til: `en | uz | ru | ja | ko | es`. Pilot slug: `kalta-minor | juma-mosque | tosh-hovli | kunya-ark | pahlavon-mahmud`. Milliy frontend katalog ID lari shu enumni almashtirmaydi.
 
@@ -14,12 +14,20 @@ Base URL `http://localhost:4000`, JSON. Til: `en | uz | ru | ja | ko | es`. Pilo
 | GET `/api/landmarks` | `{ site, count, landmarks: LandmarkSummary[] }` |
 | GET `/api/landmarks/:slug` | `{ landmark: LandmarkDetail }`; topilmasa 404 |
 | POST `/api/guide/ask` | `GuideAskResponse` |
-| POST `/api/trips/generate` | Milliy trip v2; Groq ranking + server smeta, local-fallback |
+| POST `/api/trips/compose` | Qoʻlda/Live shaxsiy trip; Groq kunlik tanlov, exclusions, summary, server smeta, revision |
+| GET `/api/trips/current` | Joriy private `{workspace,revision,access}` |
+| GET `/api/access` | `{registered,remaining,limits}` — server trial qoldigʻi |
+| POST `/api/trips/generate` | Legacy trip v2; Groq ranking + server smeta, belgilangan local-fallback |
 | POST `/api/audio/speech` | Gemini TTS → base64 WAV yoki 503 |
 | POST `/api/roadmap/generate` | Xiva qisqa yurishi, Groq; persistence yoʻq, roadmapId null |
 | GET `/api/explore/places` | `cityId` yoki `lat/lng` bo‘yicha `{places,areas}` |
+| POST `/api/explore/identify` | Snap JPEG → Groq photo recognition va manbali javob; mikrofon talab qilinmaydi |
 | POST `/api/explore/live/session` | Map/GPS konteksti → bir martalik 60 soniyalik token |
 | WS `/api/explore/live` | Gemini Live audio/foto, manbalar va yaqin joylar |
+| POST `/api/auth/register` | `{login,password,name}` → 201 `{user}` va HttpOnly sessiya cookie |
+| POST `/api/auth/login` | `{login,password}` → 200 `{user}` va yangi sessiya cookie |
+| GET `/api/auth/session` | `{user}` yoki `{user:null}` |
+| POST `/api/auth/logout` | JSON `{}` → `{user:null}`, cookie/sessiya bekor qilinadi |
 | GET `/api/analytics/summary` | `AnalyticsSummary` |
 
 `GET /api/landmarks/nearby` hozir dinamik `/:slug` route bilan toʻqnashib 404 bo‘lishi mumkin; nearby sifatida tayyor emas. Health javobi real toʻlov yoki kontent tasdigʻi emas.
@@ -85,9 +93,9 @@ Audit yangilanishi: 404/405/501 boʻlsa frontend feedback vaqtincha mavjud emasl
 - Analytics optional fields: `totalRoadmapsGenerated`, `avgInterestScore`, `signalVsNoise`, `sentimentBreakdown`, `curiosityGaps`. UI ularni yo‘q bo‘lsa ixtiro qilmaydi. Aniq shape: [dashboard experience types](../apps/dashboard/src/lib/experience.ts).
 - Guide optional `insight` va `nextStopSuggestion`: [tourist experience types](../apps/tourist/src/lib/experience.ts). Bular shared ABI deb tasdiqlanmagan.
 
-## 3. Milliy safar — frontend va server ulangan
+## 3. Oldingi milliy trip endpointi — compatibility
 
-`POST /api/trips/generate` quyidagi payloadni qabul qiladi. Milliy frontend uni chaqiradi, response/mablagʻ/joylarni validatsiya qiladi va olingan tartibni saqlaydi. [Joriy ishga tushirish va tekshiruv](LIVE_API_SETUP.md), [AI backend handoff](AI_BACKEND_HANDOFF.md).
+`POST /api/trips/generate` quyidagi legacy payloadni qabul qiladi. Yangi asosiy UI `/compose` ishlatadi; quyidagi fallback tavsifi faqat eski endpointga tegishli. [Joriy ishga tushirish va tekshiruv](LIVE_API_SETUP.md), [AI backend handoff](AI_BACKEND_HANDOFF.md).
 
 ```json
 {
@@ -110,8 +118,59 @@ Frontend `Trip.generation` ichida source/modelUsed/fallbackReason ni saqlaydi. H
 
 `POST /api/audio/speech` input `{text, language}`, text 1–1400 belgi. Response `{audioBase64, audioMimeType: "audio/wav", modelUsed, provider: "gemini"}`; input xatosi 400, ovoz vaqtincha yoʻq boʻlsa 503 `{error, code:"AUDIO_UNAVAILABLE", text}`. Mikrofon STT yoki Live audio chat bu route vazifasi emas.
 
-Backend/AI egasi bilan keyin kelishiladi: katalog va manba versiyasi, sana/availability, tekshirilgan narx range, transfer jadvali, trip saqlash, moderation/consent, nationwide recognition confidence, payment va attribution.
+Backend/AI egasi bilan keyin kelishiladi: katalog va manba versiyasi, sana/availability, tekshirilgan narx range, transfer jadvali, production DB trip saqlash/history/sync, moderation/consent, nationwide recognition confidence, payment va attribution.
 
-## 4. Tekshiruv chegarasi
+## 4. Joriy qoʻlda/ovozli rejalashtirish va trial
+
+### POST `/api/trips/compose`
+
+```json
+{
+  "preferences": {"cities":["bukhara"],"days":2,"budget":100,"interests":["local"],"accommodation":true,"customCity":""},
+  "language": "ru",
+  "instruction": "Убери это место и добавь местную кухню",
+  "action": "revise",
+  "excludePlaceId": "fayzabad"
+}
+```
+
+`preferences` — oldingi `TripInput` cheklovlari; `language` 6 til; `instruction` max 1000, default empty; `action:create|revise`, default create; optional `excludePlaceId` max 120. Qayta yozishda server joriy workspaceʼni va avvalgi exclusionsʼni oladi. Boʻsh instruction bilan qoʻlda yuborilgan preferences oʻzgarmasligi tekshiriladi. Ovozdagi `manage_trip` ham shu kompozitsiya xizmatini chaqiradi.
+
+Response: `{trip,source:"groq",modelUsed,fallbackReason:null,excludedIds,revision,costBasis:"planning-allowances"}`. Trip v2ʼga `places` (haqiqatan tanlangan katalog/source records) va lokalizatsiyalangan `summary` qoʻshilgan. Model har kun uchun 0–2 tekshirilgan ID tanlaydi; transfer kunlari joysiz. Excluded/unknown/duplicate ID va notoʻgʻri city/day rad etiladi. Pul/vaqt server hisobida; `estimatedAdmission:true` narx tekshirilmaganini bildiradi, `admission:0` bepul kirish degani emas. `storyLanguage:"en"` inglizcha source excerptʼni belgilaydi. Frontend bu metadata va AI tartibini saqlaydi.
+
+400 notoʻgʻri input; 402 `REGISTRATION_REQUIRED` yangi plan limiti tugaganda; 409 revision parallel oʻzgarganda; 429 technical limiter; 503 AI/storage mavjud emas. Xato yangi tayyor lokal tur sifatida yashirilmaydi, muvaffaqiyatsiz create urinish rezervi qaytariladi. Oʻzining bor planini oʻzgartirish yana bitta creation sarflamaydi.
+
+### GET `/api/trips/current` va GET `/api/access`
+
+`/current` → `{workspace:null|{trip,source,modelUsed,fallbackReason,excludedIds},revision,access}`. `/access` → `{registered,remaining,limits}`. Mehmon uchun `limits:{plans:1,photos:3,voiceSeconds:180}` va 0 dan limitgacha `remaining`; hisob bilan `remaining:null`. Hammasi no-store va same-origin cookie bilan. Joriy private workspace va trial server JSON faylda, mahalliy Trip v2 nusxasi brauzerda.
+
+Limiti tugagan imkoniyatgina registratsiya soʻraydi: yangi create, yangi distinct foto yoki jami 180 sekunddan keyin Live. Qolgan imkoniyatlar va saqlangan plan oʻqilishi ochiq. Live reconnect vaqtni tiklamaydi; foto follow-up encoded image xeshi bilan dedup qilinadi. Aʼzo foydalanuvchi savdo ishga tushguncha bepul davom etadi; provider/IP/concurrency limitlari qoladi. [Toʻliq trial va saqlash chegaralari](TRIAL_AND_PLANNING.md).
+
+## 5. Snap va auth — amaldagi endpointlar
+
+### POST `/api/explore/identify`
+
+```json
+{
+  "cityId": "bukhara",
+  "language": "ru",
+  "question": "Расскажи об этом месте",
+  "imageBase64": "<JPEG base64>",
+  "imageMimeType": "image/jpeg",
+  "locationSource": "map"
+}
+```
+
+`cityId` — katalogdagi 16 shahardan biri. JPEG base64 max 300000 belgi, savol max 500; begona maydonlar rad etiladi. GPS bo‘lsa `locationSource:gps` va `{location:{lat,lng,accuracy?}}` kerak. Response: `{answer,language,modelUsed,photoModelUsed,source:"groq",locationSource,nearby,focusPlace,sources,photo,webRecordsAdded}`. `photo.status` — `possible-match | unknown`; `placeId` null bo‘lishi mumkin. Noaniq foto tasdiqlangan obida sifatida chiqarilmaydi. 400 input, 402 `REGISTRATION_REQUIRED` trial tugaganda, 429/503 technical limit/provider; `Cache-Control:no-store`. Bir encoded foto haqida qayta savol SHA-256 orqali taniladi va yangi foto sifatida hisoblanmaydi. Foto xaritadagi shahar bilan majburan bog‘lanmaydi. [Haqiqiy regression natijasi](SNAP_API_CHECK_2026-11-26.json).
+
+### `/api/auth/*`
+
+Login 3–80 ASCII harf/raqam va `_.@+-`; bo‘shliqlar chetdan olinadi, registrdan qatʼi nazar. Name 1–80, password 8–128. Email login sifatida qabul qilinadi, ammo email verification/recovery yo‘q. Ochiq `user`: `{id,login,name,createdAt}`. Parol/hash/session token response yoki localStoragega qaytmaydi.
+
+Sessiya `smartguide_session` HttpOnly, SameSite=Lax, Path=/api, 7 kun; productionda Secure. Login eski cookie sessiyasini almashtiradi; logout uni serverdan o‘chiradi. JSON POST va ruxsat etilgan Origin talab qilinadi. 400 input, 401 noto‘g‘ri login/parol, 409 band login, 403 Origin, 415 JSON, 429 limit, 503 storage. Barcha javoblar no-store. Login/register: 20 urinish/10 minut/IP, process bo‘yicha ikki parallel urinish.
+
+Turist brauzeri same-origin Next proxy ishlatadi. Alohida cross-origin cookie auth sozlanmagan. Hozirgi private JSON-store scrypt parol xeshlari va SHA-256 session token xeshlarini saqlaydi, bir API process uchun; PostgreSQL auth migratsiyasi bajarilmagan. `AUTH_STORE_FILE` persistent yo‘lni sozlaydi. Registratsiya tugagan trial imkoniyatini davom ettirishga ruxsat beradi va mehmon workspaceʼini hisobda hali reja boʻlmasa koʻchiradi. Registratsiya toʻlov yoki production cloud sync degani emas. [Backend topshirish](STITCH_IMPLEMENTATION.md).
+
+## 6. Tekshiruv chegarasi
 
 Typecheck/build endpoint tayyorligi yoki tarixiy aniqlik testi emas. Mock bilan UI tekshiruvi real Gemini, PostgreSQL, toʻlov yoki RAG eval o‘rnini bosmaydi. Kengaytmalarni ulashda muvaffaqiyat/xato/malformed/timeout va privacy holatlari haqiqiy backend bilan tekshiriladi.

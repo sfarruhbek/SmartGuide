@@ -16,6 +16,8 @@
     "explore:cache-check": "tsx scripts/check-explore-cache.ts",
     "voice:probe": "tsx scripts/probe-live.ts",
     "voice:check": "tsx scripts/check-live-assistant.ts",
+    "voice:planning-check": "tsx scripts/check-live-planning.ts",
+    "snap:check": "tsx scripts/check-snap.ts",
     "db:push": "drizzle-kit push --force",
     "db:seed": "tsx src/db/seed.ts",
     "db:studio": "drizzle-kit studio"

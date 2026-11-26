@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
+import { writeFileSync } from 'node:fs';
+const sharp=createRequire(import.meta.url)('sharp');
+const image=await sharp(fileURLToPath(new URL('../../tourist/public/landmarks/kalta-minor.webp',import.meta.url))).resize({width:1024,height:1024,fit:'inside',withoutEnlargement:true}).jpeg({quality:78}).toBuffer();
+const base=process.argv.slice(2).find(arg=>!arg.startsWith('--'))??'http://127.0.0.1:4001';
+const response=await fetch(base+'/api/explore/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({cityId:'bukhara',language:'ru',locationSource:'map',question:'Что изображено на фотографии? Расскажи кратко.',imageBase64:image.toString('base64'),imageMimeType:'image/jpeg'})});
+assert.equal(response.status,200);
+const value=await response.json();
+const report={checkedAt:new Date().toISOString(),selectedCity:'bukhara',actualPhoto:'kalta-minor',photoModel:value.photoModelUsed,answerModel:value.modelUsed,photo:value.photo,focusPlace:value.focusPlace?.id,answer:value.answer};
+console.log(JSON.stringify(report,null,2));
+assert.equal(value.photo?.placeId,'kalta-minor','Map city must not override the photographed landmark');
+assert.equal(value.focusPlace?.id,'kalta-minor');
+assert.ok(!/https?:\/\//.test(value.answer));
+if(process.argv.includes('--report'))writeFileSync(new URL('../../../documentation/SNAP_API_CHECK_2026-11-26.json',import.meta.url),JSON.stringify(report,null,2)+'\n');

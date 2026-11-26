@@ -1,6 +1,6 @@
 import type { PlaceFilter } from './journey';
 
-export type JourneyView = 'plan' | 'itinerary' | 'map';
+export type JourneyView = 'plan' | 'itinerary' | 'map' | 'snap' | 'guide' | 'pass' | 'auth';
 export interface JourneyNavigation {
   view: JourneyView;
   city: string;
@@ -21,7 +21,7 @@ export function readJourneyNavigation(
   const params = new URLSearchParams(search);
   const requestedView = params.get('view');
   const view: JourneyView =
-    requestedView === 'map' || requestedView === 'itinerary'
+    requestedView === 'map' || requestedView === 'itinerary' || requestedView === 'snap' || requestedView === 'guide' || requestedView === 'pass' || requestedView === 'auth'
       ? requestedView
       : 'plan';
   const city =
@@ -67,9 +67,10 @@ export function journeyUrl(
   const next = new URL(url);
   next.hash = '';
   next.searchParams.set('view', state.view);
-  if (state.view === 'map') {
+  if (state.view === 'map' || state.view === 'snap' || state.view === 'guide') {
     next.searchParams.set('city', state.city);
-    next.searchParams.set('collection', state.collection);
+    if(state.view==='map')next.searchParams.set('collection', state.collection);
+    else next.searchParams.delete('collection');
     if (state.place && places.some((place) => place.id === state.place))
       next.searchParams.set('place', state.place);
     else next.searchParams.delete('place');

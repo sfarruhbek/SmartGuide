@@ -61,13 +61,14 @@ export function DiscoveryMap({
     cy: number;
     moved: boolean;
   } | null>(null);
+  const defaultZoom = (id: string) => (id === 'khiva' ? 14 : 13);
   const [size, setSize] = useState({ width: 600, height: 480 });
-  const [view, setView] = useState({ lat: city.lat, lng: city.lng, zoom: 12 });
+  const [view, setView] = useState({ lat: city.lat, lng: city.lng, zoom: defaultZoom(city.id) });
   const [failedTiles, setFailedTiles] = useState<Set<string>>(new Set());
   const [touchDrag, setTouchDrag] = useState(false);
   const target = [...places, ...drafts].find((place) => place.id === selected);
   useEffect(() => {
-    setView({ lat: city.lat, lng: city.lng, zoom: 12 });
+    setView({ lat: city.lat, lng: city.lng, zoom: defaultZoom(city.id) });
     setFailedTiles(new Set());
   }, [city.id, city.lat, city.lng]);
   useEffect(() => {
@@ -266,7 +267,7 @@ export function DiscoveryMap({
         type="button"
         className="map-reset"
         aria-label={copy('resetMap')}
-        onClick={() => setView({ lat: city.lat, lng: city.lng, zoom: 12 })}
+        onClick={() => setView({ lat: city.lat, lng: city.lng, zoom: defaultZoom(city.id) })}
       >
         <LocateFixed size={18} />
       </button>

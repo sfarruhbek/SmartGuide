@@ -1,0 +1,28 @@
+{
+  "checkedAt": "2026-11-26T13:49:00.548Z",
+  "model": "gemini-3.8-live",
+  "audioBytes": 2300160,
+  "assistantTranscriptChars": 737,
+  "toolLookups": 2,
+  "elapsedMs": 56551,
+  "created": {
+    "source": "groq",
+    "model": "openai/gpt-oss-120b",
+    "revision": 1,
+    "days": 2,
+    "totalUsd": 90.64,
+    "summary": "Изменения: оставлен один город — Бухара, срок — 2 дня, бюджет — 100 USD, интересы — история и местная культура, включено жильё. Добавлены 4 места (Po‑i‑Kalyan, дом Файзуллы Ходжаева, мавзолей Турки Джанди, Чор‑Бакр) — по 2 в каждый день, всё в рамках бюджета."
+  },
+  "revised": {
+    "source": "groq",
+    "model": "openai/gpt-oss-120b",
+    "revision": 2,
+    "removedPlaceId": "poi-kalyan",
+    "removedFromAllDays": true,
+    "totalUsd": 88.88,
+    "summary": "Изменения внесены согласно запросу: удалён POI‑Kalyan (poi-kalyan) и заменён на исторический объект Чашма‑Айюб (chashma-ayub) в Бухаре. Остальные предпочтения (2 дня, бюджет 100 USD, интересы – история и местная культура, включённое проживание) сохранены."
+  },
+  "persistedRevision": 2,
+  "guestPlansRemaining": 0,
+  "scope": "Real API WebSocket, Gemini Live audio replies and manage_trip tool invoking Groq for creation and revision. Input commands were text over the Live protocol; physical microphone, speech recognition and current browser UI were not tested."
+}

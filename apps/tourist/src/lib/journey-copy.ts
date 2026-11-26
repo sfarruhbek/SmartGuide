@@ -573,14 +573,6 @@ const words = {
     '地域の静かな場所',
     '지역의 조용한 장소',
   ],
-  source: [
-    'Read the source',
-    'Открыть источник',
-    'Manbani ochish',
-    'Ver la fuente',
-    '出典を見る',
-    '출처 보기',
-  ],
   admission: [
     'Admission estimate',
     'Примерный вход',

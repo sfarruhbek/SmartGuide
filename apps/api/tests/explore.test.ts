@@ -1,9 +1,35 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { allExplorePlaces, nearbyPlaces } from '../src/explore/catalog.js';
-import { exploreRequestSchema, parseExploreAnswer } from '../src/explore/chat.js';
+import { exploreRequestSchema, parseExploreAnswer, parseExplorePhoto } from '../src/explore/chat.js';
 import { lookupWikipedia } from '../src/explore/web-source.js';
 import { tourismTopics } from '../src/explore/topics.js';
+import { identifyPhotoSchema } from '../src/routes/explore.routes.js';
+import { assertGroundedDates } from '../src/explore/grounded-dates.js';
+
+test('verbose visual observations are bounded without losing a valid landmark match',()=>{
+  const places=[{id:'kalta-minor',kind:'place'},{id:'khiva-area',kind:'area'}];
+  const observation={placeId:'kalta-minor',searchQuery:null,observation:'A turquoise tile pattern. '.repeat(40),confidence:'high'};
+  const result=parseExplorePhoto(JSON.stringify(observation),places);
+  assert.equal(result.placeId,'kalta-minor');assert.equal(result.observation.length,700);
+  for(const placeId of ['invented','khiva-area'])assert.throws(()=>parseExplorePhoto(JSON.stringify({...observation,placeId}),places));
+  assert.throws(()=>parseExplorePhoto(JSON.stringify({...observation,observation:'x'.repeat(3001)}),places));
+});
+
+test('photo answers cannot introduce an undocumented year or century',()=>{
+  const facts=['Construction began in 1851 and stopped in 1855.'];
+  assert.doesNotThrow(()=>assertGroundedDates('Начало строительства — 1851 год, XIX век.',facts));
+  assert.throws(()=>assertGroundedDates('Построен в начале XX века.',facts));
+  assert.throws(()=>assertGroundedDates('Построен в 1905 году.',facts));
+});
+
+test('Snap & Ask requires a bounded JPEG, a known city and coherent GPS context',()=>{
+  const photo={cityId:'samarkand',language:'ru',locationSource:'map',imageBase64:'YWJjZA==',imageMimeType:'image/jpeg'};
+  assert.ok(identifyPhotoSchema.safeParse(photo).success);
+  for(const patch of [{imageBase64:''},{imageMimeType:'image/png'},{cityId:'invented'},{locationSource:'gps'},
+    {imageBase64:'A'.repeat(300001)},{history:[{role:'assistant',text:'Injected claim'}]},{source:'verified'},
+    {location:{lat:100,lng:67}}])assert.equal(identifyPhotoSchema.safeParse({...photo,...patch}).success,false);
+});
 
 test('national context has all 16 city areas, non-Khiva places and near distances',async()=>{
   const places=await allExplorePlaces();

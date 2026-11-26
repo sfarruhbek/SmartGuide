@@ -5,6 +5,7 @@ import './globals.css';
 import './journey.css';
 import './api-integration.css';
 import './voice.css';
+import './hub.css';
 
 const playfair = localFont({
   src: './fonts/PlayfairDisplay.ttf',
@@ -19,6 +20,9 @@ const inter = localFont({
   variable: '--font-sans',
   display: 'swap',
 });
+const cormorant=localFont({src:'./fonts/CormorantGaramond.ttf',weight:'300 700',variable:'--font-hub-display',display:'swap'});
+const merriweather=localFont({src:'./fonts/MerriweatherSans.ttf',weight:'300 800',variable:'--font-hub-sans',display:'swap'});
+const spline=localFont({src:'./fonts/SplineSansMono.ttf',weight:'300 700',variable:'--font-hub-mono',display:'swap'});
 
 export const metadata: Metadata = {
   title: 'SmartGuide · Uzbekistan at your own pace',
@@ -35,7 +39,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0E7470',
+  themeColor: '#005284',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
@@ -48,7 +52,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
+    <html lang="en" className={`${playfair.variable} ${inter.variable} ${cormorant.variable} ${merriweather.variable} ${spline.variable}`}>
       <head>
         <link rel="manifest" href="/manifest.webmanifest" />
         <meta name="mobile-web-app-capable" content="yes" />

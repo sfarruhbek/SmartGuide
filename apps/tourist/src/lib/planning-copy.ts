@@ -1,0 +1,27 @@
+import type { SupportedLanguage } from '@smartguide/shared';
+const words={
+  voice:['Plan with your voice','Составить план голосом','Ovoz bilan reja tuzish','Planear con voz','声で旅を計画','음성으로 여행 계획'],
+  voiceHint:['Tell your guide the cities, days, budget and what you love.','Расскажи помощнику о городах, днях, бюджете и интересах.','Gidga shaharlar, kunlar, byudjet va qiziqishlarni ayting.','Dile las ciudades, días, presupuesto e intereses.','都市、日数、予算、興味をガイドに伝えてください。','도시, 일수, 예산, 관심사를 말해 주세요.'],
+  manual:['Or choose your preferences below','Или выбери пожелания вручную','Yoki quyida istaklarni tanlang','O elige tus preferencias abajo','または下で好みを選択','또는 아래에서 직접 선택'],
+  generate:['Create my AI itinerary','Создать мой AI-план','AI rejamni yaratish','Crear mi itinerario IA','AI旅程を作成','AI 여행 계획 만들기'],
+  trial:['Free trial','Пробный доступ','Bepul sinov','Prueba gratis','無料体験','무료 체험'],
+  trialHint:['1 itinerary · 3 minutes of Live · 3 photos. No account needed to start.','1 план · 3 минуты Live · 3 фото. Начни без регистрации.','1 reja · 3 daqiqa Live · 3 rasm. Hisobsiz boshlang.','1 itinerario · 3 minutos Live · 3 fotos. Empieza sin cuenta.','旅程1件・Live 3分・写真3枚。登録せずに開始。','계획 1개 · Live 3분 · 사진 3장. 가입 없이 시작.'],
+  remaining:['Remaining','Осталось','Qoldi','Quedan','残り','남은 사용량'],
+  plans:['plans','планов','reja','planes','旅程','계획'],
+  photos:['photos','фото','rasm','fotos','写真','사진'],
+  continueSaved:['Continue my saved trip','Продолжить сохранённую поездку','Saqlangan safarni davom ettirish','Continuar mi viaje guardado','保存した旅を続ける','저장한 여행 계속'],
+  edit:['Change this itinerary','Изменить этот план','Bu rejani oʻzgartirish','Cambiar este itinerario','この旅程を変更','여행 계획 변경'],
+  instruction:['What would you like to change?','Что хочешь изменить?','Nimani oʻzgartirmoqchisiz?','¿Qué quieres cambiar?','何を変更しますか？','무엇을 바꿀까요?'],
+  placeholder:['Less walking, more local food, a lower budget…','Меньше прогулок, больше местной кухни, дешевле…','Kamroq yurish, koʻproq mahalliy taom, arzonroq…','Menos caminar, más comida local, menor presupuesto…','歩く量を減らす、郷土料理を増やす、予算を下げる…','덜 걷기, 현지 음식 더하기, 예산 줄이기…'],
+  apply:['Update with AI','Обновить через AI','AI orqali yangilash','Actualizar con IA','AIで更新','AI로 변경'],
+  remove:['Remove from plan','Убрать из плана','Rejadan olib tashlash','Quitar del plan','旅程から削除','계획에서 제외'],
+  preparing:['Updating your itinerary…','Обновляем твой план…','Rejangiz yangilanmoqda…','Actualizando tu itinerario…','旅程を更新しています…','계획을 변경하고 있어요…'],
+  registerTitle:['Keep your journey going.','Продолжим путешествие.','Safarni davom ettiraylik.','Sigue con tu viaje.','旅を続けましょう。','여행을 계속해요.'],
+  limitHint:['This free allowance is used up. Create an account to continue. Your trip stays here.','Пробный лимит этой функции закончился. Зарегистрируйся, чтобы продолжить. Твой план сохранён.','Bu imkoniyat sinovi tugadi. Davom etish uchun hisob yarating. Rejangiz saqlangan.','Se agotó la prueba de esta función. Crea una cuenta para continuar. Tu plan sigue aquí.','この機能の無料体験を使い切りました。登録して続けられます。旅程は残ります。','이 기능의 무료 체험을 다 썼어요. 가입 후 계속할 수 있고 계획은 유지돼요.'],
+  back:['Back to my trip','Вернуться к поездке','Safarga qaytish','Volver al viaje','旅に戻る','여행으로 돌아가기'],
+  aiPlan:['Created for you by AI','AI-план по твоим пожеланиям','Istaklaringizga mos AI reja','Creado para ti por IA','好みに合わせたAI旅程','취향에 맞춘 AI 계획'],
+  admissionUnknown:['Admission not confirmed','Стоимость входа не подтверждена','Kirish narxi tasdiqlanmagan','Entrada sin confirmar','入場料は未確認','입장료 미확인'],
+  serverSaved:['Saved for this visit','Сохранено для этой поездки','Shu safar uchun saqlandi','Guardado para esta visita','この旅のために保存済み','이번 여행에 저장됨'],
+} as const;
+const indexes:Record<SupportedLanguage,number>={en:0,ru:1,uz:2,es:3,ja:4,ko:5};
+export const planningCopy=(language:SupportedLanguage)=>(key:keyof typeof words)=>words[key][indexes[language]];

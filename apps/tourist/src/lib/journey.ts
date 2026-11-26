@@ -34,6 +34,10 @@ export interface Place {
   admission: number;
   minutes: number;
   source: string;
+  /** True when admission is not verified; zero is only a planning allowance. */
+  estimatedAdmission?: boolean;
+  /** Public catalog excerpt language when a localized story is unavailable. */
+  storyLanguage?: 'en';
   guideSlug?: string;
 }
 export interface TripInput {
@@ -79,6 +83,10 @@ export interface Trip {
   total: number;
   shortfall: number;
   createdAt: string;
+  /** Source records supplied by the server for the actual generated stops. */
+  places?: Place[];
+  summary?: string;
+  revision?: number;
   generation?: {
     source: 'groq' | 'local-fallback';
     modelUsed: string;
@@ -268,13 +276,51 @@ export function generateTrip(
     : trip;
 }
 
+/** Validate server-added catalog records before using their IDs on maps or after reload. */
+export function validateTripPlaces(value: unknown, cities: City[]): Place[] {
+  if (!Array.isArray(value) || value.length > 150) throw new Error('Invalid trip places');
+  const bounded = (text: unknown, max: number): text is string => typeof text === 'string' && text.trim().length > 0 && text.length <= max;
+  const localized = (value: unknown, max: number): value is LocalText => {
+    if (!value || typeof value !== 'object') return false;
+    const text = value as Record<string, unknown>;
+    return ['en','ru','uz'].every(key => bounded(text[key], max)) &&
+      ['es','ja','ko'].every(key => text[key] === undefined || bounded(text[key], max));
+  };
+  const ids = new Set<string>();
+  return value.map(raw => {
+    if (!raw || typeof raw !== 'object') throw new Error('Invalid trip place');
+    const place = raw as Place;
+    let safeSource = false;
+    try { const source = new URL(place.source); safeSource = source.protocol === 'https:' && !source.username && !source.password && place.source.length <= 2000; } catch {}
+    if (!bounded(place.id, 120) || !/^[\p{L}\p{N}_.:-]+$/u.test(place.id) || ids.has(place.id) ||
+        !cities.some(city => city.id === place.city) || !localized(place.name, 300) || !localized(place.story, 5000) ||
+        (place.history !== undefined && !localized(place.history, 5000)) ||
+        !Number.isFinite(place.lat) || place.lat < 37 || place.lat > 46 ||
+        !Number.isFinite(place.lng) || place.lng < 55 || place.lng > 74 || !safeSource ||
+        !['landmark','discovery'].includes(place.category) || !Number.isSafeInteger(place.admission) || place.admission < 0 || place.admission > 100_000_000 ||
+        !Number.isInteger(place.minutes) || place.minutes < 15 || place.minutes > 180 ||
+        !Array.isArray(place.interests) || place.interests.length > 5 || place.interests.some(interest => !['history','local','food','nature','sacred'].includes(interest)) ||
+        (place.estimatedAdmission !== undefined && typeof place.estimatedAdmission !== 'boolean') || (place.storyLanguage !== undefined && place.storyLanguage !== 'en') ||
+        (place.guideSlug !== undefined && !/^(kalta-minor|juma-mosque|tosh-hovli|kunya-ark|pahlavon-mahmud)$/.test(place.guideSlug))) throw new Error('Invalid trip place');
+    ids.add(place.id);
+    return { id:place.id, city:place.city, name:place.name, story:place.story, lat:place.lat, lng:place.lng, interests:place.interests,
+      category:place.category, admission:place.admission, minutes:place.minutes, source:place.source,
+      ...(place.history ? {history:place.history} : {}), ...(place.guideSlug ? {guideSlug:place.guideSlug} : {}),
+      ...(place.estimatedAdmission!==undefined ? {estimatedAdmission:place.estimatedAdmission} : {}), ...(place.storyLanguage ? {storyLanguage:place.storyLanguage} : {}) };
+  });
+}
+
 /** Validate the returned itinerary itself, preserving the AI's order across reloads. */
 export function validateTrip(value: unknown, cities: City[], places: Place[]): Trip {
   if (!value || typeof value !== 'object') throw new Error('Invalid trip');
   const trip = value as Trip;
   if (trip.version !== 2 || trip.currency !== 'USD' || !trip.input ||
       typeof trip.createdAt !== 'string' || !Number.isFinite(Date.parse(trip.createdAt))) throw new Error('Invalid trip');
-  const baseline = generateTrip(trip.input, cities, places);
+  const dynamicPlaces = trip.places === undefined ? undefined : validateTripPlaces(trip.places, cities);
+  const availablePlaces = [...new Map([...places, ...(dynamicPlaces ?? [])].map(place => [place.id, place])).values()];
+  if ((trip.summary !== undefined && (typeof trip.summary !== 'string' || !trip.summary.trim() || trip.summary.length > 800)) ||
+      (trip.revision !== undefined && (!Number.isSafeInteger(trip.revision) || trip.revision < 0))) throw new Error('Invalid trip metadata');
+  const baseline = generateTrip(trip.input, cities, availablePlaces);
   if (!Array.isArray(trip.days) || trip.days.length !== trip.input.days) throw new Error('Invalid days');
   const cents = (n: unknown): n is number => typeof n === 'number' && Number.isSafeInteger(n) && n >= 0 && n <= 1_000_000_000;
   const time = (s: unknown): s is string => typeof s === 'string' && /^(?:[01]\d|2[0-3]):[0-5]\d$/.test(s);
@@ -287,7 +333,7 @@ export function validateTrip(value: unknown, cities: City[], places: Place[]): T
       if (!slot || !kinds.includes(slot.kind) || !time(slot.time) || !time(slot.end) || slot.time >= slot.end ||
           (i > 0 && day.slots[i - 1].end > slot.time) || !cents(slot.cost)) throw new Error('Invalid slot');
       if (slot.kind === 'visit') {
-        const place = places.find((p) => p.id === slot.placeId && p.city === day.city);
+        const place = availablePlaces.find((p) => p.id === slot.placeId && p.city === day.city);
         if (!place || visited.has(place.id)) throw new Error('Invalid place');
         visited.add(place.id);
       } else if (slot.placeId !== undefined) throw new Error('Invalid place');
@@ -301,7 +347,7 @@ export function validateTrip(value: unknown, cities: City[], places: Place[]): T
   if (trip.generation && (!['groq','local-fallback'].includes(trip.generation.source) ||
       typeof trip.generation.modelUsed !== 'string' || trip.generation.modelUsed.length > 150 ||
       !(trip.generation.fallbackReason === null || typeof trip.generation.fallbackReason === 'string'))) throw new Error('Invalid generation metadata');
-  return trip;
+  return dynamicPlaces ? {...trip, places:dynamicPlaces} : trip;
 }
 
 export function readTrip(cities: City[], places: Place[]): Trip | null {
@@ -313,7 +359,7 @@ export function readTrip(cities: City[], places: Place[]): Trip | null {
     );
     if (!value || typeof value !== 'object') return null;
     // New API plans must restore their actual stops, never silently regenerate another order.
-    if ('generation' in value) return validateTrip(value, cities, places);
+    if ('generation' in value || 'places' in value || 'summary' in value || 'revision' in value) return validateTrip(value, cities, places);
     const { version, input, currency } = value as Omit<Trip, 'version'> & {
       version: number;
     };

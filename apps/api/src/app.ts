@@ -12,6 +12,8 @@ import { audioRouter } from './routes/audio.routes.js';
 import { roadmapRouter } from './routes/roadmap.routes.js';
 import { exploreRouter } from './routes/explore.routes.js';
 import { liveVoiceRouter } from './explore/live.js';
+import { authRouter } from './routes/auth.routes.js';
+import { accessRouter } from './routes/access.routes.js';
 
 export function createApp() {
   const app = express();
@@ -30,7 +32,8 @@ export function createApp() {
           callback(null, true);
           return;
         }
-        callback(new Error(`Origin ${origin} not allowed by CORS`));
+        const error=Object.assign(new Error('Origin not allowed by CORS'),{status:403});
+        callback(error);
       },
       credentials: false,
     }),
@@ -61,6 +64,8 @@ export function createApp() {
   });
 
   app.use('/api/landmarks', landmarksRouter);
+  app.use('/api/auth',authRouter);
+  app.use('/api/access',accessRouter);
   app.use('/api/guide', guideRouter);
   app.use('/api/analytics', analyticsRouter);
   app.use('/api/trips', tripsRouter);

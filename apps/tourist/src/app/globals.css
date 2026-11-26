@@ -654,14 +654,40 @@ summary:focus-visible {
   line-height: 1.8;
 }
 .guide-app {
+  --bg-sand: #fdf9f3;
+  --surface-card: #ffffff;
+  --border-warm: #c0c7d1;
+  --text-ink: #1c1c18;
+  --text-muted: #404750;
+  --accent-teal: #005284;
+  --accent-teal-hover: #0e6ba8;
+  --accent-teal-soft: #e6eef3;
+  --accent-bronze: #9b4500;
+  --accent-bronze-soft: #fff2ea;
+  --font-display: var(--font-hub-display);
+  --font-sans: var(--font-hub-sans);
+  background: var(--bg-sand);
+  color: var(--text-ink);
+  font-family: var(--font-hub-sans), var(--font-sans), sans-serif;
   padding-bottom: 10rem;
 }
 .guide-app .tourist-header {
   position: sticky;
   top: 0;
-  background: #faf8f5f5;
+  background: #fdf9f3f5;
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border-warm);
+  border-bottom: 1px solid #d5d9dd;
+}
+.guide-app .composer-dock {
+  background: #fdf9f3f5;
+}
+.guide-app .expand-photo {
+  background: #fdf9f3f2;
+}
+.guide-app .guide-hero,
+.guide-app .guide-questions,
+.guide-app .museum-dossier {
+  scroll-margin-top: 8.5rem;
 }
 .guide-app .tourist-header-inner {
   padding-top: 0.7rem;

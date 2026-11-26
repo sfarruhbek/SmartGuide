@@ -32,6 +32,10 @@ export interface Place {
   minutes: number;
   source: string;
   guideSlug?: string;
+  /** Public reference record has no verified ticket tariff. Zero is an allowance, not a free-entry claim. */
+  estimatedAdmission?: boolean;
+  /** Language of the sourced description when the other LocalText values are aliases. */
+  storyLanguage?: 'en';
 }
 export interface TripInput {
   cities: string[];
@@ -99,6 +103,7 @@ export function generateTrip(
   places: Place[],
   useEconomy = false,
   preferredIds: string[] = [],
+  dayPlaceIds?: string[][],
 ): Trip {
   if (
     !Number.isInteger(input.days) ||
@@ -165,7 +170,7 @@ export function generateTrip(
       add('transfer', 5 * 60, 0, transfer);
       add('dinner', 60, economical ? 360 : 640);
     } else {
-      const candidates = places
+      const candidates = dayPlaceIds ? (dayPlaceIds[index]??[]).map(id=>places.find(place=>place.id===id&&place.city===city&&!used.has(id))).filter((place):place is Place=>!!place) : places
         .filter((place) => place.city === city && !used.has(place.id))
         .sort((a, b) => {
           const score = (p: Place) =>
@@ -217,6 +222,6 @@ export function generateTrip(
   };
   // Try the lower daily allowances before reporting a shortfall that can be avoided.
   return !economical && trip.shortfall > 0
-    ? generateTrip(input, cities, places, true, preferredIds)
+    ? generateTrip(input, cities, places, true, preferredIds, dayPlaceIds)
     : trip;
 }

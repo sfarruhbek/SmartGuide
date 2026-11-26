@@ -1,0 +1,35 @@
+{
+  "checkedAt": "2026-11-26T13:46:38.606Z",
+  "scope": "Real HTTP, Groq manual creation and revision; no mocked provider. Browser visual check of updated trial flow not included.",
+  "create": {
+    "model": "openai/gpt-oss-120b",
+    "totalCents": 8888,
+    "placeIds": [
+      "fayzabad",
+      "turki-jandi",
+      "chor-bakr",
+      "khodjayev"
+    ]
+  },
+  "revise": {
+    "model": "openai/gpt-oss-120b",
+    "totalCents": 8008,
+    "excludedPlaceId": "fayzabad",
+    "summary": "Удалено место Fayzabad из плана, оставлено только посещение Turki Jandi в первый день, второй день оставлен свободным для самостоятельных прогулок."
+  },
+  "secondCreateStatus": 402,
+  "restoredRevision": 2,
+  "trial": {
+    "registered": false,
+    "remaining": {
+      "plans": 0,
+      "photos": 3,
+      "voiceSeconds": 180
+    },
+    "limits": {
+      "plans": 1,
+      "photos": 3,
+      "voiceSeconds": 180
+    }
+  }
+}

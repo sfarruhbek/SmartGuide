@@ -2,8 +2,13 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import { once } from 'node:events';
+import { mkdtemp, rm } from 'node:fs/promises';
+import path from 'node:path';
+import os from 'node:os';
 
 test('HTTP routes validate requests, expose real provider metadata and degrade honestly', async () => {
+  const temp=await mkdtemp(path.join(os.tmpdir(),'smartguide-routes-'));
+  process.env.ACCESS_STORE_FILE=path.join(temp,'access.json');process.env.AUTH_STORE_FILE=path.join(temp,'accounts.json');
   process.env.GROQ_API_KEYS = 'test-key'; process.env.GEMINI_API_KEY = 'test-key';
   process.env.LANDMARK_STORE = 'json';
   const { createApp } = await import('../src/app.js');
@@ -59,5 +64,6 @@ test('HTTP routes validate requests, expose real provider metadata and degrade h
   } finally {
     globalThis.fetch = realFetch;
     server.closeAllConnections(); await new Promise<void>((resolve) => server.close(() => resolve())); await pool.end();
+    assert.ok(path.resolve(temp).startsWith(path.resolve(os.tmpdir())+path.sep+'smartguide-routes-'));await rm(temp,{recursive:true,force:true});
   }
 });

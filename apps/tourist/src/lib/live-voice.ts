@@ -1,11 +1,13 @@
 import type { SupportedLanguage } from '@smartguide/shared';
 import { getApiBaseUrl } from './api';
 import { requestJson } from './http';
+import { ApiError } from './http';
+import type { TripInput } from './journey';
 
 export type VoiceStatus='idle'|'connecting'|'listening'|'speaking'|'muted'|'error'|'ended';
 export interface VoicePosition {lat:number;lng:number;accuracy?:number}
-export interface VoiceContext {cityId:string;language:SupportedLanguage;locationSource:'gps'|'map';location?:VoicePosition;placeId?:string}
-export interface VoicePlace {id:string;name:string;lat:number;lng:number;distanceKm?:number;kind?:'place'|'area'}
+export interface VoiceContext {cityId:string;language:SupportedLanguage;locationSource:'gps'|'map';location?:VoicePosition;placeId?:string;tripPreferences?:TripInput;purpose?:'plan'|'guide'}
+export interface VoicePlace {id:string;name:string;lat:number;lng:number;distanceKm?:number;kind?:'place'|'area';cityId?:string;facts?:string[]}
 export interface VoiceSource {placeId:string;name:string;provenance:string;links:{title:string;url:string;license?:string}[]}
 export interface VoiceReference {nearby:VoicePlace[];focusPlace:VoicePlace|null;sources:VoiceSource[];webRecordsAdded:number}
 
@@ -21,7 +23,8 @@ export const encodePcm=(buffer:ArrayBuffer)=>{
 };
 const isPlace=(p:unknown):p is VoicePlace=>{
   if(!p||typeof p!=='object')return false;
-  const v=p as VoicePlace;return typeof v.id==='string'&&typeof v.name==='string'&&Number.isFinite(v.lat)&&Number.isFinite(v.lng)&&Math.abs(v.lat)<=90&&Math.abs(v.lng)<=180;
+  const v=p as VoicePlace;return typeof v.id==='string'&&typeof v.name==='string'&&Number.isFinite(v.lat)&&Number.isFinite(v.lng)&&Math.abs(v.lat)<=90&&Math.abs(v.lng)<=180&&
+    (v.facts===undefined||(Array.isArray(v.facts)&&v.facts.length<=20&&v.facts.every(f=>typeof f==='string'&&f.length<=5000)));
 };
 export function parseVoiceReference(raw:unknown):VoiceReference {
   if(!raw||typeof raw!=='object')throw new Error('Invalid voice context');
@@ -47,7 +50,7 @@ export class LiveVoiceClient {
   private stopped=false;
   private ready=false;
   private timer:ReturnType<typeof setTimeout>|undefined;
-  constructor(private callbacks:{status:(status:VoiceStatus)=>void;transcript:(role:'user'|'assistant',text:string)=>void;references:(data:VoiceReference)=>void;photoAccepted:()=>void;lookup:(busy:boolean)=>void;error:(code:string)=>void}){}
+  constructor(private callbacks:{status:(status:VoiceStatus)=>void;transcript:(role:'user'|'assistant',text:string)=>void;references:(data:VoiceReference)=>void;photoAccepted:()=>void;lookup:(busy:boolean)=>void;error:(code:string)=>void;trip?:(result:unknown)=>void;registrationRequired?:(feature:'plans'|'photos'|'voice')=>void;remaining?:(seconds:number)=>void}){}
   async start(context:VoiceContext){
     try{
       if(!window.isSecureContext||!navigator.mediaDevices?.getUserMedia)throw new Error('SECURE_CONTEXT_REQUIRED');
@@ -55,8 +58,8 @@ export class LiveVoiceClient {
       this.audio=new AudioContext();await this.audio.resume();
       this.media=await navigator.mediaDevices.getUserMedia({audio:{channelCount:1,echoCancellation:true,noiseSuppression:true,autoGainControl:true}});
       if(this.stopped){this.release();return;}
-      const grant=await requestJson<{token:string;path:string}>(`${getApiBaseUrl()}/api/explore/live/session`,{
-        method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(context),
+      const grant=await requestJson<{token:string;path:string}>('/api/explore/live/session',{
+        method:'POST',credentials:'include',headers:{'Content-Type':'application/json'},body:JSON.stringify(context),
       });
       if(this.stopped)return;
       if(!/^[a-f0-9]{64}$/.test(grant.token))throw new Error('LIVE_UNAVAILABLE');
@@ -68,6 +71,7 @@ export class LiveVoiceClient {
       socket.onerror=()=>this.fail('LIVE_UNAVAILABLE');
       socket.onclose=()=>{if(!this.stopped){this.stop();this.callbacks.status('ended');}};
     }catch(error){
+      if(error instanceof ApiError&&error.status===402){this.stop();this.callbacks.registrationRequired?.('voice');return;}
       const code=error instanceof DOMException&&(error.name==='NotAllowedError'||error.name==='PermissionDeniedError')?'MIC_PERMISSION':error instanceof Error&&error.message==='SECURE_CONTEXT_REQUIRED'?'SECURE_CONTEXT_REQUIRED':'LIVE_UNAVAILABLE';
       if(!this.stopped)this.fail(code);
     }
@@ -77,6 +81,7 @@ export class LiveVoiceClient {
     const data=JSON.parse(raw) as Record<string,unknown>;
     if(data.type==='ready'){
       clearTimeout(this.timer);this.ready=true;
+      if(typeof data.remainingSeconds==='number')this.callbacks.remaining?.(data.remainingSeconds);
       await this.setupMicrophone();if(this.stopped)return;
       this.callbacks.status('listening');
     }else if(data.type==='audio'&&typeof data.data==='string'){
@@ -96,6 +101,8 @@ export class LiveVoiceClient {
     else if(data.type==='photoAccepted')this.callbacks.photoAccepted();
     else if(data.type==='lookingUp')this.callbacks.lookup(true);
     else if(data.type==='lookupComplete')this.callbacks.lookup(false);
+    else if(data.type==='tripUpdated')this.callbacks.trip?.(data.result);
+    else if(data.type==='registrationRequired'){if(data.feature==='plans'||data.feature==='photos'||data.feature==='voice'){this.stop();this.callbacks.registrationRequired?.(data.feature);}}
     else if(data.type==='error')this.fail('LIVE_UNAVAILABLE');
   }
   private async setupMicrophone(){
