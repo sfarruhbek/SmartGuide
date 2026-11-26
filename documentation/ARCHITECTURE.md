@@ -1,6 +1,6 @@
 # SmartGuide — arxitektura va amaldagi integratsiya
 
-26-noyabr 2026. Mahsulotning asosiy oqimi: mustaqil sayohatchi → kunlar/byudjet/qiziqishlar → safar → mahalliy xarita → manbali izoh. Xiva AI-piloti va B2B analitika shu mahsulotning alohida qatlamlari.
+26-noyabr 2026. **Mahsulot ko'lami (muhim):** SmartGuide **faqat Ichan-Qal'a ilovasi emas** — asosiy oqim sayyoh tashrif buyuradigan **istalgan shahar(lar)** (Oʻzbekiston boʻylab 16 ta shahar + erkin shahar) boʻylab aylanish uchun **toʻliq kunlik Roadmap + USD byudjet smetasi + interaktiv xarita + manbali hikoyalar** yaratishdir. Xiva (**Ichan-Qal'a**, 5 ta obida) esa shu platformaning chuqurlashtirilgan **1-bosqich RAG/Vision AI-gid piloti** va B2B analitika sinov qatlamidir.
 
 ## Hozirgi qatlamlar
 
@@ -55,7 +55,7 @@ Mavjud umumiy tiplarda milliy trip, signals, sentiment va contribution kontraktl
 - Dashboard eski maʼlumotni saqlab reconnect holatini bildiradi; yangi insight maydonlari kelmasa bo‘sh holat. Kalkulyator API tushumi emas.
 - RAG, cache va audio kechikishi uchun 0% xato / doim <100ms / doim $0 vaʼdasi yoʻq.
 
-Hozirgi live demo: JSON dossier + haqiqiy Groq/Gemini; analytics saqlanmaydi va muvaffaqiyat imitatsiyasi yoʻq. PostgreSQL va public HTTPS keyingi backend ishi. [LIVE_API_SETUP.md](LIVE_API_SETUP.md).
+Hozirgi live runtime ikkala rejimni qoʻllab-quvvatlaydi: `LANDMARK_STORE=postgres` (PostgreSQL bazasi, jonli interaksiyalar va B2B analitika) hamda DB siz tezkor demo uchun `LANDMARK_STORE=json`. Tourist ilovasi installable PWA (`manifest.webmanifest`, `sw.js`, PNG iconlar) bilan jihozlangan. Public HTTPS production deploy — keyingi bosqich ishi. [LIVE_API_SETUP.md](LIVE_API_SETUP.md).
 
 ## Keyingi arxitektura — kelishilishi kerak
 

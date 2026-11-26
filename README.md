@@ -1,8 +1,11 @@
-# SmartGuide — Oʻzbekiston boʻylab oʻz maromingizda
+# SmartGuide — Oʻzbekiston boʻylab toʻliq shahar Roadmap'i va AI-Gid
 
-SmartGuide mustaqil sayohatchiga shaharlar, kunlar, umumiy byudjet va qiziqishlar asosida kunlik safar rejasini tuzishga yordam beradi. Rejada vaqt, ovqatlanish, transport, kirish, yashash va zaxira xarajatlari bor. Interaktiv xaritada mahalliy joylar, manbali hikoyalar va shaxsiy topilmalar uchun qoralama mavjud.
+> **Muhim aniqlik (Mahsulot ko'lami):** SmartGuide **faqat Ichan-Qal'a (Xiva) ilovasi EMAS!**
+> - **Asosiy mahsulot:** Sayyoh tashrif buyuradigan **istalgan shahar(lar)** (Oʻzbekiston boʻylab 16 ta shahar + erkin shahar kiritish: Toshkent, Samarqand, Buxoro, Xiva, Nukus, Termiz, Shahrisabz, Qoʻqon va boshqalar) boʻylab aylanish uchun **toʻliq kunlik sayohat Roadmap'ini** chizib beruvchi mustaqil sayohat va AI-gid PWA platformasi.
+> - **Toʻliq Roadmap ichida nima bor:** har bir kun uchun vaqt jadvali, obidalar va mahalliy kashfiyotlar ketma-ketligi, ovqatlanish, mahalliy/shaharlararo transport, kirish chiptalari, yashash va 10% zaxira byudjet (USD) hisob-kitobi, interaktiv OpenStreetMap xarita, manbali hikoyalar hamda shaxsiy topilmalar qoralamasi.
+> - **Ichan-Qal'a (Xiva) nima?** U mahsulot chegarasi emas, balki **1-bosqich chuqurlashtirilgan AI-pilot hududi** (5 ta muzey-arxiv dossierli obida, Snap & Ask rasm tanish, `/khiva` qisqa piyoda yurish rejimi va B2B muzey analitikasi piloti).
 
-**Butun Oʻzbekiston — mahsulot geografiyasi. Xiva — birinchi AI-pilot.** Milliy frontend Groq server planneriga ulangan: 16 shahar tanlovi va toʻrtta shahardagi 15 joy. Dossier/foto piloti besh Xiva obidasi bilan cheklangan. Gemini faqat ovoz uchun. Jonli narxlar, moderatsiya, GPS va toʻlovlar hali integratsiya talab qiladi. [Ishlaydigan API konfiguratsiyasi va tekshiruv](documentation/LIVE_API_SETUP.md).
+**Texnik holat:** Milliy frontend (`/`) Groq server planneriga (`POST /api/trips/generate`) ulangan: 16 ta shahar tanlovi + erkin shahar kiritish, 4 ta asosiy shaharda 15 ta katalog joyi (qolgan shaharlarda ochiq erkin tadqiqot bloklari). Chuqur dossier va foto-tanish piloti hozircha Xivadagi 5 obidada, ovozli gid (TTS) esa Gemini 3.8 orqali ishlaydi. PWA (`manifest.webmanifest`, `sw.js`, PNG iconlar) oʻrnatishga tayyor. Jonli chipta narxlari, foydalanuvchi topilmalarini moderatsiya qilish, fon GPS avto-taklifi va toʻlovlar keyingi bosqich integratsiyasida. [Ishlaydigan API konfiguratsiyasi va tekshiruv](documentation/LIVE_API_SETUP.md).
 
 ## Hujjatlar
 

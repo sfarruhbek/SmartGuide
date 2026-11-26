@@ -1,9 +1,9 @@
 # SmartGuide — Moliyaviy Smeta va Haqiqiy Xarajatlar Modeli (2026 Real Narxlar)
 
-> **Hisob-kitob sanasi:** 2026-yil noyabr  
-> **Valyuta kursi bazasi:** `1 USD ≈ 12,500 UZS`  
-> **Biznes-model bazasi:** Oylik obunasiz **Bir Martalik Trip Pass** (`$4.99` 48s City Pass · `$12.99` 10-kun Silk Road Pass · Blended ARPU `$7.00`) + Mahalliy SME 10% komissiya + Kirish nuqtalarida **reklama QR/Kiosk** (obida devorlarida QR yo'q — ichkarida GPS!).  
-> **Tamoyil:** Barcha narxlar 2026-yilgi rasmiy manbalardan olingan.
+> **Mahsulot ko'lami:** SmartGuide — **O'zbekistonning istalgan shahri (16+ shahar) bo'ylab to'liq kunlik sayohat Roadmap'i + AI-Gid** platformasi (faqat Ichan-Qal'a emas!). Quyidagi **Smeta B** — 1-bosqich chuqurlashtirilgan maydon piloti (Xiva), **Smeta C** esa barcha asosiy shaharlar (Toshkent, Samarqand, Buxoro, Xiva va b.) bo'ylab 12 oylik kengayish smetasi.  
+> **Hisob-kitob sanasi:** 2026-yil noyabr · **Valyuta kursi bazasi:** `1 USD ≈ 12,500 UZS`  
+> **Biznes-model bazasi:** Oylik obunasiz **Bir Martalik Trip Pass** (`$4.99` 48s **istalgan 1 shahar** City Pass · `$12.99` 10-kun **butun O'zbekiston** Silk Road Pass · Blended ARPU `$7.00`) + Mahalliy SME 10% komissiya + Kirish/vokzal/mehmonxonalarda **reklama QR/Kiosk**.  
+> **AI Stack eslatmasi:** Joriy jonli runtime matn/planner/foto uchun **Groq** (`openai/gpt-oss-120b`, `qwen/qwen3.8-27b`), ovoz uchun **Gemini 3.8 TTS** ishlatadi. Quyidagi jadvalda konservativ zaxira (yuqori chegara) sifatida rasmiy 2026 Gemini tariflari olingan — Groq bilan haqiqiy matn xarajati bundan ham pastroq bo'ladi.
 
 ---
 
@@ -31,10 +31,10 @@
 
 ## 2. Bitta Sayyohga Haqiqiy AI API Xarajati (Exact Cost-to-Serve)
 
-**City Pass (`$4.99`, 48 soat — Xiva)** bo'yicha o'rtacha 1 sayyoh sessiyasi:
-- **1 ta** Emotsional Roadmap (`gemini-3.5-flash-lite`)
-- **6 ta** Jonli RAG savol-javob + Interest/Sentiment Extraction (`gemini-3.5-flash-lite`)
-- **2 ta** Snap & Ask foto tanish (`gemini-3.5-flash-lite` multimodal)
+**City Pass (`$4.99`, 48 soat — istalgan 1 shahar: Xiva, Samarqand, Buxoro yoki Toshkent)** bo'yicha o'rtacha 1 sayyoh sessiyasi:
+- **1 ta** Shahar bo'ylab to'liq kunlik Roadmap (`Groq LLM` / konservativ tarif bazasida `gemini-3.5-flash-lite`)
+- **6 ta** Jonli RAG savol-javob + Interest/Sentiment Extraction (`Groq LLM` / konservativ bazada `gemini-3.5-flash-lite`)
+- **2 ta** Snap & Ask foto tanish (`Groq Vision` / konservativ bazada `gemini-3.5-flash-lite`)
 - **6 ta** Ovozli javob (`gemini-3.8-flash-lite-tts`, har biri ~25 soniya = **150 soniya / 2.5 daqiqa WAV audio**)
 
 | Bosqich | Model | Token hajmi | 0% Kesh (Maksimal) | 50% Kesh bilan (Real) |

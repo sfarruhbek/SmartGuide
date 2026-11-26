@@ -1,4 +1,6 @@
-# `@smartguide/api` — trip planning and Khiva guide
+# `@smartguide/api` — Uzbekistan Full-City Travel Roadmap & AI Guide API
+
+> **Scope:** Primary API generates full day-by-day city/multi-city travel roadmaps across Uzbekistan (`POST /api/trips/generate`, 16+ cities + custom city). Khiva Ichan-Qala (`/api/landmarks`, `/api/guide/ask`, `/api/roadmap/generate`) is the Phase 1 deep-RAG & Vision pilot zone, not the entire product.
 
 Node.js 20+, Express 5, Drizzle/PostgreSQL, Zod, Groq text/vision and Gemini speech via server-side REST. Port 4000. No API credentials are sent to the frontend.
 
