@@ -62,7 +62,7 @@ export class ProviderPool {
         const remaining = deadline - now();
         if (remaining <= 0) throw new ProviderUnavailable('deadline');
         if (++attempts > 8) throw new ProviderUnavailable('exhausted');
-        const signal = AbortSignal.timeout(Math.max(1, Math.min(10_000, remaining)));
+        const signal = AbortSignal.timeout(Math.max(1, Math.min(15_000, remaining)));
         try {
           const { url, init } = request(model, keys[index], signal);
           const response = await fetcher(url, { ...init, signal });
@@ -74,7 +74,13 @@ export class ProviderPool {
             const until = now() + quotaWait(response.headers, now());
             const errorBody = await response.json().catch(() => ({})) as { error?: { code?: string; type?: string; message?: string } };
             const quota = `${errorBody.error?.code ?? ''} ${errorBody.error?.type ?? ''} ${errorBody.error?.message ?? ''}`;
-            if (/billing|insufficient_quota|organization.*(daily|budget)|project.*daily/i.test(quota)) this.organizationCooldown = until;
+            const isModelScopedQuota = /\bmodel:\s*[\w./-]+/i.test(quota);
+            if (
+              !isModelScopedQuota &&
+              /billing_not_active|billing_hard_limit|insufficient_quota|organization.*(daily|budget)|project.*daily/i.test(quota)
+            ) {
+              this.organizationCooldown = until;
+            }
             this.modelCooldowns.set(model, until);
             break; // Never rotate through same-organization keys to evade 429.
           }
@@ -91,7 +97,7 @@ export class ProviderPool {
           const value = parse(body, model);
           return { value, modelUsed: model };
         } catch (error) {
-          if (error instanceof InvalidProviderOutput || error instanceof SyntaxError) {
+          if (error instanceof InvalidProviderOutput || error instanceof SyntaxError || keys.length === 1) {
             this.modelCooldowns.set(model, now() + 15_000);
           } else {
             this.keyCooldowns.set(index, now() + 5000);

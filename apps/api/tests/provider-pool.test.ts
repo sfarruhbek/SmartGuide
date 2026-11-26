@@ -40,6 +40,17 @@ test('organization billing quota does not cause model/key retry storm', async ()
   await assert.rejects(f.run(), ProviderUnavailable);
   assert.equal(f.calls.length, 1);
 });
+test('per-model free-tier 429 mentioning billing details still falls back to secondary model', async () => {
+  const f = fixture([
+    Response.json(
+      { error: { code: 429, message: 'You exceeded your current quota, please check your plan and billing details. limit: 10, model: primary' } },
+      { status: 429 },
+    ),
+    ok(),
+  ], { keys: ['key-a'] });
+  assert.equal((await f.run()).modelUsed, 'secondary');
+  assert.deepEqual(f.calls, ['primary/key-a', 'secondary/key-a']);
+});
 test('503, invalid JSON and invalid output move to a different model', async () => {
   for (const response of [Response.json({}, { status: 503 }), new Response('{'), ok()]) {
     const f = fixture([response, ok()]);
