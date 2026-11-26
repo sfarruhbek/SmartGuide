@@ -1,171 +1,134 @@
-# TZ #2 — Backend Developer (To'liq Texnik Topshiriq)
+# TZ #2 — Backend Developer (Yakuniy Konsepsiya: Roadmap Engine, Signal/Noise DB & AWS Deploy)
 
-> **Loyiha:** SmartGuide — Ichan-Qal'a (Xiva) Raqamli AI-Gid Infratuzilmasi  
+> **Loyiha:** SmartGuide — Emotsional Roadmap + Jonli AI-Gid + Sayyohlar Qiziqishi Intellekti  
 > **Rol:** Backend & DevOps Developer (1 kishi)  
 > **Git Branch:** `feat/backend`  
-> **Mas'uliyat zonasi:** `apps/api/src/db/**`, `apps/api/src/routes/**`, `apps/api/src/middleware/**`, `apps/api/src/config/**`, `apps/api/src/services/landmark.service.ts`, `apps/api/src/services/analytics.service.ts`, `apps/api/src/app.ts`, `apps/api/src/index.ts` va AWS Ubuntu server deploy  
-> **Tegilmaydigan zonalar:** `apps/tourist/**`, `apps/dashboard/**`, `apps/api/data/ichan-qala-landmarks.json`, `apps/api/src/services/ai.service.ts` (AI/RAG Dev bilan kelishilgan funksiya interfeysi orqali ulanadi)
+> **Mas'uliyat zonasi:** `apps/api/src/db/**`, `apps/api/src/routes/**`, `apps/api/src/middleware/**`, `apps/api/src/config/**`, `apps/api/src/services/landmark.service.ts`, `apps/api/src/services/roadmap.service.ts` *(yangi)*, `apps/api/src/services/analytics.service.ts`, `apps/api/src/services/cache.service.ts` *(yangi)*, `apps/api/src/app.ts`, `apps/api/src/index.ts`, AWS Ubuntu deploy  
+> **Tegilmaydigan zonalar:** `apps/tourist/**`, `apps/dashboard/**`, `apps/api/data/ichan-qala-landmarks.json`, `apps/api/src/services/ai.service.ts`
 
 ---
 
 ## 1. Strategik Maqsad
 
-Sizning mas'uliyatingiz — tizimning **barqarorligi, tezligi, ma'lumotlar aniqligi, API xarajatini tejash (keshlash) va AWS Ubuntu production deployi**:
-1. **0% Downtime Demo Day'da:** Sahnada 10–20 nafar hakam bir vaqtning o'zida QR-kodni skanerlab savol berganda, server ham, PostgreSQL ham sekinlashmasdan va qulamasdan javob qaytarishi kerak.
-2. **Real-Time B2B Analitika:** Har bir QR skan, matnli savol va Snap & Ask foto so'rovi PostgreSQL'ga aniq yozilib, 5 soniyalik polling so'rovlariga `<50ms` da agregatsiya qaytarishi kerak.
-3. **Unit-Ekonomika Himoyasi (Response + TTS Cache):** Eng ko'p so'raladigan tezkor savollar keshlanishi orqali 1 sayyohga API xarajatini `$0.15` dan ham pastda ushlash va javob tezligini `<150ms` ga tushirish!
+Sizning mas'uliyatingiz — SmartGuide'ning **Data Flywheel (O'z-o'zidan aqllilashish) mexanizmini PostgreSQL'da real vaqtda yurgizish**:
+1. Har bir sayyohga real PostgreSQL `landmark_topic_signals` reytinglariga tayangan **Shaxsiy Emotsional Roadmap** (`POST /api/roadmap/generate`) taqdim etish.
+2. Obida oldidagi har bir jonli suhbat (`POST /api/guide/ask`) va micro-reaksiyadan (`POST /api/guide/feedback`) **Signal Score (`0–100`)** ni real vaqtda yangilab borish — shunda keyingi sayyohning Roadmap'i va hikoyasi avtomatik yaxshilanadi!
+3. Muzey B2B paneliga `<50ms` tezlikda **Signal vs. Noise**, **Sentiment**, **Curiosity Gaps**, **CSV Eksport** va **70/30 daromad** hisobotini berish.
+4. Tezkor savollarni keshlash (`<100ms`, `$0` API xarajat) va **AWS Ubuntu** serverga Docker'siz, uzluksiz (`PM2 + Nginx/HTTPS`) deploy qilish.
 
 ---
 
-## 2. Mavjud Fayllar va PostgreSQL Sxemasi (Hozir Tayyor Baza)
+## 2. Mavjud Baza va Yangi Qo'shiladigan Jadval/Servislar
 
-| Fayl | Vazifasi (hozirgi holati) |
-| :--- | :--- |
-| `src/config/env.ts` | Zod bilan tekshirilgan muhit o'zgaruvchilari (`GEMINI_*`, `DATABASE_URL`, `TICKET_PRICE_USD`, `MUSEUM_REVENUE_SHARE_PERCENT`) |
-| `src/db/schema.ts` | Drizzle ORM PostgreSQL jadvallari: `landmarks` (5 ta obida JSONB + metadata) va `interactions` (indekslangan sayyoh interaksiyalari) |
-| `src/db/index.ts` | `pg.Pool` (`max: 15`), `drizzle(pool, { schema })`, `ensureSchemaExists()`, `checkDatabaseHealth()` |
-| `src/db/seed.ts` & `seed-data.ts` | Idempotent seed: `ichan-qala-landmarks.json` ni upsert qiladi va `interactions` bo'sh bo'lsa 46 ta realistik boshlang'ich yozuv qo'shadi |
-| `src/services/landmark.service.ts` | `listLandmarkSummaries()`, `listLandmarkDetails()`, `getLandmarkBySlug()` (DB bo'sh bo'lsa JSON fallback bilan) |
-| `src/services/analytics.service.ts` | `logTouristInteraction()` va `getAnalyticsSummary()` (SQL agregatsiyalar: KPI, landmarklar, tillar, 24h soatlik dinamika, 70/30 daromad, oxirgi 15 savol) |
-| `src/routes/landmarks.routes.ts` | `GET /api/landmarks`, `GET /api/landmarks/:slug` |
-| `src/routes/guide.routes.ts` | `POST /api/guide/ask` (Zod validatsiya + Vision/RAG/TTS + PostgreSQL loglash) |
-| `src/routes/analytics.routes.ts` | `GET /api/analytics/summary` |
-| `src/app.ts` & `src/index.ts` | Express 5, `helmet`, `cors`, `15mb` JSON limit, `GET /api/health`, `AUTO_SEED=true`, graceful shutdown (`SIGINT`/`SIGTERM`) |
+- **Hozir tayyor:** `landmarks`, `interactions` jadvallari (`src/db/schema.ts`), `seed.ts`, `GET /api/health`, `GET /api/landmarks`, `GET /api/landmarks/:slug`, `POST /api/guide/ask`, `GET /api/analytics/summary`.
+- **Yangi qo'shiladi (Yakuniy Konsepsiya):**
+  1. `roadmaps` jadvali (sayyohlarga tuzilgan Emotsional Roadmap'larni saqlash)
+  2. `landmark_topic_signals` jadvali (har bir obidaning har bir fakti/mavzusi bo'yicha `ask_count`, `positive_reactions`, `negative_reactions`, `signal_score`)
+  3. `qr_scans` jadvali (QR skan / obida ochish hodisalari)
+  4. `interactions` jadvaliga insight ustunlari (`detected_topic_key`, `detected_topic_label`, `signal_category`, `sentiment`, `interest_score`, `user_feedback`, `curiosity_gap`, `roadmap_id`)
 
 ---
 
-## 3. Batafsil Vazifalar Ro'yxati (Task-by-Task Spetsifikatsiya)
+## 3. Batafsil Vazifalar Ro'yxati (`BE-01` .. `BE-12`)
 
-### 1-BOSQICH (25-noyabr, 14:00 – 18:00) — P0 Blocker Vazifalar (Check-in gacha)
+### P0 — Birinchi Navbatda (26-noyabr, 11:50 – 14:30 · Data Flywheel Yadro API'lari)
 
-#### `BE-01` — Lokal PostgreSQL Sozlash va Barcha Endpointlarni Verifikatsiya Qilish `[P0]`
-- **Bajariladigan ishlar:**
-  1. Lokal PostgreSQL'da `smartguide` bazasini yaratish (`CREATE DATABASE smartguide;`).
-  2. `.env` ga `DATABASE_URL` va real `GEMINI_API_KEY` kiritish.
-  3. `npm run db:push && npm run db:seed && npm run dev:api` ni ishga tushirish.
-  4. [API_CONTRACT.md](API_CONTRACT.md) dagi barcha 5 ta `curl` so'rovini tekshirib, `200 OK` va to'g'ri JSON strukturasini tasdiqlash.
-- **Qabul mezoni:** `GET /api/health` → `database: "connected"`, `aiConfigured: true`; `POST /api/guide/ask` PostgreSQL `interactions` jadvaliga yangi qator qo'shadi va `GET /api/analytics/summary` da `totalInteractions` +1 oshadi.
+#### `BE-01` — PostgreSQL Sxemasini Kengaytirish (`schema.ts` + `index.ts`) `[P0]`
+- **Fayl:** `apps/api/src/db/schema.ts`, `apps/api/src/db/index.ts`, `packages/shared/src/index.ts` *(jamoa bilan kelishib)*
+- **Aniq ustunlar:**
+  - `landmarks` ga qo'shilsin: `estimatedVisitMinutes` (`integer`, default `20`), `emotionalPromise` (`jsonb` — 6 til), `vibeTags` (`jsonb` — `string[]`), `taggedTopics` (`jsonb` — `{ topicKey, topicLabel, category, baselineScore }[]`).
+  - `roadmaps` yangi jadvali: `id`, `sessionId`, `language`, `durationMinutes`, `selectedVibes` (`jsonb`), `stopsJson` (`jsonb`), `createdAt`.
+  - `landmark_topic_signals` yangi jadvali: `id`, `landmarkId` (FK), `landmarkSlug`, `topicKey` (unique with `landmarkId`), `topicLabel`, `category`, `askCount`, `positiveReactions`, `negativeReactions`, `signalScore` (`real`, default `50`), `updatedAt`.
+  - `interactions` ga qo'shilsin: `roadmapId` (nullable FK), `detectedTopicKey`, `detectedTopicLabel`, `signalCategory`, `sentiment` (`awe | fascinated | curious | neutral | bored`), `interestScore` (`integer`, 1..5), `userFeedback` (`fascinating | surprising | not_relevant | null`), `curiosityGap` (`text`, nullable).
+  - `ensureSchemaExists()` da `ALTER TABLE ... ADD COLUMN IF NOT EXISTS` va `CREATE TABLE IF NOT EXISTS` yozilsin (mavjud lokal DB buzilmasdan avtomatik yangilanishi uchun!).
 
-#### `BE-02` — Strukturalashgan Request Logging Middleware `[P0]`
-- **Fayl:** yangi `apps/api/src/middleware/request-logger.ts`, `apps/api/src/app.ts`
+#### `BE-02` — Boshlang'ich Seed'ni "Signal vs. Noise" Ma'lumotlari Bilan Boyitish `[P0]`
+- **Fayl:** `apps/api/src/db/seed.ts`, `apps/api/src/db/seed-data.ts`
 - **Aniq talablar:**
-  - Har bir HTTP so'rov tugaganda bitta toza qatorda log chiqarish:
-    `[HTTP] POST /api/guide/ask -> 200 (1420ms) | lang=ja slug=kalta-minor img=false`
-  - `GET /api/analytics/summary` har 5 soniyada kelgani uchun logni ifloslantirmaslik maqsadida uni faqat `NODE_ENV=development` yoki xato (`>=400`) holatida logga chiqarish.
-- **Qabul mezoni:** Debug qilish va mentorlarga real javob vaqtini (`ms`) ko'rsatish oson bo'ladi.
+  - `seed.ts` 5 ta obidani upsert qilish bilan birga har bir obidaning `taggedTopics` laridan `landmark_topic_signals` jadvalini to'ldirsin (realistik `askCount`, `positiveReactions`, `negativeReactions`, `signalScore` bilan — masalan Kalta Minor me'mor afsonasi `95/100` High Signal, Tosh-Hovli quruq soliq yozuvlari `22/100` Low Signal Noise, shunda Dashboard darhol boy va tushunarli ko'rinadi!).
+  - `seed-data.ts` dagi 46+ interaksiyaga `detectedTopicKey`, `sentiment` (`awe`, `fascinated`, `curious`, ...), `interestScore` va 3–4 ta realistik `curiosityGap` (masalan *"Can visitors climb Juma Mosque minaret?"*) qo'shilsin.
 
-#### `BE-03` — QR Skan Hodisasini Qayd Etish Endpointi (`POST /api/landmarks/:slug/scan`) `[P0]`
-- **Fayl:** `apps/api/src/db/schema.ts`, `src/db/index.ts`, `src/routes/landmarks.routes.ts`, `src/services/analytics.service.ts`
-- **Nima uchun kerak:** Sayyoh QR-kodni skanerlab sahifani ochganida, savol bermasdan oldin ham muzey panelida "QR skanerlandi" statistikasi tushishi kerak!
-- **Aniq spetsifikatsiya:**
-  - Request: `POST /api/landmarks/:slug/scan` body: `{ sessionId: string, language: SupportedLanguage }`
-  - `qr_scans` jadvalini qo'shish (`id`, `landmarkId`, `landmarkSlug`, `language`, `sessionId`, `createdAt`) — `ensureSchemaExists()` ga ham qo'shishni unutmang!
-  - Response: `201 Created` `{ ok: true, scanId: number }`
-  - `getAnalyticsSummary()` da `totalTourists` hisoblanayotganda ham `interactions.session_id`, ham `qr_scans.session_id` union'idan unique sayyohlar sanalsin (yoki `totalQrScans` qo'shimcha metrika sifatida hisoblansin).
-- **Qabul mezoni:** Frontend sahifa ochilishi bilan chaqirganda DB'ga dublikatsiz yoziladi, mavjud `AnalyticsSummary` kontraktini buzmaydi.
+#### `BE-03` — `POST /api/roadmap/generate` Endpointi (Signal-Weighted Roadmap) `[P0 · YANGI ASOSIY OQIM]`
+- **Fayl:** yangi `apps/api/src/routes/roadmap.routes.ts`, `apps/api/src/services/roadmap.service.ts`, `apps/api/src/app.ts`
+- **Ishlash tartibi:**
+  1. Zod validatsiya: `{ sessionId, language, durationMinutes: 60 | 120 | 240, vibes: TravelVibe[] }`.
+  2. PostgreSQL'dan barcha 5 ta obida + har bir obidaning **TOP-3 eng yuqori `signal_score` li mavzulari** va **eng past Noise mavzusi** olinadi.
+  3. `durationMinutes` ga qarab obidalar soni belgilanadi (`60m → 2–3 obida`, `120m → 4 obida`, `240m → barcha 5 obida`), `vibes` mosligi + real `signal_score` bo'yicha tartiblanadi.
+  4. AI/RAG Dev yozgan `generateEmotionalRoadmap(...)` funksiyasi chaqirilib, har bir bekat uchun tanlangan tilda `whyVisit`, `emotionalPayoff`, `topSignalHighlight`, `noiseFilteredNote` olinadi (API xato bersa deterministik fallback!).
+  5. Natija `roadmaps` jadvaliga saqlanib, `GenerateRoadmapResponse` qaytariladi.
+
+#### `BE-04` — `POST /api/guide/ask` ni Interest/Sentiment Extractor & Signal Update Bilan Bog'lash `[P0]`
+- **Fayl:** `apps/api/src/routes/guide.routes.ts`, `apps/api/src/services/analytics.service.ts`
+- **Aniq talablar:**
+  - `POST /api/guide/ask` javob olayotganda `landmark` ning TOP-3 Signal mavzulari va LOW Noise mavzularini AI funksiyasiga uzatsin (AI keraksiz shovqinni filtrlab, eng qiziq faktlarni birinchi aytsin!).
+  - AI qaytargan `insight` (`detectedTopicKey`, `detectedTopicLabel`, `signalCategory`, `sentiment`, `interestScore`, `curiosityGap`) `interactions` jadvaliga yozilsin.
+  - Shu zahoti `landmark_topic_signals` jadvalida o'sha `(landmarkId, detectedTopicKey)` uchun `ask_count = ask_count + 1` qilinib, `signal_score` qayta hisoblansin (upsert)!
+  - Agar `roadmapId` yuborilgan bo'lsa, `roadmaps` jadvalidan keyingi bekat olinib `nextStopSuggestion` qaytarilsin.
+
+#### `BE-05` — `POST /api/guide/feedback` (Micro-Impression & Signal Score Real-Time Yangilash) `[P0]`
+- **Fayl:** `apps/api/src/routes/guide.routes.ts`, `apps/api/src/services/analytics.service.ts`
+- **Aniq talablar:**
+  - Request: `{ interactionId: number, rating: 'fascinating' | 'surprising' | 'not_relevant' }`
+  - `interactions.user_feedback` yangilanadi.
+  - Bog'liq `landmark_topic_signals` qatorida:
+    - `fascinating` / `surprising` → `positive_reactions + 1` (Signal Score oshadi!)
+    - `not_relevant` → `negative_reactions + 1` (Signal Score pasayib Noise tomon tushadi!)
+  - Formula (`ARCHITECTURE.md` dagi):
+    `signalScore = clamp(50 + 6 * ln(1 + askCount) + 12 * positiveReactions - 18 * negativeReactions, 0, 100)`
+  - Response: `{ ok: true, interactionId, topicKey, updatedSignalScore }`.
 
 ---
 
-### 2-BOSQICH (25-noyabr 19:00 – 26-noyabr 13:00) — P1 Keshlash, B2B Eksport va Himoya
+### P1 — B2B Experience Intelligence, Kesh va Xavfsizlik (26-noyabr, 14:30 – 16:30)
 
-#### `BE-04` — Smart Response + Audio Cache (`cache.service.ts`) `[P1 · ENG MUHIM OPTIMIZATSIYA]`
-- **Fayl:** yangi `apps/api/src/services/cache.service.ts`, `apps/api/src/routes/guide.routes.ts`
-- **Biznes va texnik sabab:**
-  - Tezkor savollar (masalan *"Why is Kalta Minor unfinished?"* yoki *"Tell me a local legend"*) barcha sayyohlarning ~60–70% so'rovini tashkil qiladi.
-  - Agar har bir sayyohda qayta Gemini Text + Gemini TTS chaqirilsa, 2–3 soniya vaqt va API puli ketadi. Kesh orqali bir xil savolga **<100ms** da va **$0** xarajat bilan javob + WAV audio qaytaramiz!
-- **Aniq arxitektura:**
-  1. **Kesh kaliti:** Faqat `hasImage === false` bo'lgan so'rovlar uchun:
-     ```ts
-     const cacheKey = `${landmark.slug}:${language}:${normalizeQuestion(question)}:${includeAudio ? 'audio' : 'text'}`;
-     ```
-     (`normalizeQuestion`: `.trim().toLowerCase().replace(/[?!.,'’"]/g, '').replace(/\s+/g, ' ')`)
-  2. **Saqlash:** In-memory `Map` (LRU max 150 ta yozuv, TTL `12 soat` — 150 ta WAV audio ~15–25MB RAM oladi, AWS server uchun juda yengil!) YOKI PostgreSQL `response_cache` jadvali.
-  3. **MUHIM:** Keshdan javob topilsa ham **`logTouristInteraction(...)` ALBATTA chaqirilishi shart**, shunda B2B Dashboard'dagi real-time statistika va jonli savollar oqimi 100% aniq ishlashda davom etadi!
-  4. **Kesh tozalash:** AI/RAG Dev `ichan-qala-landmarks.json` ni yangilab serverni restart qilganda in-memory kesh avtomatik tozalanadi (agar DB kesh ishlatsangiz, `db:seed` da `TRUNCATE response_cache` qiling).
-- **Qabul mezoni:** Bir xil tezkor savol 2-marta berilganda javob vaqti `>1500ms` dan `<100ms` ga tushadi, WAV audio to'liq qaytadi va Dashboard'ga yangi yozuv tushadi.
-
-#### `BE-05` — B2B CSV Analitika Eksporti (`GET /api/analytics/export`) `[P1]`
-- **Fayl:** `apps/api/src/routes/analytics.routes.ts`, `apps/api/src/services/analytics.service.ts`
-- **Aniq talablar:**
-  - `GET /api/analytics/export` barcha `interactions` ni `landmarks.name` bilan JOIN qilib RFC-4180 standartidagi toza CSV (UTF-8 BOM `\uFEFF` bilan — Excel'da o'zbek/rus/yapon/koreys harflari buzilmasdan ochilishi uchun!) qaytaradi.
-  - Ustunlar: `ID,Timestamp_UTC,Landmark_Slug,Landmark_Name,Language,Session_ID,Snap_And_Ask,Source_Mode,Response_Time_Ms,Question`
-  - Headerlar:
-    - `Content-Type: text/csv; charset=utf-8`
-    - `Content-Disposition: attachment; filename="smartguide-ichan-qala-analytics.csv"`
-- **Qabul mezoni:** Brauzerda havolani ochganda Excel'da to'g'ri ochiladigan `.csv` fayl yuklab olinadi.
-
-#### `BE-06` — Rate Limiting va Payload Himoyasi `[P1]`
-- **Fayl:** yangi `apps/api/src/middleware/rate-limiter.ts`, `apps/api/src/routes/guide.routes.ts`
-- **Aniq talablar:**
-  - `POST /api/guide/ask` uchun yengil in-memory sliding-window rate limiter: bitta IP/session uchun 1 daqiqada maksimum `25` ta so'rov (Demo Day'da bitta Wi-Fi NAT ortidan 15 ta hakam birga kirishi mumkinligini hisobga olib, kalit sifatida **IP emas, `req.body.sessionId` + IP kombinatsiyasi** yoki kengroq `60 req/min per IP` qo'ying!).
-  - Limitdan oshganda `429 Too Many Requests` + `{ error: "Too many guide requests. Please wait a few seconds.", retryAfterSec: 10 }`.
-  - Base64 rasm o'lchamini tekshirish: dekodlangan hajm `6MB` dan oshsa `413 Payload Too Large` qaytarish.
-- **Qabul mezoni:** Oddiy 15 ta hakam parallel foydalanganda hech kim bloklanmaydi; cheksiz sikl/spam esa API kvotani yeb qo'ymaydi.
-
-#### `BE-07` — Demo Day Oldidan Bazani Tozalab Qayta Seed Qilish Skripti (`db:reset`) `[P1]`
-- **Fayl:** `apps/api/src/db/reset.ts`, `apps/api/package.json`, root `package.json`
-- **Nima uchun kerak:** 48 soatlik test davomida bazaga *"asdf", "test 123"* kabi sinov savollari yig'ilib qoladi. Demo Day'dan 30 daqiqa oldin `npm run db:reset` buyrug'i bilan bazani bir soniyada toza, chiroyli boshlang'ich holatga qaytarish kerak!
-- **Aniq talablar:**
-  - `TRUNCATE TABLE interactions RESTART IDENTITY CASCADE;` (va `qr_scans` bo'lsa uni ham) → keyin `seedDatabase()` chaqiradi.
-  - Yakunida nechta landmark va nechta toza boshlang'ich analitika yozuvi yaratilganini konsolga chiqaradi.
-
-#### `BE-08` — Analytics SQL Unumdorligi va Vaqt Zonasi (Toshkent UTC+5) `[P1]`
+#### `BE-06` — `GET /api/analytics/summary` ni Signal vs. Noise, Sentiment va Curiosity Gaps Bilan Boyitish `[P1]`
 - **Fayl:** `apps/api/src/services/analytics.service.ts`
-- **Aniq talablar:**
-  - `hourlyActivity` SQL so'rovida `AT TIME ZONE 'Asia/Tashkent'` dan foydalanish (hozir `'UTC'` turibdi — Toshkentda 11:00 da Demo Day paytida grafikda `06:00` emas, real **`11:00`** ko'rinishi juda muhim!).
-  - `GET /api/analytics/summary` javob vaqti `<50ms` bo'lishini tekshirish.
-  - Barcha raqamli maydonlar (`totalTourists`, `visits`, `revenue.*`) `NaN` yoki `null` qaytarmasligini (bo'sh jadvalda ham `0` qaytishini) tekshirish.
+- **Aniq qo'shimchalar:**
+  - `totalRoadmapsGenerated` (`SELECT count(*) FROM roadmaps`)
+  - `visitsByLandmark` har bir obida uchun `avgInterestScore` (`ROUND(AVG(interest_score)::numeric, 1)`)
+  - `signalVsNoise`:
+    - `topHighSignalTopics`: `ORDER BY signal_score DESC, ask_count DESC LIMIT 6`
+    - `lowInterestNoiseTopics`: `ORDER BY signal_score ASC, negative_reactions DESC LIMIT 5`
+  - `sentimentBreakdown`: `GROUP BY sentiment` (`awe`, `fascinated`, `curious`, `neutral`, `bored`)
+  - `curiosityGaps`: `WHERE curiosity_gap IS NOT NULL ORDER BY created_at DESC LIMIT 8`
+  - `hourlyActivity`: **`AT TIME ZONE 'Asia/Tashkent'`** (UTC emas, haqiqiy Toshkent soati!).
+  - `revenue.estimatedApiCostPerTouristUsd`: real 2026 smeta asosida `0.04` (`.env` orqali sozlanadi).
+
+#### `BE-07` — Smart Response + Audio Cache (`cache.service.ts`) `[P1]`
+- **Fayl:** yangi `apps/api/src/services/cache.service.ts`, `src/routes/guide.routes.ts`
+- `hasImage === false` so'rovlar uchun `${slug}:${lang}:${normalizedQuestion}:${includeAudio}` kaliti bo'yicha LRU kesh (max 150 yozuv, TTL 12h).
+- **Qat'iy qoida:** Kesh hit bo'lganda Gemini'ga so'rov ketmaydi (`<100ms`, `$0`), **lekin `interactions` va `landmark_topic_signals.ask_count` HAR DOIM yangilanadi!**
+
+#### `BE-08` — `POST /api/landmarks/:slug/scan` + `GET /api/analytics/export` (UTF-8 CSV) `[P1]`
+- `POST /api/landmarks/:slug/scan`: QR / Roadmap tashrifini `qr_scans` ga yozadi.
+- `GET /api/analytics/export`: UTF-8 BOM (`\uFEFF`) bilan Excel'da buzilmaydigan to'liq CSV (savol, obida, til, aniqlangan mavzu, sentiment, qiziqish balli, foydalanuvchi bahosi).
+
+#### `BE-09` — Rate Limiter, HTTP Logger & `npm run db:reset` `[P1]`
+- NAT-xavfsiz rate limiter (`sessionId` bo'yicha `25 req/min`, IP bo'yicha `90 req/min` — Demo Day zalidagi 15 hakam bitta Wi-Fi'da bloklanmasligi uchun!).
+- `apps/api/src/db/reset.ts` → `npm run db:reset` (Demo Day'dan 30 daqiqa oldin test chiqindilarini tozalab, chiroyli seed holatiga qaytarish).
 
 ---
 
-### 3-BOSQICH (26-noyabr 13:00 – 19:00 CODE FREEZE) — P2 AWS Ubuntu Production Deploy
+### P2 — AWS Ubuntu Deploy va Yuklama Testi (26-noyabr, 16:30 – 19:00 CODE FREEZE)
 
-#### `BE-09` — AWS Ubuntu Serverga Native Deploy (PostgreSQL + Node 22 + PM2) `[P0 · DEPLOY]`
-- [GIT_WORKFLOW_AND_DEPLOY.md](GIT_WORKFLOW_AND_DEPLOY.md) dagi barcha qadamlarni bajarish:
-  1. PostgreSQL servisi + `smartguide` foydalanuvchisi va bazasi.
-  2. `.env` faylini production qiymatlari bilan to'ldirish (`NODE_ENV=production`, `CORS_ORIGIN=*` yoki aniq domenlar, real `GEMINI_API_KEY`).
-  3. `npm install --no-audit --no-fund && npm run build && npm run db:push && npm run db:seed`.
-  4. PM2 orqali 3 ta servisni ishga tushirish (`smartguide-api`, `smartguide-tourist`, `smartguide-dashboard`), `pm2 save` va `pm2 startup`.
+#### `BE-10` — AWS Ubuntu Native Deploy (`PostgreSQL + Node 22 + PM2`) `[P0 · DEPLOY]`
+- [GIT_WORKFLOW_AND_DEPLOY.md](GIT_WORKFLOW_AND_DEPLOY.md) bo'yicha 3 ta servisni PM2 bilan ishga tushirish (`smartguide-api`, `smartguide-tourist`, `smartguide-dashboard`).
 
-#### `BE-10` — Nginx Reverse Proxy + HTTPS (Certbot) `[P1 · MOBIL KAMERA/MIKROFON UCHUN]`
-- **Nima uchun juda muhim:** Mobil brauzerlarda (ayniqsa iOS Safari) mikrofon (`SpeechRecognition`) va PWA xususiyatlari faqat **HTTPS** da to'liq ishlaydi.
-- Agar domen/subdomen mavjud bo'lsa Nginx + Certbot HTTPS ulash; agar faqat IP bo'lsa `nip.io` (masalan `smartguide.<AWS_IP>.nip.io`) orqali bepul Let's Encrypt HTTPS sertifikat olish mumkin!
+#### `BE-11` — Nginx + Certbot HTTPS `[P1]`
+- Mobil telefonlarda kamera/ovozli diktovka uzluksiz ishlashi uchun HTTPS ulash (`domain` yoki `nip.io`).
 
-#### `BE-11` — Yuklama va Parallel Barqarorlik Testi (Load Test) `[P2]`
-- 10 ta parallel `POST /api/guide/ask` + 5 ta parallel `GET /api/analytics/summary` so'rovini bir vaqtda yuborib tekshirish:
-  - 0 ta `500` xato
-  - PostgreSQL pool to'lib qolmaydi
-  - PM2 xotira sarfi barqaror (`pm2 monit`)
+#### `BE-12` — 15 Ta Parallel So'rov Yuklama Testi `[P2]`
+- 10 ta parallel `POST /api/guide/ask` + 5 ta `POST /api/roadmap/generate` yuborib 0 ta `500` xato va `<50ms` analytics javobini tasdiqlash.
 
 ---
 
-## 4. AI/RAG Dev Bilan O'zaro Shartnoma (Interface Contract)
+## 4. QA Test Senariylari
 
-`apps/api/src/routes/guide.routes.ts` faqat `apps/api/src/services/ai.service.ts` dan quyidagi 3 ta funksiyani chaqiradi:
-```ts
-identifyLandmarkFromImage(imageBase64, imageMimeType, allLandmarks, fallbackSlug)
-  => Promise<{ slug: string; identifiedByVision: boolean }>
-
-generateVerifiedGuideAnswer({ landmark, question, language, imageBase64, imageMimeType })
-  => Promise<{ answer: string; modelUsed: string; sourceMode: 'gemini-rag' | 'verified-rag-fallback' }>
-
-synthesizeGuideAudio(text, language)
-  => Promise<{ audioBase64: string; audioMimeType: string } | null>
-```
-Bu signaturalarni kelishuvsiz o'zgartirmang — aks holda merge vaqtida kompilyatsiya xatosi chiqadi.
-
----
-
-## 5. QA Test Senariylari (Merge va Deploy Oldidan Majburiy Checklist)
-
-| # | Test Senariysi | Kutilayotgan Natija |
+| # | Test | Kutilayotgan Natija |
 | :--- | :--- | :--- |
-| 1 | `GET /api/health` | `200 OK`, `database: "connected"`, `aiConfigured: true` |
-| 2 | `GET /api/landmarks` | `200 OK`, `count: 5`, barcha 5 slug to'liq |
-| 3 | `GET /api/landmarks/invalid-slug` | `404 Not Found`, tushunarli JSON `error` |
-| 4 | `POST /api/guide/ask` bo'sh `question` va `imageBase64` siz | `400 Bad Request`, Zod validatsiya tafsilotlari |
-| 5 | `POST /api/guide/ask` bir xil tezkor savolni 2 marta ketma-ket yuborish | 1-so'rov Gemini'dan (~1.5–3s), 2-so'rov keshdan (`<100ms`), ikkalasi ham PostgreSQL `interactions` ga yoziladi |
-| 6 | `GET /api/analytics/summary` | `<50ms`, soatlar Toshkent vaqtida (`Asia/Tashkent`), `revenue.museumShareUsd` = 30% |
-| 7 | `GET /api/analytics/export` | `200 OK`, `.csv` fayl, UTF-8 harflar (O'zbek/Rus/Yapon) Excel'da buzilmaydi |
-| 8 | `npm run db:reset` | Test chiqindilari tozalanadi, 5 ta obida + toza boshlang'ich analitika qaytadi |
-| 9 | `GEMINI_API_KEY` ni noto'g'ri qiymatga almashtirib so'rov yuborish | Server qulamaydi (`500` bermaydi), `sourceMode: "verified-rag-fallback"` bilan tasdiqlangan matn qaytaradi |
+| 1 | `POST /api/roadmap/generate` (`120m`, `["legends","photography"]`) | `200 OK`, 4 ta tartiblangan obida, `whyVisit`, `emotionalPayoff`, `topSignalHighlight` to'liq, `roadmaps` jadvaliga yozilgan |
+| 2 | `POST /api/guide/ask` (Kalta Minor afsonasi) | `200 OK`, `insight` qaytadi, `interactions` +1, `landmark_topic_signals.ask_count` +1 |
+| 3 | `POST /api/guide/feedback` (`rating: "fascinating"`) | `200 OK`, `updatedSignalScore` oshadi; `"not_relevant"` yuborilsa `signalScore` kamayadi |
+| 4 | `GET /api/analytics/summary` | `signalVsNoise.topHighSignalTopics`, `lowInterestNoiseTopics`, `sentimentBreakdown`, `curiosityGaps` va `Asia/Tashkent` soatlari to'g'ri |
+| 5 | `GET /api/analytics/export` | UTF-8 BOM CSV yuklanadi, o'zbek/yapon/rus harflari Excel'da to'g'ri ko'rinadi |
+| 6 | `npm run db:reset` | Test qoldiqlari tozalanadi, 5 obida + Signal/Noise seed tiklanadi |

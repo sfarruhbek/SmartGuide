@@ -1,95 +1,78 @@
-# SmartGuide — 48 Soatlik Xakaton Yo'l Xaritasi (Roadmap)
+# SmartGuide — Yakuniy 24 Soatlik Harakat Rejasi (2-kun va Demo Day)
 
 **Tadbir:** Tourism Hackathon 2026 (25–27 noyabr 2026, CAEx Toshkent)  
-**Tanlangan trek:** 3-trek — *Kichik turbiznes va infratuzilmani raqamlashtirish* ("Turistik obyektlarning raqamli infratuzilmasi")  
-**MVP Obyekti:** Xiva — **Ichan-Qal'a** majmuasidagi 5 ta asosiy obida (`kalta-minor`, `juma-mosque`, `tosh-hovli`, `kunya-ark`, `pahlavon-mahmud`).
+**Yakuniy qaror (Pivot):** **Emotsional & Foyda Asosidagi Shaxsiy Roadmap → Obida Oldida Jonli AI Suhbat → Sayyoh Qiziqishi va Signal/Noise Intellekti (Self-Learning Flywheel)**  
+**Joriy nuqta:** **26-noyabr (2-kun)** — **19:00 CODE FREEZE** gacha qolgan vaqtni 100% samarali taqsimlash!
 
 ---
 
-## Jamoa Rollari va Mas'uliyat Taqsimoti
+## Jamoa Rollari va Parallel Mas'uliyat
 
-| Rol | Mas'uliyat doirasi | Asosiy TZ fayli |
-| :--- | :--- | :--- |
-| **1. Frontend Developer** | `apps/tourist` (Sayyoh PWA) + `apps/dashboard` (Muzey B2B Dashboard + QR Generator) | [TZ_FRONTEND.md](TZ_FRONTEND.md) |
-| **2. Backend Developer** | `apps/api` (Express API, PostgreSQL/Drizzle, Analitika, Kesh/Rate-limit, AWS Ubuntu Deploy) | [TZ_BACKEND.md](TZ_BACKEND.md) |
-| **3. AI & RAG Data Engineer** | `apps/api/data/ichan-qala-landmarks.json`, `apps/api/src/services/ai.service.ts` (RAG, Vision, TTS, Eval) | [TZ_AI_RAG.md](TZ_AI_RAG.md) |
-| **4. Team Lead / Speaker** | Validatsiya (10+ sayyoh/gid/muzey suhbati), unit-ekonomika, 18:00 & Final Pitch, integratsiya nazorati | Ushbu hujjat + `start conversation with gemni.pdf` |
-
----
-
-## Bosqichma-Bosqich Reja (0-bosqichdan Demo Day gacha)
-
-### 0-BOSQICH: Skelet va Monorepo (BAJARILDI ✅)
-- [x] Yagona monorepo (`packages/shared`, `apps/api`, `apps/tourist`, `apps/dashboard`) yaratildi.
-- [x] PostgreSQL + Drizzle ORM sxemasi (`landmarks`, `interactions`) va idempotent seed tayyor.
-- [x] 5 ta Ichan-Qal'a obidasi uchun dastlabki RAG JSON bazasi va 6 tilli tezkor savollar yozildi.
-- [x] Rasmiy `@google/genai` SDK (`gemini-3.5-flash-lite` + `gemini-4-hydrogen` fallback + `gemini-3.8-flash-lite-tts`) ulandi.
-- [x] Tourist PWA (`/`, `/l/[slug]`), Audio Player, Snap & Ask, B2B Dashboard (5s live polling + Recharts + QR Generator) bazaviy ishlaydigan holatda.
-- [x] Barcha 4 workspace `npm run typecheck` va `npm run build` dan 0 xato bilan o'tdi.
+| Rol | Git Branch | Asosiy Fokus | TZ Hujjati |
+| :--- | :--- | :--- | :--- |
+| **1. Frontend Dev** | `feat/frontend` | 1) Emotsional Roadmap Builder (`/`) · 2) Obida jonli suhbat + Micro-Feedback (`/l/[slug]`) · 3) B2B Signal/Noise & Sentiment Dashboard + QR Generator (`apps/dashboard`) | [TZ_FRONTEND.md](TZ_FRONTEND.md) |
+| **2. Backend Dev** | `feat/backend` | `roadmaps` + `landmark_topic_signals` DB sxemasi, `POST /api/roadmap/generate`, `POST /api/guide/feedback`, Signal/Noise SQL agregatsiyasi, Cache, CSV eksport, AWS Ubuntu Deploy | [TZ_BACKEND.md](TZ_BACKEND.md) |
+| **3. AI & RAG Dev** | `feat/ai-rag` | 5 ta obidaning Emotional Payoff + Tagged Facts RAG bazasi, Roadmap Generator prompt, Signal/Noise + Sentiment Extractor, Vision + Gemini 3.8 TTS, `eval-rag.ts` benchmark | [TZ_AI_RAG.md](TZ_AI_RAG.md) |
+| **4. Speaker & PM** | — | Validatsiya faktlarini rasmiylashtirish, [BUSINESS_MODEL.md](BUSINESS_MODEL.md) + [SMETA_BUDGET.md](SMETA_BUDGET.md) asosida slaydlar, biznes mentorlik (13:00–18:00), 3 daqiqalik pitch repetitsiyasi | [BUSINESS_MODEL.md](BUSINESS_MODEL.md) · [SMETA_BUDGET.md](SMETA_BUDGET.md) |
 
 ---
 
-### 1-BOSQICH: 1-kun (25-noyabr, 14:00 – 18:00) — Jonli Integratsiya va 18:00 Check-in
+## Soatbay "Jangovar Reja" (26-noyabr 11:30 → 27-noyabr 12:30)
 
-**Maqsad:** Soat 18:00 dagi oraliq tekshiruvgacha hamma lokalda ishga tushirib, kamida **Kalta Minor** bo'yicha to'liq zanjirni (QR → Savol/Rasm → Gemini RAG + Ovoz → B2B Dashboard'da jonli yangilanish) real API kalit bilan sinab ko'rish.
+### 1-BLOK: 26-noyabr, 11:30 – 13:30 — Yakuniy Kontrakt va Yadro (Core Flywheel)
 
-| Vaqt | Kim | Aniq vazifa |
-| :--- | :--- | :--- |
-| **14:00 – 14:30** | **Hamma** | Reponi `git clone` qilish, `.env` ga `DATABASE_URL` + `GEMINI_API_KEY` kiritish, `npm run db:push && npm run db:seed && npm run dev` ni muvaffaqiyatli yurgizish. O'z branchini ochish (`feat/frontend`, `feat/backend`, `feat/ai-rag`). |
-| **14:30 – 16:00** | **AI/RAG Dev + Backend Dev** | **Texnik mentorlik** (Behruz Saidjonov / Aziza Turaeva): RAG prompt arxitekturasi, gallyutsinatsiyaga qarshi himoya va 1 sayyohga API xarajatini `$0.15` atrofida ushlash bo'yicha maslahat olish. |
-| **14:30 – 16:00** | **Speaker** | **Biznes mentorlik** (Sadokat Kazieva / Foziljon Saydaliev / Lola Sayfi): B2B2C 70/30 modelni tekshirtirish va kamida 5–10 ta sayyoh/gid bilan real validatsiya intervyusi o'tkazish. |
-| **16:00 – 17:30** | **Frontend Dev** | Tourist PWA ni real smartfon ekranida tekshirish (kamera yuklash, audio pleyer iOS/Android'da o'ynashi, 6 til UI). Dashboard'da 5s polling va QR generatorni sinash. |
-| **16:00 – 17:30** | **AI/RAG Dev** | Kalta Minor + qolgan 4 ta obida bo'yicha real foto bilan **Snap & Ask** va 6 tilda (`UZ, RU, EN, JA, KO, ES`) **Gemini TTS** ovoz sifatini test qilish. |
-| **16:00 – 17:30** | **Backend Dev** | `POST /api/guide/ask` javob vaqtini o'lchash, TTS/RAG xatolarini loglash, QR scan eventlarini to'g'ri yozish va barcha endpointlarni `curl` bilan verifikatsiya qilish. |
-| **17:30 – 18:00** | **Hamma** | `main` branchga birinchi barqaror merge + 18:00 Check-in uchun 2 daqiqalik jonli demo tayyorlash. |
-
-**1-bosqich yakuniy mezoni (Definition of Done):**
-- Kalta Minor sahifasida yapon yoki ingliz tilida savol berilganda Gemini ovozli javob beradi va 5 soniya ichida Dashboard'da yangi yozuv `"LIVE NEW"` bilan chiqadi.
+- **11:30 – 11:50 (Hamma — 20 daqiqa Sync):**
+  - `packages/shared/src/index.ts` ni yangi kontraktga (`GenerateRoadmapRequest/Response`, `GuideFeedbackRequest`, `SignalTopicMetric`, `SentimentMetric`, `CuriosityGapItem`) moslab yangilash va asosiy branchga qo'shish.
+  - Har bir dasturchi `git pull` qilib, o'z branchida parallel boshlaydi.
+- **11:50 – 13:30 (Parallel kodlash):**
+  - **AI/RAG Dev:** `ichan-qala-landmarks.json` ga har bir obida uchun `emotionalPromise` (6 til), `vibeTags`, `estimatedVisitMinutes` va teglangan faktlarni (`taggedTopics`) qo'shish; `ai.service.ts` da `generateEmotionalRoadmap(...)` va `extractConversationInsight(...)` funksiyalarini yozish.
+  - **Backend Dev:** `schema.ts` ga `roadmaps`, `landmark_topic_signals` va `interactions` insight ustunlarini qo'shish; `seed-data.ts` ni boyitish (Signal vs Noise ma'lumotlari bilan!); `POST /api/roadmap/generate` va `POST /api/guide/feedback` endpointlarini ulash.
+  - **Frontend Dev:** `/` sahifasini **Emotsional Roadmap Builder** ga aylantirish (Til + Vaqt + Vibe tanlash → tartiblangan marshrut kartalari: *"Nega borish kerak?"*, *"Qanday hissiyot/foyda olasiz?"*, *"Sayyohlarning 92% ni hayratlantirgan fakt"*).
 
 ---
 
-### 2-BOSQICH: 1-kun kechqurun va 2-kun ertalab (25-noyabr 19:00 – 26-noyabr 13:00) — To'liq MVP va "Wow-Effekt"
+### 2-BLOK: 26-noyabr, 13:30 – 16:30 — Jonli Flywheel Bog'lanishi va B2B Intelligence
 
-**Maqsad:** Barcha 5 ta obidani muzey darajasidagi chuqur RAG kontent bilan boyitish, keshlash orqali tezlikni oshirish va UI/UX ni sahna darajasiga olib chiqish.
-
-- **AI & RAG Engineer:**
-  - 5 ta obidaning har biri uchun kamida 8–10 ta noyob tarixiy fakt (Vikipediyada kam uchraydigan aniq o'lchamlar, me'morlar, koshin texnologiyasi, epigrafika yozuvlari, mahalliy keksa gidlar afsonalari) bilan `ichan-qala-landmarks.json` ni boyitish.
-  - "Gallyutsinatsiya testi" (Anti-Hallucination Benchmark): 15 ta chalg'ituvchi savol (masalan, *"Kalta Minorni Amir Temur qurganmi?"*, *"Tosh-Hovlida necha qavatli lift bor?"*) bilan AI 0% yolg'on ma'lumot berishini isbotlash.
-  - Real Xiva suratlari (har bir obidadan 2–3 xil rakurs) bilan Vision tanish aniqligini ≥95% ga chiqarish.
-- **Backend Developer:**
-  - **Response + TTS Caching** (tezkor savollar uchun in-memory/Postgres kesh) — bir xil tezkor savol qayta so'ralganda API xarajatini 0 ga, javob vaqtini `<150ms` ga tushirish!
-  - `POST /api/landmarks/:slug/scan` (ixtiyoriy QR ochilish hodisasini qayd etish) va `GET /api/analytics/export` (CSV hisobot — muzey direktori uchun B2B wow-detal).
-  - Rate limiting, payload validatsiyasi, aniq error kodlari va healthcheck monitoring.
-- **Frontend Developer:**
-  - **Tourist PWA (`apps/tourist`):**
-    - Silliq mobil animatsiyalar, tezkor savollar karuseli, kamera suratini oldindan ko'rish, iOS Safari'da audio autoplay/tap UX ni mukammallashtirish.
-    - Obidalar o'rtasida tezkor o'tish va "Verified Museum Fact" / "Archive ID" ishonch elementlarini ko'zga tashlanadigan qilish.
-  - **B2B Dashboard (`apps/dashboard`):**
-    - Projektor ekranida uzoqdan aniq ko'rinadigan kontrast, jonli yangi savol kelganda vizual bildirishnoma (toast/flash), B2B daromad kalkulyatori (muzey direktori kunlik sayyohlar sonini slayderda surib oylik daromadini hisoblay olishi!).
-    - Chop etishga tayyor chiroyli A5/A6 **QR Plakat** dizayni.
+- **13:30 – 15:00 (Mentorlik + Integratsiya):**
+  - **Speaker** biznes/pitch mentorlariga [BUSINESS_MODEL.md](BUSINESS_MODEL.md) (`LTV/CAC = 18×`) va [SMETA_BUDGET.md](SMETA_BUDGET.md) (`$0.036/sayyoh` real Gemini narxi, `$2,064` pilot smetasi) ni ko'rsatib, slayd matnlarini tasdiqlatadi.
+  - **Frontend Dev:**
+    - `/l/[slug]` sahifasiga Roadmap navigatsiyasi (*"1/4-bekat · Keyingi: Juma masjidi"*) va har bir AI javobi ostiga **1-tap Micro-Feedback tugmalari** (`🔥 Qiziqarli` · `🤯 Hayratlanarli` · `😐 Kerak emas`) qo'shadi.
+    - `apps/dashboard` ga **Signal vs. Noise Content Matrix** (eng ko'p hayratlantirgan faktlar vs. zerikarli/ahamiyatsiz faktlar!), **Sentiment Donut/Bar**, **Curiosity Gaps** va **Revenue Simulator** ni qo'shadi!
+  - **Backend Dev:**
+    - `GET /api/analytics/summary` ga real PostgreSQL'dan `signalVsNoise`, `sentimentBreakdown`, `curiosityGaps` va `Asia/Tashkent` soatlarini ulaydi.
+    - Tezkor savollar uchun `cache.service.ts` + `GET /api/analytics/export` CSV + `npm run db:reset` skriptini tayyorlaydi.
+  - **AI/RAG Dev:**
+    - Real `GEMINI_API_KEY` bilan 6 tilda (ayniqsa `UZ`, `EN`, `JA`, `KO`) Roadmap + Jonli suhbat + Vision + Gemini 3.8 TTS ni sinab, `eval-rag.ts` (**0% gallyutsinatsiya hisoboti**) natijasini Speaker'ga beradi!
+- **15:30 – 16:30 (To'liq Merge #1):** Barcha 3 branch asosiy branchga birlashtiriladi, to'liq sikl tekshiriladi:
+  `Roadmap yaratish → Kalta Minor'da savol + 🔥 bosish → Dashboard'da Signal Score + Live Feed jonli oshishi → Keyingi Roadmap'da shu Signal ko'tarilishi!`
 
 ---
 
-### 3-BOSQICH: 2-kun tushdan keyin (26-noyabr 13:00 – 19:00) — AWS Ubuntu Deploy va Sayqallash
+### 3-BLOK: 26-noyabr, 16:30 – 19:00 — AWS Ubuntu Deploy va CODE FREEZE
 
-- **13:00 – 15:00:** Barcha 3 ta branch (`feat/frontend`, `feat/backend`, `feat/ai-rag`) asosiy branchga birlashtiriladi, to'liq end-to-end integratsiya testi o'tkaziladi.
-- **15:00 – 17:30:** **Backend Developer** loyihani AWS Ubuntu serverga (Native PostgreSQL + Node 22 + PM2 + Nginx/HTTPS) deploy qiladi ([GIT_WORKFLOW_AND_DEPLOY.md](GIT_WORKFLOW_AND_DEPLOY.md)).
-- **17:30 – 18:45:** **Butun jamoa** real telefonlarda (iOS + Android, mobil internetda!) AWS domen/IP ga ulangan QR-kodlarni skanerlab sinovdan o'tkazadi:
-  - Kamera orqali rasm olish (HTTPS talab qilinishi mumkin — shuning uchun Nginx + Let's Encrypt HTTPS ulash juda muhim!).
-  - Ovozli javob (UZ, EN, JA, KO, RU, ES) telefon karnayidan tiniq eshitilishi.
-  - Dashboard 5 soniyada yangilanishi.
-- **19:00 — QAT'IY CODE FREEZE!** Yangi funksiya qo'shish to'xtatiladi. Faqat kritik xatolar (bugfix) tuzatiladi.
+- **16:30 – 18:00:** **Backend Dev** loyihani AWS Ubuntu serverga deploy qiladi (Native PostgreSQL + Node 22 + PM2 + Nginx/HTTPS — [GIT_WORKFLOW_AND_DEPLOY.md](GIT_WORKFLOW_AND_DEPLOY.md)).
+- **18:00 – 18:50:** **Butun jamoa** real telefonlarda (iOS + Android, 4G mobil internetda!) AWS serverdagi QR kodlarni skanerlab barcha 3 bosqichni tekshiradi:
+  1. Emotsional Roadmap 3 soniyada chiziladimi?
+  2. Obidaga o'tganda Snap & Ask + Ovozli javob tiniq eshitiladimi?
+  3. `🔥` bosilganda va savol berilganda B2B Dashboard 5 soniyada yangilanadimi?
+- **19:00 — QAT'IY CODE FREEZE!** Yangi funksiya qo'shish mutlaqo to'xtatiladi. Faqat kritik bugfix!
 
 ---
 
-### 4-BOSQICH: Tayyorgarlik va Demo Day (26-noyabr 19:00 – 27-noyabr 12:00)
+### 4-BLOK: 26-noyabr 19:30 – 21:00 — Zaxira Video, QR Plakat va Repetitsiya
 
-- **26-noyabr 19:30 – 21:00:**
-  - **Zaxira demo video (60 soniya):** Internet uzilib qolishi ehtimoli uchun telefon ekrani + Dashboard yonma-yon ishlayotgan 1 daqiqalik tiniq video yozib qo'yish.
-  - **QR Plakatlarni chop etish:** Dashboard'dagi `QR Code Generator` tabidan Kalta Minor va asosiy kirish QR kodlarini qog'ozga chiqarib hakamlar stoliga tayyorlash + taqdimot slaydiga katta QR kod qo'yish.
-  - **Repetitsiya:** Spiker bilan taymer qo'yib (qat'iy **3 daqiqa pitch + 2 daqiqa Q&A**) kamida 5 marta mashq qilish.
-- **27-noyabr 10:00 – 12:00 (Final Pitch — "G'olibona fokus"):**
-  1. 1-daqiqada texnik so'z emas, **muammo va real validatsiya raqamlari**dan boshlash.
-  2. Slaydda katta QR-kodni ko'rsatish: hakamlar o'z telefonida skanerlab **Kalta Minor** haqida ingliz/yapon tilida savol beradi.
-  3. Shu zahoti katta ekrandagi **B2B Muzey Dashboard**da yangi sayyoh, savol va daromad real vaqtda oshganini ko'rsatish!
-  4. Savol-javobda texnik hakamlarga mahalliy RAG arxitekturasi, 0% gallyutsinatsiya testi va `$0.15` API xarajatini ko'rsatish.
+- **19:30 – 20:00:** `npm run db:reset` bilan bazani tozalab, **60 soniyalik zaxira demo video** yozib olish (telefon ekrani + B2B Dashboard yonma-yon — zalda Wi-Fi uzilsa darhol qo'yiladi!).
+- **20:00 – 20:15:** Dashboard → `QR Code Generator` tabidan AWS manzilga ulangan **Ichan-Qal'a QR plakatini** chop etish va taqdimot slaydiga katta QR qo'yish.
+- **20:15 – 21:00:** Taymer bilan **3 daqiqalik pitch** ni kamida 5 marta mashq qilish!
+
+---
+
+## Demo Day (27-noyabr, 10:00 – 12:00) — 3 Daqiqalik G'olibona Pitch Ssenariysi
+
+| Sekund | Bo'lim | Nima aytiladi / ko'rsatiladi (ProSkill qoidasi bo'yicha!) |
+| :---: | :--- | :--- |
+| **0:00 – 0:30** | **1. Muammo & Real Dalil** | "2026-yilda O'zbekistonga 12 million sayyoh kelmoqda, *National Geographic* Xivani yil yo'nalishi deb tan oldi. Lekin mustaqil sayyoh Ichan-Qal'aga kirganda qayerga nega borishini bilmaydi, jonli gid `$35–$60`, ChatGPT esa uzun va xato ma'lumot beradi. Muzeylar esa sayyohlar aslida nimaga qiziqishini umuman bilmaydi. Biz suhbatlashgan [X] ta sayyohdan [Y] tasi buni tasdiqladi." |
+| **0:30 – 1:05** | **2. Yechim & Asosiy Farq (Moat)** | "**SmartGuide** — shunchaki AI-chat emas. 1) Kirishdayoq sayyohga qaysi obidadan **qanday hissiyot va foyda olishini** ko'rsatuvchi **Emotsional Roadmap** chizadi. 2) Obida oldida muzey tasdiqlagan bazadan 6 tilda jonli ovozli suhbat quradi. 3) Eng muhimi — har bir suhbatdan **qaysi fakt sayyohlarni hayratga solganini (Signal)** va **qaysilari zerikarli ekanini (Noise)** o'rganib, keyingi sayyohlarga yanada ideal Roadmap, muzeylarga esa real intellekt beradi!" |
+| **1:05 – 2:00** | **3. JONLI DEMO ("G'olibona fokus")** | Slaydda katta QR kod! Hakamlar yoki Spiker telefonda: 1) `Legends + Photo` tanlab **Emotsional Roadmap** oladi → 2) **Kalta Minor** ga o'tib yapon/ingliz tilida savol beradi + ovoz eshitiladi + `🔥` bosadi → 3) Shu zahoti ekrandagi **B2B Dashboard**da yangi sayyoh, **Signal Score oshishi** va 30% muzey daromadi jonli ko'rinadi! |
+| **2:00 – 2:35** | **4. Biznes Model & Real Smeta** | "B2B2C: chiptaga `+$4` (70% SmartGuide / 30% Muzey — muzeyga `$0` xarajat!). Real 2026 Gemini tariflari bilan 1 sayyoh API xarajati atigi **`$0.04`** (96% marja, `LTV/CAC = 18×`). Ichan-Qal'a 3 oylik piloti jami **`$2,064`** turadi va 25 kunda o'zini qoplaydi!" |
+| **2:35 – 3:00** | **5. GTM & Yakun** | "1-qadam: Ichan-Qal'a bepul piloti → Toshkent 4 ta yirik muzeyi → Samarqand/Buxoro (1-yil maqsad: 10 kompleks, `$158K` sof tushum). SmartGuide — har bir sayyoh suhbatini O'zbekiston turizmining eng kuchli ma'lumotlar bazasiga aylantiradi!" |
