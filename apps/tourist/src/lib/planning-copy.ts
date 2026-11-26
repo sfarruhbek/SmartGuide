@@ -1,6 +1,8 @@
 import type { SupportedLanguage } from '@smartguide/shared';
 const words={
   voice:['Plan with your voice','Составить план голосом','Ovoz bilan reja tuzish','Planear con voz','声で旅を計画','음성으로 여행 계획'],
+  voiceEdit:['Edit by voice','Изменить голосом','Ovoz bilan tahrirlash','Editar con voz','声で変更','음성으로 변경'],
+  newPlan:['New trip','Новая поездка','Yangi safar','Nuevo viaje','新しい旅','새 여행'],
   voiceHint:['Tell your guide the cities, days, budget and what you love.','Расскажи помощнику о городах, днях, бюджете и интересах.','Gidga shaharlar, kunlar, byudjet va qiziqishlarni ayting.','Dile las ciudades, días, presupuesto e intereses.','都市、日数、予算、興味をガイドに伝えてください。','도시, 일수, 예산, 관심사를 말해 주세요.'],
   manual:['Or choose your preferences below','Или выбери пожелания вручную','Yoki quyida istaklarni tanlang','O elige tus preferencias abajo','または下で好みを選択','또는 아래에서 직접 선택'],
   generate:['Create my AI itinerary','Создать мой AI-план','AI rejamni yaratish','Crear mi itinerario IA','AI旅程を作成','AI 여행 계획 만들기'],
@@ -8,6 +10,7 @@ const words={
   trialHint:['1 itinerary · 3 minutes of Live · 3 photos. No account needed to start.','1 план · 3 минуты Live · 3 фото. Начни без регистрации.','1 reja · 3 daqiqa Live · 3 rasm. Hisobsiz boshlang.','1 itinerario · 3 minutos Live · 3 fotos. Empieza sin cuenta.','旅程1件・Live 3分・写真3枚。登録せずに開始。','계획 1개 · Live 3분 · 사진 3장. 가입 없이 시작.'],
   remaining:['Remaining','Осталось','Qoldi','Quedan','残り','남은 사용량'],
   plans:['plans','планов','reja','planes','旅程','계획'],
+  onePlan:['itinerary','план','reja','itinerario','旅程','계획'],
   photos:['photos','фото','rasm','fotos','写真','사진'],
   continueSaved:['Continue my saved trip','Продолжить сохранённую поездку','Saqlangan safarni davom ettirish','Continuar mi viaje guardado','保存した旅を続ける','저장한 여행 계속'],
   edit:['Change this itinerary','Изменить этот план','Bu rejani oʻzgartirish','Cambiar este itinerario','この旅程を変更','여행 계획 변경'],

@@ -2,11 +2,12 @@ import type { SupportedLanguage } from '@smartguide/shared';
 import { getApiBaseUrl } from './api';
 import { requestJson } from './http';
 import { ApiError } from './http';
+import { readAccess } from './access-api';
 import type { TripInput } from './journey';
 
 export type VoiceStatus='idle'|'connecting'|'listening'|'speaking'|'muted'|'error'|'ended';
 export interface VoicePosition {lat:number;lng:number;accuracy?:number}
-export interface VoiceContext {cityId:string;language:SupportedLanguage;locationSource:'gps'|'map';location?:VoicePosition;placeId?:string;tripPreferences?:TripInput;purpose?:'plan'|'guide'}
+export interface VoiceContext {cityId:string;language:SupportedLanguage;locationSource:'gps'|'map';location?:VoicePosition;placeId?:string;tripPreferences?:TripInput;purpose?:'plan'|'revise'|'guide'}
 export interface VoicePlace {id:string;name:string;lat:number;lng:number;distanceKm?:number;kind?:'place'|'area';cityId?:string;facts?:string[]}
 export interface VoiceSource {placeId:string;name:string;provenance:string;links:{title:string;url:string;license?:string}[]}
 export interface VoiceReference {nearby:VoicePlace[];focusPlace:VoicePlace|null;sources:VoiceSource[];webRecordsAdded:number}
@@ -56,6 +57,9 @@ export class LiveVoiceClient {
       if(!window.isSecureContext||!navigator.mediaDevices?.getUserMedia)throw new Error('SECURE_CONTEXT_REQUIRED');
       this.callbacks.status('connecting');
       this.audio=new AudioContext();await this.audio.resume();
+      const access = await readAccess();
+      if (this.stopped) return;
+      if (access.remaining?.voiceSeconds === 0) throw new ApiError('REGISTRATION_REQUIRED', 402);
       this.media=await navigator.mediaDevices.getUserMedia({audio:{channelCount:1,echoCancellation:true,noiseSuppression:true,autoGainControl:true}});
       if(this.stopped){this.release();return;}
       const grant=await requestJson<{token:string;path:string}>('/api/explore/live/session',{
@@ -71,7 +75,7 @@ export class LiveVoiceClient {
       socket.onerror=()=>this.fail('LIVE_UNAVAILABLE');
       socket.onclose=()=>{if(!this.stopped){this.stop();this.callbacks.status('ended');}};
     }catch(error){
-      if(error instanceof ApiError&&error.status===402){this.stop();this.callbacks.registrationRequired?.('voice');return;}
+      if(!this.stopped&&error instanceof ApiError&&error.status===402){this.stop();this.callbacks.registrationRequired?.('voice');return;}
       const code=error instanceof DOMException&&(error.name==='NotAllowedError'||error.name==='PermissionDeniedError')?'MIC_PERMISSION':error instanceof Error&&error.message==='SECURE_CONTEXT_REQUIRED'?'SECURE_CONTEXT_REQUIRED':'LIVE_UNAVAILABLE';
       if(!this.stopped)this.fail(code);
     }

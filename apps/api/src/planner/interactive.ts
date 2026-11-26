@@ -3,12 +3,48 @@ import { generateGroq } from '../ai/providers.js';
 import { allExplorePlaces } from '../explore/catalog.js';
 import { catalog, tripInputSchema } from './catalog.js';
 import { generateTrip, type Place, type TripInput } from './trip.js';
-import { workspaceState, reserveUse, saveWorkspace, type Visitor } from '../access/store.js';
+import { AccessError, workspaceState, reserveUse, saveWorkspace, type Visitor } from '../access/store.js';
 
 export const composeSchema=z.object({preferences:tripInputSchema,language:z.enum(['en','ru','uz','es','ja','ko']).default('en'),instruction:z.string().trim().max(1000).default(''),action:z.enum(['create','revise']).default('create'),excludePlaceId:z.string().max(120).optional()}).strict();
 export type ComposeInput=z.infer<typeof composeSchema>;
 const proposalSchema=z.object({preferences:tripInputSchema,excludedIds:z.array(z.string()).max(100),days:z.array(z.object({number:z.number().int(),city:z.string(),placeIds:z.array(z.string()).max(2)}).strict()).min(1).max(14),summary:z.string().trim().min(1).max(800)}).strict();
 type Workspace={trip:ReturnType<typeof generateTrip>&{places:Place[];summary:string};source:'groq';modelUsed:string;fallbackReason:null;excludedIds:string[]};
+
+const removalSummary = {
+  en: (name: string) => `${name} was removed. That time is now free.`,
+  ru: (name: string) => `Из плана убрано место «${name}». Это время теперь свободно.`,
+  uz: (name: string) => `«${name}» rejadan olib tashlandi. Bu vaqt endi boʻsh.`,
+  es: (name: string) => `Se quitó «${name}». Ese tiempo queda libre.`,
+  ja: (name: string) => `「${name}」を削除しました。その時間は自由行動です。`,
+  ko: (name: string) => `‘${name}’을 일정에서 삭제했습니다. 해당 시간은 자유 시간입니다.`,
+};
+
+function removeTripStop(workspace: Workspace, placeId: string, language: ComposeInput['language']): Workspace {
+  const trip = workspace.trip;
+  const place = trip.places.find(place => place.id === placeId);
+  if (!place) throw new AccessError(409, 'TRIP_CHANGED');
+
+  const days = trip.days.map(day => {
+    if (!day.slots.some(slot => slot.placeId === placeId)) return day;
+    const slots = day.slots.map(slot => slot.placeId === placeId
+      ? { kind: 'explore' as const, time: slot.time, end: slot.end, cost: 0 }
+      : slot);
+    return { ...day, slots, total: slots.reduce((sum, slot) => sum + slot.cost, 0) };
+  });
+  const subtotal = days.reduce((sum, day) => sum + day.total, 0);
+  const reserve = Math.ceil(subtotal / 10);
+  const total = subtotal + reserve;
+  return {
+    ...workspace,
+    excludedIds: [...new Set([...workspace.excludedIds, placeId])],
+    trip: {
+      ...trip, days, subtotal, reserve, total,
+      shortfall: Math.max(0, total - Math.round(trip.input.budget * 100)),
+      places: trip.places.filter(place => place.id !== placeId),
+      summary: removalSummary[language](place.name[language] || place.name.en),
+    },
+  };
+}
 
 export async function planningPlaces():Promise<Place[]>{
   const records=await allExplorePlaces();
@@ -33,6 +69,11 @@ export async function composeTravel(visitor:Visitor,input:ComposeInput,options:{
   options.signal?.throwIfAborted();
   const state=await workspaceState(visitor),previous=state.workspace as Workspace|null;
   if(input.action==='revise'&&!previous)throw new Error('NO_CURRENT_TRIP');
+  if (input.action === 'revise' && previous && input.excludePlaceId && !input.instruction) {
+    const workspace = removeTripStop(previous, input.excludePlaceId, input.language);
+    const revision = await saveWorkspace(visitor, workspace, state.revision, options.signal);
+    return { ...workspace, revision, costBasis: 'planning-allowances' as const };
+  }
   const places=await planningPlaces();
   const requiredExcluded=[...new Set([...(input.action==='revise'?previous?.excludedIds??[]:[]),...(input.excludePlaceId?[input.excludePlaceId]:[])])];
   if(requiredExcluded.some(id=>!places.some(place=>place.id===id)))throw new Error('Unknown excluded place');

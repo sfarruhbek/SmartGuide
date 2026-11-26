@@ -1,4 +1,4 @@
-const CACHE_NAME = 'smartguide-pwa-v2';
+const CACHE_NAME = 'smartguide-pwa-v3';
 const APP_SHELL = ['/', '/icon-192.png', '/icon-512.png', '/icon.svg'];
 
 function isCacheableAsset(url, response) {
@@ -26,7 +26,7 @@ self.addEventListener('activate', (event) => {
     caches
       .keys()
       .then((keys) =>
-        Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))),
+        Promise.all(keys.filter((key) => key.startsWith('smartguide-pwa-') && key !== CACHE_NAME).map((key) => caches.delete(key))),
       )
       .then(() => self.clients.claim()),
   );
@@ -52,7 +52,13 @@ self.addEventListener('fetch', (event) => {
           }
           return response;
         })
-        .catch(() => caches.match(request).then((cached) => cached || caches.match('/'))),
+        .catch(async () =>
+          (await caches.match(request)) ?? (await caches.match('/')) ??
+          new Response('SmartGuide is offline. Connect to the internet and try again.', {
+            status: 503,
+            headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+          }),
+        ),
     );
     return;
   }
@@ -68,7 +74,7 @@ self.addEventListener('fetch', (event) => {
           }
           return response;
         })
-        .catch(() => cached);
+        .catch(() => cached ?? Response.error());
       return cached || networkFetch;
     }),
   );

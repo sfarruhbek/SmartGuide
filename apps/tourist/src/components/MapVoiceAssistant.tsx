@@ -18,7 +18,7 @@ export function MapVoiceAssistant({open,embedded=false,mapVisible,onClose,city,c
   mapVisible:boolean;cities:City[];onCityChange:(id:string)=>void;locating:boolean;geoError:boolean;onLocate:()=>void;
   focusPlace:VoicePlace|null;
   onPlaces:(places:VoicePlace[])=>void;onFocus:(place:VoicePlace)=>void;
-  tripPreferences?:TripInput;purpose?:'plan'|'guide';onTrip?:(result:unknown)=>void;onRegistrationRequired?:(feature:'plans'|'photos'|'voice')=>void;onUsage?:()=>void;onViewTrip?:()=>void;
+  tripPreferences?:TripInput;purpose?:'plan'|'revise'|'guide';onTrip?:(result:unknown)=>void;onRegistrationRequired?:(feature:'plans'|'photos'|'voice')=>void;onUsage?:()=>void;onViewTrip?:()=>void;
 }){
   const copy=voiceCopy(language),p=planningCopy(language),id=useId(),dialog=useRef<HTMLDialogElement>(null),file=useRef<HTMLInputElement>(null);
   const actions=useRef({onTrip,onRegistrationRequired,onUsage});actions.current={onTrip,onRegistrationRequired,onUsage};
@@ -38,7 +38,7 @@ export function MapVoiceAssistant({open,embedded=false,mapVisible,onClose,city,c
   useEffect(()=>{if(!active||seconds===null)return;const timer=setInterval(()=>setSeconds(value=>value===null?null:Math.max(0,value-1)),1000);return()=>clearInterval(timer);},[active,seconds===null]);
   useEffect(()=>{
     if(open){if(!dialog.current?.open)dialog.current?.show();}
-    else{dialog.current?.close();client.current?.stop();client.current=null;setStatus('idle');setPhotoStatus('idle');}
+    else{dialog.current?.close();const wasOpen=Boolean(client.current);client.current?.stop();client.current=null;setStatus('idle');setPhotoStatus('idle');setSeconds(null);setTripUpdated(false);if(wasOpen)actions.current.onUsage?.();}
     return()=>{};
   },[open]);
   useEffect(()=>()=>{client.current?.stop();},[]);
@@ -87,7 +87,7 @@ export function MapVoiceAssistant({open,embedded=false,mapVisible,onClose,city,c
       <button type="button" className="voice-close" aria-label={copy('close')} onClick={onClose}><X/></button></header>
     <div className="voice-body">
       <p id={`${id}-intro`} className="voice-intro">{copy('intro')}</p>
-      {purpose==='plan'&&<p className="voice-hint">{p('voiceHint')}</p>}
+      {purpose!=='guide'&&<p className="voice-hint">{p(purpose==='revise'?'placeholder':'voiceHint')}</p>}
       {seconds!==null&&<p className="hub-hint" role="timer">Live · {Math.floor(seconds/60)}:{String(seconds%60).padStart(2,'0')}</p>}
       {tripUpdated&&<button className="hub-button" type="button" onClick={onViewTrip}>{p('continueSaved')}</button>}
       <div className="voice-location-controls">

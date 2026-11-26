@@ -63,6 +63,22 @@ test('interactive requests save actual AI changes, preserve removals and refund 
     const again=await composeTravel(visitor,{preferences:edited.trip.input,language:'en',instruction:'Keep this itinerary',action:'revise'});
     assert.ok(again.excludedIds.includes(khiva[0].id));assert.equal(again.revision,3);
     const before=calls;await assert.rejects(composeTravel(visitor,{preferences,language:'en',instruction:'Another trip',action:'create'}),{status:402});assert.equal(calls,before);
+    const dayIndex = again.trip.days.findIndex(day => day.slots.some(slot => slot.placeId));
+    assert.ok(dayIndex >= 0);
+    const remainingStop = again.trip.days[dayIndex].slots.find(slot => slot.placeId);
+    assert.ok(remainingStop?.placeId);
+    const removed = await composeTravel(visitor, {
+      preferences: again.trip.input, language: 'en', instruction: '',
+      action: 'revise', excludePlaceId: remainingStop.placeId,
+    });
+    assert.equal(calls, before);
+    assert.deepEqual(removed.trip.input, again.trip.input);
+    assert.deepEqual(removed.trip.days.filter((_, index) => index !== dayIndex),
+      again.trip.days.filter((_, index) => index !== dayIndex));
+    assert.deepEqual(removed.trip.days[dayIndex].slots.find(slot => slot.time === remainingStop.time),
+      { kind: 'explore', time: remainingStop.time, end: remainingStop.end, cost: 0 });
+    assert.equal(removed.trip.subtotal, again.trip.subtotal - remainingStop.cost);
+    assert.equal((await accessState(visitor)).remaining?.plans, 0);
     const cancelledVisitor={key:'guest:compose-cancelled-qa',registered:false},controller=new AbortController();
     const mockFetch=globalThis.fetch;
     globalThis.fetch=(async(url:string|URL|Request,init?:RequestInit)=>{const response=await mockFetch(url,init);controller.abort();return response;}) as typeof fetch;
