@@ -3,10 +3,19 @@ import type {
   GuideAskResponse,
   LandmarkDetail,
   LandmarkSummary,
+  SupportedLanguage,
 } from '@smartguide/shared';
 
 function getApiBaseUrl(): string {
-  return (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000').replace(/\/+$/, '');
+  const configured = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000').replace(/\/+$/, '');
+  if (typeof window !== 'undefined') {
+    const currentHost = window.location.hostname;
+    const isCurrentLocal = currentHost === 'localhost' || currentHost === '127.0.0.1';
+    if (!isCurrentLocal && /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(configured)) {
+      return configured.replace(/\/\/(localhost|127\.0\.0\.1)/i, `//${currentHost}`);
+    }
+  }
+  return configured;
 }
 
 export async function fetchLandmarks(): Promise<LandmarkSummary[]> {
@@ -45,4 +54,27 @@ export async function askGuide(payload: GuideAskRequest): Promise<GuideAskRespon
   }
 
   return (await res.json()) as GuideAskResponse;
+}
+
+/**
+ * Fires a lightweight QR scan telemetry event when a tourist opens a monument page.
+ * Fails silently so UX is never disrupted if the scan endpoint is offline.
+ */
+export async function trackLandmarkScan(params: {
+  slug: string;
+  sessionId: string;
+  language: SupportedLanguage;
+}): Promise<void> {
+  try {
+    await fetch(`${getApiBaseUrl()}/api/landmarks/${encodeURIComponent(params.slug)}/scan`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        sessionId: params.sessionId,
+        language: params.language,
+      }),
+    });
+  } catch {
+    // Silent fail by design (FE-04)
+  }
 }

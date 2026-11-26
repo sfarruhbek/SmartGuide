@@ -4,8 +4,8 @@
   "description": "Verified AI Audio & Vision Tour Guide for Ichan-Qala, Khiva",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#090D16",
-  "theme_color": "#090D16",
+  "background_color": "#FAF8F5",
+  "theme_color": "#0E7470",
   "orientation": "portrait-primary",
   "icons": [
     {

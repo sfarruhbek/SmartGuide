@@ -23,15 +23,15 @@ export function LanguageSwitcher({ value, onChange, compact = false }: LanguageS
             type="button"
             onClick={() => onChange(lang.code)}
             className={[
-              'inline-flex items-center gap-1.5 rounded-full border transition-all cursor-pointer font-medium',
+              'inline-flex items-center gap-1 rounded-full border transition-all cursor-pointer font-medium whitespace-nowrap',
               compact ? 'px-2.5 py-1 text-xs' : 'px-3 py-1.5 text-xs sm:text-sm',
               isActive
-                ? 'border-amber-400/80 bg-amber-400/20 text-amber-200 shadow-[0_0_14px_rgba(212,175,55,0.28)]'
-                : 'border-slate-700/80 bg-slate-900/70 text-slate-300 hover:border-teal-400/50 hover:text-white',
+                ? 'border-[#0E7470] bg-[#0E7470] text-white shadow-xs'
+                : 'border-[#EAE6DF] bg-white text-[#14181F] hover:border-[#0E7470]/45 hover:bg-[#EEF7F6]/70',
             ].join(' ')}
           >
             <span aria-hidden="true">{lang.flag}</span>
-            <span className="uppercase tracking-wider">{lang.code}</span>
+            <span className="uppercase tracking-wide">{lang.code}</span>
           </button>
         );
       })}

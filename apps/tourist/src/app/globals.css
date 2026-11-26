@@ -1,40 +1,47 @@
 @import "tailwindcss";
 
 :root {
-  --bg-obsidian: #090d16;
-  --bg-surface: #111827;
-  --silk-gold: #d4af37;
-  --silk-gold-bright: #f3d27a;
-  --khiva-teal: #14b8a6;
+  --bg-sand: #FAF8F5;
+  --surface-card: #FFFFFF;
+  --border-warm: #EAE6DF;
+  --text-ink: #14181F;
+  --text-muted: #5C6370;
+  --accent-teal: #0E7470;
+  --accent-teal-hover: #0A5C59;
+  --accent-teal-soft: #EEF7F6;
+  --accent-bronze: #B47B38;
+  --accent-bronze-soft: #FDF6EC;
 }
 
 html,
 body {
-  background-color: var(--bg-obsidian);
-  color: #f8fafc;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  -webkit-font-smoothing: antialiased;
+  background-color: var(--bg-sand);
+  color: var(--text-ink);
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 .font-display {
-  font-family: Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-family: var(--font-display), Georgia, "Times New Roman", serif;
 }
 
-/* Subtle Silk Road geometric lattice overlay */
-.silk-road-pattern {
-  background-image:
-    radial-gradient(circle at 20% 0%, rgba(20, 184, 166, 0.14), transparent 42%),
-    radial-gradient(circle at 85% 10%, rgba(212, 175, 55, 0.12), transparent 38%),
-    linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+.font-sans {
+  font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }
 
 @keyframes soundBar {
   0%,
   100% {
-    transform: scaleY(0.35);
+    transform: scaleY(0.32);
   }
   50% {
     transform: scaleY(1);
@@ -44,4 +51,38 @@ body {
 .animate-sound-bar {
   animation: soundBar 0.85s ease-in-out infinite;
   transform-origin: bottom;
+}
+
+@keyframes scanLine {
+  0% {
+    top: 8%;
+    opacity: 0.35;
+  }
+  50% {
+    top: 86%;
+    opacity: 1;
+  }
+  100% {
+    top: 8%;
+    opacity: 0.35;
+  }
+}
+
+.animate-scan-line {
+  animation: scanLine 1.6s ease-in-out infinite;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-slide {
+  animation: fadeSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
