@@ -9,6 +9,7 @@ import { guideRouter } from './routes/guide.routes.js';
 import { landmarksRouter } from './routes/landmarks.routes.js';
 import { tripsRouter } from './routes/trips.routes.js';
 import { audioRouter } from './routes/audio.routes.js';
+import { roadmapRouter } from './routes/roadmap.routes.js';
 
 export function createApp() {
   const app = express();
@@ -37,11 +38,14 @@ export function createApp() {
   app.use(express.json({ limit: '15mb' }));
 
   app.get('/api/health', async (_req, res) => {
-    const dbOk = await checkDatabaseHealth();
-    res.status(dbOk ? 200 : 503).json({
-      status: dbOk ? 'ok' : 'degraded',
+    const dbOk = env.LANDMARK_STORE === 'postgres' && await checkDatabaseHealth();
+    const ready = dbOk || env.LANDMARK_STORE === 'json';
+    res.status(ready ? 200 : 503).json({
+      status: ready ? 'ok' : 'degraded',
       service: 'smartguide-api',
-      database: dbOk ? 'connected' : 'disconnected',
+      database: env.LANDMARK_STORE === 'json' ? 'not-used' : dbOk ? 'connected' : 'disconnected',
+      analyticsAvailable: dbOk,
+      landmarkStore: env.LANDMARK_STORE,
       aiConfigured: env.isGroqConfigured && env.isGeminiConfigured,
       providers: { groq: env.isGroqConfigured, geminiSpeech: env.isGeminiConfigured },
       models: {
@@ -58,6 +62,7 @@ export function createApp() {
   app.use('/api/analytics', analyticsRouter);
   app.use('/api/trips', tripsRouter);
   app.use('/api/audio', audioRouter);
+  app.use('/api/roadmap', roadmapRouter);
 
   app.use((_req, res) => {
     res.status(404).json({ error: 'API route not found.' });

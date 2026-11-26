@@ -55,6 +55,7 @@ import {
 } from '@/lib/session';
 import { compressImageToBase64 } from '@/lib/image-utils';
 import { askGuide } from '@/lib/api';
+import { requestTrip } from '@/lib/trip-api';
 import { TouristHeader } from './TouristHeader';
 import { DiscoveryMap } from './DiscoveryMap';
 import { AudioGuidePlayer } from './AudioGuidePlayer';
@@ -96,6 +97,8 @@ export function TouristHomeClient({
   const [downloaded, setDownloaded] = useState(false);
   const keyboardOpen = useKeyboardViewport();
   const [error, setError] = useState('');
+  const [planBusy, setPlanBusy] = useState(false);
+  const planController = useRef<AbortController | null>(null);
   const [saved, setSaved] = useState(true);
   const [cityId, setCityId] = useState(initialRoute.city);
   const [filter, setFilter] = useState<PlaceFilter>(initialRoute.collection);
@@ -112,7 +115,7 @@ export function TouristHomeClient({
   const photoRef = useRef<HTMLInputElement>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const mainRef = useRef<HTMLElement>(null);
-  useEffect(() => () => photoController.current?.abort(), []);
+  useEffect(() => () => { photoController.current?.abort(); planController.current?.abort(); }, []);
   const copy = journeyCopy(language);
   const city = CITIES.find((value) => value.id === cityId) || CITIES[0];
   const places = PLACES.filter(
@@ -151,6 +154,7 @@ export function TouristHomeClient({
         CITIES,
         PLACES,
       );
+      if (route.view !== 'plan') planController.current?.abort();
       setTab(route.view);
       setCityId(route.city);
       setSelected(route.place);
@@ -178,6 +182,7 @@ export function TouristHomeClient({
     else dialogRef.current?.close();
   }, [showDraft]);
   const navigate = (next: typeof tab) => {
+    if (next !== 'plan') planController.current?.abort();
     if (next !== tab) {
       const url = journeyUrl(
         new URL(window.location.href),
@@ -201,10 +206,20 @@ export function TouristHomeClient({
       )?.id || null,
     );
   };
-  const saveTrip = (event: React.FormEvent) => {
+  const saveTrip = async (event: React.FormEvent) => {
     event.preventDefault();
+    if (planController.current) return;
+    const controller = new AbortController();
+    planController.current = controller;
+    setError('');
+    let preferencesValid = false;
     try {
-      const next = generateTrip(input, CITIES, PLACES);
+      // Validate preferences locally; generation always goes through our API.
+      generateTrip(input, CITIES, PLACES);
+      preferencesValid = true;
+      setPlanBusy(true);
+      const next = await requestTrip(input, controller.signal);
+      if (controller.signal.aborted) return;
       setTrip(next);
       savedTripRef.current = next;
       setDownloaded(false);
@@ -217,7 +232,12 @@ export function TouristHomeClient({
       }
       navigate('itinerary');
     } catch {
-      setError(copy('invalid'));
+      if (!controller.signal.aborted) setError(copy(preferencesValid ? 'planError' : 'invalid'));
+    } finally {
+      if (planController.current === controller) {
+        planController.current = null;
+        setPlanBusy(false);
+      }
     }
   };
   const choosePhoto = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -333,6 +353,7 @@ export function TouristHomeClient({
       <TouristHeader
         language={language}
         onLanguageChange={(lang) => {
+          planController.current?.abort();
           photoController.current?.abort();
           photoController.current = null;
           photoLock.current = false;
@@ -419,7 +440,8 @@ export function TouristHomeClient({
                 <h2 id="planner-title">{copy('plannerTitle')}</h2>
                 <p>{copy('budgetHint')}</p>
               </div>
-              <form onSubmit={saveTrip} className="planner-form">
+              <form onSubmit={saveTrip} className="planner-form" aria-busy={planBusy}>
+                <fieldset className="planner-request-fields" disabled={planBusy}>
                 <fieldset>
                   <legend>{copy('cities')}</legend>
                   <p className="field-hint">{copy('cityHint')}</p>
@@ -551,15 +573,17 @@ export function TouristHomeClient({
                   />
                   {copy('accommodation')}
                 </label>
+                </fieldset>
                 {error && (
                   <p role="alert" className="journey-error">
                     {error}
                   </p>
                 )}
-                <button type="submit" className="journey-primary">
-                  {copy('generate')}
-                  <ArrowRight aria-hidden="true" />
+                <button type="submit" className="journey-primary" disabled={planBusy}>
+                  {copy(planBusy ? 'generating' : 'generate')}
+                  {planBusy ? <Loader2 className="animate-spin" aria-hidden="true" /> : <ArrowRight aria-hidden="true" />}
                 </button>
+                {planBusy && <p className="field-hint" role="status">{copy('generatingHint')}</p>}
                 <p className="field-hint">{copy('estimates')}</p>
               </form>
             </section>
@@ -673,6 +697,10 @@ export function TouristHomeClient({
                   <Bookmark size={14} />
                   {copy(saved ? 'saved' : 'storageError')}
                 </p>
+                {trip.generation && <p className="trip-generation-status" role="status">
+                  <Sparkles size={16} aria-hidden="true" />
+                  {copy(trip.generation.source === 'groq' ? 'aiPlan' : trip.generation.fallbackReason === 'no-catalog-places' ? 'basicPlan' : 'fallbackPlan')}
+                </p>}
                 <details className="budget-breakdown">
                   <summary>{copy('breakdown')}</summary>
                   <dl>

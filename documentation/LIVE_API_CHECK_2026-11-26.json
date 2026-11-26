@@ -1,0 +1,34 @@
+{
+  "checkedAt": "2026-11-26T08:00:22.730Z",
+  "apiService": "smartguide-api",
+  "landmarkStore": "json",
+  "database": "not-used",
+  "trip": {
+    "source": "groq",
+    "model": "openai/gpt-oss-120b",
+    "days": 4,
+    "totalCents": 13728,
+    "restoredExactly": true
+  },
+  "sameOriginProxy": {
+    "http": 200,
+    "source": "groq"
+  },
+  "guide": {
+    "source": "groq-rag",
+    "model": "openai/gpt-oss-120b",
+    "audioBytes": 1607548,
+    "interactionId": 0
+  },
+  "photo": {
+    "identified": true,
+    "slug": "kalta-minor",
+    "source": "groq-rag"
+  },
+  "walk": {
+    "stops": 2,
+    "totalMinutes": 60
+  },
+  "frontendHttp": 200,
+  "limitation": "HTTP and frontend adapter checks; automated browser button testing was unavailable. JSON dossier mode does not persist analytics."
+}

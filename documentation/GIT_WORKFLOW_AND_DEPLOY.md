@@ -2,6 +2,8 @@
 
 Ushbu hujjat Frontend, Backend va AI/RAG egaligini hamda deploy yoʻriqnomasini belgilaydi. Merge conflictsiz ishlash kafolatlanmaydi. Buyruqlar yoʻriqnoma, deploy bajarilgani dalili emas.
 
+Live API ulanishi foydalanuvchining aniq topshirigʻi bilan toʻgʻridan-toʻgʻri `main`ga beriladi. Keyingi backend ishini `origin/main` dan boshlang; eski feature branch nusxasi joriy frontend integratsiyasini oʻz ichiga olmaydi. [LIVE_API_SETUP.md](LIVE_API_SETUP.md).
+
 > 26-noyabr yangilanishi: milliy frontend `feat/uzbekistan-solo-travel` branchida; foydalanuvchining keyingi AI-backend topshirigʻi `feat/ai-provider-routing` branchida. Ikkinchisi backend va shared guide sourceMode tipini kengaytiradi. Boshqa odamlarning branchlari yoki production deploy oʻzgartirilmaydi. [AI backend handoff](AI_BACKEND_HANDOFF.md), [API_CONTRACT.md](API_CONTRACT.md), [FRONTEND_PRODUCT.md](FRONTEND_PRODUCT.md).
 
 ---

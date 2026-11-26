@@ -1,0 +1,17 @@
+.planner-form > .planner-request-fields {
+  display: grid;
+  gap: 1.5rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.trip-generation-status {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  color: var(--text-muted, #53665d);
+  font-size: .88rem;
+  overflow-wrap: anywhere;
+}
+.trip-generation-status svg { flex-shrink: 0; }

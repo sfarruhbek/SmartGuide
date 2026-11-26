@@ -1,18 +1,19 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Playfair_Display } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 import './journey.css';
+import './api-integration.css';
 
-const playfair = Playfair_Display({
-  subsets: ['latin', 'cyrillic'],
-  weight: ['400', '500', '600'],
+const playfair = localFont({
+  src: './fonts/PlayfairDisplay.ttf',
+  weight: '400 900',
   variable: '--font-display',
   display: 'swap',
 });
 
-const inter = Inter({
-  subsets: ['latin', 'cyrillic'],
-  weight: ['400', '500', '600', '700'],
+const inter = localFont({
+  src: './fonts/Inter.ttf',
+  weight: '100 900',
   variable: '--font-sans',
   display: 'swap',
 });

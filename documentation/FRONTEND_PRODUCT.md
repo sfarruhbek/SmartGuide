@@ -2,6 +2,8 @@
 
 Yangilangan: 26-noyabr 2026. Ish branchi: `feat/uzbekistan-solo-travel`.
 
+Keyingi live integratsiya: milliy forma va `/khiva` haqiqiy API ga ulangan. Groq — plan/matn/foto; Gemini — ovoz. Loading/retry, server javobi validatsiyasi va aynan AI tartibini tiklash qoʻshilgan. Quyidagi dastlabki lokal planner tavsifi tarixiy holat; [LIVE_API_SETUP.md](LIVE_API_SETUP.md) joriy runtime va tekshiruvni belgilaydi. PostgreSQL, public contribution va payment hali alohida ish.
+
 ## Mahsulot qarori
 
 Asosiy foydalanuvchi — yolgʻiz/mustaqil sayohatchi. Geografiya — butun Oʻzbekiston, faqat Xiva emas. U mamlakatga kelish xarajatidan tashqari jami byudjetini, kunlarini, shaharlar tartibini va qiziqishlarini kiritadi. Natijada vaqt va xarajatlari yozilgan kunlik reja oladi. AI javobini audio shaklda tinglash ixtiyoriy; inson gid bilan birga yurish talab qilinmaydi.

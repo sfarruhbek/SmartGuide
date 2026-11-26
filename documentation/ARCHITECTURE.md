@@ -7,7 +7,7 @@
 ```mermaid
 flowchart LR
   User[Mustaqil sayohatchi] --> Form[Shaharlar + kunlar + USD + qiziqishlar]
-  Form --> Planner[Lokal deterministik planner]
+  Form --> Planner[API: Groq ranking + server smeta]
   Planner --> Days[Kunlik vaqt va smeta]
   Planner --> Storage[Qurilmadagi localStorage]
   User --> Map[OSM xarita + joylar katalogi]
@@ -24,7 +24,7 @@ flowchart LR
   API --> Dash[B2B dashboard, 5s polling]
 ```
 
-`apps/tourist/src/lib/journey.ts`: validatsiya, byudjetni yigʻish, zaxira va kamomad, proyeksiya, localStorage inputni qayta hisoblash. `places.ts`: 16 shahar va 15 joy. Joylar narxi operator kiritgan taxmin, amaldagi quote emas. Yetarli kontent boʻlmasa planner erkin vaqtni ochiq belgilaydi. Har yangi shahar uchun transfer kuni ajratiladi; real qatnov jadvali hisoblanmaydi.
+`apps/tourist/src/lib/trip-api.ts`: haqiqiy plan POST va response validatsiyasi. `journey.ts`: vaqt/pul/katalog validatsiyasi, proyeksiya, AI tartibi va generation metadata bilan localStorage tiklash; eski triplar migratsiyasi uchun lokal hisoblash saqlangan. `places.ts`: 16 shahar va 15 joy. Narxlar taxmin, real quote/qatnov jadvali emas.
 
 `DiscoveryMap.tsx`: visible OSM tile lar, attribution, pan/zoom va markerlar. Bu navigatsiya/routing engine emas. `TouristHomeClient.tsx`: plan / itinerary / map, fotosuratni mavjud Xiva API ga joʻnatish, shaxsiy qoralama dialogi. `journey-copy.ts`: 6 til UI; katalog hikoyalari hozir EN/RU/UZ.
 
@@ -38,21 +38,24 @@ flowchart LR
 | GET `/api/landmarks` | Bor; Xiva katalogi |
 | GET `/api/landmarks/:slug` | Bor; bitta dossier |
 | POST `/api/guide/ask` | Bor; RAG/Vision/TTS va interaction log |
-| POST `/api/trips/generate` | Bor; Groq katalog ranking + deterministik smeta, frontend hali ulanmagan |
+| POST `/api/trips/generate` | Bor; milliy frontend ulangan, Groq ranking + server smeta |
 | POST `/api/audio/speech` | Bor; Gemini WAV va model fallback |
 | GET `/api/analytics/summary` | Bor; mavjud analytics tiplari |
-| Roadmap / feedback / nearby / visit / export | Hali route ulanmagan; oldingi kontraktdagi takliflar |
+| POST `/api/roadmap/generate` | Bor; 2/3/5 stopli Xiva AI yurishi, DB persistence yoʻq |
+| Feedback / nearby / visit / export | Hali route ulanmagan |
 
 Mavjud umumiy tiplarda milliy trip, signals, sentiment va contribution kontraktlari yoʻq. Frontend kengaytmalari optional lokal tiplarda. Mavjud DB sxemasida `landmarks` va `interactions` bor; kengaytirilgan flywheel jadvallari loyiha taklifi, bajarilgan migratsiya emas.
 
 ## Maʼlumot va xatolar
 
-- API ishlamasa milliy reja, statik katalog va lokal topilmalar ishlaydi. Xarita tile lari alohida internet xizmatiga bogʻliq; roʻyxat saqlanadi.
+- API ishlamasa saqlangan reja, statik katalog va lokal topilmalar ochiladi; yangi plan retry xatosini koʻrsatadi. Server fallbacki alohida belgilanadi. Xarita tile lari internetga bogʻliq.
 - Backend health OK — real AI yoqilganini yoki kontent tarixchi tasdigʻidan oʻtganini anglatmaydi. `aiConfigured`, `sourceMode` va manbalar alohida tekshiriladi.
 - Browser speech synthesis — TTS fallback; ovoz va til qurilmada mavjud boʻlishiga bogʻliq. Audio matni o‘qish har doim mumkin.
 - Roadmap endpoint xatosida Xiva builder lokal curated marshrutni belgilab chiqaradi. Feedback endpoint xatosida «saqlandi» deyilmaydi.
 - Dashboard eski maʼlumotni saqlab reconnect holatini bildiradi; yangi insight maydonlari kelmasa bo‘sh holat. Kalkulyator API tushumi emas.
 - RAG, cache va audio kechikishi uchun 0% xato / doim <100ms / doim $0 vaʼdasi yoʻq.
+
+Hozirgi live demo: JSON dossier + haqiqiy Groq/Gemini; analytics saqlanmaydi va muvaffaqiyat imitatsiyasi yoʻq. PostgreSQL va public HTTPS keyingi backend ishi. [LIVE_API_SETUP.md](LIVE_API_SETUP.md).
 
 ## Keyingi arxitektura — kelishilishi kerak
 

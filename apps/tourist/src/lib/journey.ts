@@ -79,6 +79,11 @@ export interface Trip {
   total: number;
   shortfall: number;
   createdAt: string;
+  generation?: {
+    source: 'groq' | 'local-fallback';
+    modelUsed: string;
+    fallbackReason: string | null;
+  };
 }
 export interface Discovery {
   id: string;
@@ -263,6 +268,42 @@ export function generateTrip(
     : trip;
 }
 
+/** Validate the returned itinerary itself, preserving the AI's order across reloads. */
+export function validateTrip(value: unknown, cities: City[], places: Place[]): Trip {
+  if (!value || typeof value !== 'object') throw new Error('Invalid trip');
+  const trip = value as Trip;
+  if (trip.version !== 2 || trip.currency !== 'USD' || !trip.input ||
+      typeof trip.createdAt !== 'string' || !Number.isFinite(Date.parse(trip.createdAt))) throw new Error('Invalid trip');
+  const baseline = generateTrip(trip.input, cities, places);
+  if (!Array.isArray(trip.days) || trip.days.length !== trip.input.days) throw new Error('Invalid days');
+  const cents = (n: unknown): n is number => typeof n === 'number' && Number.isSafeInteger(n) && n >= 0 && n <= 1_000_000_000;
+  const time = (s: unknown): s is string => typeof s === 'string' && /^(?:[01]\d|2[0-3]):[0-5]\d$/.test(s);
+  const kinds: SlotKind[] = ['breakfast','lunch','dinner','visit','explore','taxi','stay','transfer'];
+  const visited = new Set<string>();
+  for (const [index, day] of trip.days.entries()) {
+    if (!day || day.number !== index + 1 || day.city !== baseline.days[index].city ||
+        !Array.isArray(day.slots) || !day.slots.length || day.slots.length > 30) throw new Error('Invalid day');
+    for (const [i, slot] of day.slots.entries()) {
+      if (!slot || !kinds.includes(slot.kind) || !time(slot.time) || !time(slot.end) || slot.time >= slot.end ||
+          (i > 0 && day.slots[i - 1].end > slot.time) || !cents(slot.cost)) throw new Error('Invalid slot');
+      if (slot.kind === 'visit') {
+        const place = places.find((p) => p.id === slot.placeId && p.city === day.city);
+        if (!place || visited.has(place.id)) throw new Error('Invalid place');
+        visited.add(place.id);
+      } else if (slot.placeId !== undefined) throw new Error('Invalid place');
+      if (slot.kind === 'transfer' && (!baseline.days.some((d) => d.city === slot.from) || slot.to !== day.city || slot.from === slot.to)) throw new Error('Invalid transfer');
+    }
+    if (!cents(day.total) || day.total !== day.slots.reduce((sum, slot) => sum + slot.cost, 0)) throw new Error('Invalid day cost');
+  }
+  const subtotal = trip.days.reduce((sum, day) => sum + day.total, 0);
+  if (!cents(trip.subtotal) || trip.subtotal !== subtotal || trip.reserve !== Math.ceil(subtotal / 10) ||
+      trip.total !== subtotal + trip.reserve || trip.shortfall !== Math.max(0, trip.total - budgetCents(trip.input.budget))) throw new Error('Invalid totals');
+  if (trip.generation && (!['groq','local-fallback'].includes(trip.generation.source) ||
+      typeof trip.generation.modelUsed !== 'string' || trip.generation.modelUsed.length > 150 ||
+      !(trip.generation.fallbackReason === null || typeof trip.generation.fallbackReason === 'string'))) throw new Error('Invalid generation metadata');
+  return trip;
+}
+
 export function readTrip(cities: City[], places: Place[]): Trip | null {
   try {
     const value: unknown = JSON.parse(
@@ -271,6 +312,8 @@ export function readTrip(cities: City[], places: Place[]): Trip | null {
         'null',
     );
     if (!value || typeof value !== 'object') return null;
+    // New API plans must restore their actual stops, never silently regenerate another order.
+    if ('generation' in value) return validateTrip(value, cities, places);
     const { version, input, currency } = value as Omit<Trip, 'version'> & {
       version: number;
     };

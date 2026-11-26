@@ -2,7 +2,7 @@
 
 SmartGuide mustaqil sayohatchiga shaharlar, kunlar, umumiy byudjet va qiziqishlar asosida kunlik safar rejasini tuzishga yordam beradi. Rejada vaqt, ovqatlanish, transport, kirish, yashash va zaxira xarajatlari bor. Interaktiv xaritada mahalliy joylar, manbali hikoyalar va shaxsiy topilmalar uchun qoralama mavjud.
 
-**Butun Oʻzbekiston — mahsulot geografiyasi. Xiva — birinchi AI-pilot.** Milliy frontend planner hali lokal ishlaydi; yangi Groq server planner 16 shahar tanlovi va toʻrtta shahardagi 15 joy katalogidan foydalanadi. Dossier/foto piloti besh Xiva obidasi bilan cheklangan. Jonli narxlar, moderatsiya, avtomatik GPS va toʻlovlar hali integratsiya talab qiladi. Gemini audio — javobni ixtiyoriy tinglash.
+**Butun Oʻzbekiston — mahsulot geografiyasi. Xiva — birinchi AI-pilot.** Milliy frontend Groq server planneriga ulangan: 16 shahar tanlovi va toʻrtta shahardagi 15 joy. Dossier/foto piloti besh Xiva obidasi bilan cheklangan. Gemini faqat ovoz uchun. Jonli narxlar, moderatsiya, GPS va toʻlovlar hali integratsiya talab qiladi. [Ishlaydigan API konfiguratsiyasi va tekshiruv](documentation/LIVE_API_SETUP.md).
 
 ## Hujjatlar
 
@@ -15,12 +15,13 @@ SmartGuide mustaqil sayohatchiga shaharlar, kunlar, umumiy byudjet va qiziqishla
 | [API contract](documentation/API_CONTRACT.md) | Runtime endpointlar va hali taklif holatidagi kengaytmalar |
 | [AI backend handoff](documentation/AI_BACKEND_HANDOFF.md) | Groq / Gemini, quota fallback, yangi trip/audio API va JSON import |
 | [Backend tasks](documentation/BACKEND_TASKS.md) | Keyingi ishlar: P0/P1, masʼullar, DB/HTTPS/frontend integratsiya va demo qabul mezonlari |
+| [Live API setup](documentation/LIVE_API_SETUP.md) | Frontend → Groq/Gemini, lokal ishga tushirish va real HTTP tekshiruv |
 | [Roadmap](documentation/ROADMAP.md) | Frontend va boshqa jamoa ishlarining alohida navbati |
 | [Git / deploy](documentation/GIT_WORKFLOW_AND_DEPLOY.md) | Jamoa egaligi va deploy yoʻriqnomasi |
 
 ## Lokal ishga tushirish
 
-Node.js 20+ va npm. Rejalashtirish/xarita uchun backend shart emas:
+Node.js 20+ va npm. Yangi reja/AI uchun API kerak; saqlangan reja va statik xarita API siz ham ochiladi. Avval [live API setup](documentation/LIVE_API_SETUP.md) bo‘yicha server va URLlarni sozlang:
 
 ```bash
 npm install --no-audit --no-fund
@@ -54,4 +55,4 @@ npx tsx --tsconfig apps/tourist/tests/tsconfig.json --test apps/tourist/tests/*.
 - [API](apps/api/README.md): Express / PostgreSQL / Groq / Gemini, milliy trip va Xiva pilot runtime.
 - [Shared](packages/shared/README.md): amaldagi umumiy tiplarga yagona manba.
 
-Frontend branchi: `feat/uzbekistan-solo-travel`. Keyingi AI-backend topshirigʻi: `feat/ai-provider-routing`; milliy server planner va Gemini TTS tayyor, frontend milliy sahifasi hozircha lokal hisoblaydi. DB migratsiyasi yoki production deploy bajarilmagan.
+Frontend, AI va live API ulanishi `main`da. Milliy UI va Xiva walk haqiqiy API ni chaqiradi. PostgreSQL migratsiyasi yoki production HTTPS deploy bajarilmagan.

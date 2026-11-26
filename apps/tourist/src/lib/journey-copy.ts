@@ -1,6 +1,12 @@
 import type { SupportedLanguage } from '@smartguide/shared';
 
 const words = {
+  generating: ['Building your journey…','Составляем поездку…','Safar tuzilmoqda…','Creando tu viaje…','旅程を作成中…','여행 계획을 만드는 중…'],
+  generatingHint: ['Choosing places for your interests. This may take a few seconds.','Подбираем места по твоим интересам. Это может занять несколько секунд.','Qiziqishlaringizga mos joylar tanlanmoqda. Bir necha soniya kuting.','Seleccionamos lugares según tus intereses. Puede tardar unos segundos.','興味に合う場所を選んでいます。少々お待ちください。','관심사에 맞는 장소를 고르고 있어요. 잠시 기다려 주세요.'],
+  planError: ['Could not reach the planner. Please try again; your preferences are still here.','Не удалось получить план. Попробуй ещё раз — введённые данные сохранены в форме.','Rejani olish imkoni boʻlmadi. Qayta urinib koʻring, maʼlumotlar shaklda saqlangan.','No se pudo obtener el plan. Inténtalo de nuevo; tus preferencias siguen aquí.','旅程を取得できませんでした。入力は残っています。もう一度お試しください。','계획을 가져오지 못했어요. 입력 내용은 유지됩니다. 다시 시도해 주세요.'],
+  aiPlan: ['Journey tailored with AI','Поездка составлена с AI','Safar AI yordamida tuzildi','Viaje personalizado con IA','AIが提案した旅程','AI가 구성한 여행'],
+  basicPlan: ['This destination has no curated places yet. Showing a basic itinerary.','Для этого направления ещё нет подборки мест. Показываем базовый маршрут.','Bu yoʻnalish uchun joylar hali tanlanmagan. Asosiy reja koʻrsatilmoqda.','Este destino aún no tiene lugares seleccionados. Mostramos un itinerario básico.','この目的地の掲載場所はまだありません。基本の旅程を表示しています。','이 목적지의 장소 모음이 아직 없어 기본 경로를 표시합니다.'],
+  fallbackPlan: ['AI is temporarily unavailable. Showing a basic itinerary.','AI временно недоступен. Показываем базовый маршрут.','AI vaqtincha ishlamayapti. Asosiy yoʻnalish koʻrsatilmoqda.','La IA no está disponible. Mostramos un itinerario básico.','AIは現在利用できません。基本の旅程を表示しています。','현재 AI를 사용할 수 없어 기본 경로를 표시합니다.'],
   retry: [
     'Try again',
     'Попробовать снова',

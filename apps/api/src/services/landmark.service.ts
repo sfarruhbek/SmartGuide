@@ -3,6 +3,12 @@ import type { LandmarkDetail, LandmarkSummary } from '@smartguide/shared';
 import { db } from '../db/index.js';
 import { landmarks, type LandmarkRow } from '../db/schema.js';
 import { loadLandmarksFromJson } from '../db/seed.js';
+import { env } from '../config/env.js';
+
+function localDetails(): LandmarkDetail[] {
+  // id=0 means no PostgreSQL identity; never fabricate a saved analytics interaction.
+  return loadLandmarksFromJson().map((item) => ({ id: 0, ...item }));
+}
 
 function toSummary(row: LandmarkRow): LandmarkSummary {
   return {
@@ -34,6 +40,7 @@ function toDetail(row: LandmarkRow): LandmarkDetail {
 }
 
 export async function listLandmarkSummaries(): Promise<LandmarkSummary[]> {
+  if (env.LANDMARK_STORE === 'json') return localDetails();
   const rows = await db.select().from(landmarks).orderBy(asc(landmarks.id));
   if (rows.length > 0) {
     return rows.map(toSummary);
@@ -57,6 +64,7 @@ export async function listLandmarkSummaries(): Promise<LandmarkSummary[]> {
 }
 
 export async function listLandmarkDetails(): Promise<LandmarkDetail[]> {
+  if (env.LANDMARK_STORE === 'json') return localDetails();
   const rows = await db.select().from(landmarks).orderBy(asc(landmarks.id));
   if (rows.length > 0) {
     return rows.map(toDetail);
@@ -69,6 +77,7 @@ export async function listLandmarkDetails(): Promise<LandmarkDetail[]> {
 }
 
 export async function getLandmarkBySlug(slug: string): Promise<LandmarkDetail | null> {
+  if (env.LANDMARK_STORE === 'json') return localDetails().find((item) => item.slug === slug) ?? null;
   const [row] = await db
     .select()
     .from(landmarks)

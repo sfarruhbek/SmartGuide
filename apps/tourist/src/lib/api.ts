@@ -14,7 +14,7 @@ import { requestJson } from './http';
 import { LANGUAGE_CODES } from '@smartguide/shared';
 export { ApiError } from './http';
 
-function getApiBaseUrl(): string {
+export function getApiBaseUrl(): string {
   const configured = (
     process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000'
   ).replace(/\/+$/, '');
@@ -101,7 +101,7 @@ export async function generateRoadmap(payload: {
   vibes: TravelVibe[];
 }): Promise<Roadmap> {
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 15000);
+  const timer = setTimeout(() => controller.abort(), 35000);
   try {
     const response = await fetch(`${getApiBaseUrl()}/api/roadmap/generate`, {
       method: 'POST',

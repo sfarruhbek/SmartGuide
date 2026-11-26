@@ -14,6 +14,7 @@ Base URL `http://localhost:4000`, JSON. Til: `en | uz | ru | ja | ko | es`. Pilo
 | POST `/api/guide/ask` | `GuideAskResponse` |
 | POST `/api/trips/generate` | Milliy trip v2; Groq ranking + server smeta, local-fallback |
 | POST `/api/audio/speech` | Gemini TTS → base64 WAV yoki 503 |
+| POST `/api/roadmap/generate` | Xiva qisqa yurishi, Groq; persistence yoʻq, roadmapId null |
 | GET `/api/analytics/summary` | `AnalyticsSummary` |
 
 `GET /api/landmarks/nearby` hozir dinamik `/:slug` route bilan toʻqnashib 404 bo‘lishi mumkin; nearby sifatida tayyor emas. Health javobi real toʻlov yoki kontent tasdigʻi emas.
@@ -42,9 +43,9 @@ Hozir backend `roadmapId`, `insight`, `nextStopSuggestion`ni shared response sif
 
 Mavjud `revenue` metrikalari taxminiy foydalanishdan hisoblanadi: payment-ledger yoki haqiqiy sotuv emas. `countryLabel` til metadatasi, millat dalili emas. `grossMarginPercent`ning eski API formulasi toʻliq moliyaviy model sifatida ishlatilmaydi; dashboardning alohida kalkulyatori [smeta](SMETA_BUDGET.md) dagi 30% / 2% / AI / server formulasini ishlatadi.
 
-## 2. Legacy Xiva kengaytmalari — taklif, backendda ulanmagan
+## 2. Xiva qisqa yurishi va keyingi kengaytmalar
 
-Frontend adapterlari mavjud. `packages/shared`ga hali kiritilmagan; mavjud nomlarni buzishdan oldin backend/AI egasi bilan kelishish kerak.
+Roadmap route va frontend adapteri ulangan. Feedback/nearby/visit/export hali taklif; umumiy shared roadmap tipi yoʻq.
 
 ### POST `/api/roadmap/generate`
 
@@ -59,7 +60,7 @@ Request:
 }
 ```
 
-Duration: 60 / 120 / 240; vibes 1–3: legends / architecture / photography / royalty / spiritual. Frontend kutadigan response: `roadmapId`, `sessionId`, `language`, `headline`, `totalMinutes`, `stops`, `createdAt`, optional `dataDrivenNote`.
+Duration: 60 / 120 / 240; vibes 1–3: legends / architecture / photography / royalty / spiritual. Response: `roadmapId:null`, `sessionId`, `language`, `headline`, `totalMinutes`, `stops`, `createdAt`, `source:groq`, `modelUsed`. Mos ravishda 2/3/5 ta katalog stopi, daqiqalar yigʻindisi tanlangan vaqtga teng. AI ishlamasa 503; frontend curated fallbackni ochiq belgilaydi. Route saqlangan DB roadmap yaratmaydi va haqiqiy piyoda routing emas.
 
 Stop: `order`, `slug`, `name`, `estimatedMinutes`, `whyVisit`, `emotionalPayoff`; optional `topSignalHighlight`, `noiseFilteredNote`, `interestScore`. Foiz yoki namunalar soni haqiqiy agregatsiya boʻlmasa qaytarilmasin. Frontend malformed/unavailable javobni lokal curated marshrut bilan almashtirib, manbasini belgilaydi. Bu milliy ko‘p kunlik trip endpointi emas.
 
@@ -79,9 +80,9 @@ Audit yangilanishi: 404/405/501 boʻlsa frontend feedback vaqtincha mavjud emasl
 - Analytics optional fields: `totalRoadmapsGenerated`, `avgInterestScore`, `signalVsNoise`, `sentimentBreakdown`, `curiosityGaps`. UI ularni yo‘q bo‘lsa ixtiro qilmaydi. Aniq shape: [dashboard experience types](../apps/dashboard/src/lib/experience.ts).
 - Guide optional `insight` va `nextStopSuggestion`: [tourist experience types](../apps/tourist/src/lib/experience.ts). Bular shared ABI deb tasdiqlanmagan.
 
-## 3. Milliy safar — tayyor server route, frontend hali lokal
+## 3. Milliy safar — frontend va server ulangan
 
-`POST /api/trips/generate` quyidagi payloadni qabul qiladi. Server modeli `apps/api/src/planner/trip.ts` da, joriy [journey.ts](../apps/tourist/src/lib/journey.ts) v2 bilan mos. Frontend hali HTTP route chaqirmaydi. Toʻliq konfiguratsiya, xatolar va tekshiruvlar: [AI backend handoff](AI_BACKEND_HANDOFF.md).
+`POST /api/trips/generate` quyidagi payloadni qabul qiladi. Milliy frontend uni chaqiradi, response/mablagʻ/joylarni validatsiya qiladi va olingan tartibni saqlaydi. [Joriy ishga tushirish va tekshiruv](LIVE_API_SETUP.md), [AI backend handoff](AI_BACKEND_HANDOFF.md).
 
 ```json
 {
@@ -99,6 +100,8 @@ Budget USD, bir kishi, mamlakatga kelish yoʻlisiz. Kunlar 1–14; shaharlar tar
 `Discovery`: nom, shahar, lat/lng, hikoya, source, fact/legend/personal turi va sana. Hozir faqat shaxsiy localStorage. Public moderation statusi yoki nashr API si yoʻq.
 
 Server response: `{trip, source: "groq" | "local-fallback", modelUsed, fallbackReason, costBasis: "planning-allowances", amounts, warnings}`. Groq faqat katalog ID larini tartiblaydi; pul/vaqt serverda hisoblanadi. Model/quota xatosida lokal reja HTTP 200 bilan va aniq source bilan qaytadi; notoʻgʻri input 400. Route IP/concurrency limiti 429/503 qaytarishi mumkin.
+
+Frontend `Trip.generation` ichida source/modelUsed/fallbackReason ni saqlaydi. HTTP xatosi lokal AI natija sifatida yashirilmaydi. `LANDMARK_STORE=json` holatida guide haqiqiy AI bilan ishlaydi, `interactionId:0`; analytics 503 `ANALYTICS_UNAVAILABLE`, health 200 va `analyticsAvailable:false`, `database:not-used`. PostgreSQL rejimida eski DB talablari saqlanadi.
 
 `POST /api/audio/speech` input `{text, language}`, text 1–1400 belgi. Response `{audioBase64, audioMimeType: "audio/wav", modelUsed, provider: "gemini"}`; input xatosi 400, ovoz vaqtincha yoʻq boʻlsa 503 `{error, code:"AUDIO_UNAVAILABLE", text}`. Mikrofon STT yoki Live audio chat bu route vazifasi emas.
 
