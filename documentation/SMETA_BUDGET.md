@@ -1,135 +1,131 @@
-# SmartGuide — Moliyaviy Smeta va Haqiqiy Xarajatlar Modeli (2026 Real Narxlar)
+# SmartGuide — moliyaviy smeta va ssenariylar
 
-> **Hisob-kitob sanasi:** 2026-yil noyabr  
-> **Valyuta kursi bazasi:** `1 USD ≈ 12,500 UZS` (O'zbekiston MB joriy bozor o'rtachasi)  
-> **Tamoyil:** Barcha narxlar taxmin emas — 2026-yilgi rasmiy provayder tariflari (Google Gemini API, AWS EC2/EBS, UZINFOCOM `cctld.uz`, Click/Payme Business va Toshkent reklama-poligrafiya bozor narxlari) asosida hisoblangan.
+> Hisob sanasi: 26-noyabr 2026. USD. UZS ko‘rinishi uchun **1 USD = 12,500 UZS** — faqat rejalashtirish kursi, joriy MB kursi deb tasdiqlanmagan.
+> Tarif ≠ haqiqiy sarf. API hajmi, cache hit, konversiya, shartnoma va yetkazib beruvchi narxlari pilotda tekshiriladi. Sayyohning safar byudjeti ushbu platforma xarajatlaridan alohida.
 
----
+## 1. Tarif manbalari va taxminlar
 
-## 1. Rasmiy Manbalardan Olingan Real Tariflar Bazasi (2026)
+Google rasmiy [pricing sahifasi](https://ai.google.dev/gemini-api/docs/pricing) 26-noyabr 2026 tekshirildi. Standard, per 1M token:
 
-| Xarajat elementi | Rasmiy tarif (2026) | Manba / Provayder |
-| :--- | :--- | :--- |
-| **`gemini-3.5-flash-lite` (Input — text/image)** | **`$0.30` / 1 mln token** (Free Tier ham bor) | Google AI Studio (`ai.google.dev/gemini-api/docs/pricing`) |
-| **`gemini-3.5-flash-lite` (Output — text)** | **`$2.50` / 1 mln token** | Google AI Studio (`ai.google.dev`) |
-| **`gemini-4-hydrogen` (Fallback Input / Output)** | **`$1.50` / `$7.50`** per 1M token (Cache read: `$0.075/1M`) | Google AI Studio (`ai.google.dev`) |
-| **`gemini-3.8-flash-lite-tts` (Text Input)** | **`$0.50` / 1M token** (2026-yil oxirigacha; 2027-yildan `$1.00/1M`) | Google AI Studio (`ai.google.dev`) |
-| **`gemini-3.8-flash-lite-tts` (Audio Output)** | **`$6.00` / 1M token** (`25 token = 1 soniya` → **1 daqiqa audio = `$0.009`**) | Google AI Studio (`ai.google.dev`) |
-| **AWS EC2 Ubuntu `t3.small` (2 vCPU, 2 GiB RAM)** | **`$15.18 – $15.77 / oy`** (730 soat On-Demand, `us-east-1`) | Amazon Web Services EC2 Pricing |
-| **AWS EC2 Ubuntu `t3.medium` (2 vCPU, 4 GiB RAM)** | **`$30.37 / oy`** (730 soat On-Demand, `us-east-1`) | Amazon Web Services EC2 Pricing |
-| **AWS EBS `gp3` SSD xotira** | **`$0.08 / GB-oy`** (`30 GB = $2.40/oy`, `50 GB = $4.00/oy`) | Amazon Web Services EBS Pricing |
-| **AWS Public IPv4 manzil** | **`$3.65 / oy`** (`$0.005/soat`) | Amazon Web Services VPC Pricing |
-| **`.uz` domen (`smartguide.uz`)** | **`33,000 – 35,000 UZS / yil`** (`~$2.80 / yil`) | UZINFOCOM (`cctld.uz` / akkreditatsiyalangan registratorlar) |
-| **HTTPS SSL Sertifikat (Let's Encrypt)** | **`$0 / yil`** (Certbot + Nginx avtomatik yangilanish) | Let's Encrypt |
-| **Click / Payme internet-ekvayring komissiyasi** | **`1.5% – 2.0%`** har bir onlayn to'lovdan | Click Business / Payme Business |
-| **Akril UV-bosma reklama QR stol stendi (kassa/mehmonxona uchun, 100×150 mm)** | **`45,000 – 80,000 UZS / dona`** (`~$3.60 – $6.40`) | Toshkent reklama ishlab chiqarish bozori |
-| **Roll-Up reklama banneri (85×200 cm, alyuminiy stend + bosma — kirish darvozasi/vokzal uchun)** | **`250,000 – 450,000 UZS / dona`** (`~$20 – $36`; premium `~$45`) | Toshkent reklama-poligrafiya bozori |
-| **Interaktiv pol info-kioski (32"–43" sensor ekran — 2-bosqich flagman aeroport/vokzal uchun)** | **`$800 – $1,800 / dona`** (O'zbekiston bozori) | Toshkent info-kiosk yetkazib beruvchilari (`utouch.uz`, `barakatexnika.uz`) |
+| Model | Input | Output | Eslatma |
+| --- | ---: | ---: | --- |
+| gemini-3.5-flash-lite | $0.30 | $2.50 | Output thinking tokenlarni ham qamraydi |
+| gemini-4-hydrogen | $1.50 | $7.50 | Cache input $0.075 |
+| gemini-3.8-flash-lite-tts | $0.50 | $6 audio | 2026-12-31 gacha; 2027-01-01 dan $1 / $12 |
 
----
+TTS 25 audio token/soniya: 60 soniya output $0.009, matn input qoʻshimcha. 2027 yilda **audio output ham ikki baravar** oshadi, faqat input emas. Tariflar trafik, vositalar va rejimga bogʻliq; bu jadval qoʻshimcha search/maps grounding, tokenlashning real hajmi va qayta urinishlarni hisoblamaydi.
 
-## 2. Bitta Sayyohga AI Xarajati (Exact Cost-to-Serve Kalkulyatsiyasi)
+| Boshqa xarajat | Reja bazasi | Tasdiqlash holati |
+| --- | ---: | --- |
+| Kichik server + disk + IPv4 | $21.50/oy | Yetkazib beruvchi konfiguratsiyasi bo‘yicha quote kerak |
+| Pilot server + disk + backup | $43/oy | AWS mintaqa/konfiguratsiya bilan tekshiriladi |
+| IPv4 | $0.005/soat = $3.65/730 soat | [AWS VPC](https://aws.amazon.com/vpc/pricing/) |
+| EBS / EC2 | Pilot konfiguratsiyasiga kiritilgan | [EC2](https://aws.amazon.com/ec2/pricing/on-demand/), [EBS](https://aws.amazon.com/ebs/pricing/); trafik, soliqlar va backup qoʻshimcha boʻlishi mumkin |
+| Domen | $2.80/yil | Registratordan amaldagi quote kerak |
+| Ekvayring | Gross tushumning 2% | Merchant shartnomasi kerak; Click/Payme/Visa bir xil tarif deb olinmaydi |
+| Akril QR stendi / Roll-Up | $5 / $35 | Bozor smetasi, yozma taklif olinmagan |
+| Kiosk | $1,200 | Keyingi bosqich xarid farazi |
 
-Faraz qilaylik, 1 nafar sayyoh Ichan-Qal'a bo'ylab to'liq sayohat qiladi:
-- **1 ta** Emotsional Shaxsiy Roadmap generatsiyasi (`gemini-3.5-flash-lite`)
-- **6 ta** Obida oldida jonli savol-javob (`gemini-3.5-flash-lite`)
-- **2 ta** Snap & Ask kamera rasmini tanish (`gemini-3.5-flash-lite` multimodal Vision)
-- **6 ta** Signal/Noise va Taassurot (Interest & Sentiment) ajratish tahlili
-- **6 ta** Ovozli javob (`gemini-3.8-flash-lite-tts`, har biri o'rtacha **25 soniya** = jami **150 soniya / 2.5 daqiqa audio**)
+QR/kiosk — promo kirish kanali. Har obidaga lavha va kiosk xaridi hozirgi frontendning sharti emas. TLS sertifikat bepul boʻlishi mumkin; server va xizmat ko‘rsatish nol xarajat emas.
 
-| Bosqich | Model | Token hajmi | 0% Kesh (Maksimal) | 50% Kesh bilan (Real) |
-| :--- | :--- | :--- | :---: | :---: |
-| 1. Emotsional Roadmap tuzish | `gemini-3.5-flash-lite` | 2,200 in / 600 out | `$0.00216` | `$0.00216` |
-| 2. 6 ta Jonli RAG savol-javob | `gemini-3.5-flash-lite` | 6 × (1,800 in / 250 out) | `$0.00699` | `$0.00350` |
-| 3. 2 ta Snap & Ask foto tanish | `gemini-3.5-flash-lite` | 2 × (1,400 in / 50 out) | `$0.00109` | `$0.00109` |
-| 4. 6 ta Interest/Signal ajratish | `gemini-3.5-flash-lite` | 6 × (500 in / 120 out) | `$0.00270` | `$0.00270` |
-| 5. 6 ta TTS Audio (150 sek = 3,750 audio token) | `gemini-3.8-flash-lite-tts` | 1,200 text in / 3,750 audio out | `$0.02310` | `$0.01155` |
-| **JAMI AI API XARAJATI / SAYYOH** | — | — | **`$0.0360` (~450 so'm)** | **`$0.0210` (~263 so'm)** |
+## 2. Bitta AI sessiya: hisoblanadigan yuklama
 
-> **Xavfsizlik zaxirasi (Stress-buffer):** Agar sayyoh 2 baravar ko'proq (12 ta savol) bersa, 2027-yil TTS narxi oshsa va 10% so'rov `gemini-4-hydrogen` fallback'ga o'tsa ham, 1 sayyohning maksimal AI xarajati **`$0.09 – $0.12`** dan oshmaydi! Biznes-modelda ehtiyot chorasi sifatida **`$0.15 / sayyoh`** deb olingan.
+Bu bir Xiva pilot sessiyasi uchun faraz; 4 kunlik, ko‘p shaharli safarning haqiqiy o‘rtacha sarfi emas.
 
----
+| Amal | Token/yuklama | Cache yoʻq | 50% toʻliq javob/audio cache ssenariysi |
+| --- | --- | ---: | ---: |
+| 1 roadmap | 2,200 in / 600 out | $0.002160 | $0.002160 |
+| 6 RAG savol | Har biri 1,800 in / 250 out | $0.006990 | $0.003495 |
+| 2 foto | Har biri 1,400 in / 50 out | $0.001090 | $0.001090 |
+| 6 signal tahlili | Har biri 500 in / 120 out | $0.002700 | $0.002700 |
+| 6 audio, jami 150 soniya | 1,200 text in / 3,750 audio out | $0.023100 | $0.011550 |
+| **Jami** | | **$0.036040** | **$0.020995** |
 
-## 3. Bosqichma-Bosqich Loyiha Smetasi (3 Ta Davr)
+Cache ustuni provider prompt cache tarifi emas: RAG/TTS soʻrovlarining yarmiga qayta API chaqiruvsiz tayyor javob qaytarish farazi. Hit rate hali oʻlchanmagan. Shaxsiy javob va audio har doim qayta ishlatilmaydi.
 
-### SMETA A: 0-Bosqich — Xakaton va MVP Ishga Tushirish (Hozirgi 1 oy)
+**Operatsion reja $0.04/pullik sessiya**, stress parametri $0.15. Hech biri maksimal limit kafolati emas. Backend kvota, retry va fallback chegaralarini o‘rnatishi kerak. 2027 TTS, ko‘p kunlik foydalanish, ko‘proq savol va grounding xarajatni oshiradi. Milliy safar iqtisodiyoti alohida telemetriya bilan o‘lchanadi.
 
-| # | Xarajat moddasi | Miqdor | Birlik narxi | Jami (USD) | Jami (UZS) |
-| :---: | :--- | :---: | :---: | :---: | :---: |
-| 1 | AWS EC2 Ubuntu `t3.small` + 30GB EBS `gp3` + Public IPv4 | 1 oy | `$21.50` | `$21.50` | `268,750` |
-| 2 | `.uz` domen (`smartguide.uz`, 1 yil) | 1 yil | `$2.80` | `$2.80` | `35,000` |
-| 3 | HTTPS SSL (Let's Encrypt) + PostgreSQL + PM2 | — | `$0.00` | `$0.00` | `0` |
-| 4 | Gemini API test va Demo Day zaxirasi (~500 test sessiya) | 500 sessiya | `$0.036` | `$18.00` | `225,000` |
-| 5 | Demo Day uchun A5 laminatsiyalangan QR kartalar (6 dona) | 6 dona | `$1.50` | `$9.00` | `112,500` |
-| | **JAMI 0-BOSQICH (MVP LAUNCH)** | | | **`$51.30`** | **`641,250 so'm`** |
+## 3. Smeta A — MVP uchun bir oylik pul xarajati
 
----
+| Modda | Formula | USD |
+| --- | --- | ---: |
+| Server | 1 × $21.50 | 21.50 |
+| Domen | 1 yil | 2.80 |
+| API test | 500 × $0.03604 | 18.02 |
+| Demo promo kartalar | 6 × $1.50 | 9.00 |
+| **Jami** | | **51.32** |
 
-### SMETA B: 1-Bosqich — Xiva Ichan-Qal'a 3 Oylik Real Pilot (15 Obida GPS + Reklama QR Nuqtalari)
+UZS: 641,500. Founder mehnati, internet va qurilmalar bu cash smetaga kiritilmagan; ular iqtisodiy jihatdan bepul emas.
 
-*Maqsad: Har bir obidaga qimmat QR-lavha qotirmasdan (GPS joylashuv orqali ilova ichida obyektni avtomatik taklif qilish!), faqat kirish darvozasi, Xiva vokzali va hamkor mehmonxonalarga reklama QR-stend va roll-up bannerlar qo'yish orqali 3 oyda 3 000 ta pullik sayyohga xizmat ko'rsatish.*
+## 4. Smeta B — Xiva, uch oylik pullik pilot ssenariysi
 
-#### 1. Bir martalik kapital xarajatlar (CAPEX — 1-oy)
-| # | Xarajat moddasi | Miqdor | Birlik narxi | Jami (USD) | Jami (UZS) |
-| :---: | :--- | :---: | :---: | :---: | :---: |
-| 1 | Kirish darvozasi (Ota-Darvoza) va Xiva vokzali uchun Roll-Up reklama bannerlari (85×200 cm) | 4 dona | `$35.00` | `$140.00` | `1,750,000` |
-| 2 | Kassa va hamkor mehmonxona resepshnlari uchun akril UV-bosma reklama QR stol stendlari | 20 dona | `$5.00` | `$100.00` | `1,250,000` |
-| 3 | Xiva tarixchilari / muzey ilmiy xodimlari bilan 15 ta obida RAG pasporti + GPS nuqtalarini tasdiqlatish | 15 obida | `$25.00` | `$375.00` | `4,687,500` |
-| 4 | Xivaga pilot o'rnatish va mehmonxona/kassa shartnomalari safari (2 kishi, 2 kun) | 1 safar | `$260.00` | `$260.00` | `3,250,000` |
-| 5 | Click / Payme merchant ulash va yuridik (YaTT/MChJ) ro'yxatdan o'tish xarajatlari | 1 paket | `$120.00` | `$120.00` | `1,500,000` |
-| | **Jami CAPEX (Bir martalik — obida lavhalarisiz yengil start!)** | | | **`$995.00`** | **`12,437,500 so'm`** |
+Maqsad: 15 ta kontent joyini tekshirish, 3,000 pullik sessiya. Hozirgi AI katalogi 5 obida; 15 ta — kelajak maqsadi. GPS avtomatik tavsiya va payment integratsiyasi tayyor deb olinmaydi. Bepul validatsiya davri bu sotuvlar ichida emas.
 
-#### 2. 3 Oylik Operatsion Xarajatlar (OPEX — 3 oy uchun)
-| # | Xarajat moddasi | Oylik | 3 Oy Jami (USD) | 3 Oy Jami (UZS) |
-| :---: | :--- | :---: | :---: | :---: |
-| 1 | AWS EC2 `t3.medium` (4GB RAM) + 50GB EBS + IPv4 + Snapshot backup | `$43.00` | `$129.00` | `1,612,500` |
-| 2 | Gemini API xarajati (3,000 sayyoh × `$0.04` zaxirali tarif) | `$40.00` | `$120.00` | `1,500,000` |
-| 3 | Click/Payme ekvayring (2% × `$12,000` tushum) | `$80.00` | `$240.00` | `3,000,000` |
-| 4 | Kassa xodimlari motivatsiyasi & promo flayerlar (Xiva vokzali/xostellar) | `$100.00` | `$300.00` | `3,750,000` |
-| 5 | Monitoring, backup va kutilmagan xarajatlar zaxirasi (10%) | `$60.00` | `$180.00` | `2,250,000` |
-| | **Jami OPEX (3 oy — founder jamoa ulushda ishlaydi)** | **`$323.00`** | **`$969.00`** | **`12,112,500 so'm`** |
+### Bir martalik xarajat (CAPEX / ishga tushirish)
 
-#### 3. 3 Oylik Pilot Natijasi va Qoplash Nuqtasi (Break-Even)
-- **Pilot Umumiy Byudjeti (CAPEX + 3 oy OPEX):** **`$1,964`** (`24.55 mln so'm`)
-- **Pilot Daromadi (3,000 sayyoh × `$4`):** `$12,000` Gross
-  - Muzey ulushi (30%): **`$3,600`** *(Muzey $0 tikib $3,600 sof foyda + Data Panel oladi!)*
-  - SmartGuide ulushi (70%): **`$8,400`**
-- **SmartGuide Sof Foydasi (3 oy yakuni):** `$8,400 - $1,964` = **`+$6,436`** (**ROI: 328%!**)
-- **Qoplash nuqtasi (Break-Even):** Bor-yo'g'i **`735 ta` pullik sayyoh** (Xiva mavsumida **~20 kun** ichida barcha pilot xarajatlari to'liq qoplanadi!).
+| Modda | Formula | USD |
+| --- | --- | ---: |
+| Roll-Up | 4 × $35 | 140 |
+| Promo QR stendi | 20 × $5 | 100 |
+| Lokal ekspert + kontent/GPS tekshiruvi | 15 × $25 | 375 |
+| Safar | 1 | 260 |
+| Merchant/yuridik boshlangʻich ishlar | 1 paket | 120 |
+| **Jami** | | **995** |
 
----
+### Uch oylik OPEX
 
-### SMETA C: 2-Bosqich — 12 Oylik O'zbekiston Bo'ylab Kengayish (10 ta Kompleks: Xiva, Samarqand, Buxoro, Toshkent)
+| Modda | Formula | USD |
+| --- | --- | ---: |
+| Server | 3 × $43 | 129 |
+| AI | 3,000 × $0.04 | 120 |
+| Ekvayring | 2% × $12,000 | 240 |
+| Promo va operatsiya | 3 × $100 | 300 |
+| Yaxlitlangan zaxira | $60 × 3 | 180 |
+| **Jami** | | **969** |
 
-*Maqsad: 10 ta yirik tarixiy kompleks/muzey (~100 ta GPS obida), yiliga 50,000 pullik sayyoh + 10 ta B2B SaaS shartnoma.*
+Cash byudjet: **$1,964 = 24,550,000 UZS**. Unda muzey ulushi alohida tushumdan ushlab qolinadi: gross $12,000 − muzey $3,600 − cash byudjet $1,964 = **$6,436 rejalashtirilgan qoldiq**, ish haqi, soliqlar, refund va affiliate dan oldin. Buni sof foyda deb atamaymiz. Zaxiraning sarflanmagan qismi real xarajat bo‘lmaydi.
 
-| Kategoriya | Tarkibi | Yillik Xarajat (USD) | Izoh |
-| :--- | :--- | :---: | :--- |
-| **1. Infratuzilma & AI** | AWS EC2 (`t3.large` + Managed PostgreSQL RDS `db.t4g.small` + S3/CloudFront ~`$145/oy`) + Gemini API (50K sayyoh × `$0.04` = `$2,000`) + domenlar | **`$3,740`** | Yuqori yuklama (Multi-AZ backup) |
-| **2. Reklama Kiosk & Promo Stendlar** | 2 ta flagman 32" info-kiosk (Xiva/Samarqand kirish — `2 × $1,200 = $2,400`) + 20 ta Roll-Up banner (`$700`) + 100 ta mehmonxona/kassa akril QR stendi (`$500`) | **`$3,600`** | Faqat kirish nuqtalarida reklama — obida devorlariga QR kerak emas! |
-| **3. Kontent & Mahalliy RAG** | 100 ta obida uchun tarixchilar/muzey ekspertlari tekshiruvi + GPS xaritalash (`$30 × 100`) | **`$3,000`** | 0% gallyutsinatsiya kafolati |
-| **4. Jamoa (Core Team, 12 oy)** | 1 Backend/DevOps + 1 Frontend + 1 AI/RAG + 1 B2B Sales/Ops (O'zbekiston startap bosqichi o'rtacha oylik `$800–$1,200` / kishi) | **`$48,000`** | To'liq shtatga o'tish (tushumdan qoplanadi) |
-| **5. Sotuv, Safarlar & Ekvayring** | Click/Payme 2% (`$4,000`) + hududiy safarlar/TITF ko'rgazma (`$3,500`) + buxgalteriya/yuridik (`$2,400`) | **`$9,900`** | B2B sotuv va soliq hisobi |
-| **6. Zaxira fondi (10%)** | Kutilmagan texnik/operatsion xarajatlar | **`$6,824`** | Xavfsizlik yostiqchasi |
-| **JAMI 12 OYLIK SMETA** | | **`$75,064`** | |
+**Break-even:** doimiy xarajat = $995 + $129 + $300 + $180 = $1,604. Har sotuv hissasi = $4 × (1 − 30% − 2%) − $0.04 = $2.68. **ceil(1,604 / 2.68) = 599 sessiya**. Ekvayring va AI ni yana umumiy smetadan ayrish ikki marta hisoblash boʻladi. Kunlar soni sotuv tezligisiz aniqlanmaydi.
 
-#### 12 Oylik Moliyaviy Prognoz (P&L Xulosa)
-| Ko'rsatkich | Konservativ (30K sayyoh) | Bazaviy Maqsad (50K sayyoh) | Optimistik (85K sayyoh) |
-| :--- | :---: | :---: | :---: |
-| Umumiy Chipta Tushumi (`$4/sayyoh`) | `$120,000` | `$200,000` | `$340,000` |
-| Muzeylarga To'lanadigan Ulush (30%) | `$36,000` | `$60,000` | `$102,000` |
-| SmartGuide Chipta Ulushi (70%) | `$84,000` | `$140,000` | `$238,000` |
-| B2B Experience Intelligence SaaS (`10 × $150/oy`) | `$12,000` | `$18,000` | `$30,000` |
-| **SmartGuide Jami Sof Tushumi** | **`$96,000`** | **`$158,000`** | **`$268,000`** |
-| Jami Yillik Xarajatlar (Smeta C) | `$70,600` | `$75,064` | `$83,200` |
-| **Yillik Operatsion Foyda (EBITDA)** | **`+$25,400`** | **`+$82,936`** | **`+$184,800`** |
+Stress AI $0.15 boʻlsa: cash byudjet $2,294; qoldiq $6,106; break-even ceil(1,604 / 2.57) = **625**. Agar sotuvlarning hammasiga 10% affiliate qoʻshilsa, bazaviy hissa $2.28, break-even **704**; shartnoma yoʻqligi sabab asosiy byudjetga kiritilmagan.
 
----
+Bepul sessiya: tushum $0, muzey ulushi $0; AI va infratuzilma xarajati bor. Uni pullik prognoz bilan aralashtirmaslik kerak.
 
-## 4. Xakaton Mukofoti (`50 000 000 so'm ≈ $4,000`) Taqsimot Rejasi
+## 5. Smeta C — 12 oy / 10 hamkor ssenariysi
 
-Agar **Tourism Hackathon 2026** 3-trekda 1-o'rin (`50 mln so'm ≈ $4,000`) olinsa, mablag' 100% maqsadli ravishda **Ichan-Qal'a Pilotini** ishga tushirishga sarflanadi:
-- **`$995` (25%)** — Ichan-Qal'a kirish bannerlari, 20 ta kassa/mehmonxona reklama QR stendlari, 15 obida RAG/GPS ekspertizasi va Xiva safari (Smeta B CAPEX).
-- **`$969` (24%)** — 3 oylik AWS server, Gemini API kvotasi, kassa promo va monitoring (Smeta B OPEX).
-- **`$1,200` (30%)** — Samarqand (Registon) va Toshkent (Temuriylar muzeyi) 2-pilot obyektlarini tayyorlash (yoki 1 ta flagman 32" reklama info-kioski).
-- **`$836` (21%)** — Yuridik rasmiylashtirish, soliq/ekvayring va zaxira fondi.
+| Kategoriya | Tarkib | USD |
+| --- | --- | ---: |
+| Infra va AI | Infra/domen uchun $145 × 12 + 50K × $0.04 | 3,740 |
+| Promo/kiosk | 2 × $1,200 + 20 × $35 + 100 × $5 | 3,600 |
+| Kontent | 100 joy × $30 | 3,000 |
+| Jamoa | 4 kishi × $1,000 × 12 | 48,000 |
+| Sotuv/huquqiy/ekvayring | $3,500 + $2,400 + 2% × $200K | 9,900 |
+| Zaxira | Yuqoridagi $68,240 ning 10% | 6,824 |
+| **Jami** | | **75,064** |
+
+Infra $145 — reja envelope; Multi-AZ RDS yoki toʻliq managed stack shu summaga sigʻadi degan quote yoʻq. Jamoa qatori ish beruvchi soliqlarini batafsil hisoblamaydi. Alohida quote va mehnat xarajatlari tekshiriladi.
+
+Ssenariylarda 10 Starter hamkor butun 12 oy faol: **10 × $149 × 12 = $17,880**. Bosqichma-bosqich ulansa kamayadi. Doimiy envelope $69,064; oʻzgaruvchan AI + fee har sotuvga $0.12; zaxira ssenariylar orasida oʻzgartirilmagan.
+
+| Koʻrsatkich | 30K sessiya | 50K sessiya | 85K sessiya |
+| --- | ---: | ---: | ---: |
+| Chipta gross | 120,000 | 200,000 | 340,000 |
+| Muzey 30% | 36,000 | 60,000 | 102,000 |
+| Platforma ulushi | 84,000 | 140,000 | 238,000 |
+| SaaS | 17,880 | 17,880 | 17,880 |
+| Jami platforma tushumi, xarajatlardan oldin | 101,880 | 157,880 | 255,880 |
+| Cash smeta: 69,064 + N × 0.12 | 72,664 | 75,064 | 79,264 |
+| **Rejalashtirilgan cash qoldiq** | **29,216** | **82,816** | **176,616** |
+
+Bu EBITDA emas: cash xarajatlar ichida kiosk va boshlangʻich kontent bor. Soliq, amortizatsiya, payment refund, affiliate, bepul foydalanuvchilar va koʻp kunlik foydalanish keyingi moliyaviy modelda alohida hisoblanadi. SaaS dan ekvayring kerak bo‘lsa qo‘shimcha.
+
+## 6. $4,000 grant ssenariysi
+
+Mukofot olingani tasdiqlanmagan. Agar shu summa ajratilsa:
+
+- $995 — pilotni ishga tushirish.
+- $969 — uch oylik pilot OPEX.
+- $1,200 — keyingi kontent/pilot tayyorlash, kiosk xaridi avtomatik emas.
+- $836 — qoʻshimcha kutilmagan xarajatlar va keyingi bosqich; merchant/yuridik $120 yuqorida hisoblangan, takror yozilmaydi.
+
+Jami $4,000. Grant daromad modelining ishlash isboti emas.

@@ -1,20 +1,19 @@
-# `@smartguide/dashboard` — B2B Museum Experience Intelligence Paneli
+# `@smartguide/dashboard` — pilot analytics and planning tools
 
-**Port:** `5173`  
-**Stek:** React 19, Vite 6, TypeScript, Tailwind CSS v4, Recharts 3, `qrcode`
+React 19, Vite 6, TypeScript, Tailwind 4, Recharts, qrcode. Default port 5173.
 
-## Asosiy Modullar (5 Soniyalik Real-Time Polling)
-- **KPI & Revenue Share:** Total Tourists, Roadmaps Generated, Total AI Interactions, Top Landmark, Estimated Revenue Share (`$4/sayyoh`, 30% muzey ulushi, `$0.04` real Gemini API xarajati → ~96% marja).
-- **Signal vs. Noise Content Matrix:** Sayyohlarni eng ko'p hayratga solgan **TOP Signal** faktlar vs. e'tibor berilmayotgan **Low-Signal Noise** ma'lumotlar (avtomatik filtrlangan).
-- **Tourist Impressions & Curiosity Gaps:** Sayyohlar hissiyoti (Awe / Fascinated / Curious / Bored) + muzey arxivida yetishmayotgan savollar ro'yxati.
-- **B2B Revenue Simulator:** Muzey direktori uchun kunlik sayyohlar soni bo'yicha oylik/yillik daromad kalkulyatori.
-- **Marketing & Partner Promo QR Generator & CSV Export:** Kirish darvozasi, kassa, vokzal, info-kiosk va hamkor mehmonxonalar uchun kuzatiladigan (`?ref=...`) reklama QR-stendlari (`PNG`, `Print All`) va UTF-8 CSV hisobot. *(Eslatma: QR-kod faqat ilovani tanitish/kirish uchun; obidalar ichkarida GPS orqali taklif qilinadi.)*
+- Existing analytics summary polled every five seconds, preserving the last successful data during reconnect.
+- Optional Signal/Noise, sentiment, curiosity gaps and roadmap counts display only if API supplies them. Empty states otherwise; no invented interest scores or visitor reactions.
+- Revenue calculator is an **assumption model**, not live payments: museum 30%, payment fee 2%, AI $0.04/base or $0.15/stress per session, server $43/month. Default 3,000 monthly paid sessions at $4 give $7,997 contribution before salaries, content, marketing, taxes, refunds and affiliates.
+- Promo QR entry links (`?ref=entrance`, hotel, station) and optional per-landmark Khiva pilot links. Generating a ref URL does not implement backend attribution or require a sign on every monument.
+- UTF-8 BOM CSV export; frontend fallback if export API is missing. Charts, QR and calculator use lazy chunks.
 
-## Buyruqlar
+The museum share is revenue before its own costs. Actual paid users, sales and nationwide travel budgets are not inferred from guide questions. Backend summary values may be seeded/demo data; identify them during demos.
+
 ```bash
 npm run dev:dashboard
 npm run typecheck --workspace=@smartguide/dashboard
 npm run build --workspace=@smartguide/dashboard
 ```
 
-Batafsil spetsifikatsiya: [API_CONTRACT.md](../../documentation/API_CONTRACT.md) · [BUSINESS_MODEL.md](../../documentation/BUSINESS_MODEL.md)
+[API status](../../documentation/API_CONTRACT.md) · [business](../../documentation/BUSINESS_MODEL.md) · [budget assumptions](../../documentation/SMETA_BUDGET.md)

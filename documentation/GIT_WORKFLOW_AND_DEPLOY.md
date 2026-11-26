@@ -1,6 +1,8 @@
 # Parallel Git Ishlash Qoidalari va AWS Ubuntu Deploy Yo'riqnomasi
 
-Ushbu hujjat 3 ta texnik yo'nalish (**Frontend**, **Backend**, **AI/RAG**) bitta repoda bir-biriga xalaqit bermasdan (0 merge conflict bilan) parallel ishlashi va loyihani AWS Ubuntu serverga Docker'siz deploy qilish tartibini belgilaydi.
+Ushbu hujjat Frontend, Backend va AI/RAG egaligini hamda deploy yoʻriqnomasini belgilaydi. Merge conflictsiz ishlash kafolatlanmaydi. Buyruqlar yoʻriqnoma, deploy bajarilgani dalili emas.
+
+> 26-noyabr yangilanishi: milliy solo-travel frontend va moslangan hujjatlar `feat/uzbekistan-solo-travel` branchida. `feat/frontend` avvalgi ish branchi. Bu vazifa doirasida boshqa branchlar, backend/shared runtime, root dependencies yoki production deploy oʻzgartirilmaydi. README va documentation foydalanuvchi topshirigʻi bilan moslanadi. API statusi uchun [API_CONTRACT.md](API_CONTRACT.md), mahsulot uchun [FRONTEND_PRODUCT.md](FRONTEND_PRODUCT.md) ni oʻqing.
 
 ---
 

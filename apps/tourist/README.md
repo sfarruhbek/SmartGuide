@@ -1,23 +1,22 @@
-# `@smartguide/tourist` — Emotsional Roadmap + Jonli AI-Gid PWA
+# `@smartguide/tourist` — Uzbekistan solo travel
 
-**Port:** `3000`  
-**Stek:** Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS v4, Lucide Icons
+Next.js 15, React 19, TypeScript, Tailwind 4. Default port 3000.
 
-## 2 Bosqichli Sayyoh Tajribasi (Loginsiz · Har Obidada QR Kerak Emas!)
-1. **`/` — GPS Yaqin Obyekt + Shaxsiy Emotsional Roadmap Builder:**
-   - Kirishdagi reklama QR/kiosk orqali ilova ochiladi (`/?ref=west-gate-kiosk`).
-   - Brauzer **GPS geolokatsiyasi** sayyohning joylashuviga qarab eng yaqin obyektni avtomatik taklif qiladi (xakaton zali ichida ko'rsatish uchun *Demo GPS Simulator* mavjud).
-   - 10 soniyada Til (`EN, UZ, RU, JA, KO, ES`) + Vaqt (`1h / 2h / 4h`) + Qiziqish/Vibe tanlanib, har bir obidaning **emotsional foydasi**, **piyoda masofasi** va **TOP Signal fakti** bilan Roadmap chiziladi.
-2. **`/l/[slug]` — Obida Oldida Jonli AI Suhbat + Micro-Feedback:**
-   - Roadmap progressi va keyingi bekat tavsiyasi.
-   - **Snap & Ask** kamera/rasm tanish + ovozli diktovka + matn + **Gemini 3.8 TTS** audio pleyer.
-   - Har bir javob ostida **1-tap Micro-Feedback** (`🔥 Juda qiziq`, `🤯 Hayratlanarli`, `😐 Kerak emas`) — keyingi sayyohlar marshrutini aqllilashtiruvchi real signal!
+- `/`: plan / itinerary / map. Six-language UI, days and UZS budget, ordered destinations, local estimates, contingency and shortfall. Deterministic frontend planner; no AI-generation claim.
+- Interactive OSM map: 13 places in four cities, source notes, filters and private discovery drafts. Planner supports 16 named cities plus free text; missing catalog data becomes explicit free time.
+- `/khiva`: retained short-walk pilot (1/2/4 hours, five landmarks).
+- `/l/[slug]`: existing Khiva API guide with optional audio, text/photo/speech, transcript and feedback UI. Current backend does not implement feedback or roadmap routes; errors/fallbacks are visible.
 
-## Buyruqlar
+Trip and discovery drafts stay in localStorage. No login, cloud sync, public contribution publishing, payment, booking, live fares, GPS auto-suggestion or offline tile download is implemented. Public map tiles need internet. The installed manifest is not an offline service-worker implementation.
+
+UI languages: EN/UZ/RU/ES/JA/KO. New place stories: EN/RU/UZ; English fallback is labelled. Estimates are authored planning allowances, not verified current tariffs.
+
 ```bash
 npm run dev:tourist
 npm run typecheck --workspace=@smartguide/tourist
 npm run build --workspace=@smartguide/tourist
 ```
 
-Batafsil spetsifikatsiya: [API_CONTRACT.md](../../documentation/API_CONTRACT.md) · [ARCHITECTURE.md](../../documentation/ARCHITECTURE.md)
+See [product/status](../../documentation/FRONTEND_PRODUCT.md), [API](../../documentation/API_CONTRACT.md), [architecture](../../documentation/ARCHITECTURE.md).
+
+Photo licenses: [`public/cities/credits.json`](public/cities/credits.json), `/credits.html`. Khiva photos predate this national edition; their provenance must be checked before public redistribution. No new rights claim is made for them in this change.

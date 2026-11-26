@@ -1,186 +1,57 @@
-# SmartGuide — Tizim Arxitekturasi va Data Flywheel Dizayni
+# SmartGuide — arxitektura va amaldagi integratsiya
 
-Ushbu hujjat **SmartGuide** ning yakuniy mahsulot arxitekturasini — **Emotsional Shaxsiy Roadmap → Jonli Obida Suhbatlari → Sayyoh Qiziqishi va Signal/Noise Intellekti (Self-Learning Flywheel)** tizimini texnik jihatdan to'liq tushuntiradi.
+26-noyabr 2026. Mahsulotning asosiy oqimi: mustaqil sayohatchi → kunlar/byudjet/qiziqishlar → safar → mahalliy xarita → manbali izoh. Xiva AI-piloti va B2B analitika shu mahsulotning alohida qatlamlari.
 
----
-
-## 1. Yopiq Zanjirli Data Flywheel Arxitekturasi (Boshqa AI'lardan Asosiy Farqimiz)
+## Hozirgi qatlamlar
 
 ```mermaid
-flowchart TB
-    subgraph S0["0-QADAM: Reklama & Kirish Nuqtalari (Har obidada QR YO'Q!)"]
-        PROMO["Kassa / Mehmonxona / Info-Kiosk / Vokzal\nPromo QR-kod (/?ref=west-gate-kiosk)"]
-    end
-
-    subgraph S1["1-QADAM: GPS Joylashuv + Shaxsiy Emotsional Roadmap"]
-        PREF["Sayyoh profili + GPS (lat, lng):\nTil · Vaqt (1h/2h/4h) · Qiziqish (Vibes) · Joriy lokatsiya"]
-        RM_GEN["POST /api/roadmap/generate & GET /api/landmarks/nearby\nGPS + Signal-Weighted Roadmap Engine"]
-        RM_UI["Emotsional Roadmap + 📍 Eng yaqin obyekt kartasi:\nQayerga? Nega? Qanday hissiyot/foyda oladi?"]
-        PROMO --> PREF --> RM_GEN --> RM_UI
-    end
-
-    subgraph S2["2-QADAM: GPS Yaqinlashuv → Obida Oldida Jonli AI Suhbat"]
-        VISIT["Sayyoh obyektga yaqinlashadi:\nApp GPS orqali avtomatik taklif qiladi (yoki Snap & Ask foto)"]
-        ASK["POST /api/guide/ask\nVerified Local RAG + Gemini Vision + Gemini 3.8 TTS"]
-        FEEDBACK["Sayyoh munosabati\n(Suhbat matni + Micro-reaksiya: 🔥/🤯/😐)"]
-        RM_UI --> VISIT --> ASK --> FEEDBACK
-    end
-
-    subgraph S3["3-QADAM: Tourist Interest & Signal/Noise Flywheel (MOAT)"]
-        EXTRACT["Interest & Impression Extractor\n(Mavzu · Hissiyot/Sentiment · Signal vs Noise · Curiosity Gap)"]
-        PG[("PostgreSQL Intelligence DB\nlandmarks (lat/lng) · roadmaps · interactions · landmark_topic_signals")]
-        B2B["B2B Experience Intelligence Dashboard\nSignal vs Noise Heatmap · Sentiment · Promo Attribution · Revenue"]
-        FEEDBACK --> EXTRACT --> PG
-        PG -->|"Real-time 5s Poll"| B2B
-    end
-
-    PG ==>|"Yopiq tsikl: Eng qiziq obidalar va Signal faktlar\nkeyingi sayyohlar Roadmap & hikoyalarini yaxshilaydi!"| RM_GEN
-    PG ==>|"Signal-first Storytelling:\nKeraksiz shovqinni (Noise) olib tashlaydi"| ASK
+flowchart LR
+  User[Mustaqil sayohatchi] --> Form[Shaharlar + kunlar + UZS + qiziqishlar]
+  Form --> Planner[Lokal deterministik planner]
+  Planner --> Days[Kunlik vaqt va smeta]
+  Planner --> Storage[Qurilmadagi localStorage]
+  User --> Map[OSM xarita + joylar katalogi]
+  Map --> Sources[Manba havolalari / lokal izohlar]
+  Map --> Draft[Shaxsiy tekshirilmagan topilma]
+  Draft --> Storage
+  User --> Pilot[Xiva pilot guide]
+  Pilot --> API[Express API]
+  API --> AI[Gemini / arxiv fallback]
+  API --> DB[(PostgreSQL)]
+  DB --> API
+  API --> Dash[B2B dashboard, 5s polling]
 ```
 
----
+`apps/tourist/src/lib/journey.ts`: validatsiya, byudjetni yigʻish, zaxira va kamomad, proyeksiya, localStorage inputni qayta hisoblash. `places.ts`: 16 shahar va 13 joy. Joylar narxi operator kiritgan taxmin, amaldagi quote emas. Yetarli kontent boʻlmasa planner erkin vaqtni ochiq belgilaydi. Har yangi shahar uchun transfer kuni ajratiladi; real qatnov jadvali hisoblanmaydi.
 
-## 2. To'liq So'rovlar Ketma-Ketligi (Sequence Diagram)
+`DiscoveryMap.tsx`: visible OSM tile lar, attribution, pan/zoom va markerlar. Bu navigatsiya/routing engine emas. `TouristHomeClient.tsx`: plan / itinerary / map, fotosuratni mavjud Xiva API ga joʻnatish, shaxsiy qoralama dialogi. `journey-copy.ts`: 6 til UI; katalog hikoyalari hozir EN/RU/UZ.
 
-```mermaid
-sequenceDiagram
-    actor T as Sayyoh (Smartfon)
-    participant PWA as apps/tourist (Next.js)
-    participant API as apps/api (Express)
-    participant DB as PostgreSQL
-    participant AI as Gemini 3.5 Flash-Lite
-    participant TTS as Gemini 3.8 Flash-Lite TTS
-    participant DASH as apps/dashboard (B2B)
+`/khiva`: oldingi qisqa yurish builderi, `/l/[slug]`: mavjud 5 obida uchun AI matn, ovoz, foto, transkript, retry va micro-feedback UI. Lokal milliy trip va eski qisqa roadmap alohida formatlarda saqlanadi.
 
-    Note over T,DB: 1-BOSQICH: Promo QR/Kiosk → GPS Joylashuv + Emotsional Roadmap
-    T->>PWA: Kirishdagi reklama QR/kiosk orqali ilovani ochadi (?ref=west-gate-kiosk)
-    PWA->>PWA: GPS (lat, lng) ni oladi (yoki Demo Mode'da Ichan-Qal'a nuqtasini tanlaydi)
-    T->>PWA: Til + vaqt + qiziqish (vibe) tanlaydi
-    PWA->>API: POST /api/roadmap/generate { language, durationMinutes, vibes, lat, lng, refSource, sessionId }
-    API->>DB: 5 ta obida (GPS koordinatalar) + real landmark_topic_signals ni o'qiydi
-    API->>AI: Joylashuv + Signal reytinglariga tayangan Emotsional Roadmap tuzadi
-    AI-->>API: Har bir stop uchun: masofa (m), nega borish, qanday hissiyot/foyda, top signal fakt
-    API->>DB: roadmaps jadvaliga yozadi (refSource bilan)
-    API-->>PWA: Shaxsiy Roadmap + 📍 Eng yaqin obyekt kartasi
+## Backendning repodagi haqiqiy holati
 
-    Note over T,DB: 2-BOSQICH: GPS Yaqinlashuv → Jonli Suhbat + Signal/Noise Yig'ish
-    T->>PWA: Obida yoniga keladi — App GPS bo'yicha obyektni taklif qiladi (/l/kalta-minor)
-    PWA->>API: POST /api/guide/ask { landmarkSlug, question, language, sessionId, imageBase64? }
-    API->>DB: Tasdiqlangan muzey pasporti + top Signal faktlarni oladi
-    API->>AI: Strict RAG + Signal-first javob + Interest/Sentiment JSON tahlili
-    AI-->>API: { answer, detectedTopic, signalCategory, sentiment, interestScore, curiosityGap? }
-    API->>TTS: Toza matn → WAV audio (24kHz)
-    TTS-->>API: Base64 audio/wav
-    API->>DB: interactions + landmark_topic_signals (signal_score++, sentiment) yangilanadi
-    API-->>PWA: { answer, audioBase64, detectedTopic, nextStopSuggestion }
+| Endpoint | Runtime |
+| --- | --- |
+| GET `/api/health` | Bor; DB va AI konfiguratsiyasini bildiradi |
+| GET `/api/landmarks` | Bor; Xiva katalogi |
+| GET `/api/landmarks/:slug` | Bor; bitta dossier |
+| POST `/api/guide/ask` | Bor; RAG/Vision/TTS va interaction log |
+| GET `/api/analytics/summary` | Bor; mavjud analytics tiplari |
+| Roadmap / feedback / nearby / visit / export | Hali route ulanmagan; oldingi kontraktdagi takliflar |
 
-    Note over T,DASH: 3-BOSQICH: B2B Real-Time Experience Intelligence
-    loop Har 5 soniyada
-        DASH->>API: GET /api/analytics/summary
-        API->>DB: Obidalar qiziqishi, Signal vs Noise jadvali, Sentiment, Curiosity Gaps, Daromad
-        API-->>DASH: Jonli yangilangan B2B panel
-    end
-```
+Mavjud umumiy tiplarda milliy trip, signals, sentiment va contribution kontraktlari yoʻq. Frontend kengaytmalari optional lokal tiplarda. Mavjud DB sxemasida `landmarks` va `interactions` bor; kengaytirilgan flywheel jadvallari loyiha taklifi, bajarilgan migratsiya emas.
 
----
+## Maʼlumot va xatolar
 
-## 3. Ma'lumotlar Bazasi Sxemasi (PostgreSQL + Drizzle ORM)
+- API ishlamasa milliy reja, statik katalog va lokal topilmalar ishlaydi. Xarita tile lari alohida internet xizmatiga bogʻliq; roʻyxat saqlanadi.
+- Backend health OK — real AI yoqilganini yoki kontent tarixchi tasdigʻidan oʻtganini anglatmaydi. `aiConfigured`, `sourceMode` va manbalar alohida tekshiriladi.
+- Browser speech synthesis — TTS fallback; ovoz va til qurilmada mavjud boʻlishiga bogʻliq. Audio matni o‘qish har doim mumkin.
+- Roadmap endpoint xatosida Xiva builder lokal curated marshrutni belgilab chiqaradi. Feedback endpoint xatosida «saqlandi» deyilmaydi.
+- Dashboard eski maʼlumotni saqlab reconnect holatini bildiradi; yangi insight maydonlari kelmasa bo‘sh holat. Kalkulyator API tushumi emas.
+- RAG, cache va audio kechikishi uchun 0% xato / doim <100ms / doim $0 vaʼdasi yoʻq.
 
-```mermaid
-erDiagram
-    landmarks ||--o{ interactions : "has many"
-    landmarks ||--o{ landmark_topic_signals : "tracks signal vs noise"
-    roadmaps ||--o{ interactions : "optional journey link"
+## Keyingi arxitektura — kelishilishi kerak
 
-    landmarks {
-        serial id PK
-        text slug UK "kalta-minor, juma-mosque, ..."
-        text name
-        jsonb localized_names
-        text era
-        text built_year
-        text architect
-        text location_in_site
-        double latitude "GPS kenglik (41.37828)"
-        double longitude "GPS uzunlik (60.35833)"
-        integer trigger_radius_m "GPS yaqinlik radiusi (45m)"
-        text archive_code "IQ-KH-001..005"
-        integer estimated_visit_minutes "15..35 min"
-        jsonb emotional_promise "6 tilda: nima his qiladi/foyda oladi"
-        jsonb vibe_tags "legends, architecture, photography, royalty, spiritual"
-        jsonb historical_facts "tagged facts: id, text, category"
-        jsonb architectural_details
-        jsonb local_legends
-        jsonb visual_cues
-        jsonb suggested_questions
-    }
+Milliy city/place katalogi va manba versiyalari; trip backendga saqlash; transport/tarif manbalari; contribution moderation va huquqlar; opt-in GPS; nationwide vision; payment/payout; agregat feedback va analytics. Ushbu branch backend yoki shared runtime ni oʻzgartirmaydi.
 
-    roadmaps {
-        serial id PK
-        text session_id
-        text language
-        integer duration_minutes "60 | 120 | 240"
-        jsonb selected_vibes
-        jsonb stops_json "ordered stops + why + emotion + topSignal"
-        timestamptz created_at
-    }
-
-    interactions {
-        serial id PK
-        integer landmark_id FK
-        text landmark_slug
-        text language
-        text question
-        text answer_preview
-        boolean has_image
-        boolean identified_by_vision
-        text session_id
-        text detected_topic "e.g. architect-escape-legend"
-        text signal_category "legend | architecture | history | photo_spot | practical"
-        text sentiment "awe | fascinated | curious | neutral | bored"
-        integer interest_score "1..5"
-        text user_feedback "fascinating | surprising | not_relevant | null"
-        text curiosity_gap "unanswered question if outside archive"
-        text source_mode
-        integer response_time_ms
-        timestamptz created_at
-    }
-
-    landmark_topic_signals {
-        serial id PK
-        integer landmark_id FK
-        text landmark_slug
-        text topic_key "e.g. unfinished-1855-battle"
-        text topic_label "Why Kalta Minor stopped at 29m"
-        text category "legend | architecture | history | photo_spot"
-        integer ask_count "necha marta so'ralgan"
-        integer positive_reactions "🔥/🤯 soni"
-        integer negative_reactions "😐/keraksiz soni"
-        real signal_score "0..100: Signal vs Noise indeksi"
-        timestamptz updated_at
-    }
-```
-
----
-
-## 4. "Signal vs. Noise" Ajratish Mexanizmi Qanday Ishlaydi?
-
-Oddiy AI har bir obida uchun 20 ta faktning hammasini bir xil vaznda saqlaydi. SmartGuide'da esa har bir fakt/mavzu o'z **Signal Score (`0–100`)** indeksiga ega:
-
-$$\text{Signal Score} = \text{clamp}\left(50 + 6 \cdot \ln(1 + \text{ask\_count}) + 12 \cdot \text{positive\_reactions} - 18 \cdot \text{negative\_reactions} + 8 \cdot \text{avg\_awe\_bonus},\; 0,\; 100\right)$$
-
-- **`Signal Score >= 75` (High Signal / "Oltin fakt"):**
-  - Yangi sayyohning **Emotsional Roadmap** kartasida *"Sayyohlarni eng ko'p hayratlantirgan nuqta"* sifatida chiqadi.
-  - Jonli suhbatda AI birinchi navbatda shu mavzularni jonli, qisqa hikoya qilib beradi.
-- **`Signal Score < 35` (Low Signal / "Noise — Ahamiyatsiz"):**
-  - AI buni o'zidan-o'zi cho'zib gapirib sayyohni zeriktirmaydi (faqat sayyoh aniq so'rasa javob beradi).
-  - B2B Dashboard'da muzey ma'muriyatiga *"Sayyohlar e'tibor bermayotgan ma'lumotlar"* bo'limida ko'rsatiladi!
-
----
-
-## 5. Barqarorlik va Graceful Degradation (4 Qatlamli Himoya)
-
-1. **Model Fallback:** `gemini-3.5-flash-lite` xato bersa → avtomatik `gemini-4-hydrogen`.
-2. **Offline/Archive Fallback:** API kalit ishlamasa ham, Roadmap va RAG javoblari PostgreSQL'dagi tasdiqlangan `landmarks` + `landmark_topic_signals` dan deterministik tarzda qaytadi (`500` xato chiqmaydi!).
-3. **TTS Fallback:** Gemini 3.8 TTS kechiksa yoki xato bersa → Frontend `AudioGuidePlayer` brauzerning `speechSynthesis` ovoziga o'tadi.
-4. **Smart Cache:** Bir xil tezkor savollar keshdan `<100ms` va `$0` API xarajatida qaytadi, lekin har bir savol baribir `interactions` va `landmark_topic_signals` ni yangilaydi!
+Feedback loop faqat o‘lchangan va yetarli namunadagi reaksiyalarga tayanishi kerak. Tilni millat deb olish, kam savol berilgan joyni «zerikarli» deb fakt sifatida chiqarish yoki soxta foizlarni UIga qoʻshish mumkin emas. Kontrakt va rollar: [API_CONTRACT.md](API_CONTRACT.md), [FRONTEND_PRODUCT.md](FRONTEND_PRODUCT.md).
