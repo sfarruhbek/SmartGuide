@@ -11,14 +11,14 @@ import { voiceCopy } from '@/lib/voice-copy';
 import { appendLocalReaction, type LocalReaction } from '@/lib/local-reactions';
 import { planningCopy } from '@/lib/planning-copy';
 
-export function MapVoiceAssistant({open,embedded=false,mapVisible,onClose,city,cities,onCityChange,language,location,locating,geoError,onLocate,focusPlace,onPlaces,onFocus,onActiveChange,tripPreferences,purpose='guide',onTrip,onRegistrationRequired,onUsage,onViewTrip}:{
+export function MapVoiceAssistant({open,embedded=false,mapVisible,onClose,city,cities,onCityChange,language,location,locating,geoError,onLocate,focusPlace,onPlaces,onFocus,onActiveChange,tripPreferences,purpose='guide',autoStartNonce=0,onTrip,onRegistrationRequired,onUsage,onViewTrip}:{
   open:boolean;onClose:()=>void;city:City;language:SupportedLanguage;location:VoicePosition|null;
   embedded?:boolean;
   onActiveChange?:(active:boolean)=>void;
   mapVisible:boolean;cities:City[];onCityChange:(id:string)=>void;locating:boolean;geoError:boolean;onLocate:()=>void;
   focusPlace:VoicePlace|null;
   onPlaces:(places:VoicePlace[])=>void;onFocus:(place:VoicePlace)=>void;
-  tripPreferences?:TripInput;purpose?:'plan'|'revise'|'guide';onTrip?:(result:unknown)=>boolean|void;onRegistrationRequired?:(feature:'plans'|'photos'|'voice')=>void;onUsage?:()=>void;onViewTrip?:()=>void;
+  tripPreferences?:TripInput;purpose?:'plan'|'revise'|'guide';autoStartNonce?:number;onTrip?:(result:unknown)=>boolean|void;onRegistrationRequired?:(feature:'plans'|'photos'|'voice')=>void;onUsage?:()=>void;onViewTrip?:()=>void;
 }){
   const copy=voiceCopy(language),p=planningCopy(language),id=useId(),dialog=useRef<HTMLDialogElement>(null),file=useRef<HTMLInputElement>(null);
   const actions=useRef({onTrip,onRegistrationRequired,onUsage});actions.current={onTrip,onRegistrationRequired,onUsage};
@@ -43,6 +43,16 @@ export function MapVoiceAssistant({open,embedded=false,mapVisible,onClose,city,c
   },[open]);
   useEffect(()=>()=>{client.current?.stop();},[]);
   useEffect(()=>{client.current?.updateContext(context);},[city.id,location?.lat,location?.lng,location?.accuracy,focusPlace?.id]);
+  const lastAutoStart=useRef(0);
+  useEffect(()=>{
+    if(!open||!autoStartNonce||autoStartNonce===lastAutoStart.current)return;
+    lastAutoStart.current=autoStartNonce;
+    if(client.current){
+      if(focusPlace?.id)client.current.updateContext(context,true);
+    }else{
+      start();
+    }
+  },[open,autoStartNonce]);
   useEffect(()=>{if(active)stop();},[language]);
   useEffect(()=>{
     if(!open&&!mapVisible)return;

@@ -134,6 +134,22 @@ test('Live manage_trip normalizes Russian/Uzbek/capitalized cities and missing o
   ws.close();
 });
 
+test('Live focused placeId injects verified facts and opens immediately with a story about that place',async()=>{
+  const {serveVoice}=await import('../src/explore/live.js');
+  const sentInputs:unknown[]=[];
+  const connection=makeConnection();
+  (connection.session as unknown as {sendRealtimeInput:(v:unknown)=>void}).sendRealtimeInput=(v)=>{sentInputs.push(v);};
+  const ws=new FakeSocket();
+  await serveVoice(ws as unknown as WebSocket,{...context,cityId:'samarkand',placeId:'ishratkhana',purpose:'guide'},{key:'guest:focus-place',registered:false},{
+    connect:connection.connect,openVoice:async()=>({durationMs:180000,close:async()=>{}}),
+  });
+  const sys=String(connection.options.config?.systemInstruction??'');
+  assert.ok(sys.includes('Ishratkhana Mausoleum'));
+  assert.ok(sys.includes('1464'));
+  assert.ok(sentInputs.some(input=>JSON.stringify(input).includes('Ishratkhana Mausoleum')&&JSON.stringify(input).includes('Do NOT talk about creating or changing their trip plan')));
+  ws.close();
+});
+
 test('Live refunds a photo reservation if the visitor disconnects before delivery',async()=>{
   const {serveVoice}=await import('../src/explore/live.js');
   const connection=makeConnection(),ws=new FakeSocket();let resolveReservation!:(refund:()=>Promise<void>)=>void,refunds=0;

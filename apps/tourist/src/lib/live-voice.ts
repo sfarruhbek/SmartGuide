@@ -117,7 +117,7 @@ export class LiveVoiceClient {
     this.capture.port.onmessage=event=>{if(!this.muted&&this.ready&&!this.stopped)this.send({type:'audio',data:encodePcm(event.data)});};
     const source=this.audio.createMediaStreamSource(this.media);source.connect(this.capture);this.capture.connect(this.audio.destination);
   }
-  updateContext(context:VoiceContext){this.send({type:'context',cityId:context.cityId,location:context.location??null,locationSource:context.locationSource,placeId:context.placeId??null});}
+  updateContext(context:VoiceContext,focusNow=false){this.send({type:'context',cityId:context.cityId,location:context.location??null,locationSource:context.locationSource,placeId:context.placeId??null,...(focusNow?{focusNow:true}:{})});}
   toggleMute(){
     this.muted=!this.muted;
     for(const track of this.media?.getAudioTracks()??[])track.enabled=!this.muted;
