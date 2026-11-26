@@ -65,7 +65,9 @@ Oldingi taklifdagi `lat`, `lng`, `refSource`, stop masofasi/trigger fields — k
 
 ### POST `/api/guide/feedback`
 
-Request `{ interactionId, rating }`, rating `fascinating | surprising | not_relevant`. Frontend success uchun `{ ok: true }` kutadi. Hozir endpoint yoʻq: UI retry/xato ko‘rsatadi. Saqlangan reaksiya yoki signal yangilandi deb aytmaydi.
+Request `{ interactionId, rating }`, rating `fascinating | surprising | not_relevant`. Frontend success uchun `{ ok: true }` kutadi. Hozir endpoint yoʻq: UI mavjud emasligini yoki vaqtinchalik xatoni ko‘rsatadi. Saqlangan reaksiya yoki signal yangilandi deb aytmaydi.
+
+Audit yangilanishi: 404/405/501 boʻlsa frontend feedback vaqtincha mavjud emasligini koʻrsatadi va shu javob uchun tugmalarni oʻchiradi. Boshqa vaqtinchalik xatolarda retry qoladi. Guide POST timeout 45 soniya; navigatsiya yoki til almashganda soʻrov bekor qilinadi.
 
 ### Qolgan pilot takliflari
 

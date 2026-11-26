@@ -10,6 +10,9 @@ import type {
   Roadmap,
   TravelVibe,
 } from './experience';
+import { requestJson } from './http';
+import { LANGUAGE_CODES } from '@smartguide/shared';
+export { ApiError } from './http';
 
 function getApiBaseUrl(): string {
   const configured = (
@@ -23,6 +26,7 @@ function getApiBaseUrl(): string {
       !isCurrentLocal &&
       /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(configured)
     ) {
+      if (window.location.protocol === 'https:') return window.location.origin;
       return configured.replace(
         /\/\/(localhost|127\.0\.0\.1)/i,
         `//${currentHost}`,
@@ -33,13 +37,13 @@ function getApiBaseUrl(): string {
 }
 
 export async function fetchLandmarks(): Promise<LandmarkSummary[]> {
-  const res = await fetch(`${getApiBaseUrl()}/api/landmarks`, {
-    cache: 'no-store',
-  });
-  if (!res.ok) {
-    throw new Error(`Failed to fetch landmarks (${res.status})`);
-  }
-  const data = (await res.json()) as { landmarks: LandmarkSummary[] };
+  const data = await requestJson<{ landmarks: LandmarkSummary[] }>(
+    `${getApiBaseUrl()}/api/landmarks`,
+    {
+      cache: 'no-store',
+    },
+  );
+  if (!Array.isArray(data.landmarks)) throw new Error('Invalid landmark list');
   return data.landmarks;
 }
 
@@ -50,6 +54,7 @@ export async function fetchLandmarkBySlug(
     `${getApiBaseUrl()}/api/landmarks/${encodeURIComponent(slug)}`,
     {
       cache: 'no-store',
+      signal: AbortSignal.timeout(10000),
     },
   );
   if (res.status === 404) return null;
@@ -62,21 +67,31 @@ export async function fetchLandmarkBySlug(
 
 export async function askGuide(
   payload: GuideAskRequest & { roadmapId?: number },
+  options: { signal?: AbortSignal; timeoutMs?: number } = {},
 ): Promise<GuideResponse> {
-  const res = await fetch(`${getApiBaseUrl()}/api/guide/ask`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  });
-
-  if (!res.ok) {
-    const errBody = (await res.json().catch(() => null)) as {
-      error?: string;
-    } | null;
-    throw new Error(errBody?.error || `Guide request failed (${res.status})`);
-  }
-
-  return (await res.json()) as GuideResponse;
+  const data = await requestJson<GuideResponse>(
+    `${getApiBaseUrl()}/api/guide/ask`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: options.signal,
+    },
+    options.timeoutMs ?? 45000,
+  );
+  if (
+    typeof data.answer !== 'string' ||
+    !data.answer.trim() ||
+    typeof data.landmarkSlug !== 'string' ||
+    typeof data.landmarkName !== 'string' ||
+    !LANGUAGE_CODES.includes(data.language) ||
+    !Number.isFinite(data.interactionId) ||
+    typeof data.identifiedByVision !== 'boolean' ||
+    (data.audioBase64 !== undefined && typeof data.audioBase64 !== 'string') ||
+    (data.audioMimeType !== undefined && typeof data.audioMimeType !== 'string')
+  )
+    throw new Error('Invalid guide response');
+  return data;
 }
 
 export async function generateRoadmap(payload: {
@@ -106,21 +121,15 @@ export async function sendGuideFeedback(
   interactionId: number,
   rating: FeedbackRating,
 ): Promise<void> {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 10000);
-  try {
-    const response = await fetch(`${getApiBaseUrl()}/api/guide/feedback`, {
+  const result = await requestJson<{ ok?: boolean }>(
+    `${getApiBaseUrl()}/api/guide/feedback`,
+    {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ interactionId, rating }),
-      signal: controller.signal,
-    });
-    if (!response.ok) throw new Error('Feedback unavailable');
-    const result = (await response.json()) as { ok?: boolean };
-    if (result.ok !== true) throw new Error('Feedback not saved');
-  } finally {
-    clearTimeout(timer);
-  }
+    },
+  );
+  if (result.ok !== true) throw new Error('Feedback not saved');
 }
 
 /**

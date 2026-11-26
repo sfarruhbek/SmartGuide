@@ -43,12 +43,14 @@ import {
   getSavedLanguage,
   saveLanguage,
   updateLanguage,
+  createLocalId,
 } from '@/lib/session';
 import { AudioGuidePlayer } from './AudioGuidePlayer';
 import { LandmarkArt } from './LandmarkArt';
 import { MonumentQuickNav } from './MonumentQuickNav';
 import { TouristHeader } from './TouristHeader';
 import { GuideFeedback } from './GuideFeedback';
+import { journeyCopy } from '@/lib/journey-copy';
 
 interface ChatMessage {
   id: string;
@@ -134,6 +136,7 @@ export function LandmarkGuideClient({
   const dialogRef = useRef<HTMLDialogElement>(null);
   const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
   const busyRef = useRef(false);
+  const requestController = useRef<AbortController | null>(null);
   const photoBusyRef = useRef(false);
   const languageRef = useRef(language);
   languageRef.current = language;
@@ -215,6 +218,7 @@ export function LandmarkGuideClient({
 
   useEffect(
     () => () => {
+      requestController.current?.abort();
       const recognition = recognitionRef.current;
       if (recognition) {
         recognition.onresult = null;
@@ -253,6 +257,13 @@ export function LandmarkGuideClient({
   }, [isLightboxOpen]);
 
   const handleLanguageChange = (lang: SupportedLanguage) => {
+    requestController.current?.abort();
+    requestController.current = null;
+    busyRef.current = false;
+    setIsLoading(false);
+    setLoadingPhotoPreview(null);
+    setLastFailedPayload(null);
+    setErrorMessage(null);
     recognitionRef.current?.stop();
     setIsListening(false);
     setLanguage(lang);
@@ -270,6 +281,8 @@ export function LandmarkGuideClient({
     const trimmed = text.trim();
     if ((!trimmed && !photo) || busyRef.current) return;
     busyRef.current = true;
+    const controller = new AbortController();
+    requestController.current = controller;
     textInputRef.current?.blur();
     recognitionRef.current?.stop();
     setErrorMessage(null);
@@ -280,7 +293,7 @@ export function LandmarkGuideClient({
       setMessages((previous) => [
         ...previous,
         {
-          id: crypto.randomUUID?.() ?? `user-${Date.now()}`,
+          id: createLocalId('user'),
           role: 'user',
           text: trimmed || ui.snapButton,
           imagePreviewUrl: photo?.previewDataUrl,
@@ -292,16 +305,20 @@ export function LandmarkGuideClient({
     setLoadingPhotoPreview(photo?.previewDataUrl ?? null);
     setIsLoading(true);
     try {
-      const response = await askGuide({
-        landmarkSlug: landmark.slug,
-        roadmapId: activeRoadmap?.roadmap.roadmapId ?? undefined,
-        question: trimmed,
-        language,
-        sessionId: getOrCreateSessionId(),
-        imageBase64: photo?.base64,
-        imageMimeType: photo?.mimeType,
-        includeAudio: true,
-      });
+      const response = await askGuide(
+        {
+          landmarkSlug: landmark.slug,
+          roadmapId: activeRoadmap?.roadmap.roadmapId ?? undefined,
+          question: trimmed,
+          language,
+          sessionId: getOrCreateSessionId(),
+          imageBase64: photo?.base64,
+          imageMimeType: photo?.mimeType,
+          includeAudio: true,
+        },
+        { signal: controller.signal },
+      );
+      if (controller.signal.aborted) return;
       if (intro && response.language === languageRef.current)
         setIntroResponse(response);
       else if (intro) return;
@@ -309,7 +326,7 @@ export function LandmarkGuideClient({
         setMessages((previous) => [
           ...previous,
           {
-            id: crypto.randomUUID?.() ?? `ai-${Date.now()}`,
+            id: createLocalId('ai'),
             role: 'assistant',
             text: response.answer,
             language: response.language,
@@ -317,12 +334,16 @@ export function LandmarkGuideClient({
           },
         ]);
     } catch {
+      if (controller.signal.aborted) return;
       setLastFailedPayload({ text: trimmed, photo, intro });
       setErrorMessage('request');
     } finally {
-      busyRef.current = false;
-      setIsLoading(false);
-      setLoadingPhotoPreview(null);
+      if (requestController.current === controller) {
+        requestController.current = null;
+        busyRef.current = false;
+        setIsLoading(false);
+        setLoadingPhotoPreview(null);
+      }
     }
   };
 
@@ -434,7 +455,14 @@ export function LandmarkGuideClient({
       <TouristHeader
         language={language}
         onLanguageChange={handleLanguageChange}
-        backLabel={ui.backToAll}
+        backLabel={
+          activeRoadmap ? ui.backToAll : journeyCopy(language)('navMap')
+        }
+        backHref={
+          activeRoadmap
+            ? `/khiva?lang=${language}`
+            : `/?lang=${language}&view=map&city=khiva&place=${landmark.slug}`
+        }
       />
       <main className="guide-layout">
         {activeRoadmap && (

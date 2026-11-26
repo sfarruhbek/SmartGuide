@@ -42,7 +42,7 @@ API: `http://localhost:4000/api/health`. Dashboard: `http://localhost:5173`. See
 ```bash
 npm run typecheck
 npm run build
-node --import tsx --test apps/tourist/tests/journey.test.ts apps/dashboard/tests/economics.test.ts
+npx tsx --tsconfig apps/tourist/tests/tsconfig.json --test apps/tourist/tests/*.test.ts apps/dashboard/tests/*.test.ts
 ```
 
 ## Workspace

@@ -9,18 +9,20 @@ interface TouristHeaderProps {
   language: SupportedLanguage;
   onLanguageChange: (language: SupportedLanguage) => void;
   backLabel?: string;
+  backHref?: string;
 }
 
 export function TouristHeader({
   language,
   onLanguageChange,
   backLabel,
+  backHref,
 }: TouristHeaderProps) {
   return (
     <header className="tourist-header">
       <div className="tourist-header-inner">
         {backLabel ? (
-          <Link href={`/?lang=${language}`} className="back-link">
+          <Link href={backHref ?? `/?lang=${language}`} className="back-link">
             <ArrowLeft aria-hidden="true" />
             <span>{backLabel}</span>
           </Link>

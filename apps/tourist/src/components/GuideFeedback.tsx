@@ -4,7 +4,8 @@ import { useRef, useState } from 'react';
 import type { SupportedLanguage } from '@smartguide/shared';
 import type { FeedbackRating } from '@/lib/experience';
 import { EXPERIENCE_COPY } from '@/lib/experience-copy';
-import { sendGuideFeedback } from '@/lib/api';
+import { sendGuideFeedback, ApiError } from '@/lib/api';
+import { journeyCopy } from '@/lib/journey-copy';
 
 const RATINGS = ['fascinating', 'surprising', 'not_relevant'] as const;
 const EMOJI = ['🔥', '🤯', '😐'];
@@ -20,6 +21,7 @@ export function GuideFeedback({
   const [pending, setPending] = useState<FeedbackRating | null>(null);
   const [failed, setFailed] = useState<FeedbackRating | null>(null);
   const busyRef = useRef(false);
+  const [unavailable, setUnavailable] = useState(false);
   const copy = EXPERIENCE_COPY[language];
   const submit = async (rating: FeedbackRating) => {
     if (busyRef.current || selected) return;
@@ -29,8 +31,10 @@ export function GuideFeedback({
     try {
       await sendGuideFeedback(interactionId, rating);
       setSelected(rating);
-    } catch {
-      setFailed(rating);
+    } catch (error) {
+      if (error instanceof ApiError && [404, 405, 501].includes(error.status))
+        setUnavailable(true);
+      else setFailed(rating);
     } finally {
       busyRef.current = false;
       setPending(null);
@@ -46,7 +50,7 @@ export function GuideFeedback({
             key={rating}
             type="button"
             aria-pressed={selected === rating}
-            disabled={Boolean(pending || selected)}
+            disabled={Boolean(pending || selected || unavailable)}
             onClick={() => void submit(rating)}
           >
             <span aria-hidden="true">{EMOJI[index]}</span>
@@ -55,6 +59,11 @@ export function GuideFeedback({
         ))}
       </div>
       <div aria-live="polite">
+        {unavailable && (
+          <p className="feedback-save-error">
+            {journeyCopy(language)('feedbackUnavailable')}
+          </p>
+        )}
         {selected && <p className="feedback-thanks">{copy.thanks}</p>}
         {failed && (
           <p className="feedback-save-error">

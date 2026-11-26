@@ -12,6 +12,7 @@ Asosiy foydalanuvchi — yolgʻiz/mustaqil sayohatchi. Geografiya — butun Oʻz
 | --- | --- | --- |
 | `/` rejalashtirish | 16 shahar + boshqa shahar matni, 1–14 kun, USD jami byudjet, 5 qiziqish, yashash toggle | Bir kishi uchun; boshlanish sanasi / jonli jadval / bron yoʻq |
 | Kunlik reja | Nonushta, obidalar, ovqat, mahalliy transport, ixtiyoriy n−1 kecha, 10% zaxira, kamomad ko‘rsatish | Lokal deterministik planner; AI generatsiya deb ko‘rsatilmaydi |
+| Safardan foydalanish | Xarajatlar toifalari, barcha kun va manbalar bilan TXT eksport; URL orqali boʻlim, kun, joyni tiklash | Eksport bron emas; shaxsiy trip boshqa qurilmaga bulut orqali yuborilmaydi |
 | Koʻp shahar | Tanlash tartibi saqlanadi; yangi shaharga butun transfer kuni ajratiladi | Yoʻl narxi distance asosidagi allowance, transport qatnovi emas; uzoq yoʻl yana vaqt talab qilishi mumkin |
 | Xarita | OpenStreetMap tile, pan/zoom, marker, klaviatura uchun tugmalar, shahar + mashhur joylar / noodatiy tarixiy hikoyalar filtrlari, matnli roʻyxat | Toifalar tahririy tanlov; jonli tashrifchilar statistikasi emas. Internet kerak; marshrut chizigʻi yoki navigatsiya hisoblanmaydi |
 | Kontent | 15 joy / Buxoro, Samarqand, Toshkent, Xiva; 3 tilda hikoya + manba havolasi | Boshqa 3 til UI tayyor, hikoya tarjimasi bo‘lmasa English deb belgilanadi; boshqa shaharlarda katalog hali toʻldiriladi |
@@ -36,6 +37,8 @@ Frontend dasturchi: `apps/tourist/**`, `apps/dashboard/**` va shu vazifa uchun h
 Backend bilan kelishiladigan keyingi ishlar: milliy safar generation/storage, city/place katalogi, jonli tarif/jadval manbalari, source provenance, foydalanuvchi contribution moderation, nationwide vision, ixtiyoriy GPS, attribution va payment. Ular tayyor endpoint sifatida chaqirilmaydi. Eski pilot roadmap/feedback adapterlari HTTP xatoda halol fallback/retry ko‘rsatadi.
 
 API holati: [API_CONTRACT.md](API_CONTRACT.md). Biznes farazlari: [BUSINESS_MODEL.md](BUSINESS_MODEL.md). Platforma xarajatlari: [SMETA_BUDGET.md](SMETA_BUDGET.md).
+
+Toʻliq frontend auditi va xakatonga tayyorgarlik: [FRONTEND_AUDIT_2026-11-26.md](FRONTEND_AUDIT_2026-11-26.md). Yangi auditda navigation, gorizontal scroll, modal, timeout/cancellation, CSV va storage cheklovlari tuzatildi. Eski feedback adapteri 404/405/501 olganda qayta-qayta soʻrov yuborish oʻrniga vaqtincha ishlamasligini koʻrsatadi.
 
 ## Ushbu o‘zgarishning texnik tekshiruvi
 

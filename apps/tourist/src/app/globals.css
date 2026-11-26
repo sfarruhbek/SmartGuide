@@ -17,7 +17,6 @@ html,
 body {
   background-color: var(--bg-sand);
   color: var(--text-ink);
-  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -96,11 +95,18 @@ body {
 
 /* A walking companion: warm paper, open editorial layouts, local photography. */
 html {
+  overflow-x: clip;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
   scroll-behavior: smooth;
   scroll-padding-top: 6rem;
 }
 body {
   margin: 0;
+  overflow: visible;
+}
+html:has(dialog[open]) {
+  overflow: hidden;
 }
 button,
 select,

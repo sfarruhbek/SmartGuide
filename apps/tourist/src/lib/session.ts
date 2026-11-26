@@ -2,25 +2,34 @@ import { LANGUAGE_CODES, type SupportedLanguage } from '@smartguide/shared';
 
 const SESSION_KEY = 'smartguide_tourist_session_id';
 const LANG_KEY = 'smartguide_tourist_language';
+let memorySessionId: string | undefined;
+
+export function createLocalId(prefix: string): string {
+  const randomPart =
+    typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+      ? crypto.randomUUID()
+      : `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 14)}`;
+  return `${prefix}-${randomPart}`;
+}
 
 export function getOrCreateSessionId(): string {
   if (typeof window === 'undefined') return 'ssr-session';
+  if (memorySessionId) return memorySessionId;
 
   try {
     const existing = window.localStorage.getItem(SESSION_KEY);
     if (existing && existing.length >= 6) {
-      return existing;
+      memorySessionId = existing;
+      return memorySessionId;
     }
 
-    const randomPart =
-      typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
-        ? crypto.randomUUID().slice(0, 12)
-        : Math.random().toString(36).slice(2, 14);
-    const created = `visitor-${randomPart}`;
+    const created = createLocalId('visitor');
+    memorySessionId = created;
     window.localStorage.setItem(SESSION_KEY, created);
     return created;
   } catch {
-    return `visitor-${Date.now().toString(36)}`;
+    memorySessionId ??= createLocalId('visitor');
+    return memorySessionId;
   }
 }
 
@@ -35,14 +44,12 @@ export function getSavedLanguage(urlLang?: string | null): SupportedLanguage {
       if (stored && LANGUAGE_CODES.includes(stored as SupportedLanguage)) {
         return stored as SupportedLanguage;
       }
-
-      const browserLang = window.navigator.language.slice(0, 2).toLowerCase();
-      if (LANGUAGE_CODES.includes(browserLang as SupportedLanguage)) {
-        return browserLang as SupportedLanguage;
-      }
     } catch {
       // Ignore storage access errors in private browsing
     }
+    const browserLang = window.navigator.language.slice(0, 2).toLowerCase();
+    if (LANGUAGE_CODES.includes(browserLang as SupportedLanguage))
+      return browserLang as SupportedLanguage;
   }
 
   return 'en';

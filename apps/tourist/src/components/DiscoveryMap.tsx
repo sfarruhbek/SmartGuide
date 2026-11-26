@@ -10,6 +10,8 @@ import {
   Plus,
   Landmark,
   Sparkles,
+  Move,
+  LocateFixed,
 } from 'lucide-react';
 import type { SupportedLanguage } from '@smartguide/shared';
 import {
@@ -48,11 +50,12 @@ export function DiscoveryMap({
   } | null>(null);
   const [size, setSize] = useState({ width: 600, height: 480 });
   const [view, setView] = useState({ lat: city.lat, lng: city.lng, zoom: 12 });
-  const [failed, setFailed] = useState(false);
+  const [failedTiles, setFailedTiles] = useState<Set<string>>(new Set());
+  const [touchDrag, setTouchDrag] = useState(false);
   const target = [...places, ...drafts].find((place) => place.id === selected);
   useEffect(() => {
     setView({ lat: city.lat, lng: city.lng, zoom: 12 });
-    setFailed(false);
+    setFailedTiles(new Set());
   }, [city.id, city.lat, city.lng]);
   useEffect(() => {
     if (target)
@@ -89,13 +92,19 @@ export function DiscoveryMap({
   }
   const pan = (dx: number, dy: number) =>
     setView({ ...view, ...unproject(center.x + dx, center.y + dy, view.zoom) });
+  const failed = tiles.some((tile) =>
+    failedTiles.has(`${view.zoom}/${tile.x}/${tile.y}`),
+  );
   return (
     <div
       ref={ref}
       className="discovery-map"
       role="region"
       aria-label={copy('map')}
+      style={{ touchAction: touchDrag ? 'none' : 'pan-y pinch-zoom' }}
       onPointerDown={(event) => {
+        if (event.button !== 0 || (event.pointerType === 'touch' && !touchDrag))
+          return;
         if ((event.target as HTMLElement).closest('button,a')) return;
         drag.current = {
           x: event.clientX,
@@ -107,17 +116,14 @@ export function DiscoveryMap({
         event.currentTarget.setPointerCapture(event.pointerId);
       }}
       onPointerMove={(event) => {
-        if (!drag.current) return;
-        const dx = event.clientX - drag.current.x,
-          dy = event.clientY - drag.current.y;
-        if (Math.abs(dx) + Math.abs(dy) > 5) drag.current.moved = true;
+        const activeDrag = drag.current;
+        if (!activeDrag) return;
+        const dx = event.clientX - activeDrag.x,
+          dy = event.clientY - activeDrag.y;
+        if (Math.abs(dx) + Math.abs(dy) > 5) activeDrag.moved = true;
         setView((current) => ({
           ...current,
-          ...unproject(
-            drag.current!.cx - dx,
-            drag.current!.cy - dy,
-            current.zoom,
-          ),
+          ...unproject(activeDrag.cx - dx, activeDrag.cy - dy, current.zoom),
         }));
       }}
       onPointerUp={() => {
@@ -134,7 +140,20 @@ export function DiscoveryMap({
             src={`https://tile.openstreetmap.org/${view.zoom}/${tile.x}/${tile.y}.png`}
             alt=""
             draggable={false}
-            onError={() => setFailed(true)}
+            onError={() =>
+              setFailedTiles((current) =>
+                new Set(current).add(`${view.zoom}/${tile.x}/${tile.y}`),
+              )
+            }
+            onLoad={() =>
+              setFailedTiles((current) => {
+                const key = `${view.zoom}/${tile.x}/${tile.y}`;
+                if (!current.has(key)) return current;
+                const next = new Set(current);
+                next.delete(key);
+                return next;
+              })
+            }
             style={{ left: tile.x * 256 - left, top: tile.y * 256 - top }}
           />
         ))}
@@ -218,6 +237,23 @@ export function DiscoveryMap({
           <ArrowRight />
         </button>
       </div>
+      <button
+        type="button"
+        className="map-reset"
+        aria-label={copy('resetMap')}
+        onClick={() => setView({ lat: city.lat, lng: city.lng, zoom: 12 })}
+      >
+        <LocateFixed size={18} />
+      </button>
+      <button
+        type="button"
+        className="map-touch-toggle"
+        aria-pressed={touchDrag}
+        onClick={() => setTouchDrag(!touchDrag)}
+      >
+        <Move size={15} />
+        {copy(touchDrag ? 'scrollPage' : 'moveMap')}
+      </button>
       {failed && (
         <p role="status" className="map-failed">
           {copy('tilesError')}

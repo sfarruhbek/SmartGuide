@@ -7,6 +7,12 @@ export async function compressImageToBase64(
   maxDimension = 1024,
   initialQuality = 0.78,
 ): Promise<{ base64: string; mimeType: string; previewDataUrl: string }> {
+  if (
+    !file.size ||
+    file.size > 20 * 1024 * 1024 ||
+    (file.type && !file.type.startsWith('image/'))
+  )
+    throw new Error('Choose an image up to 20 MB');
   const dataUrl = await new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => resolve(String(reader.result));

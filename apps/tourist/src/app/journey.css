@@ -1,4 +1,235 @@
 /* The national travel experience shares the guide's paper and editorial type. */
+.tourist-status {
+  width: min(100%, 760px);
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+.tourist-status > svg {
+  width: 50px;
+  height: 50px;
+  stroke-width: 1.3;
+  color: #0e7470;
+}
+.tourist-status h1 {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.25;
+  margin: 24px 0;
+  overflow-wrap: anywhere;
+}
+.tourist-status p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #52634d;
+}
+.tourist-status > div {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+.nav-mobile-label,
+.mobile-day-picker {
+  display: none;
+}
+.journey-main
+  :where(
+    section,
+    form,
+    fieldset,
+    aside,
+    figure,
+    li,
+    .slot-content,
+    .day-heading,
+    .planner-heading,
+    .trip-summary > div
+  ) {
+  min-width: 0;
+}
+.journey-main :where(h1, h2, h3, p, a, button, dd) {
+  overflow-wrap: anywhere;
+}
+.journey-app .tourist-header-inner {
+  min-height: 72px;
+}
+.journey-app .journey-primary,
+.journey-app .journey-outline {
+  font-size: 14px;
+}
+.journey-app .planner-form legend,
+.journey-app .planner-form label > span,
+.journey-app .stay-checkbox {
+  font-size: 14px;
+}
+.journey-app .city-choices button,
+.journey-app .interest-choices button {
+  min-height: 44px;
+  font-size: 14px;
+}
+.journey-app .other-cities label {
+  min-height: 38px;
+  font-size: 13px;
+}
+.journey-app .field-hint {
+  font-size: 13px;
+}
+.journey-app .planner-heading > p:last-child,
+.journey-app .discovery-teaser > div > p:not(.eyebrow),
+.journey-app .map-intro,
+.journey-app .place-story > p:not(.eyebrow):not(.field-hint),
+.journey-app .place-history p,
+.journey-app .slot-content p,
+.journey-app .journey-camera p,
+.journey-app .discovery-dialog > p {
+  font-size: 16px;
+  line-height: 1.8;
+}
+.journey-app .slot-title h3 {
+  font-size: 15px;
+}
+.journey-app .slot-visit h3 {
+  font-size: 24px;
+}
+.journey-app .slot-title > span {
+  font-size: 13px;
+  white-space: normal;
+}
+.journey-app .day-switcher button {
+  max-width: 180px;
+  min-width: 100px;
+  white-space: normal;
+}
+.journey-app .trip-save-status {
+  font-size: 13px;
+}
+.budget-breakdown {
+  margin: 22px 0 16px;
+  border: 1px solid #d5ddcb;
+  border-radius: 6px;
+  padding: 0 18px;
+}
+.budget-breakdown summary {
+  padding: 16px 0;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.budget-breakdown dl {
+  padding-bottom: 18px;
+  display: grid;
+  gap: 12px;
+}
+.budget-breakdown dl > div {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  font-size: 14px;
+}
+.budget-breakdown dt {
+  min-width: 0;
+}
+.budget-breakdown dd {
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+.trip-download {
+  margin: 0 0 12px;
+}
+.map-reset,
+.map-touch-toggle {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #faf8f5;
+  border: 1px solid #d5ddcb;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px #183d381a;
+  min-height: 44px;
+}
+.map-reset {
+  right: 15px;
+  top: 15px;
+  width: 44px;
+}
+.map-touch-toggle {
+  bottom: 28px;
+  left: 15px;
+  padding: 8px 12px;
+  font-size: 13px;
+}
+.map-touch-toggle[aria-pressed='true'] {
+  background: #183d38;
+  color: white;
+}
+.journey-app .map-controls button {
+  width: 44px;
+  height: 44px;
+}
+.journey-app .discovery-dialog {
+  overscroll-behavior: contain;
+}
+.journey-app .discovery-dialog label {
+  font-size: 14px;
+}
+@media (max-width: 700px) {
+  .nav-desktop-label,
+  .journey-app .day-switcher {
+    display: none;
+  }
+  .nav-mobile-label {
+    display: inline;
+  }
+  .journey-app[data-keyboard-open='true'] .journey-nav {
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .journey-app .tourist-header-inner,
+  .journey-app .journey-main {
+    padding-left: max(18px, env(safe-area-inset-left, 0px));
+    padding-right: max(18px, env(safe-area-inset-right, 0px));
+  }
+  .mobile-day-picker {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    gap: 10px;
+    align-items: center;
+    margin: 24px 0;
+  }
+  .mobile-day-picker .journey-outline {
+    padding: 0;
+    width: 44px;
+    min-height: 48px;
+  }
+  .mobile-day-picker label {
+    min-width: 0;
+  }
+  .mobile-day-picker select {
+    min-height: 48px;
+  }
+  .journey-app .day-layout {
+    gap: 24px;
+  }
+  .journey-app .trip-summary {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .journey-app .trip-summary strong {
+    font-size: clamp(20px, 6vw, 26px);
+  }
+  .journey-app .slot-title {
+    align-items: flex-start;
+  }
+  .journey-app .teaser-photos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .journey-app .map-filterbar .collection-filter {
+    font-size: 13px;
+    min-height: 44px;
+  }
+}
 .journey-app input[type='file'].sr-only {
   width: 1px;
   min-width: 0;
@@ -94,6 +325,7 @@
     0 2px 10px #183d3855;
 }
 .journey-app {
+  --journey-nav-height: 76px;
   --ink: #183d38;
   --paper: #faf8f5;
   --clay: #b45f40;
@@ -154,6 +386,8 @@
   background: var(--clay);
 }
 .journey-main {
+  width: 100%;
+  min-width: 0;
   max-width: 1320px;
   margin: auto;
   padding: 0 48px;
@@ -162,7 +396,7 @@
 .journey-hero {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 56px;
   padding: 68px 0 80px;
   align-items: center;
@@ -197,7 +431,7 @@
 }
 .journey-intro {
   max-width: 410px;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.85;
   color: #63716a;
   margin-bottom: 28px;
@@ -427,7 +661,9 @@
 .planner-numbers label {
   min-width: 0;
 }
-.journey-app input:not([type='checkbox']),
+.journey-app input[type='number'],
+.journey-app input[type='text'],
+.journey-app input:not([type]),
 .journey-app textarea,
 .journey-app select {
   width: 100%;
@@ -436,7 +672,7 @@
   border-radius: 3px;
   background: #fffefa;
   color: #243f34;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.5;
   padding: 12px 13px;
 }
@@ -633,9 +869,10 @@
 }
 .day-switcher {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   padding: 20px 0;
-  overflow-x: auto;
+  overflow: visible;
 }
 .day-switcher button {
   border: 1px solid #d5decd;
@@ -791,15 +1028,18 @@
 }
 .map-layout {
   display: grid;
-  grid-template-columns: 1.6fr 1fr;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
   border: 1px solid #d8dfcc;
   border-radius: 4px;
-  overflow: hidden;
+  align-items: start;
 }
 .discovery-map {
-  position: relative;
+  position: sticky;
+  top: 20px;
   overflow: hidden;
-  min-height: 580px;
+  height: 600px;
+  min-height: 0;
+  border-radius: 3px;
   background: #e8e8d7;
   touch-action: none;
   cursor: grab;
@@ -898,8 +1138,7 @@
   font-size: 11px;
 }
 .map-place-panel {
-  max-height: 650px;
-  overflow-y: auto;
+  min-width: 0;
   background: #fffef8;
 }
 .place-story {
@@ -1087,13 +1326,18 @@
     gap: 25px;
   }
   .map-layout {
-    grid-template-columns: 1.25fr 1fr;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
   }
   .place-story {
     padding: 22px;
   }
 }
 @media (max-width: 700px) {
+  .journey-app {
+    padding-bottom: calc(
+      var(--journey-nav-height) + env(safe-area-inset-bottom, 0px)
+    );
+  }
   .journey-main {
     padding: 0 22px;
   }
@@ -1108,26 +1352,34 @@
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 30;
+    z-index: 40;
     background: #faf8f5f5;
     backdrop-filter: blur(10px);
     gap: 0;
-    justify-content: space-around;
-    padding: 4px 8px max(6px, env(safe-area-inset-bottom));
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    height: calc(var(--journey-nav-height) + env(safe-area-inset-bottom, 0px));
+    padding: 8px max(8px, env(safe-area-inset-right, 0px))
+      calc(8px + env(safe-area-inset-bottom, 0px))
+      max(8px, env(safe-area-inset-left, 0px));
     border-top: 1px solid #d7ddcc;
     border-bottom: 0;
   }
   .journey-nav button {
     flex-direction: column;
     gap: 5px;
-    font-size: 9px;
-    min-height: 53px;
+    font-size: 12px;
+    line-height: 1.25;
+    min-height: 44px;
     justify-content: center;
     border: 0;
-    min-width: 80px;
+    min-width: 0;
+    width: 100%;
+    border-radius: 8px;
   }
   .journey-nav button[aria-current] {
-    color: #a75737;
+    color: #183d38;
+    background: #e7ede4;
   }
   .journey-nav svg {
     width: 19px;
@@ -1147,12 +1399,12 @@
     padding: 0;
   }
   .journey-hero h1 {
-    font-size: 43px;
+    font-size: clamp(2.15rem, 9vw, 2.75rem);
     line-height: 1.15;
     margin: 17px 0 18px;
   }
   .journey-intro {
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1.85;
     margin-bottom: 21px;
     max-width: 340px;
@@ -1264,7 +1516,7 @@
     align-items: flex-start;
     flex-wrap: wrap;
     gap: 15px;
-    padding: 25px 0 100px;
+    padding: 28px 0;
   }
   .journey-footer span:nth-child(2) {
     order: 3;
@@ -1359,11 +1611,13 @@
     padding: 10px 12px;
   }
   .map-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .discovery-map {
-    min-height: 340px;
-    height: 340px;
+    position: relative;
+    top: auto;
+    min-height: 360px;
+    height: 360px;
   }
   .map-place-panel {
     max-height: none;
@@ -1372,8 +1626,7 @@
     font-size: 28px;
   }
   .place-list {
-    max-height: 240px;
-    overflow: auto;
+    overflow: visible;
   }
   .journey-camera {
     gap: 15px;

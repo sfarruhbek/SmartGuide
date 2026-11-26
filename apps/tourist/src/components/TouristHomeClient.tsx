@@ -19,8 +19,15 @@ import {
   Sparkles,
   Wallet,
   X,
+  Download,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
-import type { GuideAskResponse, SupportedLanguage } from '@smartguide/shared';
+import {
+  LANGUAGE_CODES,
+  type GuideAskResponse,
+  type SupportedLanguage,
+} from '@smartguide/shared';
 import { CITIES, PLACES } from '@/lib/places';
 import {
   DISCOVERY_KEY,
@@ -44,12 +51,20 @@ import {
   getSavedLanguage,
   saveLanguage,
   updateLanguage,
+  createLocalId,
 } from '@/lib/session';
 import { compressImageToBase64 } from '@/lib/image-utils';
 import { askGuide } from '@/lib/api';
 import { TouristHeader } from './TouristHeader';
 import { DiscoveryMap } from './DiscoveryMap';
 import { AudioGuidePlayer } from './AudioGuidePlayer';
+import {
+  readJourneyNavigation,
+  journeyUrl,
+  type JourneyView,
+} from '@/lib/journey-navigation';
+import { tripBreakdown, tripText } from '@/lib/trip-summary';
+import { useKeyboardViewport } from '@/lib/use-keyboard-viewport';
 
 const initialInput: TripInput = {
   cities: ['bukhara'],
@@ -60,17 +75,31 @@ const initialInput: TripInput = {
   customCity: '',
 };
 const interests: Interest[] = ['history', 'local', 'food', 'nature', 'sacred'];
-export function TouristHomeClient({ initialLang }: { initialLang?: string }) {
-  const [language, setLanguage] = useState<SupportedLanguage>('en');
-  const [tab, setTab] = useState<'plan' | 'itinerary' | 'map'>('plan');
+export function TouristHomeClient({
+  initialLang,
+  initialQuery = '',
+}: {
+  initialLang?: string;
+  initialQuery?: string;
+}) {
+  const initialRoute = readJourneyNavigation(initialQuery, CITIES, PLACES);
+  const [language, setLanguage] = useState<SupportedLanguage>(
+    LANGUAGE_CODES.includes(initialLang as SupportedLanguage)
+      ? (initialLang as SupportedLanguage)
+      : 'en',
+  );
+  const [tab, setTab] = useState<JourneyView>(initialRoute.view);
   const [input, setInput] = useState<TripInput>(initialInput);
   const [trip, setTrip] = useState<Trip | null>(null);
   const [day, setDay] = useState(0);
+  const [ready, setReady] = useState(false);
+  const [downloaded, setDownloaded] = useState(false);
+  const keyboardOpen = useKeyboardViewport();
   const [error, setError] = useState('');
   const [saved, setSaved] = useState(true);
-  const [cityId, setCityId] = useState('bukhara');
-  const [filter, setFilter] = useState<PlaceFilter>('all');
-  const [selected, setSelected] = useState<string | null>('fayzabad');
+  const [cityId, setCityId] = useState(initialRoute.city);
+  const [filter, setFilter] = useState<PlaceFilter>(initialRoute.collection);
+  const [selected, setSelected] = useState<string | null>(initialRoute.place);
   const [drafts, setDrafts] = useState<Discovery[]>([]);
   const [showDraft, setShowDraft] = useState(false);
   const [photoBusy, setPhotoBusy] = useState(false);
@@ -78,9 +107,12 @@ export function TouristHomeClient({ initialLang }: { initialLang?: string }) {
   const [photoResult, setPhotoResult] = useState<GuideAskResponse | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const photoLock = useRef(false);
+  const photoController = useRef<AbortController | null>(null);
+  const savedTripRef = useRef<Trip | null>(null);
   const photoRef = useRef<HTMLInputElement>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const mainRef = useRef<HTMLElement>(null);
+  useEffect(() => () => photoController.current?.abort(), []);
   const copy = journeyCopy(language);
   const city = CITIES.find((value) => value.id === cityId) || CITIES[0];
   const places = PLACES.filter(
@@ -110,14 +142,50 @@ export function TouristHomeClient({ initialLang }: { initialLang?: string }) {
     if (restored) {
       setTrip(restored);
       setInput(restored.input);
+      savedTripRef.current = restored;
     }
     setDrafts(readDiscoveries());
+    const applyRoute = () => {
+      const route = readJourneyNavigation(
+        window.location.search,
+        CITIES,
+        PLACES,
+      );
+      setTab(route.view);
+      setCityId(route.city);
+      setSelected(route.place);
+      setFilter(route.collection);
+      setDay(Math.min(route.day, (savedTripRef.current?.days.length || 1) - 1));
+      setShowDraft(false);
+    };
+    applyRoute();
+    setReady(true);
+    window.addEventListener('popstate', applyRoute);
+    return () => window.removeEventListener('popstate', applyRoute);
   }, [initialLang]);
+  useEffect(() => {
+    if (!ready) return;
+    const next = journeyUrl(
+      new URL(window.location.href),
+      { view: tab, city: cityId, place: selected, collection: filter, day },
+      PLACES,
+    );
+    if (`${window.location.pathname}${window.location.search}` !== next)
+      window.history.replaceState(window.history.state, '', next);
+  }, [tab, cityId, selected, filter, day, ready]);
   useEffect(() => {
     if (showDraft) dialogRef.current?.showModal();
     else dialogRef.current?.close();
   }, [showDraft]);
   const navigate = (next: typeof tab) => {
+    if (next !== tab) {
+      const url = journeyUrl(
+        new URL(window.location.href),
+        { view: next, city: cityId, place: selected, collection: filter, day },
+        PLACES,
+      );
+      window.history.pushState(window.history.state, '', url);
+    }
     setTab(next);
     setError('');
     requestAnimationFrame(() => {
@@ -138,6 +206,8 @@ export function TouristHomeClient({ initialLang }: { initialLang?: string }) {
     try {
       const next = generateTrip(input, CITIES, PLACES);
       setTrip(next);
+      savedTripRef.current = next;
+      setDownloaded(false);
       setDay(0);
       setSaved(true);
       try {
@@ -155,20 +225,27 @@ export function TouristHomeClient({ initialLang }: { initialLang?: string }) {
     event.target.value = '';
     if (!file || photoLock.current) return;
     photoLock.current = true;
+    const controller = new AbortController();
+    photoController.current = controller;
     setPhotoBusy(true);
     setPhotoError(false);
     setPhotoResult(null);
     try {
       const photo = await compressImageToBase64(file);
+      if (controller.signal.aborted) return;
       setPhotoPreview(photo.previewDataUrl);
-      const result = await askGuide({
-        question: '',
-        language,
-        sessionId: getOrCreateSessionId(),
-        imageBase64: photo.base64,
-        imageMimeType: photo.mimeType,
-        includeAudio: true,
-      });
+      const result = await askGuide(
+        {
+          question: '',
+          language,
+          sessionId: getOrCreateSessionId(),
+          imageBase64: photo.base64,
+          imageMimeType: photo.mimeType,
+          includeAudio: true,
+        },
+        { signal: controller.signal },
+      );
+      if (controller.signal.aborted) return;
       if (
         !result.identifiedByVision ||
         ![
@@ -182,17 +259,24 @@ export function TouristHomeClient({ initialLang }: { initialLang?: string }) {
         throw Error('Unknown pilot place');
       setPhotoResult(result);
     } catch {
-      setPhotoError(true);
+      if (!controller.signal.aborted) setPhotoError(true);
     } finally {
-      photoLock.current = false;
-      setPhotoBusy(false);
+      if (photoController.current === controller) {
+        photoController.current = null;
+        photoLock.current = false;
+        setPhotoBusy(false);
+      }
     }
   };
   const saveDiscovery = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (drafts.length >= 50) {
+      setError(copy('draftLimit'));
+      return;
+    }
     const form = new FormData(event.currentTarget);
     const draft: Discovery = {
-      id: crypto.randomUUID(),
+      id: createLocalId('discovery'),
       name: String(form.get('name')).trim(),
       city: cityId,
       lat: Number(form.get('lat')),
@@ -212,29 +296,54 @@ export function TouristHomeClient({ initialLang }: { initialLang?: string }) {
       draft.lat > 46 ||
       draft.lng < 55 ||
       draft.lng > 74
-    )
+    ) {
+      setError(copy('draftInvalid'));
       return;
-    const next = [draft, ...drafts].slice(0, 50);
+    }
+    const next = [draft, ...drafts];
     try {
       localStorage.setItem(DISCOVERY_KEY, JSON.stringify(next));
       setDrafts(next);
       setSelected(draft.id);
+      event.currentTarget.reset();
       setShowDraft(false);
       setError('');
     } catch {
       setError(copy('storageError'));
     }
   };
+  const downloadTrip = () => {
+    if (!trip) return;
+    const url = URL.createObjectURL(
+      new Blob(['\uFEFF', tripText(trip, language, CITIES, PLACES)], {
+        type: 'text/plain;charset=utf-8',
+      }),
+    );
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `smartguide-trip-${language}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    setDownloaded(true);
+  };
   return (
-    <div className="tourist-app journey-app">
+    <div className="tourist-app journey-app" data-keyboard-open={keyboardOpen}>
       <TouristHeader
         language={language}
         onLanguageChange={(lang) => {
+          photoController.current?.abort();
+          photoController.current = null;
+          photoLock.current = false;
+          setPhotoBusy(false);
+          setPhotoResult(null);
+          setPhotoError(false);
           setLanguage(lang);
           updateLanguage(lang);
         }}
       />
-      <nav className="journey-nav" aria-label="SmartGuide">
+      <nav className="journey-nav" aria-label={copy('navigation')}>
         {(['plan', 'itinerary', 'map'] as const).map((key, index) => {
           const Icon = [Compass, Route, MapPin][index];
           return (
@@ -242,11 +351,20 @@ export function TouristHomeClient({ initialLang }: { initialLang?: string }) {
               key={key}
               type="button"
               aria-current={tab === key ? 'page' : undefined}
+              aria-label={copy(key)}
               onClick={() => navigate(key)}
             >
               <Icon aria-hidden="true" />
-              <span>{copy(key)}</span>
-              {key === 'itinerary' && trip && <span className="nav-dot" />}
+              <span className="nav-desktop-label">{copy(key)}</span>
+              <span className="nav-mobile-label">
+                {copy(
+                  key === 'plan'
+                    ? 'navPlan'
+                    : key === 'itinerary'
+                      ? 'navItinerary'
+                      : 'navMap',
+                )}
+              </span>
             </button>
           );
         })}
@@ -555,6 +673,34 @@ export function TouristHomeClient({ initialLang }: { initialLang?: string }) {
                   <Bookmark size={14} />
                   {copy(saved ? 'saved' : 'storageError')}
                 </p>
+                <details className="budget-breakdown">
+                  <summary>{copy('breakdown')}</summary>
+                  <dl>
+                    {Object.entries(tripBreakdown(trip)).map(
+                      ([kind, amount]) => (
+                        <div key={kind}>
+                          <dt>
+                            {copy(
+                              kind as keyof ReturnType<typeof tripBreakdown>,
+                            )}
+                          </dt>
+                          <dd>{money(amount, language)}</dd>
+                        </div>
+                      ),
+                    )}
+                  </dl>
+                </details>
+                <button
+                  type="button"
+                  className="journey-outline trip-download"
+                  onClick={downloadTrip}
+                >
+                  <Download size={17} />
+                  {copy('exportTrip')}
+                </button>
+                <span className="sr-only" role="status">
+                  {downloaded ? copy('tripDownloaded') : ''}
+                </span>
                 <div className="day-switcher" aria-label={copy('day')}>
                   {trip.days.map((value, index) => (
                     <button
@@ -567,6 +713,39 @@ export function TouristHomeClient({ initialLang }: { initialLang?: string }) {
                       <small>{cityName(value.city)}</small>
                     </button>
                   ))}
+                </div>
+                <div className="mobile-day-picker">
+                  <button
+                    type="button"
+                    className="journey-outline"
+                    aria-label={copy('previousDay')}
+                    disabled={day === 0}
+                    onClick={() => setDay(day - 1)}
+                  >
+                    <ChevronLeft />
+                  </button>
+                  <label>
+                    <span className="sr-only">{copy('chooseDay')}</span>
+                    <select
+                      value={day}
+                      onChange={(event) => setDay(Number(event.target.value))}
+                    >
+                      {trip.days.map((value, index) => (
+                        <option key={value.number} value={index}>
+                          {copy('day')} {value.number} · {cityName(value.city)}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <button
+                    type="button"
+                    className="journey-outline"
+                    aria-label={copy('nextDay')}
+                    disabled={day === trip.days.length - 1}
+                    onClick={() => setDay(day + 1)}
+                  >
+                    <ChevronRight />
+                  </button>
                 </div>
                 <div className="day-layout">
                   <div className="day-heading">
@@ -616,6 +795,7 @@ export function TouristHomeClient({ initialLang }: { initialLang?: string }) {
                                   type="button"
                                   className="journey-text-link"
                                   onClick={() => {
+                                    setFilter('all');
                                     changeCity(place.city);
                                     setSelected(place.id);
                                     navigate('map');
@@ -922,7 +1102,15 @@ export function TouristHomeClient({ initialLang }: { initialLang?: string }) {
         className="discovery-dialog"
         onCancel={() => setShowDraft(false)}
         onClick={(event) => {
-          if (event.target === event.currentTarget) setShowDraft(false);
+          const rect = event.currentTarget.getBoundingClientRect();
+          if (
+            event.target === event.currentTarget &&
+            (event.clientX < rect.left ||
+              event.clientX > rect.right ||
+              event.clientY < rect.top ||
+              event.clientY > rect.bottom)
+          )
+            setShowDraft(false);
         }}
         aria-labelledby="draft-title"
       >

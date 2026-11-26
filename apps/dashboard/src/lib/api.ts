@@ -1,5 +1,6 @@
 import type { LandmarkSummary } from '@smartguide/shared';
 import type { ExperienceAnalytics, ExperienceQuestion } from './experience';
+import { escapeCsvCell, safeCsv } from './csv';
 
 function resolveLocalHostUrl(configured: string): string {
   if (typeof window !== 'undefined') {
@@ -10,6 +11,7 @@ function resolveLocalHostUrl(configured: string): string {
       !isCurrentLocal &&
       /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(configured)
     ) {
+      if (window.location.protocol === 'https:') return window.location.origin;
       return configured.replace(
         /\/\/(localhost|127\.0\.0\.1)/i,
         `//${currentHost}`,
@@ -36,6 +38,7 @@ export function getDefaultTouristAppUrl(): string {
 export async function fetchAnalyticsSummary(): Promise<ExperienceAnalytics> {
   const res = await fetch(`${getApiBaseUrl()}/api/analytics/summary`, {
     cache: 'no-store',
+    signal: AbortSignal.timeout(12000),
   });
   if (!res.ok) {
     throw new Error(`Analytics API returned HTTP ${res.status}`);
@@ -46,20 +49,13 @@ export async function fetchAnalyticsSummary(): Promise<ExperienceAnalytics> {
 export async function fetchLandmarksList(): Promise<LandmarkSummary[]> {
   const res = await fetch(`${getApiBaseUrl()}/api/landmarks`, {
     cache: 'no-store',
+    signal: AbortSignal.timeout(12000),
   });
   if (!res.ok) {
     throw new Error(`Landmarks API returned HTTP ${res.status}`);
   }
   const data = (await res.json()) as { landmarks: LandmarkSummary[] };
   return data.landmarks;
-}
-
-function escapeCsvCell(value: string | number | boolean): string {
-  const str = String(value ?? '');
-  if (/[",\n\r]/.test(str)) {
-    return `"${str.replace(/"/g, '""')}"`;
-  }
-  return str;
 }
 
 function triggerFileDownload(blob: Blob, filename: string): void {
@@ -85,6 +81,7 @@ export async function exportAnalyticsCsv(
   try {
     const res = await fetch(`${getApiBaseUrl()}/api/analytics/export`, {
       cache: 'no-store',
+      signal: AbortSignal.timeout(12000),
     });
     if (res.ok) {
       const contentType = res.headers.get('content-type') || '';
@@ -92,8 +89,8 @@ export async function exportAnalyticsCsv(
         contentType.includes('text/csv') ||
         contentType.includes('text/plain')
       ) {
-        const text = await res.text();
-        const withBom = text.startsWith('\uFEFF') ? text : `\uFEFF${text}`;
+        const text = safeCsv(await res.text());
+        const withBom = `\uFEFF${text}`;
         const blob = new Blob([withBom], { type: 'text/csv;charset=utf-8;' });
         triggerFileDownload(blob, filename);
         return;
