@@ -17,6 +17,16 @@ const proposal=()=>({preferences,excludedIds:[],days:[{number:1,city:'khiva',pla
 test('interactive AI proposals enforce city order, transfer days, distinct catalog stops and removals',async()=>{
   const {parseTravelProposal}=await import('../src/planner/interactive.js');
   const valid=proposal();assert.deepEqual(parseTravelProposal(JSON.stringify(valid),catalog.places,[]),valid);
+  const {planningPlaces}=await import('../src/planner/interactive.js');
+  const allPlanPlaces=await planningPlaces();
+  assert.ok(allPlanPlaces.filter(p=>p.city==='samarkand').length>=8,'Samarkand should include rich unique gems');
+  assert.ok(allPlanPlaces.filter(p=>p.city==='bukhara').length>=10,'Bukhara should include rich unique gems');
+  assert.ok(allPlanPlaces.some(p=>p.id==='ishratkhana'&&p.category==='discovery'));
+  assert.ok(allPlanPlaces.some(p=>p.id==='chor-minor'&&p.category==='discovery'));
+  const threeStops=allPlanPlaces.filter(p=>p.city==='samarkand').slice(0,3).map(p=>p.id);
+  const richDay=generateTrip({cities:['samarkand'],days:1,budget:150,interests:['local','history'],accommodation:false,customCity:''},catalog.cities,allPlanPlaces,false,[],[threeStops]);
+  assert.equal(richDay.days[0].slots.filter(s=>s.kind==='visit').length,3);
+  for(let i=1;i<richDay.days[0].slots.length;i++)assert.ok(richDay.days[0].slots[i-1].end<=richDay.days[0].slots[i].time);
   const trip=generateTrip(preferences,catalog.cities,catalog.places,false,[],valid.days.map(day=>day.placeIds));
   assert.deepEqual(trip.days.map(day=>day.slots.flatMap(slot=>slot.placeId?[slot.placeId]:[])),valid.days.map(day=>day.placeIds));
   for(const mutate of [

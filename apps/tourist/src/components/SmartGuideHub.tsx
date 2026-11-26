@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import { AudioLines, Camera, Check, ChevronDown, ChevronLeft, ChevronRight, Clock3, Compass, Download, ArrowRight, Landmark, Leaf, Loader2, Map as MapIcon, MapPin, Navigation, Pencil, Plus, Route, Ticket, Trash2, UserRound, Utensils, Wallet, X } from 'lucide-react';
+import { AudioLines, BookOpen, Camera, Check, ChevronDown, ChevronLeft, ChevronRight, Clock3, Compass, Download, ArrowRight, Landmark, Leaf, Loader2, Map as MapIcon, MapPin, Navigation, Pencil, Plus, RefreshCw, Route, Sparkles, Ticket, Trash2, UserRound, Utensils, Wallet, X } from 'lucide-react';
 import type { SupportedLanguage } from '@smartguide/shared';
 import { CITIES, PLACES } from '@/lib/places';
 import { local, money, distanceKm, readTrip, readDiscoveries, matchesPlaceFilter, TRIP_KEY, DISCOVERY_KEY, type Trip, type TripInput, type Place, type PlaceFilter, type Discovery } from '@/lib/journey';
@@ -44,6 +44,7 @@ export function SmartGuideHub({initialLang,initialQuery=''}:{initialLang?:string
   const [account,setAccount]=useState<Account|null>(null),[authIntent,setAuthIntent]=useState(false),[authMode,setAuthMode]=useState<'register'|'login'>('register');
   const [access,setAccess]=useState<AccessState|null>(null),[loadingAccess,setLoadingAccess]=useState(true),[gate,setGate]=useState<'plans'|'photos'|'voice'|null>(null);
   const [editInstruction,setEditInstruction]=useState(''),[editing,setEditing]=useState(false),[voicePurpose,setVoicePurpose]=useState<'plan'|'revise'|'guide'>('guide');
+  const [openSlot,setOpenSlot]=useState<string|null>(null);
   const [drafts,setDrafts]=useState<Discovery[]>([]),[draftOpen,setDraftOpen]=useState(false);
   const location=useTouristLocation(),keyboardOpen=useKeyboardViewport();
   const main=useRef<HTMLElement>(null),draftDialog=useRef<HTMLDialogElement>(null),planning=useRef<AbortController|null>(null),tripRef=useRef<Trip|null>(null);
@@ -172,12 +173,43 @@ export function SmartGuideHub({initialLang,initialQuery=''}:{initialLang?:string
         <div className="hub-nearby-hero"><div className="hub-hero-meta"><Navigation size={17}/><span>{location.position?v('gps'):cityName(currentDay?.city??cityId)}</span></div><h2>{featuredName}</h2><p>{featured&&'city'in featured?local(featured.story,language).split(/(?<=[.!?])\s/)[0]:h('gpsHint')}</p><div className="hub-actions"><button className="hub-button hub-button-terra" type="button" onClick={()=>talk(featured)}><AudioLines size={18}/>Live · {h('guide')}</button><button className="hub-button hub-button-glass" onClick={()=>go('snap')}><Camera size={18}/>Snap &amp; Ask</button></div></div>
         <div className="hub-section-heading"><h2>{h('roadmap')}</h2><span className="hub-mono">{stored?h('saved'):c('storageError')}</span></div>
         {trip.generation?.source==='local-fallback'&&<p className="hub-notice">{c(trip.generation.fallbackReason==='no-catalog-places'?'basicPlan':'fallbackPlan')}</p>}
-        <div className="hub-day-selector"><button className="hub-icon-button" disabled={day<=0} aria-label={c('previousDay')} onClick={()=>setDay(value=>value-1)}><ChevronLeft/></button><select aria-label={c('chooseDay')} value={Math.min(day,trip.days.length-1)} onChange={event=>setDay(Number(event.target.value))}>{trip.days.map((value,index)=><option key={value.number} value={index}>{c('day')} {value.number} · {cityName(value.city)}</option>)}</select><button className="hub-icon-button" disabled={day>=trip.days.length-1} aria-label={c('nextDay')} onClick={()=>setDay(value=>value+1)}><ChevronRight/></button></div>
-        <ol className="hub-timeline">{currentDay?.slots.map((slot,index)=>{const place=allPlaces.find(value=>value.id===slot.placeId);const Icon=slot.kind==='visit'?Landmark:['breakfast','lunch','dinner'].includes(slot.kind)?Utensils:slot.kind==='explore'?Compass:slot.kind==='stay'?MapPin:Route;return <li key={`${slot.time}-${index}`} className={place?'hub-visit':''}><div className="hub-timeline-time"><span>{slot.time}</span><i/></div><article className="hub-stop-card">
-          {place?.guideSlug&&<img className="hub-stop-image" src={`/landmarks/${place.guideSlug}.webp`} alt={local(place.name,language)} loading="lazy"/>}
-          <div className="hub-stop-content"><div className="hub-stop-heading"><Icon size={19}/><h3>{place?local(place.name,language):c(slot.kind==='visit'?'explore':slot.kind)}</h3><span>{money(slot.cost,language)}</span></div><div className="hub-stop-meta"><span>{slot.time}–{slot.end}</span>{place&&<span>{cityName(place.city)}</span>}</div>
-            {place?<><p lang={place.story[language]?language:'en'}>{local(place.story,language)}{(!place.story[language]||place.storyLanguage==='en'&&language!=='en')&&<small className="hub-language-note">English</small>}</p><div className="hub-actions"><button className="hub-button" onClick={()=>talk(place)}><AudioLines size={17}/>{h('listen')}</button><button className="hub-button hub-button-light" onClick={()=>go('map',{city:place.city,place:place.id})}><MapIcon size={17}/>{c('navMap')}</button><button className="hub-button hub-button-light" disabled={pending} onClick={()=>void build('revise','',place.id)}><X size={16}/>{p('remove')}</button></div>{place.estimatedAdmission&&<small className="hub-hint">{p('admissionUnknown')}</small>}</>:slot.kind==='explore'?<p>{c('exploreHint')}</p>:slot.kind==='transfer'?<p>{cityName(slot.from!)} → {cityName(slot.to!)}. {c('transferHint')}</p>:null}
-          </div></article></li>;})}</ol>
+        <div className="hub-day-pills" role="tablist" aria-label={c('chooseDay')}>{trip.days.map((value,index)=>{const active=index===Math.min(day,trip.days.length-1);const stops=value.slots.filter(s=>s.kind==='visit').length;const isTransfer=value.slots.some(s=>s.kind==='transfer');return <button key={value.number} type="button" role="tab" aria-selected={active} className={`hub-day-pill ${active?'is-active':''}`} onClick={()=>{setDay(index);setOpenSlot(null);}}><span><strong>{c('day')} {value.number}</strong> · {cityName(value.city)}</span><small>{isTransfer?c('transfer'):`${stops} ${p('stopsShort')}`} · <span className="hub-mono">{money(value.total,language)}</span></small></button>;})}</div>
+        <div className="hub-day-selector"><button className="hub-icon-button" disabled={day<=0} aria-label={c('previousDay')} onClick={()=>{setDay(value=>value-1);setOpenSlot(null);}}><ChevronLeft/></button><select aria-label={c('chooseDay')} value={Math.min(day,trip.days.length-1)} onChange={event=>{setDay(Number(event.target.value));setOpenSlot(null);}}>{trip.days.map((value,index)=><option key={value.number} value={index}>{c('day')} {value.number} · {cityName(value.city)}</option>)}</select><button className="hub-icon-button" disabled={day>=trip.days.length-1} aria-label={c('nextDay')} onClick={()=>{setDay(value=>value+1);setOpenSlot(null);}}><ChevronRight/></button></div>
+        {(currentDay?.theme||currentDay?.vibe)&&<div className="hub-day-theme"><span className="hub-eyebrow"><Sparkles size={13}/> {c('day')} {currentDay.number} · {cityName(currentDay.city)}</span>{currentDay.theme&&<h3>{currentDay.theme}</h3>}{currentDay.vibe&&<p>{currentDay.vibe}</p>}</div>}
+        <ol className="hub-timeline">{currentDay?.slots.map((slot,index)=>{const place=allPlaces.find(value=>value.id===slot.placeId);const slotKey=`${currentDay.number}-${slot.time}-${index}`;const isExpanded=openSlot===slotKey;const slotTitle=place?local(place.name,language):(slot.title||c(slot.kind==='visit'?'explore':slot.kind));const Icon=slot.kind==='visit'?Landmark:['breakfast','lunch','dinner'].includes(slot.kind)?Utensils:slot.kind==='explore'?Compass:slot.kind==='stay'?MapPin:Route;return <li key={slotKey} className={place?'hub-visit':''}><div className="hub-timeline-time"><span>{slot.time}</span><i/></div><article className={`hub-stop-card is-interactive ${isExpanded?'is-expanded':''}`}>
+          <button type="button" className="hub-stop-trigger" aria-expanded={isExpanded} onClick={()=>setOpenSlot(isExpanded?null:slotKey)}>
+            {place?.guideSlug&&<img className="hub-stop-image" src={`/landmarks/${place.guideSlug}.webp`} alt={slotTitle} loading="lazy"/>}
+            <div className="hub-stop-content">
+              <div className="hub-stop-heading"><Icon size={19}/><h3>{slotTitle}</h3><span>{money(slot.cost,language)}</span><ChevronDown size={17} className={`hub-stop-chevron ${isExpanded?'is-open':''}`}/></div>
+              <div className="hub-stop-meta"><span><Clock3 size={13}/>{slot.time}–{slot.end}</span>{place&&<span>{cityName(place.city)}</span>}{place?.category==='discovery'&&<span className="hub-gem-badge"><Sparkles size={11}/>{p('hiddenGem')}</span>}{!isExpanded&&<span className="hub-tap-cue">{p('tapDetails')}</span>}</div>
+              {!isExpanded&&(slot.note?<p className="hub-stop-preview">{slot.note}</p>:place?<p className="hub-stop-preview" lang={place.story[language]?language:'en'}>{local(place.story,language)}</p>:null)}
+            </div>
+          </button>
+          {isExpanded&&<div className="hub-stop-details">
+            {place?<>
+              <p lang={place.story[language]?language:'en'}>{local(place.story,language)}{(!place.story[language]||place.storyLanguage==='en'&&language!=='en')&&<small className="hub-language-note">English</small>}</p>
+              {slot.note&&<div className="hub-insider-tip"><strong><Sparkles size={14}/>{p('insiderTip')}</strong><p>{slot.note}</p></div>}
+              {place.history&&<div className="hub-slot-dossier"><strong><BookOpen size={14}/>{p('historyNote')}</strong><p>{local(place.history,language)}</p></div>}
+              <div className="hub-actions">
+                <button type="button" className="hub-button" onClick={()=>talk(place)}><AudioLines size={17}/>{h('listen')}</button>
+                <button type="button" className="hub-button hub-button-light" onClick={()=>go('map',{city:place.city,place:place.id})}><MapIcon size={17}/>{c('navMap')}</button>
+                <button type="button" className="hub-button hub-button-light" disabled={pending} onClick={()=>void build('revise',`Swap ${local(place.name,language)} for another unique discovery in ${cityName(place.city)}`,place.id)}><RefreshCw size={15}/>{p('replaceStop')}</button>
+                <button type="button" className="hub-button hub-button-light" disabled={pending} onClick={()=>void build('revise','',place.id)}><X size={16}/>{p('remove')}</button>
+                {place.guideSlug&&<a className="hub-button hub-button-light" href={`/l/${place.guideSlug}?lang=${language}`}><BookOpen size={15}/>{p('deepGuide')}</a>}
+              </div>
+              {place.estimatedAdmission&&<small className="hub-hint">{p('admissionUnknown')}</small>}
+            </>:<>
+              {slot.note&&<div className="hub-insider-tip"><strong><Sparkles size={14}/>{p('insiderTip')}</strong><p>{slot.note}</p></div>}
+              {slot.kind==='explore'&&!slot.note&&<p>{c('exploreHint')}</p>}
+              {slot.kind==='transfer'&&<p>{cityName(slot.from!)} → {cityName(slot.to!)}. {c('transferHint')}</p>}
+              <div className="hub-actions">
+                <button type="button" className="hub-button" onClick={()=>{if(currentDay&&CITIES.some(ct=>ct.id===currentDay.city))setCityId(currentDay.city);talk();}}><AudioLines size={16}/>{p('askAboutSlot')}</button>
+                <button type="button" className="hub-button hub-button-light" onClick={()=>{setEditing(true);setEditInstruction(`${c('day')} ${currentDay.number} (${slot.time} ${slotTitle}): `);window.scrollTo({top:0,behavior:'smooth'});}}><Pencil size={15}/>{p('customizeSlot')}</button>
+                {(slot.kind==='explore'||slot.kind==='transfer')&&currentDay&&CITIES.some(ct=>ct.id===currentDay.city)&&<button type="button" className="hub-button hub-button-light" onClick={()=>go('map',{city:currentDay.city})}><MapIcon size={16}/>{c('navMap')}</button>}
+              </div>
+            </>}
+          </div>}
+        </article></li>;})}</ol>
         <details className="hub-card hub-budget-details"><summary><Wallet size={18}/>{c('breakdown')}<ChevronDown size={17} className="hub-disclosure-icon"/></summary><dl>{Object.entries(tripBreakdown(trip)).map(([key,value])=><div key={key}><dt>{c(key as keyof ReturnType<typeof tripBreakdown>)}</dt><dd>{money(value,language)}</dd></div>)}</dl></details>
         <div className="hub-actions"><button className="hub-button hub-button-light" onClick={download}><Download size={17}/>{c(downloaded?'tripDownloaded':'exportTrip')}</button><button className="hub-button hub-button-light" onClick={()=>go('plan')}>{p('newPlan')}</button></div><p className="hub-hint">{c('estimates')}</p>{!stored&&<p role="status" className="hub-error">{c('storageError')}</p>}
       </section>)}

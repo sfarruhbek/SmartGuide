@@ -63,12 +63,16 @@ export interface TripSlot {
   placeId?: string;
   from?: string;
   to?: string;
+  title?: string;
+  note?: string;
 }
 export interface TripDay {
   number: number;
   city: string;
   slots: TripSlot[];
   total: number;
+  theme?: string;
+  vibe?: string;
 }
 export interface Trip {
   version: 2;
@@ -170,7 +174,7 @@ export function generateTrip(
       add('transfer', 5 * 60, 0, transfer);
       add('dinner', 60, economical ? 360 : 640);
     } else {
-      const candidates = dayPlaceIds ? (dayPlaceIds[index]??[]).map(id=>places.find(place=>place.id===id&&place.city===city&&!used.has(id))).filter((place):place is Place=>!!place) : places
+      const candidates = dayPlaceIds ? (dayPlaceIds[index]??[]).slice(0, 3).map(id=>places.find(place=>place.id===id&&place.city===city&&!used.has(id))).filter((place):place is Place=>!!place) : places
         .filter((place) => place.city === city && !used.has(place.id))
         .sort((a, b) => {
           const score = (p: Place) =>
@@ -181,14 +185,24 @@ export function generateTrip(
           return rank(b) - rank(a) || score(b) - score(a) || a.id.localeCompare(b.id);
         })
         .slice(0, 2);
-      for (let stop = 0; stop < 2; stop++) {
+      const stopCount = dayPlaceIds ? Math.max(2, candidates.length) : 2;
+      for (let stop = 0; stop < stopCount; stop++) {
         const place = candidates[stop];
-        add('taxi', 30, economical ? 120 : 240);
+        const taxiDuration = stopCount === 3 && stop > 0 ? 20 : 30;
+        add('taxi', taxiDuration, economical ? 120 : 240);
         if (place) {
-          add('visit', place.minutes, place.admission, { placeId: place.id });
+          const visitMinutes =
+            stopCount === 3
+              ? stop === 0
+                ? Math.min(place.minutes, 120)
+                : stop === 1
+                  ? Math.min(place.minutes, 90)
+                  : Math.min(place.minutes, 75)
+              : place.minutes;
+          add('visit', visitMinutes, place.admission, { placeId: place.id });
           used.add(place.id);
         } else add('explore', 90, 0);
-        if (!stop) {
+        if (stop === 0) {
           now = Math.max(now, 12 * 60 + 30);
           add('lunch', 60, economical ? 360 : 640);
         }

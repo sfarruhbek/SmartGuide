@@ -26,6 +26,15 @@ const words={
   aiPlan:['Created for you by AI','AI-план по твоим пожеланиям','Istaklaringizga mos AI reja','Creado para ti por IA','好みに合わせたAI旅程','취향에 맞춘 AI 계획'],
   admissionUnknown:['Admission not confirmed','Стоимость входа не подтверждена','Kirish narxi tasdiqlanmagan','Entrada sin confirmar','入場料は未確認','입장료 미확인'],
   serverSaved:['Saved for this visit','Сохранено для этой поездки','Shu safar uchun saqlandi','Guardado para esta visita','この旅のために保存済み','이번 여행에 저장됨'],
+  hiddenGem:['Hidden gem','Скрытая жемчужина','Yashirin kashfiyot','Joya oculta','隠れた名所','숨은 명소'],
+  insiderTip:['Guide tip','Совет гида','Gid maslahati','Consejo del guía','ガイドのヒント','가이드 팁'],
+  historyNote:['History & context','История и контекст','Tarix va kontekst','Historia y contexto','歴史と背景','역사와 배경'],
+  replaceStop:['Swap with AI','Заменить на другое','Boshqasiga almashtirish','Cambiar con IA','AIで入替','AI로 교체'],
+  askAboutSlot:['Ask Live guide','Спросить Live-гида','Live-giddan soʻrash','Preguntar al guía Live','Liveガイドに聞く','Live 가이드에게 묻기'],
+  customizeSlot:['Edit via AI','Изменить через AI','AI bilan oʻzgartirish','Editar con IA','AIで調整','AI로 수정'],
+  deepGuide:['Full monument guide','Подробный гид','Toʻliq obida gidi','Guía completa','詳細ガイド','상세 가이드'],
+  tapDetails:['Tap for details','Нажми для подробностей','Batafsil koʻrish','Toca para detalles','タップして詳細','눌러서 상세 보기'],
+  stopsShort:['stops','мест','joy','paradas','件','곳'],
 } as const;
 const indexes:Record<SupportedLanguage,number>={en:0,ru:1,uz:2,es:3,ja:4,ko:5};
 export const planningCopy=(language:SupportedLanguage)=>(key:keyof typeof words)=>words[key][indexes[language]];

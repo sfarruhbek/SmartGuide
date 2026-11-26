@@ -66,12 +66,16 @@ export interface TripSlot {
   placeId?: string;
   from?: string;
   to?: string;
+  title?: string;
+  note?: string;
 }
 export interface TripDay {
   number: number;
   city: string;
   slots: TripSlot[];
   total: number;
+  theme?: string;
+  vibe?: string;
 }
 export interface Trip {
   version: 2;
@@ -328,10 +332,14 @@ export function validateTrip(value: unknown, cities: City[], places: Place[]): T
   const visited = new Set<string>();
   for (const [index, day] of trip.days.entries()) {
     if (!day || day.number !== index + 1 || day.city !== baseline.days[index].city ||
-        !Array.isArray(day.slots) || !day.slots.length || day.slots.length > 30) throw new Error('Invalid day');
+        !Array.isArray(day.slots) || !day.slots.length || day.slots.length > 30 ||
+        (day.theme !== undefined && (typeof day.theme !== 'string' || day.theme.length > 200)) ||
+        (day.vibe !== undefined && (typeof day.vibe !== 'string' || day.vibe.length > 400))) throw new Error('Invalid day');
     for (const [i, slot] of day.slots.entries()) {
       if (!slot || !kinds.includes(slot.kind) || !time(slot.time) || !time(slot.end) || slot.time >= slot.end ||
-          (i > 0 && day.slots[i - 1].end > slot.time) || !cents(slot.cost)) throw new Error('Invalid slot');
+          (i > 0 && day.slots[i - 1].end > slot.time) || !cents(slot.cost) ||
+          (slot.title !== undefined && (typeof slot.title !== 'string' || slot.title.length > 200)) ||
+          (slot.note !== undefined && (typeof slot.note !== 'string' || slot.note.length > 500))) throw new Error('Invalid slot');
       if (slot.kind === 'visit') {
         const place = availablePlaces.find((p) => p.id === slot.placeId && p.city === day.city);
         if (!place || visited.has(place.id)) throw new Error('Invalid place');
