@@ -22,7 +22,7 @@ async function bootstrap() {
   const server = app.listen(env.API_PORT, '0.0.0.0', () => {
     console.log(`[smartguide-api] Listening on http://0.0.0.0:${env.API_PORT}`);
     console.log(
-      `[smartguide-api] Gemini AI: ${env.isGeminiConfigured ? `ACTIVE (${env.GEMINI_MODEL} + ${env.GEMINI_TTS_MODEL})` : 'FALLBACK ARCHIVE MODE (set GEMINI_API_KEY in .env for live Gemini Vision + TTS)'}`,
+      `[smartguide-api] Groq text/planner: ${env.isGroqConfigured ? 'CONFIGURED' : 'LOCAL FALLBACK'}; Gemini speech: ${env.isGeminiConfigured ? 'CONFIGURED' : 'TEXT ONLY'}. Configuration is not a live provider health check.`,
     );
   });
 

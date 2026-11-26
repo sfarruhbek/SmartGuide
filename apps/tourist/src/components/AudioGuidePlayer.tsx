@@ -1,11 +1,18 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import { Pause, Play, RotateCcw, Volume2 } from 'lucide-react';
-import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '@smartguide/shared';
+import {
+  SUPPORTED_LANGUAGES,
+  type SupportedLanguage,
+} from '@smartguide/shared';
 import { TOURIST_UI } from '@/lib/i18n';
+import { ROUTE_COPY } from '@/lib/route-copy';
 
-interface AudioGuidePlayerProps {
+const AUDIO_PLAY_EVENT = 'smartguide:audio-play';
+let activePlayerId: string | null = null;
+
+interface Props {
   audioBase64?: string;
   audioMimeType?: string;
   fallbackText: string;
@@ -13,11 +20,9 @@ interface AudioGuidePlayerProps {
   autoPlay?: boolean;
 }
 
-function formatSeconds(sec: number): string {
-  if (!Number.isFinite(sec) || sec < 0) return '0:00';
-  const mins = Math.floor(sec / 60);
-  const rem = Math.floor(sec % 60);
-  return `${mins}:${rem.toString().padStart(2, '0')}`;
+function formatTime(seconds: number): string {
+  if (!Number.isFinite(seconds) || seconds < 0) return '0:00';
+  return `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, '0')}`;
 }
 
 export function AudioGuidePlayer({
@@ -26,175 +31,263 @@ export function AudioGuidePlayer({
   fallbackText,
   language,
   autoPlay = false,
-}: AudioGuidePlayerProps) {
-  const ui = TOURIST_UI[language];
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+}: Props) {
+  const playerId = useId();
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+  const [audioUrl, setAudioUrl] = useState<string | null>(null);
+  const [audioFailed, setAudioFailed] = useState(false);
+  const [speechAvailable, setSpeechAvailable] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isPausedSpeech, setIsPausedSpeech] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [isSpeakingFallback, setIsSpeakingFallback] = useState(false);
+  const [rate, setRate] = useState<1 | 1.25>(1);
+  const rateRef = useRef(rate);
+  rateRef.current = rate;
+  const [autoplayBlocked, setAutoplayBlocked] = useState(false);
+  const ui = TOURIST_UI[language];
+  const copy = ROUTE_COPY[language];
+  const useRecordedAudio = Boolean(audioUrl && !audioFailed);
 
-  const objectUrl = useMemo(() => {
-    if (!audioBase64 || typeof window === 'undefined') return null;
+  useEffect(() => {
+    setSpeechAvailable('speechSynthesis' in window);
+    setAudioFailed(false);
+    setCurrentTime(0);
+    setDuration(0);
+    setAutoplayBlocked(false);
+    if (!audioBase64) {
+      setAudioUrl(null);
+      return;
+    }
     try {
-      const binary = window.atob(audioBase64);
-      const bytes = new Uint8Array(binary.length);
-      for (let i = 0; i < binary.length; i += 1) {
-        bytes[i] = binary.charCodeAt(i);
-      }
-      const blob = new Blob([bytes], { type: audioMimeType });
-      return URL.createObjectURL(blob);
+      const bytes = Uint8Array.from(window.atob(audioBase64), (character) =>
+        character.charCodeAt(0),
+      );
+      const url = URL.createObjectURL(
+        new Blob([bytes], { type: audioMimeType }),
+      );
+      setAudioUrl(url);
+      return () => URL.revokeObjectURL(url);
     } catch {
-      return null;
+      setAudioUrl(null);
     }
   }, [audioBase64, audioMimeType]);
 
+  const claimPlayback = useCallback(() => {
+    if (activePlayerId !== playerId && 'speechSynthesis' in window)
+      window.speechSynthesis.cancel();
+    activePlayerId = playerId;
+    window.dispatchEvent(
+      new CustomEvent(AUDIO_PLAY_EVENT, { detail: { id: playerId } }),
+    );
+  }, [playerId]);
+
   useEffect(() => {
+    const stopOther = (event: Event) => {
+      if ((event as CustomEvent<{ id: string }>).detail.id === playerId) return;
+      audioRef.current?.pause();
+      utteranceRef.current = null;
+      setIsPlaying(false);
+      setIsPausedSpeech(false);
+    };
+    window.addEventListener(AUDIO_PLAY_EVENT, stopOther);
+    const audio = audioRef.current;
     return () => {
-      if (objectUrl) URL.revokeObjectURL(objectUrl);
-      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
+      window.removeEventListener(AUDIO_PLAY_EVENT, stopOther);
+      audio?.pause();
+      if (activePlayerId === playerId) {
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        activePlayerId = null;
       }
     };
-  }, [objectUrl]);
+  }, [playerId]);
+
+  const playRecorded = useCallback(async () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    claimPlayback();
+    audio.playbackRate = rateRef.current;
+    try {
+      await audio.play();
+      setAutoplayBlocked(false);
+    } catch {
+      setAutoplayBlocked(true);
+    }
+  }, [claimPlayback]);
 
   useEffect(() => {
-    if (!autoPlay || !objectUrl || !audioRef.current) return;
-    audioRef.current.play().catch(() => {
-      // Mobile browsers block autoplay before direct gesture; user can tap Play
-    });
-  }, [autoPlay, objectUrl]);
+    if (autoPlay && audioUrl && !audioFailed) void playRecorded();
+  }, [autoPlay, audioUrl, audioFailed, playRecorded]);
 
-  const toggleGeminiAudio = () => {
-    const el = audioRef.current;
-    if (!el) return;
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.playbackRate = rate;
+  }, [rate]);
+
+  const toggleSpeech = () => {
+    if (!speechAvailable) return;
+    const synth = window.speechSynthesis;
     if (isPlaying) {
-      el.pause();
-    } else {
-      el.play().catch(() => {});
-    }
-  };
-
-  const replayGeminiAudio = () => {
-    const el = audioRef.current;
-    if (!el) return;
-    el.currentTime = 0;
-    el.play().catch(() => {});
-  };
-
-  const toggleBrowserFallbackSpeech = () => {
-    if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
-    if (isSpeakingFallback) {
-      window.speechSynthesis.cancel();
-      setIsSpeakingFallback(false);
+      synth.pause();
+      setIsPlaying(false);
+      setIsPausedSpeech(true);
       return;
     }
-
-    window.speechSynthesis.cancel();
+    if (isPausedSpeech && activePlayerId === playerId) {
+      synth.resume();
+      setIsPlaying(true);
+      setIsPausedSpeech(false);
+      return;
+    }
+    claimPlayback();
+    synth.cancel();
     const utterance = new SpeechSynthesisUtterance(fallbackText);
-    const meta = SUPPORTED_LANGUAGES.find((item) => item.code === language);
-    utterance.lang = meta?.speechRecognitionLang ?? 'en-US';
-    utterance.rate = 0.98;
-    utterance.onend = () => setIsSpeakingFallback(false);
-    utterance.onerror = () => setIsSpeakingFallback(false);
-    setIsSpeakingFallback(true);
-    window.speechSynthesis.speak(utterance);
+    utterance.lang =
+      SUPPORTED_LANGUAGES.find((item) => item.code === language)
+        ?.speechRecognitionLang ?? 'en-US';
+    utterance.rate = rate;
+    utterance.onend = () => {
+      if (utteranceRef.current === utterance) {
+        setIsPlaying(false);
+        setIsPausedSpeech(false);
+        utteranceRef.current = null;
+      }
+    };
+    utterance.onerror = (event) => {
+      if (utteranceRef.current === utterance) {
+        setIsPlaying(false);
+        setIsPausedSpeech(false);
+        setAutoplayBlocked(
+          event.error !== 'canceled' && event.error !== 'interrupted',
+        );
+        utteranceRef.current = null;
+      }
+    };
+    utteranceRef.current = utterance;
+    setIsPlaying(true);
+    setIsPausedSpeech(false);
+    setAutoplayBlocked(false);
+    synth.speak(utterance);
   };
 
-  if (!objectUrl) {
-    // Graceful fallback when running without GEMINI_API_KEY (browser Web Speech readout)
-    return (
-      <div className="mt-3 flex items-center justify-between gap-2 rounded-xl border border-slate-700/70 bg-slate-950/70 px-3 py-2">
-        <button
-          type="button"
-          onClick={toggleBrowserFallbackSpeech}
-          className="inline-flex items-center gap-2 rounded-lg bg-amber-400/15 px-3 py-1.5 text-xs font-semibold text-amber-200 hover:bg-amber-400/25 transition-colors cursor-pointer"
-        >
-          {isSpeakingFallback ? <Pause className="h-3.5 w-3.5" /> : <Volume2 className="h-3.5 w-3.5" />}
-          <span>{isSpeakingFallback ? ui.audioPause : ui.audioPlay}</span>
-        </button>
-        <span className="text-[11px] text-slate-400">{ui.audioBrowserFallback}</span>
-      </div>
-    );
-  }
+  const togglePlayback = () => {
+    if (!useRecordedAudio) {
+      toggleSpeech();
+      return;
+    }
+    if (isPlaying) audioRef.current?.pause();
+    else void playRecorded();
+  };
 
-  const progressPercent = duration > 0 ? Math.min(100, (currentTime / duration) * 100) : 0;
+  const safeDuration = Number.isFinite(duration) ? duration : 0;
+  const progress =
+    safeDuration > 0 ? Math.min(100, (currentTime / safeDuration) * 100) : 0;
 
   return (
-    <div className="mt-3 rounded-xl border border-amber-400/30 bg-gradient-to-r from-slate-950/90 via-slate-900/90 to-teal-950/40 p-3">
-      <audio
-        ref={audioRef}
-        src={objectUrl}
-        onPlay={() => setIsPlaying(true)}
-        onPause={() => setIsPlaying(false)}
-        onEnded={() => setIsPlaying(false)}
-        onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
-        onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
-      />
-
-      <div className="flex items-center gap-3">
+    <div className={`audio-player ${autoplayBlocked ? 'audio-needs-tap' : ''}`}>
+      {useRecordedAudio && (
+        <audio
+          ref={audioRef}
+          src={audioUrl!}
+          preload="metadata"
+          onPlay={() => {
+            setIsPlaying(true);
+            setAutoplayBlocked(false);
+          }}
+          onPause={() => setIsPlaying(false)}
+          onEnded={() => {
+            setIsPlaying(false);
+            setCurrentTime(0);
+          }}
+          onError={() => {
+            setAudioFailed(true);
+            setIsPlaying(false);
+          }}
+          onLoadedMetadata={(event) => {
+            setDuration(event.currentTarget.duration);
+            event.currentTarget.playbackRate = rateRef.current;
+          }}
+          onTimeUpdate={(event) =>
+            setCurrentTime(event.currentTarget.currentTime)
+          }
+        />
+      )}
+      <div className="audio-player-main">
         <button
+          className="audio-play"
           type="button"
-          onClick={toggleGeminiAudio}
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-amber-400 to-amber-500 text-slate-950 shadow-md shadow-amber-500/25 hover:brightness-110 transition cursor-pointer"
+          disabled={!useRecordedAudio && !speechAvailable}
+          onClick={togglePlayback}
           aria-label={isPlaying ? ui.audioPause : ui.audioPlay}
+          aria-pressed={isPlaying}
         >
-          {isPlaying ? <Pause className="h-4 w-4 fill-current" /> : <Play className="h-4 w-4 fill-current ml-0.5" />}
+          {isPlaying ? (
+            <Pause aria-hidden="true" />
+          ) : useRecordedAudio ? (
+            <Play aria-hidden="true" />
+          ) : (
+            <Volume2 aria-hidden="true" />
+          )}
         </button>
-
-        <div className="min-w-0 flex-1">
-          <div className="mb-1.5 flex items-center justify-between text-[11px]">
-            <span className="inline-flex items-center gap-1.5 font-medium text-teal-300">
-              <span className="flex items-end gap-0.5 h-3" aria-hidden="true">
-                {[0, 1, 2, 3].map((bar) => (
-                  <span
-                    key={bar}
-                    className={[
-                      'w-0.5 rounded-full bg-teal-300 transition-all',
-                      isPlaying ? 'animate-sound-bar h-3' : 'h-1.5 opacity-50',
-                    ].join(' ')}
-                    style={{ animationDelay: `${bar * 0.14}s` }}
-                  />
-                ))}
+        <div className="audio-player-track">
+          <div className="audio-player-label">
+            <span>
+              {autoplayBlocked
+                ? ui.tapToListenHint
+                : useRecordedAudio
+                  ? ui.audioVoiceTag
+                  : ui.audioBrowserFallback}
+            </span>
+            {useRecordedAudio && (
+              <span className="audio-time">
+                {formatTime(currentTime)} / {formatTime(safeDuration)}
               </span>
-              {ui.audioVoiceTag}
-            </span>
-            <span className="tabular-nums text-slate-400">
-              {formatSeconds(currentTime)} / {formatSeconds(duration)}
-            </span>
+            )}
           </div>
-
-          <input
-            type="range"
-            min={0}
-            max={duration || 100}
-            step={0.1}
-            value={currentTime}
-            onChange={(e) => {
-              const nextTime = Number(e.target.value);
-              setCurrentTime(nextTime);
-              if (audioRef.current) {
-                audioRef.current.currentTime = nextTime;
+          {useRecordedAudio ? (
+            <input
+              type="range"
+              min={0}
+              max={safeDuration || 1}
+              step={0.05}
+              value={Math.min(currentTime, safeDuration || 0)}
+              aria-label={copy.progress}
+              onChange={(event) => {
+                const value = Number(event.target.value);
+                if (audioRef.current) audioRef.current.currentTime = value;
+                setCurrentTime(value);
+              }}
+              style={
+                { '--audio-progress': `${progress}%` } as React.CSSProperties
               }
-            }}
-            aria-label="Audio progress"
-            className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-slate-800 accent-amber-400"
-            style={{
-              background: `linear-gradient(to right, #D4AF37 ${progressPercent}%, #1E293B ${progressPercent}%)`,
-            }}
-          />
+            />
+          ) : (
+            <p className="audio-fallback-hint">{copy.playHint}</p>
+          )}
         </div>
-
         <button
+          className="audio-speed"
           type="button"
-          onClick={replayGeminiAudio}
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-slate-700/80 text-slate-300 hover:border-amber-400/50 hover:text-amber-200 transition cursor-pointer"
-          title={ui.audioReplay}
-          aria-label={ui.audioReplay}
+          aria-label={`${copy.speed}: ${rate}×`}
+          onClick={() => setRate(rate === 1 ? 1.25 : 1)}
         >
-          <RotateCcw className="h-3.5 w-3.5" />
+          {rate === 1 ? '1.0×' : '1.25×'}
         </button>
       </div>
+      {useRecordedAudio && (
+        <button
+          className="audio-replay text-action"
+          type="button"
+          onClick={() => {
+            if (audioRef.current) audioRef.current.currentTime = 0;
+            setCurrentTime(0);
+            void playRecorded();
+          }}
+        >
+          <RotateCcw aria-hidden="true" />
+          {ui.audioReplay}
+        </button>
+      )}
     </div>
   );
 }

@@ -1,6 +1,8 @@
 # Parallel Git Ishlash Qoidalari va AWS Ubuntu Deploy Yo'riqnomasi
 
-Ushbu hujjat 3 ta texnik yo'nalish (**Frontend**, **Backend**, **AI/RAG**) bitta repoda bir-biriga xalaqit bermasdan (0 merge conflict bilan) parallel ishlashi va loyihani AWS Ubuntu serverga Docker'siz deploy qilish tartibini belgilaydi.
+Ushbu hujjat Frontend, Backend va AI/RAG egaligini hamda deploy yoʻriqnomasini belgilaydi. Merge conflictsiz ishlash kafolatlanmaydi. Buyruqlar yoʻriqnoma, deploy bajarilgani dalili emas.
+
+> 26-noyabr yangilanishi: milliy frontend `feat/uzbekistan-solo-travel` branchida; foydalanuvchining keyingi AI-backend topshirigʻi `feat/ai-provider-routing` branchida. Ikkinchisi backend va shared guide sourceMode tipini kengaytiradi. Boshqa odamlarning branchlari yoki production deploy oʻzgartirilmaydi. [AI backend handoff](AI_BACKEND_HANDOFF.md), [API_CONTRACT.md](API_CONTRACT.md), [FRONTEND_PRODUCT.md](FRONTEND_PRODUCT.md).
 
 ---
 
@@ -98,10 +100,12 @@ nano .env
 NODE_ENV=production
 API_PORT=4000
 
-GEMINI_API_KEY=AIza...haqiqiy_kalit
-GEMINI_MODEL=gemini-3.5-flash-lite
-GEMINI_FALLBACK_MODEL=gemini-4-hydrogen
+GROQ_API_KEYS=replace_with_server_key
+GROQ_MODELS=openai/gpt-oss-120b,openai/gpt-oss-20b,qwen/qwen3.8-27b
+GROQ_VISION_MODEL=qwen/qwen3.8-27b
+GEMINI_API_KEY=replace_with_server_key
 GEMINI_TTS_MODEL=gemini-3.8-flash-lite-tts
+GEMINI_TTS_FALLBACK_MODELS=gemini-3.8-flash-tts,gemini-3.1-flash-tts-preview,gemini-2.5-flash-preview-tts
 GEMINI_TTS_VOICE=Sulafat
 
 DATABASE_URL=postgresql://smartguide:KUCHLI_PAROL_YOZING@localhost:5432/smartguide

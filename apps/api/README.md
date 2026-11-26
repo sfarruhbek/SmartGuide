@@ -1,20 +1,23 @@
-# `@smartguide/api` — Backend, AI/RAG & Tourist Interest Flywheel
+# `@smartguide/api` — trip planning and Khiva guide
 
-**Port:** `4000`  
-**Stek:** Node.js 20+, Express 5, TypeScript, Drizzle ORM, PostgreSQL, Zod, `@google/genai`
+Node.js 20+, Express 5, Drizzle/PostgreSQL, Zod, Groq text/vision and Gemini speech via server-side REST. Port 4000. No API credentials are sent to the frontend.
 
-## Asosiy Vazifasi (3 Bosqichli Data Flywheel)
-1. **GPS Yaqin Obyekt & Emotsional Roadmap Engine (`GET /api/landmarks/nearby`, `POST /api/roadmap/generate`):** Sayyohning GPS joylashuvi (`lat/lng`) va real sayyohlar qiziqishi (`landmark_topic_signals`) asosida har obidada fizik QR-kodsiz eng yaqin obyektni va Emotsional Roadmap'ni taklif qiladi.
-2. **Live Verified RAG + Vision + TTS (`POST /api/guide/ask`):** `gemini-3.5-flash-lite` (fallback: `gemini-4-hydrogen`) + `gemini-3.8-flash-lite-tts` orqali 0% gallyutsinatsiyali jonli suhbat va WAV audio beradi, shu bilan birga mavzu (`detectedTopic`), hissiyot (`sentiment`) va `curiosityGap` ni ajratib PostgreSQL'ga yozadi.
-3. **Signal vs. Noise Intellekt & B2B Analitika (`POST /api/guide/feedback`, `GET /api/analytics/summary`, `GET /api/analytics/export`):** Qaysi ma'lumot sayyohlarga qiziq (`Signal`) va qaysilari ahamiyatsiz (`Noise`) ekanini real vaqtda hisoblab, ham Roadmap'ga, ham B2B Dashboard'ga uzatadi.
+Implemented routes: health; landmark list/detail; guide ask; analytics summary; `POST /api/trips/generate`; `POST /api/audio/speech`. Guide uses the existing five-landmark Khiva dossier. The national planner ranks curated places through Groq and computes costs in integer USD cents on the server. The national frontend still runs its local planner. Historical accuracy is not guaranteed by RAG alone.
 
-## Buyruqlar
+Not implemented: trip storage, nearby GPS, legacy roadmap generation, guide feedback, landmark visit, analytics export, contribution moderation and payments. [API contract](../../documentation/API_CONTRACT.md) separates proposals from runtime. [AI handoff](../../documentation/AI_BACKEND_HANDOFF.md) covers model checks, quota handling, environment and the staged JSON import. No DB migration is included.
+
 ```bash
-npm run db:push      # PostgreSQL sxemasini yangilash
-npm run db:seed      # 5 ta obida + Signal/Noise boshlang'ich bazasini seed qilish
-npm run dev:api      # Watch rejimida ishga tushirish (http://localhost:4000)
+npm run db:push
+npm run db:seed
+npm run dev:api
 npm run typecheck --workspace=@smartguide/api
 npm run build --workspace=@smartguide/api
+npm run test --workspace=@smartguide/api
+npm run ai:check --workspace=@smartguide/api
+# Optional live generation (uses provider quota):
+npm run ai:smoke --workspace=@smartguide/api
 ```
 
-Batafsil spetsifikatsiya: [API_CONTRACT.md](../../documentation/API_CONTRACT.md) · [ARCHITECTURE.md](../../documentation/ARCHITECTURE.md)
+Database changes belong to the backend owner. Seed data is not evidence of real visitor research or transactions. [Architecture](../../documentation/ARCHITECTURE.md)
+
+Next implementation tasks, ownership and demo acceptance: [Backend tasks](../../documentation/BACKEND_TASKS.md). Start with a clean PostgreSQL/content setup, full guide HTTP/database checks, a shared request deadline and the real HTTPS staging address. The national frontend adapter remains a frontend task.

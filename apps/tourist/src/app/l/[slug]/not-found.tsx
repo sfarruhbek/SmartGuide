@@ -1,21 +1,24 @@
 import Link from 'next/link';
-import { Compass } from 'lucide-react';
+import { ArrowLeft, Compass } from 'lucide-react';
 
 export default function LandmarkNotFound() {
   return (
-    <main className="mx-auto flex min-h-screen max-w-md flex-col items-center justify-center px-6 text-center">
-      <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-amber-400/40 bg-amber-400/10">
-        <Compass className="h-7 w-7 text-amber-300" />
+    <main className="mx-auto flex min-h-screen max-w-md flex-col items-center justify-center bg-[#FAF8F5] px-6 text-center text-[#14181F]">
+      <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#EAE6DF] bg-white shadow-sm">
+        <Compass className="h-7 w-7 text-[#0E7470]" />
       </div>
-      <h1 className="mt-4 font-display text-2xl font-bold text-white">Landmark Not Found</h1>
-      <p className="mt-2 text-sm text-slate-400">
-        This QR code does not match one of the 5 verified Ichan-Qala monuments yet.
+      <h1 className="mt-5 font-display text-3xl font-semibold tracking-tight text-[#14181F]">
+        Landmark Not Found
+      </h1>
+      <p className="mt-2.5 text-sm leading-relaxed text-[#5C6370]">
+        This QR plaque does not match one of the 5 verified Ichan-Qala monuments in our museum archive.
       </p>
       <Link
         href="/"
-        className="mt-6 rounded-xl bg-amber-400 px-5 py-2.5 text-sm font-bold text-slate-950 hover:brightness-110 transition"
+        className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#0E7470] px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0A5C59]"
       >
-        Explore All 5 Khiva Landmarks
+        <ArrowLeft className="h-4 w-4" />
+        <span>Explore All 5 Khiva Landmarks</span>
       </Link>
     </main>
   );

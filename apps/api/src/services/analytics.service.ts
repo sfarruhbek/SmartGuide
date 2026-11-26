@@ -21,7 +21,7 @@ export interface LogInteractionInput {
   hasImage: boolean;
   identifiedByVision: boolean;
   sessionId: string;
-  sourceMode: 'gemini-rag' | 'verified-rag-fallback';
+  sourceMode: 'groq-rag' | 'gemini-rag' | 'verified-rag-fallback';
   responseTimeMs: number;
 }
 

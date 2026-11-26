@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["../src/*"],
+      "@smartguide/shared": ["../../../packages/shared/src/index.ts"]
+    }
+  }
+}

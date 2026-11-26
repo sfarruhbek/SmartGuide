@@ -1,0 +1,883 @@
+{
+  "checkedAt": "2026-11-26T07:17:11.192Z",
+  "catalogs": [
+    {
+      "provider": "groq",
+      "credential": 1,
+      "status": 200,
+      "models": [
+        {
+          "id": "openai/gpt-oss-20b",
+          "active": true,
+          "context_window": 131072
+        },
+        {
+          "id": "openai/gpt-oss-120b",
+          "active": true,
+          "context_window": 131072
+        },
+        {
+          "id": "canopylabs/orpheus-v1-english",
+          "active": true,
+          "context_window": 4000
+        },
+        {
+          "id": "meta-llama/llama-prompt-guard-2-22m",
+          "active": true,
+          "context_window": 512
+        },
+        {
+          "id": "whisper-large-v3",
+          "active": true,
+          "context_window": 448
+        },
+        {
+          "id": "whisper-large-v3-turbo",
+          "active": true,
+          "context_window": 448
+        },
+        {
+          "id": "canopylabs/orpheus-arabic-saudi",
+          "active": true,
+          "context_window": 4000
+        },
+        {
+          "id": "meta-llama/llama-prompt-guard-2-86m",
+          "active": true,
+          "context_window": 512
+        },
+        {
+          "id": "allam-2-7b",
+          "active": true,
+          "context_window": 4096
+        },
+        {
+          "id": "openai/gpt-oss-safeguard-20b",
+          "active": true,
+          "context_window": 131072
+        },
+        {
+          "id": "qwen/qwen3.8-27b",
+          "active": true,
+          "context_window": 131072
+        }
+      ],
+      "errorCode": null
+    },
+    {
+      "provider": "groq",
+      "credential": 2,
+      "status": 200,
+      "models": [
+        {
+          "id": "whisper-large-v3-turbo",
+          "active": true,
+          "context_window": 448
+        },
+        {
+          "id": "whisper-large-v3",
+          "active": true,
+          "context_window": 448
+        },
+        {
+          "id": "canopylabs/orpheus-arabic-saudi",
+          "active": true,
+          "context_window": 4000
+        },
+        {
+          "id": "meta-llama/llama-prompt-guard-2-22m",
+          "active": true,
+          "context_window": 512
+        },
+        {
+          "id": "meta-llama/llama-prompt-guard-2-86m",
+          "active": true,
+          "context_window": 512
+        },
+        {
+          "id": "canopylabs/orpheus-v1-english",
+          "active": true,
+          "context_window": 4000
+        },
+        {
+          "id": "openai/gpt-oss-20b",
+          "active": true,
+          "context_window": 131072
+        },
+        {
+          "id": "qwen/qwen3.8-27b",
+          "active": true,
+          "context_window": 131072
+        },
+        {
+          "id": "allam-2-7b",
+          "active": true,
+          "context_window": 4096
+        },
+        {
+          "id": "openai/gpt-oss-120b",
+          "active": true,
+          "context_window": 131072
+        },
+        {
+          "id": "openai/gpt-oss-safeguard-20b",
+          "active": true,
+          "context_window": 131072
+        }
+      ],
+      "errorCode": null
+    },
+    {
+      "provider": "groq",
+      "credential": 3,
+      "status": 200,
+      "models": [
+        {
+          "id": "openai/gpt-oss-120b",
+          "active": true,
+          "context_window": 131072
+        },
+        {
+          "id": "openai/gpt-oss-safeguard-20b",
+          "active": true,
+          "context_window": 131072
+        },
+        {
+          "id": "allam-2-7b",
+          "active": true,
+          "context_window": 4096
+        },
+        {
+          "id": "canopylabs/orpheus-v1-english",
+          "active": true,
+          "context_window": 4000
+        },
+        {
+          "id": "meta-llama/llama-prompt-guard-2-86m",
+          "active": true,
+          "context_window": 512
+        },
+        {
+          "id": "canopylabs/orpheus-arabic-saudi",
+          "active": true,
+          "context_window": 4000
+        },
+        {
+          "id": "openai/gpt-oss-20b",
+          "active": true,
+          "context_window": 131072
+        },
+        {
+          "id": "qwen/qwen3.8-27b",
+          "active": true,
+          "context_window": 131072
+        },
+        {
+          "id": "meta-llama/llama-prompt-guard-2-22m",
+          "active": true,
+          "context_window": 512
+        },
+        {
+          "id": "whisper-large-v3-turbo",
+          "active": true,
+          "context_window": 448
+        },
+        {
+          "id": "whisper-large-v3",
+          "active": true,
+          "context_window": 448
+        }
+      ],
+      "errorCode": null
+    },
+    {
+      "provider": "groq",
+      "credential": 4,
+      "status": 200,
+      "models": [
+        {
+          "id": "whisper-large-v3",
+          "active": true,
+          "context_window": 448
+        },
+        {
+          "id": "canopylabs/orpheus-arabic-saudi",
+          "active": true,
+          "context_window": 4000
+        },
+        {
+          "id": "openai/gpt-oss-20b",
+          "active": true,
+          "context_window": 131072
+        },
+        {
+          "id": "meta-llama/llama-prompt-guard-2-86m",
+          "active": true,
+          "context_window": 512
+        },
+        {
+          "id": "allam-2-7b",
+          "active": true,
+          "context_window": 4096
+        },
+        {
+          "id": "canopylabs/orpheus-v1-english",
+          "active": true,
+          "context_window": 4000
+        },
+        {
+          "id": "qwen/qwen3.8-27b",
+          "active": true,
+          "context_window": 131072
+        },
+        {
+          "id": "openai/gpt-oss-safeguard-20b",
+          "active": true,
+          "context_window": 131072
+        },
+        {
+          "id": "openai/gpt-oss-120b",
+          "active": true,
+          "context_window": 131072
+        },
+        {
+          "id": "meta-llama/llama-prompt-guard-2-22m",
+          "active": true,
+          "context_window": 512
+        },
+        {
+          "id": "whisper-large-v3-turbo",
+          "active": true,
+          "context_window": 448
+        }
+      ],
+      "errorCode": null
+    },
+    {
+      "provider": "gemini",
+      "credential": 1,
+      "status": 200,
+      "models": [
+        {
+          "id": "models/gemini-2.5-flash",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "createCachedContent",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-2.5-pro",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "createCachedContent",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-2.5-flash-preview-tts",
+          "methods": [
+            "countTokens",
+            "generateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-2.5-pro-preview-tts",
+          "methods": [
+            "countTokens",
+            "generateContent",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemma-4-26b-a4b-it",
+          "methods": [
+            "generateContent",
+            "countTokens"
+          ]
+        },
+        {
+          "id": "models/gemma-4-31b-it",
+          "methods": [
+            "generateContent",
+            "countTokens"
+          ]
+        },
+        {
+          "id": "models/gemini-flash-latest",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "createCachedContent",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-flash-lite-latest",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "createCachedContent",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-pro-latest",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "createCachedContent",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-2.5-flash-lite",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "createCachedContent",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-2.5-flash-image",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-3-flash-preview",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "createCachedContent",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-3.1-pro-preview",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "createCachedContent",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-3.1-pro-preview-customtools",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "createCachedContent",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-3.1-flash-lite-preview",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "createCachedContent",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-3.1-flash-lite",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "createCachedContent",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-3-pro-image-preview",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-3-pro-image",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/nano-banana-pro-preview",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-3.1-flash-image-preview",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-3.1-flash-image",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-3.1-flash-lite-image",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-nano-banana-2.1",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-3.5-flash",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "createCachedContent",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-3.5-flash-lite",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "createCachedContent",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-omni-flash-preview",
+          "methods": [
+            "generateContent",
+            "countTokens"
+          ]
+        },
+        {
+          "id": "models/gemini-omni-1.1-flash",
+          "methods": [
+            "generateContent",
+            "countTokens"
+          ]
+        },
+        {
+          "id": "models/gemini-omni-1.2-flash",
+          "methods": [
+            "generateContent",
+            "countTokens"
+          ]
+        },
+        {
+          "id": "models/gemini-3.5-transcribe",
+          "methods": [
+            "generateContent",
+            "countTokens"
+          ]
+        },
+        {
+          "id": "models/gemini-3.6-flash",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "createCachedContent",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-3.7-flash",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "createCachedContent",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-3.8-flash",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "createCachedContent",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-4-argon",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-4-carbon",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-4-hydrogen",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-4-neon",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/lyria-3-clip-preview",
+          "methods": [
+            "generateContent",
+            "countTokens"
+          ]
+        },
+        {
+          "id": "models/lyria-3-pro-preview",
+          "methods": [
+            "generateContent",
+            "countTokens"
+          ]
+        },
+        {
+          "id": "models/lyria-3.5",
+          "methods": [
+            "generateContent",
+            "countTokens"
+          ]
+        },
+        {
+          "id": "models/gemini-3.1-flash-tts-preview",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-3.8-flash-tts",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-3.8-flash-lite-tts",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-robotics-er-2-preview",
+          "methods": [
+            "generateContent",
+            "countTokens",
+            "createCachedContent",
+            "batchGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-2.5-computer-use-preview-10-2025",
+          "methods": [
+            "generateContent",
+            "countTokens"
+          ]
+        },
+        {
+          "id": "models/antigravity-preview-05-2026",
+          "methods": [
+            "generateContent",
+            "countTokens"
+          ]
+        },
+        {
+          "id": "models/antigravity-preview-09-2026",
+          "methods": [
+            "generateContent",
+            "countTokens"
+          ]
+        },
+        {
+          "id": "models/antigravity-preview-latest",
+          "methods": [
+            "generateContent",
+            "countTokens"
+          ]
+        },
+        {
+          "id": "models/deep-research-max-preview-04-2026",
+          "methods": [
+            "generateContent",
+            "countTokens"
+          ]
+        },
+        {
+          "id": "models/deep-research-preview-04-2026",
+          "methods": [
+            "generateContent",
+            "countTokens"
+          ]
+        },
+        {
+          "id": "models/gemini-embedding-001",
+          "methods": [
+            "embedContent",
+            "countTextTokens",
+            "countTokens",
+            "asyncBatchEmbedContent"
+          ]
+        },
+        {
+          "id": "models/gemini-embedding-2-preview",
+          "methods": [
+            "embedContent",
+            "countTextTokens",
+            "countTokens",
+            "asyncBatchEmbedContent"
+          ]
+        },
+        {
+          "id": "models/gemini-embedding-2",
+          "methods": [
+            "embedContent",
+            "countTextTokens",
+            "countTokens",
+            "asyncBatchEmbedContent"
+          ]
+        },
+        {
+          "id": "models/aqa",
+          "methods": [
+            "generateAnswer"
+          ]
+        },
+        {
+          "id": "models/gemini-3.5-transcribe-live",
+          "methods": [
+            "bidiGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-2.5-flash-native-audio-latest",
+          "methods": [
+            "countTokens",
+            "bidiGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-2.5-flash-native-audio-preview-09-2025",
+          "methods": [
+            "countTokens",
+            "bidiGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-2.5-flash-native-audio-preview-12-2025",
+          "methods": [
+            "countTokens",
+            "bidiGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-3.1-flash-live-preview",
+          "methods": [
+            "bidiGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-3.8-live",
+          "methods": [
+            "bidiGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-3.8-live-extended-thinking",
+          "methods": [
+            "bidiGenerateContent"
+          ]
+        },
+        {
+          "id": "models/genie-4",
+          "methods": [
+            "bidiGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-robotics-er-2-streaming-preview",
+          "methods": [
+            "bidiGenerateContent"
+          ]
+        },
+        {
+          "id": "models/gemini-3.5-live-translate-preview",
+          "methods": [
+            "bidiGenerateContent"
+          ]
+        },
+        {
+          "id": "models/lyria-realtime-exp",
+          "methods": [
+            "bidiGenerateMusic"
+          ]
+        },
+        {
+          "id": "models/gemini-decision-1",
+          "methods": [
+            "createDecision"
+          ]
+        }
+      ],
+      "errorCode": null,
+      "errorReasons": []
+    }
+  ],
+  "textModels": [
+    {
+      "provider": "groq",
+      "model": "openai/gpt-oss-20b",
+      "credential": 1,
+      "status": 200,
+      "latencyMs": 683,
+      "jsonValid": true,
+      "errorCode": null,
+      "retryAfter": null,
+      "remainingRequests": "999"
+    },
+    {
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "credential": 1,
+      "status": 200,
+      "latencyMs": 229,
+      "jsonValid": true,
+      "errorCode": null,
+      "retryAfter": null,
+      "remainingRequests": "999"
+    },
+    {
+      "provider": "groq",
+      "model": "allam-2-7b",
+      "credential": 1,
+      "status": 200,
+      "latencyMs": 432,
+      "jsonValid": true,
+      "errorCode": null,
+      "retryAfter": null,
+      "remainingRequests": "6999"
+    },
+    {
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "credential": 1,
+      "status": 200,
+      "latencyMs": 241,
+      "jsonValid": true,
+      "errorCode": null,
+      "retryAfter": null,
+      "remainingRequests": "999"
+    }
+  ],
+  "credentialProbes": [
+    {
+      "credential": 1,
+      "status": 200
+    },
+    {
+      "credential": 2,
+      "status": 200
+    },
+    {
+      "credential": 3,
+      "status": 200
+    },
+    {
+      "credential": 4,
+      "status": 200
+    }
+  ],
+  "speechModels": [
+    {
+      "provider": "gemini",
+      "model": "gemini-2.5-flash-preview-tts",
+      "status": 200,
+      "latencyMs": 3583,
+      "audioMimeType": "audio/L16;codec=pcm;rate=24000",
+      "audioBytes": 157966,
+      "errorCode": null,
+      "errorReasons": []
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-2.5-pro-preview-tts",
+      "status": 429,
+      "latencyMs": 488,
+      "audioBytes": 0,
+      "errorCode": "RESOURCE_EXHAUSTED",
+      "errorReasons": []
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-tts-preview",
+      "status": 200,
+      "latencyMs": 3593,
+      "audioMimeType": "audio/l16; rate=24000; channels=1",
+      "audioBytes": 145920,
+      "errorCode": null,
+      "errorReasons": []
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-3.8-flash-tts",
+      "status": 200,
+      "latencyMs": 3161,
+      "audioMimeType": "audio/wav",
+      "audioBytes": 136348,
+      "errorCode": null,
+      "errorReasons": []
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-3.8-flash-lite-tts",
+      "status": 200,
+      "latencyMs": 2992,
+      "audioMimeType": "audio/wav",
+      "audioBytes": 231388,
+      "errorCode": null,
+      "errorReasons": []
+    }
+  ],
+  "note": "Catalog discovery covers all exposed models. Generation probes cover four text/planning models and five speech models; moderation, transcription, image and music models were not generation-tested for these tasks."
+}

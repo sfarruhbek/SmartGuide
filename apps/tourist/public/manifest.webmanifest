@@ -1,11 +1,11 @@
 {
-  "name": "SmartGuide · Ichan-Qala AI Tour Guide",
+  "name": "SmartGuide · Uzbekistan at your own pace",
   "short_name": "SmartGuide",
-  "description": "Verified AI Audio & Vision Tour Guide for Ichan-Qala, Khiva",
+  "description": "Solo journeys, budget estimates and local stories across Uzbekistan",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#090D16",
-  "theme_color": "#090D16",
+  "background_color": "#FAF8F5",
+  "theme_color": "#0E7470",
   "orientation": "portrait-primary",
   "icons": [
     {

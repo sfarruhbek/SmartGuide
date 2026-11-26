@@ -1,0 +1,554 @@
+{
+  "cities": [
+    {
+      "id": "bukhara",
+      "name": {
+        "en": "Bukhara",
+        "ru": "Бухара",
+        "uz": "Buxoro",
+        "es": "Bujará",
+        "ja": "ブハラ",
+        "ko": "부하라"
+      },
+      "lat": 39.7747,
+      "lng": 64.4194,
+      "image": "/cities/bukhara.webp"
+    },
+    {
+      "id": "samarkand",
+      "name": {
+        "en": "Samarkand",
+        "ru": "Самарканд",
+        "uz": "Samarqand",
+        "es": "Samarcanda",
+        "ja": "サマルカンド",
+        "ko": "사마르칸트"
+      },
+      "lat": 39.6542,
+      "lng": 66.9597,
+      "image": "/cities/samarkand.webp"
+    },
+    {
+      "id": "khiva",
+      "name": {
+        "en": "Khiva",
+        "ru": "Хива",
+        "uz": "Xiva",
+        "es": "Jiva",
+        "ja": "ヒヴァ",
+        "ko": "히바"
+      },
+      "lat": 41.378,
+      "lng": 60.36,
+      "image": "/landmarks/pahlavon-mahmud.webp"
+    },
+    {
+      "id": "tashkent",
+      "name": {
+        "en": "Tashkent",
+        "ru": "Ташкент",
+        "uz": "Toshkent",
+        "ja": "タシケント",
+        "ko": "타슈켄트"
+      },
+      "lat": 41.311,
+      "lng": 69.279,
+      "image": "/cities/tashkent.webp"
+    },
+    {
+      "id": "nukus",
+      "name": {
+        "en": "Nukus",
+        "ru": "Нукус",
+        "uz": "Nukus"
+      },
+      "lat": 42.46,
+      "lng": 59.61
+    },
+    {
+      "id": "termez",
+      "name": {
+        "en": "Termez",
+        "ru": "Термез",
+        "uz": "Termiz"
+      },
+      "lat": 37.224,
+      "lng": 67.278
+    },
+    {
+      "id": "shahrisabz",
+      "name": {
+        "en": "Shahrisabz",
+        "ru": "Шахрисабз",
+        "uz": "Shahrisabz"
+      },
+      "lat": 39.05,
+      "lng": 66.83
+    },
+    {
+      "id": "kokand",
+      "name": {
+        "en": "Kokand",
+        "ru": "Коканд",
+        "uz": "Qoʻqon"
+      },
+      "lat": 40.529,
+      "lng": 70.942
+    },
+    {
+      "id": "fergana",
+      "name": {
+        "en": "Fergana",
+        "ru": "Фергана",
+        "uz": "Fargʻona"
+      },
+      "lat": 40.386,
+      "lng": 71.787
+    },
+    {
+      "id": "andijan",
+      "name": {
+        "en": "Andijan",
+        "ru": "Андижан",
+        "uz": "Andijon"
+      },
+      "lat": 40.782,
+      "lng": 72.344
+    },
+    {
+      "id": "namangan",
+      "name": {
+        "en": "Namangan",
+        "ru": "Наманган",
+        "uz": "Namangan"
+      },
+      "lat": 40.998,
+      "lng": 71.672
+    },
+    {
+      "id": "jizzakh",
+      "name": {
+        "en": "Jizzakh",
+        "ru": "Джизак",
+        "uz": "Jizzax"
+      },
+      "lat": 40.115,
+      "lng": 67.842
+    },
+    {
+      "id": "navoi",
+      "name": {
+        "en": "Navoi",
+        "ru": "Навои",
+        "uz": "Navoiy"
+      },
+      "lat": 40.103,
+      "lng": 65.368
+    },
+    {
+      "id": "karshi",
+      "name": {
+        "en": "Karshi",
+        "ru": "Карши",
+        "uz": "Qarshi"
+      },
+      "lat": 38.86,
+      "lng": 65.79
+    },
+    {
+      "id": "gulistan",
+      "name": {
+        "en": "Gulistan",
+        "ru": "Гулистан",
+        "uz": "Guliston"
+      },
+      "lat": 40.49,
+      "lng": 68.78
+    },
+    {
+      "id": "margilan",
+      "name": {
+        "en": "Margilan",
+        "ru": "Маргилан",
+        "uz": "Margʻilon"
+      },
+      "lat": 40.473,
+      "lng": 71.724
+    }
+  ],
+  "places": [
+    {
+      "id": "fayzabad",
+      "city": "bukhara",
+      "name": {
+        "en": "Fayzabad khanqah",
+        "ru": "Файзабадская ханака",
+        "uz": "Fayzobod xonaqohi"
+      },
+      "lat": 39.779522,
+      "lng": 64.438038,
+      "interests": [
+        "history",
+        "local",
+        "sacred"
+      ],
+      "category": "discovery",
+      "admission": 240,
+      "minutes": 60,
+      "source": "https://uzbekistan.travel/uz/o/buxoro-viloyati/",
+      "story": {
+        "en": "Beyond the central squares, discover a different chapter of Bukhara: the city of Sufi communities. Look at the brickwork and the domed silhouette, and leave time to explore the surrounding neighbourhood.",
+        "ru": "За пределами центральных площадей открывается другая Бухара — город суфийских общин. Рассмотри кирпичную кладку и силуэт купола, а затем оставь время на окружающий район.",
+        "uz": "Markaziy maydonlardan chetroqda Buxoroning soʻfiy jamoalari bilan bogʻliq tarixi ochiladi. Gʻisht terimi va gumbaz shakliga qarang, atrofdagi mahalla uchun ham vaqt ajrating."
+      },
+      "history": {
+        "en": "The national tourism portal dates the khanqah to 1598–1599 and names the Sufi Mavlono Poyanda Muhammad Akhsi as its founder. A khanqah helps explain religious community life alongside the city’s better-known madrasas.",
+        "ru": "Национальный туристический портал датирует ханаку 1598–1599 годами и связывает её создание с суфием Мавлоно Поянда Мухаммадом Ахси. Такие здания помогают понять общинную религиозную жизнь города наряду с его известными медресе.",
+        "uz": "Milliy turizm portali xonaqohni 1598–1599-yillarga oid deb, bunyodkorini Mavlono Poyanda Muhammad Axsi deb koʻrsatadi. Xonaqohlar mashhur madrasalar bilan birga shaharning diniy jamoalari hayotini tushunishga yordam beradi."
+      }
+    },
+    {
+      "id": "turki-jandi",
+      "city": "bukhara",
+      "name": {
+        "en": "Turki Jandi mausoleum",
+        "ru": "Мавзолей Турки Джанди",
+        "uz": "Turki Jandi maqbarasi"
+      },
+      "lat": 39.770521,
+      "lng": 64.415839,
+      "interests": [
+        "history",
+        "sacred",
+        "local"
+      ],
+      "category": "discovery",
+      "admission": 240,
+      "minutes": 60,
+      "source": "https://uza.uz/sp/posts/buxorodagi-turki-jandi-maqbarasi-haqida-bilasizmi-06-04-2020",
+      "story": {
+        "en": "A place of pilgrimage on Namozgoh Street, away from the main monumental squares. Its story connects Bukhara to Jand, an ancient city on the Syr Darya, and to scholars who travelled here to study.",
+        "ru": "Место паломничества на улице Намозгох, в стороне от главных монументальных площадей. Его история связывает Бухару с древним Джандом на Сырдарье и учёными, приезжавшими сюда за знаниями.",
+        "uz": "Namozgoh koʻchasidagi ziyoratgoh hikoyasi Buxoroni Sirdaryo boʻyidagi qadimiy Jand va ilm olish uchun kelgan olimlar bilan bogʻlaydi."
+      },
+      "history": {
+        "en": "UzA identifies Turki Jandi as a scholar who came from Jand to Bukhara. Archaeological research described several building phases from the 11th–12th to the 16th–17th centuries: the person’s life and the age of the surviving building are different questions.",
+        "ru": "По материалу УзА, Турки Джанди был учёным, приехавшим из Джанда в Бухару. Археологические исследования выделяют этапы строительства от XI–XII до XVI–XVII веков: время жизни человека и возраст сохранившегося здания — разные вопросы.",
+        "uz": "OʻzA Turki Jandiyni Janddan Buxoroga kelgan olim sifatida tasvirlaydi. Arxeologlar XI–XII asrlardan XVI–XVII asrlargacha qurilish bosqichlarini ajratgan: shaxs yashagan davr va saqlangan bino yoshi bir xil emas."
+      }
+    },
+    {
+      "id": "chor-bakr",
+      "city": "bukhara",
+      "name": {
+        "en": "Chor-Bakr",
+        "ru": "Чор-Бакр",
+        "uz": "Chor Bakr"
+      },
+      "lat": 39.773948,
+      "lng": 64.335665,
+      "interests": [
+        "sacred",
+        "history",
+        "local"
+      ],
+      "category": "discovery",
+      "admission": 240,
+      "minutes": 90,
+      "source": "https://uzbekistan.travel/uz/o/buxoro-viloyati/",
+      "story": {
+        "en": "A memorial ensemble outside central Bukhara. Walk through its courtyards with respect for people visiting to pray. Ask permission before photographing worshippers.",
+        "ru": "Мемориальный ансамбль за пределами центра Бухары. Здесь важно уважать людей, приходящих для молитвы. Прежде чем фотографировать верующих, спросите разрешения.",
+        "uz": "Buxoro markazidan tashqaridagi yodgorlik majmuasi. Ziyoratga kelganlarga hurmat bilan munosabatda boʻling. Odamlarni suratga olishdan oldin ruxsat soʻrang."
+      }
+    },
+    {
+      "id": "khodjayev",
+      "city": "bukhara",
+      "name": {
+        "en": "Fayzulla Khodjayev house",
+        "ru": "Дом Файзуллы Ходжаева",
+        "uz": "Fayzulla Xoʻjayev uy-muzeyi"
+      },
+      "lat": 39.7685,
+      "lng": 64.4115,
+      "interests": [
+        "local",
+        "history"
+      ],
+      "category": "discovery",
+      "admission": 320,
+      "minutes": 75,
+      "source": "https://uzbekistan.travel/en/o/the-house-museum-of-fayzulla-khodzhayev/",
+      "story": {
+        "en": "A house museum that brings Bukhara’s domestic architecture into focus. Look at the carved decoration and the organisation of the rooms, beyond the monumental facades of the city.",
+        "ru": "Дом-музей помогает увидеть жилую архитектуру Бухары. Обратите внимание на резной декор и устройство комнат — повседневную сторону города за фасадами больших памятников.",
+        "uz": "Uy-muzey Buxoroning turar joy meʼmorchiligini koʻrsatadi. Oʻymakor bezaklar va xonalar tuzilishiga eʼtibor bering."
+      }
+    },
+    {
+      "id": "poi-kalyan",
+      "city": "bukhara",
+      "name": {
+        "en": "Po-i-Kalyan",
+        "ru": "Пои-Калян",
+        "uz": "Poyi Kalon"
+      },
+      "lat": 39.7758,
+      "lng": 64.4149,
+      "interests": [
+        "history"
+      ],
+      "category": "landmark",
+      "admission": 400,
+      "minutes": 90,
+      "source": "https://uzbekistan.travel/en/",
+      "story": {
+        "en": "A landmark ensemble around the Kalyan minaret. Spend time looking at brick patterns and the proportions of the square. Access and admission vary between its buildings.",
+        "ru": "Ансамбль вокруг минарета Калян. Присмотритесь к узорам кирпичной кладки и пропорциям площади. Условия входа в разные здания могут отличаться.",
+        "uz": "Kalon minorasi atrofidagi majmua. Gʻisht naqshlari va maydon nisbatlarini kuzating. Binolarga kirish shartlari turlicha boʻlishi mumkin."
+      }
+    },
+    {
+      "id": "chashma-ayub",
+      "city": "bukhara",
+      "name": {
+        "en": "Chashma-Ayub",
+        "ru": "Чашма-Аюб",
+        "uz": "Chashmai Ayyub"
+      },
+      "lat": 39.778252,
+      "lng": 64.402304,
+      "interests": [
+        "sacred",
+        "history"
+      ],
+      "category": "landmark",
+      "admission": 240,
+      "minutes": 60,
+      "source": "https://uzbekistan.travel/uz/o/buxoro-viloyati/",
+      "story": {
+        "en": "The spring here is associated with a story about the prophet Ayub. That association belongs to local religious tradition; it is not archaeological proof of the event.",
+        "ru": "Источник связывают с преданием о пророке Аюбе. Это местная религиозная традиция, а не археологическое подтверждение описанного события.",
+        "uz": "Buloq Ayyub paygʻambar haqidagi rivoyat bilan bogʻlanadi. Bu mahalliy diniy anʼana, voqeaning arxeologik isboti emas."
+      }
+    },
+    {
+      "id": "konigil",
+      "city": "samarkand",
+      "name": {
+        "en": "Konigil · Meros paper mill",
+        "ru": "Конигил · бумажная мастерская Meros",
+        "uz": "Konigil · Meros qogʻoz fabrikasi"
+      },
+      "lat": 39.666,
+      "lng": 67.038,
+      "interests": [
+        "local",
+        "nature"
+      ],
+      "category": "discovery",
+      "admission": 400,
+      "minutes": 120,
+      "source": "https://uzbekistan.travel/en/o/konigil-village-and-meros-paper-mill/",
+      "story": {
+        "en": "Paper is made by hand at the Meros workshop in Konigil. Watch the water-powered process and ask about the materials. Workshop participation can cost extra.",
+        "ru": "В мастерской Meros в Конигиле бумагу делают вручную. Посмотрите, как используется энергия воды, и расспросите о материалах. Участие в мастер-классе может оплачиваться отдельно.",
+        "uz": "Konigildagi Meros ustaxonasida qogʻoz qoʻlda tayyorlanadi. Suv yordamida ishlaydigan jarayon va xomashyo haqida soʻrang. Mahorat darsi alohida toʻlanishi mumkin."
+      }
+    },
+    {
+      "id": "registan",
+      "city": "samarkand",
+      "name": {
+        "en": "Registan",
+        "ru": "Регистан",
+        "uz": "Registon"
+      },
+      "lat": 39.6547,
+      "lng": 66.975,
+      "interests": [
+        "history"
+      ],
+      "category": "landmark",
+      "admission": 800,
+      "minutes": 120,
+      "source": "https://uzbekistan.travel/en/",
+      "story": {
+        "en": "Three madrasas frame Registan Square. Compare the mosaic patterns at different distances and leave time for the courtyards, rather than only a photo of the main facade.",
+        "ru": "Площадь Регистан обрамляют три медресе. Рассмотрите мозаику с разного расстояния и оставьте время на внутренние дворы, помимо фотографии главного фасада.",
+        "uz": "Registon maydonini uch madrasa oʻrab turadi. Mozaikani turli masofadan kuzating va ichki hovlilar uchun ham vaqt ajrating."
+      }
+    },
+    {
+      "id": "shahi-zinda",
+      "city": "samarkand",
+      "name": {
+        "en": "Shah-i-Zinda",
+        "ru": "Шахи-Зинда",
+        "uz": "Shohi Zinda"
+      },
+      "lat": 39.6629,
+      "lng": 66.9873,
+      "interests": [
+        "sacred",
+        "history"
+      ],
+      "category": "landmark",
+      "admission": 480,
+      "minutes": 90,
+      "source": "https://uzbekistan.travel/en/",
+      "story": {
+        "en": "A necropolis with richly tiled mausoleums. It is also a place of pilgrimage: dress respectfully and keep the path clear for visitors.",
+        "ru": "Некрополь с богато украшенными мавзолеями. Это также место паломничества: выбирайте уважительную одежду и оставляйте проход для посетителей.",
+        "uz": "Koshinlar bilan bezatilgan maqbaralar majmuasi. Ziyorat joyi hamdir: munosib kiyining va yoʻlakni ochiq qoldiring."
+      }
+    },
+    {
+      "id": "chorsu",
+      "city": "tashkent",
+      "name": {
+        "en": "Chorsu bazaar",
+        "ru": "Базар Чорсу",
+        "uz": "Chorsu bozori"
+      },
+      "lat": 41.326,
+      "lng": 69.234,
+      "interests": [
+        "food",
+        "local"
+      ],
+      "category": "landmark",
+      "admission": 0,
+      "minutes": 90,
+      "source": "https://uzbekistan.travel/en/o/gastro-symbols-of-chorsu-bazaar/",
+      "story": {
+        "en": "A working market, with bread, produce, spices and food stalls. Entry is separate from what you buy. Ask prices before ordering and ask permission for close-up portraits.",
+        "ru": "Живой рынок с хлебом, продуктами, пряностями и едой. Покупки оплачиваются отдельно от входа. Уточняйте цену до заказа и спрашивайте разрешения на портрет.",
+        "uz": "Non, mahsulotlar, ziravorlar va taomlar bozori. Xaridlar alohida toʻlanadi. Buyurtmadan oldin narxni, suratga olishdan oldin ruxsatni soʻrang."
+      }
+    },
+    {
+      "id": "hazrat-imam",
+      "city": "tashkent",
+      "name": {
+        "en": "Hazrat Imam",
+        "ru": "Хазрати Имам",
+        "uz": "Hazrati Imom"
+      },
+      "lat": 41.337401,
+      "lng": 69.239442,
+      "interests": [
+        "sacred",
+        "history"
+      ],
+      "category": "landmark",
+      "admission": 400,
+      "minutes": 90,
+      "source": "https://app.uzbekistan.travel/uz/o/toshkent-shaxri/",
+      "story": {
+        "en": "A religious and architectural ensemble in the old part of Tashkent. Some spaces are used for worship; check access at each entrance.",
+        "ru": "Религиозный и архитектурный ансамбль в старой части Ташкента. Некоторые пространства используются для молитвы; уточняйте доступ на месте.",
+        "uz": "Toshkentning eski qismidagi diniy va meʼmoriy majmua. Ayrim joylarda ibodat qilinadi; kirish shartlarini joyida aniqlang."
+      }
+    },
+    {
+      "id": "shaykhantahur",
+      "city": "tashkent",
+      "name": {
+        "en": "Shaykhantahur",
+        "ru": "Шейхантахур",
+        "uz": "Shayxontohur"
+      },
+      "lat": 41.306971,
+      "lng": 69.255002,
+      "interests": [
+        "sacred",
+        "local"
+      ],
+      "category": "discovery",
+      "admission": 0,
+      "minutes": 60,
+      "source": "https://app.uzbekistan.travel/uz/o/toshkent-shaxri/",
+      "story": {
+        "en": "A memorial site within the city. Approach it as a place of remembrance, allowing visitors space for prayer and quiet reflection.",
+        "ru": "Мемориальное место внутри города. Отнеситесь к нему как к месту памяти: оставляйте посетителям пространство для молитвы и тишины.",
+        "uz": "Shahar ichidagi yodgorlik joyi. Ziyoratchilarga ibodat va sokinlik uchun joy qoldiring."
+      }
+    },
+    {
+      "id": "kalta-minor",
+      "city": "khiva",
+      "name": {
+        "en": "Kalta Minor",
+        "ru": "Кальта-Минор",
+        "uz": "Kalta Minor"
+      },
+      "lat": 41.3784,
+      "lng": 60.3582,
+      "interests": [
+        "history"
+      ],
+      "category": "landmark",
+      "admission": 0,
+      "minutes": 60,
+      "guideSlug": "kalta-minor",
+      "source": "https://uzbekistan.travel/en/",
+      "story": {
+        "en": "The unfinished, tile-covered minaret is an instantly recognisable Khiva landmark. This estimate covers viewing the exterior; a wider Ichan-Qala pass may be needed for other spaces.",
+        "ru": "Незавершённый минарет с керамической облицовкой — один из символов Хивы. Здесь рассчитан осмотр снаружи; для других объектов может понадобиться общий билет Ичан-Калы.",
+        "uz": "Koshinli, qurilishi tugallanmagan minora Xivaning ramzlaridan biri. Bu hisob tashqaridan koʻrish uchun; boshqa obyektlarga Ichan-Qalʼa chiptasi kerak boʻlishi mumkin."
+      }
+    },
+    {
+      "id": "juma-mosque",
+      "city": "khiva",
+      "name": {
+        "en": "Juma Mosque",
+        "ru": "Джума-мечеть",
+        "uz": "Juma masjidi"
+      },
+      "lat": 41.3775,
+      "lng": 60.3607,
+      "interests": [
+        "sacred",
+        "history"
+      ],
+      "category": "landmark",
+      "admission": 800,
+      "minutes": 90,
+      "guideSlug": "juma-mosque",
+      "source": "https://uzbekistan.travel/en/",
+      "story": {
+        "en": "Wooden columns shape the quiet interior of the mosque. Check whether your existing Ichan-Qala pass includes entry before buying another ticket.",
+        "ru": "Деревянные колонны формируют тихое внутреннее пространство мечети. Уточните, включён ли вход в ваш билет Ичан-Калы, прежде чем покупать отдельный.",
+        "uz": "Masjid ichki makonini yogʻoch ustunlar shakllantiradi. Alohida chipta olishdan oldin mavjud Ichan-Qalʼa chiptangiz kirishni qamrashini tekshiring."
+      }
+    },
+    {
+      "id": "pahlavon-mahmud",
+      "city": "khiva",
+      "name": {
+        "en": "Pahlavon Mahmud",
+        "ru": "Пахлаван Махмуд",
+        "uz": "Pahlavon Mahmud"
+      },
+      "lat": 41.3769,
+      "lng": 60.3601,
+      "interests": [
+        "sacred",
+        "local"
+      ],
+      "category": "landmark",
+      "admission": 400,
+      "minutes": 75,
+      "guideSlug": "pahlavon-mahmud",
+      "source": "https://uzbekistan.travel/en/",
+      "story": {
+        "en": "A mausoleum associated with Khiva’s poet and wrestler Pahlavon Mahmud. It remains a place of pilgrimage. Separate historical information from the stories told about his life.",
+        "ru": "Мавзолей хивинского поэта и борца Пахлавана Махмуда остаётся местом паломничества. Исторические сведения о нём стоит отделять от преданий о его жизни.",
+        "uz": "Shoir va polvon Pahlavon Mahmud maqbarasi ziyorat joyidir. Uning hayoti haqidagi tarixiy maʼlumotlarni rivoyatlardan ajrating."
+      }
+    }
+  ]
+}

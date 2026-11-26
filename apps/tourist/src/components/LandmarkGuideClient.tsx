@@ -2,572 +2,1026 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import {
-  ArrowLeft,
   BookOpen,
   Camera,
+  Check,
   ChevronDown,
-  ChevronUp,
+  Copy,
+  Headphones,
   Loader2,
+  Maximize2,
   Mic,
   MicOff,
+  Play,
+  RefreshCw,
+  RotateCcw,
   Send,
   ShieldCheck,
-  Sparkles,
   Volume2,
   X,
 } from 'lucide-react';
 import {
   SUPPORTED_LANGUAGES,
-  type GuideAskResponse,
   type LandmarkDetail,
+  type LandmarkSummary,
   type SupportedLanguage,
 } from '@smartguide/shared';
-import { askGuide } from '@/lib/api';
+import { askGuide, fetchLandmarks, trackLandmarkScan } from '@/lib/api';
 import { TOURIST_UI } from '@/lib/i18n';
+import { ROUTE_COPY } from '@/lib/route-copy';
+import { EXPERIENCE_COPY } from '@/lib/experience-copy';
+import {
+  readSavedRoadmap,
+  roadmapLink,
+  type GuideResponse,
+  type SavedRoadmap,
+} from '@/lib/experience';
 import { compressImageToBase64 } from '@/lib/image-utils';
-import { getOrCreateSessionId, getSavedLanguage, saveLanguage } from '@/lib/session';
+import {
+  getOrCreateSessionId,
+  getSavedLanguage,
+  saveLanguage,
+  updateLanguage,
+  createLocalId,
+} from '@/lib/session';
 import { AudioGuidePlayer } from './AudioGuidePlayer';
 import { LandmarkArt } from './LandmarkArt';
-import { LanguageSwitcher } from './LanguageSwitcher';
+import { MonumentQuickNav } from './MonumentQuickNav';
+import { TouristHeader } from './TouristHeader';
+import { GuideFeedback } from './GuideFeedback';
+import { journeyCopy } from '@/lib/journey-copy';
 
 interface ChatMessage {
   id: string;
   role: 'user' | 'assistant';
   text: string;
-  imagePreviewUrl?: string;
-  audioBase64?: string;
-  audioMimeType?: string;
-  identifiedByVision?: boolean;
-  detectedLandmarkSlug?: string;
-  detectedLandmarkName?: string;
-  archiveCode?: string;
-  modelUsed?: string;
   language: SupportedLanguage;
+  imagePreviewUrl?: string;
+  response?: GuideResponse;
 }
 
-interface LandmarkGuideClientProps {
+interface PhotoPayload {
+  base64: string;
+  mimeType: string;
+  previewDataUrl: string;
+}
+interface FailedPayload {
+  text: string;
+  photo: PhotoPayload | null;
+  intro: boolean;
+}
+interface Props {
   landmark: LandmarkDetail;
+  allLandmarks?: LandmarkSummary[];
   initialLang?: string;
+  initialRoadmapId?: string;
 }
-
 interface SpeechRecognitionInstance {
   lang: string;
   interimResults: boolean;
   maxAlternatives: number;
   start: () => void;
   stop: () => void;
-  onresult: ((event: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => void) | null;
+  onresult:
+    | ((event: {
+        results: ArrayLike<ArrayLike<{ transcript: string }>>;
+      }) => void)
+    | null;
   onerror: (() => void) | null;
   onend: (() => void) | null;
 }
 
-export function LandmarkGuideClient({ landmark, initialLang }: LandmarkGuideClientProps) {
-  const router = useRouter();
+export function LandmarkGuideClient({
+  landmark,
+  allLandmarks: initialLandmarks = [],
+  initialLang,
+  initialRoadmapId,
+}: Props) {
+  const [allLandmarks, setAllLandmarks] = useState(initialLandmarks);
   const [language, setLanguage] = useState<SupportedLanguage>('en');
-  const [sessionId, setSessionId] = useState<string>('guest-session');
   const [question, setQuestion] = useState('');
   const [autoPlayAudio, setAutoPlayAudio] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [isProcessingPhoto, setIsProcessingPhoto] = useState(false);
+  const [requestMode, setRequestMode] = useState<'intro' | 'question'>(
+    'question',
+  );
+  const [loadingPhotoPreview, setLoadingPhotoPreview] = useState<string | null>(
+    null,
+  );
+  const [introResponse, setIntroResponse] = useState<GuideResponse | null>(
+    null,
+  );
   const [isListening, setIsListening] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [voiceHint, setVoiceHint] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<'photo' | 'request' | null>(
+    null,
+  );
+  const [lastFailedPayload, setLastFailedPayload] =
+    useState<FailedPayload | null>(null);
   const [isDossierOpen, setIsDossierOpen] = useState(false);
-  const [dossierTab, setDossierTab] = useState<'facts' | 'architecture' | 'legends'>('facts');
-  const [pendingPhoto, setPendingPhoto] = useState<{
-    base64: string;
-    mimeType: string;
-    previewDataUrl: string;
-  } | null>(null);
+  const [dossierTab, setDossierTab] = useState<
+    'facts' | 'architecture' | 'legends'
+  >('facts');
+  const [pendingPhoto, setPendingPhoto] = useState<PhotoPayload | null>(null);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const chatEndRef = useRef<HTMLDivElement | null>(null);
+  const [copiedMsgId, setCopiedMsgId] = useState<string | null>(null);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [activeRoadmap, setActiveRoadmap] = useState<SavedRoadmap | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const textInputRef = useRef<HTMLInputElement>(null);
+  const latestResponseRef = useRef<HTMLDivElement>(null);
+  const loadingRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
-
-  useEffect(() => {
-    const resolvedLang = getSavedLanguage(initialLang);
-    setLanguage(resolvedLang);
-    setSessionId(getOrCreateSessionId());
-  }, [initialLang]);
-
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isLoading]);
-
-  const handleLanguageChange = (nextLang: SupportedLanguage) => {
-    setLanguage(nextLang);
-    saveLanguage(nextLang);
-  };
-
+  const busyRef = useRef(false);
+  const requestController = useRef<AbortController | null>(null);
+  const photoBusyRef = useRef(false);
+  const languageRef = useRef(language);
+  languageRef.current = language;
+  const copyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const ui = TOURIST_UI[language];
-  const localizedName = landmark.localizedNames[language] || landmark.name;
-  const localizedDesc =
-    landmark.localizedShortDescriptions[language] || landmark.shortDescription;
-  const quickQuestions =
-    landmark.suggestedQuestions[language] ?? landmark.suggestedQuestions.en;
+  const copy = ROUTE_COPY[language];
+  const experienceCopy = EXPERIENCE_COPY[language];
+  const localizedName = landmark.localizedNames[language];
+  const localizedDescription = landmark.localizedShortDescriptions[language];
+  const questions = landmark.suggestedQuestions[language];
+  const allStopIndex = allLandmarks.findIndex(
+    (item) => item.slug === landmark.slug,
+  );
+  const routeIndex =
+    activeRoadmap?.roadmap.stops.findIndex(
+      (stop) => stop.slug === landmark.slug,
+    ) ?? -1;
+  const routeStop = activeRoadmap?.roadmap.stops[routeIndex];
+  const nextRouteStop = activeRoadmap?.roadmap.stops[routeIndex + 1];
+  const latestResponse =
+    messages
+      .slice()
+      .reverse()
+      .find((message) => message.response)?.response ?? introResponse;
+  const suggestedNext = allLandmarks.find(
+    (item) => item.slug === latestResponse?.nextStopSuggestion?.slug,
+  );
+  const nextLandmark = activeRoadmap
+    ? allLandmarks.find((item) => item.slug === nextRouteStop?.slug)
+    : (suggestedNext ??
+      (allStopIndex >= 0 ? allLandmarks[allStopIndex + 1] : undefined));
+  const navigationLandmarks = activeRoadmap
+    ? activeRoadmap.roadmap.stops.flatMap((stop) => {
+        const item = allLandmarks.find((item) => item.slug === stop.slug);
+        return item ? [item] : [];
+      })
+    : allLandmarks;
+  const emotionalPromise =
+    activeRoadmap?.roadmap.language === language
+      ? routeStop?.emotionalPayoff
+      : experienceCopy.promises[landmark.slug];
+  const busy = isLoading || isProcessingPhoto;
+
+  useEffect(() => {
+    const stored = readSavedRoadmap();
+    const matchingId =
+      !initialRoadmapId ||
+      String(stored?.roadmap.roadmapId) === initialRoadmapId;
+    setActiveRoadmap(
+      matchingId &&
+        stored?.roadmap.stops.some((stop) => stop.slug === landmark.slug)
+        ? stored
+        : null,
+    );
+  }, [landmark.slug, initialRoadmapId]);
+
+  useEffect(() => {
+    const lang = getSavedLanguage(initialLang);
+    setLanguage(lang);
+    saveLanguage(lang);
+    if (initialLandmarks.length === 0)
+      fetchLandmarks()
+        .then(setAllLandmarks)
+        .catch(() => {});
+    try {
+      const scanKey = `scanned:${landmark.slug}`;
+      if (!sessionStorage.getItem(scanKey)) {
+        sessionStorage.setItem(scanKey, '1');
+        void trackLandmarkScan({
+          slug: landmark.slug,
+          sessionId: getOrCreateSessionId(),
+          language: lang,
+        });
+      }
+    } catch {
+      /* Storage can be unavailable in private browsing. */
+    }
+  }, [initialLang, initialLandmarks.length, landmark.slug]);
+
+  useEffect(
+    () => () => {
+      requestController.current?.abort();
+      const recognition = recognitionRef.current;
+      if (recognition) {
+        recognition.onresult = null;
+        recognition.onend = null;
+        recognition.onerror = null;
+        recognition.stop();
+      }
+      if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+    },
+    [],
+  );
+
+  useEffect(() => {
+    if (requestMode === 'intro') return;
+    const target =
+      isLoading || isProcessingPhoto
+        ? loadingRef.current
+        : latestResponseRef.current;
+    if (target)
+      target.scrollIntoView({
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+          ? 'instant'
+          : 'smooth',
+        block: 'nearest',
+      });
+  }, [messages.length, isLoading, isProcessingPhoto, requestMode]);
+
+  useEffect(() => {
+    if (!isLightboxOpen) return;
+    dialogRef.current?.showModal();
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [isLightboxOpen]);
+
+  const handleLanguageChange = (lang: SupportedLanguage) => {
+    requestController.current?.abort();
+    requestController.current = null;
+    busyRef.current = false;
+    setIsLoading(false);
+    setLoadingPhotoPreview(null);
+    setLastFailedPayload(null);
+    setErrorMessage(null);
+    recognitionRef.current?.stop();
+    setIsListening(false);
+    setLanguage(lang);
+    updateLanguage(lang);
+    setIntroResponse(null);
+    setVoiceHint(false);
+  };
 
   const submitQuestion = async (
-    rawText: string,
-    photoOverride?: { base64: string; mimeType: string; previewDataUrl: string } | null,
+    text: string,
+    photo: PhotoPayload | null = pendingPhoto,
+    intro = false,
+    retry = false,
   ) => {
-    const trimmed = rawText.trim();
-    const photoToSend = photoOverride !== undefined ? photoOverride : pendingPhoto;
-
-    if ((!trimmed && !photoToSend) || isLoading) return;
-
+    const trimmed = text.trim();
+    if ((!trimmed && !photo) || busyRef.current) return;
+    busyRef.current = true;
+    const controller = new AbortController();
+    requestController.current = controller;
+    textInputRef.current?.blur();
+    recognitionRef.current?.stop();
     setErrorMessage(null);
-    const userMessage: ChatMessage = {
-      id: `user-${Date.now()}`,
-      role: 'user',
-      text: trimmed || ui.snapButton,
-      imagePreviewUrl: photoToSend?.previewDataUrl,
-      language,
-    };
-
-    setMessages((prev) => [...prev, userMessage]);
+    setVoiceHint(false);
+    setLastFailedPayload(null);
+    setRequestMode(intro ? 'intro' : 'question');
+    if (!intro && !retry)
+      setMessages((previous) => [
+        ...previous,
+        {
+          id: createLocalId('user'),
+          role: 'user',
+          text: trimmed || ui.snapButton,
+          imagePreviewUrl: photo?.previewDataUrl,
+          language,
+        },
+      ]);
     setQuestion('');
     setPendingPhoto(null);
+    setLoadingPhotoPreview(photo?.previewDataUrl ?? null);
     setIsLoading(true);
-
     try {
-      const response: GuideAskResponse = await askGuide({
-        landmarkSlug: landmark.slug,
-        question: trimmed,
-        language,
-        sessionId,
-        imageBase64: photoToSend?.base64,
-        imageMimeType: photoToSend?.mimeType,
-        includeAudio: true,
-      });
-
-      const assistantMessage: ChatMessage = {
-        id: `ai-${Date.now()}`,
-        role: 'assistant',
-        text: response.answer,
-        audioBase64: response.audioBase64,
-        audioMimeType: response.audioMimeType,
-        identifiedByVision: response.identifiedByVision,
-        detectedLandmarkSlug: response.landmarkSlug,
-        detectedLandmarkName: response.landmarkName,
-        archiveCode: response.archiveCode,
-        modelUsed: response.modelUsed,
-        language: response.language,
-      };
-
-      setMessages((prev) => [...prev, assistantMessage]);
-    } catch (error) {
-      setErrorMessage(error instanceof Error ? error.message : 'Request failed');
+      const response = await askGuide(
+        {
+          landmarkSlug: landmark.slug,
+          roadmapId: activeRoadmap?.roadmap.roadmapId ?? undefined,
+          question: trimmed,
+          language,
+          sessionId: getOrCreateSessionId(),
+          imageBase64: photo?.base64,
+          imageMimeType: photo?.mimeType,
+          includeAudio: true,
+        },
+        { signal: controller.signal },
+      );
+      if (controller.signal.aborted) return;
+      if (intro && response.language === languageRef.current)
+        setIntroResponse(response);
+      else if (intro) return;
+      else
+        setMessages((previous) => [
+          ...previous,
+          {
+            id: createLocalId('ai'),
+            role: 'assistant',
+            text: response.answer,
+            language: response.language,
+            response,
+          },
+        ]);
+    } catch {
+      if (controller.signal.aborted) return;
+      setLastFailedPayload({ text: trimmed, photo, intro });
+      setErrorMessage('request');
     } finally {
-      setIsLoading(false);
+      if (requestController.current === controller) {
+        requestController.current = null;
+        busyRef.current = false;
+        setIsLoading(false);
+        setLoadingPhotoPreview(null);
+      }
     }
   };
 
-  const handlePhotoSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhoto = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     event.target.value = '';
-    if (!file) return;
-
+    if (!file || busyRef.current || photoBusyRef.current) return;
+    photoBusyRef.current = true;
+    setIsProcessingPhoto(true);
+    setRequestMode('question');
+    setErrorMessage(null);
+    setLastFailedPayload(null);
+    const preview = URL.createObjectURL(file);
+    setLoadingPhotoPreview(preview);
     try {
-      const compressed = await compressImageToBase64(file);
-      // If user hasn't typed a question yet, immediately send Snap & Ask for instant wow UX
-      if (question.trim().length === 0) {
-        await submitQuestion('', compressed);
-      } else {
-        setPendingPhoto(compressed);
-      }
-    } catch (error) {
-      setErrorMessage(error instanceof Error ? error.message : 'Could not process image');
+      const photo = await compressImageToBase64(file);
+      if (question.trim()) setPendingPhoto(photo);
+      else await submitQuestion('', photo);
+    } catch {
+      setErrorMessage('photo');
+    } finally {
+      URL.revokeObjectURL(preview);
+      photoBusyRef.current = false;
+      setIsProcessingPhoto(false);
+      setLoadingPhotoPreview(null);
     }
   };
 
-  const handleVoiceToggle = () => {
-    if (typeof window === 'undefined') return;
-
-    if (isListening && recognitionRef.current) {
-      recognitionRef.current.stop();
-      setIsListening(false);
+  const handleVoice = () => {
+    if (isListening) {
+      recognitionRef.current?.stop();
       return;
     }
-
     const speechWindow = window as unknown as {
       SpeechRecognition?: new () => SpeechRecognitionInstance;
       webkitSpeechRecognition?: new () => SpeechRecognitionInstance;
     };
-    const SpeechRec = speechWindow.SpeechRecognition || speechWindow.webkitSpeechRecognition;
-
-    if (!SpeechRec) {
-      setErrorMessage('Voice dictation is not supported in this browser; please type your question.');
+    const SpeechRecognition =
+      speechWindow.SpeechRecognition ?? speechWindow.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      setVoiceHint(true);
+      textInputRef.current?.focus();
       return;
     }
-
-    const recognition = new SpeechRec();
-    const meta = SUPPORTED_LANGUAGES.find((item) => item.code === language);
-    recognition.lang = meta?.speechRecognitionLang ?? 'en-US';
+    const recognition = new SpeechRecognition();
+    recognition.lang =
+      SUPPORTED_LANGUAGES.find((item) => item.code === language)
+        ?.speechRecognitionLang ?? 'en-US';
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
-
     recognition.onresult = (event) => {
-      const transcript = event.results?.[0]?.[0]?.transcript?.trim();
-      if (transcript) {
-        setQuestion(transcript);
-        void submitQuestion(transcript);
-      }
+      const text = event.results?.[0]?.[0]?.transcript?.trim();
+      if (text) void submitQuestion(text);
     };
-    recognition.onerror = () => setIsListening(false);
+    recognition.onerror = () => {
+      setIsListening(false);
+      setVoiceHint(true);
+    };
     recognition.onend = () => setIsListening(false);
-
     recognitionRef.current = recognition;
-    setIsListening(true);
-    recognition.start();
+    setVoiceHint(false);
+    try {
+      recognition.start();
+      setIsListening(true);
+    } catch {
+      setVoiceHint(true);
+      setIsListening(false);
+      textInputRef.current?.focus();
+    }
   };
 
+  const copyAnswer = async (id: string, text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedMsgId(id);
+      if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+      copyTimerRef.current = setTimeout(() => setCopiedMsgId(null), 2000);
+    } catch {
+      /* Clipboard access is optional on local HTTP. */
+    }
+  };
+
+  const errorFeedback = errorMessage && (
+    <div className="feedback-error" role="alert">
+      <p>{errorMessage === 'photo' ? copy.photoError : copy.requestError}</p>
+      <button
+        className="text-action"
+        type="button"
+        disabled={busy}
+        onClick={() =>
+          lastFailedPayload
+            ? void submitQuestion(
+                lastFailedPayload.text,
+                lastFailedPayload.photo,
+                lastFailedPayload.intro,
+                true,
+              )
+            : fileInputRef.current?.click()
+        }
+      >
+        <RefreshCw aria-hidden="true" />
+        {ui.retryButton}
+      </button>
+    </div>
+  );
+
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-2xl flex-col pb-40">
-      {/* Top Sticky Navigation */}
-      <header className="sticky top-0 z-30 border-b border-slate-800/80 bg-[#090D16]/90 px-4 py-3 backdrop-blur-md">
-        <div className="flex items-center justify-between gap-2">
+    <div className="tourist-app guide-app">
+      <TouristHeader
+        language={language}
+        onLanguageChange={handleLanguageChange}
+        backLabel={
+          activeRoadmap ? ui.backToAll : journeyCopy(language)('navMap')
+        }
+        backHref={
+          activeRoadmap
+            ? `/khiva?lang=${language}`
+            : `/?lang=${language}&view=map&city=khiva&place=${landmark.slug}`
+        }
+      />
+      <main className="guide-layout">
+        {activeRoadmap && (
           <Link
-            href={`/?lang=${language}`}
-            className="inline-flex items-center gap-1.5 rounded-full border border-slate-700/80 bg-slate-900/80 px-3 py-1.5 text-xs font-medium text-slate-200 hover:border-amber-400/50 hover:text-amber-200 transition"
+            className="roadmap-progress"
+            href={`/?lang=${language}#personal-walk`}
           >
-            <ArrowLeft className="h-3.5 w-3.5" />
-            <span>{ui.backToAll}</span>
+            <span>
+              {experienceCopy.progress}
+              <strong>
+                {routeIndex + 1} / {activeRoadmap.roadmap.stops.length}
+              </strong>
+            </span>
+            <progress
+              max={activeRoadmap.roadmap.stops.length}
+              value={routeIndex + 1}
+              aria-label={experienceCopy.progress}
+            />
           </Link>
-
-          <span className="inline-flex items-center gap-1 rounded-full border border-teal-400/30 bg-teal-500/10 px-2.5 py-1 text-[11px] font-medium text-teal-200">
-            <ShieldCheck className="h-3.5 w-3.5 text-teal-300" />
-            {landmark.archiveCode}
-          </span>
-        </div>
-
-        <div className="mt-2.5">
-          <LanguageSwitcher value={language} onChange={handleLanguageChange} compact />
-        </div>
-      </header>
-
-      {/* Landmark Hero Banner */}
-      <section className="px-4 pt-4">
-        <div className="overflow-hidden rounded-3xl border border-amber-400/25 bg-slate-900/90 shadow-2xl">
-          <div className="relative h-44 w-full sm:h-52">
-            <LandmarkArt slug={landmark.slug} className="h-full w-full" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#090D16] via-[#090D16]/35 to-transparent" />
-            <div className="absolute bottom-3.5 left-4 right-4">
-              <div className="mb-1 inline-flex items-center gap-1.5 rounded-full border border-amber-400/40 bg-slate-950/75 px-2.5 py-0.5 text-[11px] font-medium text-amber-200 backdrop-blur-sm">
-                <Sparkles className="h-3 w-3 text-amber-300" />
-                {landmark.builtYear} · {landmark.era}
-              </div>
-              <h1 className="font-display text-2xl font-bold text-white sm:text-3xl">
-                {localizedName}
-              </h1>
-            </div>
-          </div>
-
-          <div className="p-4">
-            <p className="text-sm leading-relaxed text-slate-300">{localizedDesc}</p>
-
-            <div className="mt-3 grid grid-cols-2 gap-2 rounded-2xl border border-slate-800 bg-slate-950/60 p-3 text-xs">
-              <div>
-                <span className="block text-[10px] uppercase tracking-wider text-slate-400">
-                  {ui.eraLabel}
-                </span>
-                <span className="font-medium text-slate-100">{landmark.builtYear}</span>
-              </div>
-              <div>
-                <span className="block text-[10px] uppercase tracking-wider text-slate-400">
-                  {ui.architectLabel}
-                </span>
-                <span className="line-clamp-2 font-medium text-slate-100">{landmark.architect}</span>
-              </div>
-            </div>
-
-            {/* Collapsible Verified Museum Dossier */}
-            <button
-              type="button"
-              onClick={() => setIsDossierOpen((open) => !open)}
-              className="mt-3 flex w-full items-center justify-between rounded-xl border border-slate-800 bg-slate-950/50 px-3.5 py-2.5 text-xs font-semibold text-amber-200 hover:border-amber-400/40 transition cursor-pointer"
-            >
-              <span className="inline-flex items-center gap-2">
-                <BookOpen className="h-4 w-4 text-amber-300" />
-                {isDossierOpen ? ui.dossierToggleClose : ui.dossierToggleOpen}
-              </span>
-              {isDossierOpen ? (
-                <ChevronUp className="h-4 w-4" />
-              ) : (
-                <ChevronDown className="h-4 w-4" />
-              )}
-            </button>
-
-            {isDossierOpen && (
-              <div className="mt-3 rounded-2xl border border-slate-800 bg-slate-950/80 p-3.5">
-                <div className="mb-3 flex gap-1.5">
-                  {(
-                    [
-                      { id: 'facts', label: ui.factsTab },
-                      { id: 'architecture', label: ui.architectureTab },
-                      { id: 'legends', label: ui.legendsTab },
-                    ] as const
-                  ).map((tab) => (
-                    <button
-                      key={tab.id}
-                      type="button"
-                      onClick={() => setDossierTab(tab.id)}
-                      className={[
-                        'rounded-lg px-3 py-1.5 text-xs font-semibold transition cursor-pointer',
-                        dossierTab === tab.id
-                          ? 'bg-amber-400/20 text-amber-200 border border-amber-400/50'
-                          : 'bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800',
-                      ].join(' ')}
-                    >
-                      {tab.label}
-                    </button>
-                  ))}
-                </div>
-
-                <ul className="space-y-2 text-xs leading-relaxed text-slate-300">
-                  {(dossierTab === 'facts'
-                    ? landmark.historicalFacts
-                    : dossierTab === 'architecture'
-                      ? landmark.architecturalDetails
-                      : landmark.localLegends
-                  ).map((item, idx) => (
-                    <li key={idx} className="flex gap-2">
-                      <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-400" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <p className="mt-3 border-t border-slate-800 pt-2 text-[11px] text-teal-300/90">
-                  {ui.verifiedArchive}: {landmark.verifiedBy} ({landmark.archiveCode})
-                </p>
-              </div>
+        )}
+        <MonumentQuickNav
+          landmarks={navigationLandmarks}
+          currentSlug={landmark.slug}
+          language={language}
+          roadmapId={activeRoadmap?.roadmap.roadmapId}
+        />
+        <section className="guide-hero" aria-labelledby="monument-title">
+          <div className="guide-title-block">
+            <p className="eyebrow">{copy.guideEyebrow}</p>
+            <h1 id="monument-title" className="monument-title">
+              {localizedName}
+            </h1>
+            <p className="guide-date">
+              {landmark.builtYear}
+              <span>Ichan-Qala, Khiva</span>
+            </p>
+            {emotionalPromise && (
+              <p className="guide-promise">{emotionalPromise}</p>
             )}
           </div>
-        </div>
-      </section>
+          <div className="guide-story">
+            {introResponse ? (
+              <div className="intro-story" lang={introResponse.language}>
+                <AudioGuidePlayer
+                  audioBase64={introResponse.audioBase64}
+                  audioMimeType={introResponse.audioMimeType}
+                  fallbackText={introResponse.answer}
+                  language={introResponse.language}
+                  autoPlay
+                />
+                <details className="story-transcript">
+                  <summary>
+                    {copy.transcript}
+                    <ChevronDown aria-hidden="true" />
+                  </summary>
+                  <p>{introResponse.answer}</p>
+                  <small>
+                    {ui.verifiedArchive} · {introResponse.archiveCode}
+                  </small>
+                </details>
+                {introResponse.insight?.detectedTopicLabel && (
+                  <p className="topic-label">
+                    {introResponse.insight.detectedTopicLabel}
+                  </p>
+                )}
+                <GuideFeedback
+                  interactionId={introResponse.interactionId}
+                  language={language}
+                />
+              </div>
+            ) : (
+              <button
+                className="primary-action intro-action"
+                type="button"
+                disabled={busy}
+                onClick={() => {
+                  setAutoPlayAudio(true);
+                  void submitQuestion(ui.introTourPrompt, null, true);
+                }}
+              >
+                <span>
+                  {isLoading && requestMode === 'intro' ? (
+                    <Loader2 className="animate-spin" aria-hidden="true" />
+                  ) : (
+                    <Play aria-hidden="true" />
+                  )}
+                  {isLoading && requestMode === 'intro'
+                    ? ui.thinkingMessage
+                    : copy.listen}
+                </span>
+                <small>{ui.audioIntroBadge}</small>
+              </button>
+            )}
+            {requestMode === 'intro' && errorFeedback}
+            <p className="museum-credit">
+              <ShieldCheck aria-hidden="true" />
+              {copy.source}
+            </p>
+          </div>
+          <button
+            className="guide-photograph"
+            type="button"
+            onClick={() => setIsLightboxOpen(true)}
+            aria-label={ui.viewFullPhoto}
+          >
+            <LandmarkArt
+              slug={landmark.slug}
+              alt={localizedName}
+              className="guide-image"
+              priority
+            />
+            <span className="expand-photo">
+              <Maximize2 aria-hidden="true" />
+              <span>{ui.viewFullPhoto}</span>
+            </span>
+          </button>
+          <p className="guide-description">{localizedDescription}</p>
+        </section>
 
-      {/* Suggested Quick Questions */}
-      <section className="px-4 pt-5">
-        <div className="mb-2 flex items-center justify-between">
-          <h2 className="text-xs font-semibold uppercase tracking-wider text-amber-300/90">
-            {ui.suggestedTitle}
-          </h2>
-          <label className="inline-flex items-center gap-1.5 text-[11px] text-slate-400 cursor-pointer">
+        <section
+          className="guide-questions"
+          aria-labelledby="questions-heading"
+        >
+          <div className="section-heading">
+            <div>
+              <h2 className="section-title" id="questions-heading">
+                {copy.questions}
+              </h2>
+              <p>{copy.questionsHint}</p>
+            </div>
+            <button
+              className="icon-action question-camera"
+              type="button"
+              disabled={busy}
+              onClick={() => fileInputRef.current?.click()}
+              aria-label={ui.snapButton}
+            >
+              <Camera aria-hidden="true" />
+            </button>
+          </div>
+          <div className="question-prompts">
+            {questions.map((prompt) => (
+              <button
+                className="question-prompt"
+                key={prompt}
+                type="button"
+                disabled={busy}
+                onClick={() => void submitQuestion(prompt)}
+              >
+                {prompt}
+                <span>
+                  <Headphones aria-hidden="true" />
+                </span>
+              </button>
+            ))}
+          </div>
+          <label className="autoplay-option">
             <input
               type="checkbox"
               checked={autoPlayAudio}
-              onChange={(e) => setAutoPlayAudio(e.target.checked)}
-              className="h-3.5 w-3.5 rounded accent-amber-400"
+              onChange={(event) => setAutoPlayAudio(event.target.checked)}
             />
-            <Volume2 className="h-3 w-3 text-teal-300" />
-            <span>{ui.autoPlayAudio}</span>
+            <Volume2 aria-hidden="true" />
+            {ui.autoPlayAudio}
           </label>
-        </div>
+        </section>
 
-        <div className="flex flex-wrap gap-2">
-          {quickQuestions.map((prompt) => (
-            <button
-              key={prompt}
-              type="button"
-              disabled={isLoading}
-              onClick={() => void submitQuestion(prompt)}
-              className="rounded-2xl border border-amber-400/25 bg-slate-900/85 px-3.5 py-2 text-left text-xs font-medium text-slate-200 hover:border-amber-400/70 hover:bg-amber-400/10 hover:text-amber-100 transition disabled:opacity-50 cursor-pointer"
-            >
-              {prompt}
-            </button>
-          ))}
-        </div>
-      </section>
-
-      {/* Conversation Thread */}
-      <section className="flex-1 space-y-4 px-4 pt-5">
-        {/* Welcome Guide Card */}
-        <div className="rounded-2xl border border-teal-500/25 bg-slate-900/75 p-4 text-sm leading-relaxed text-slate-200">
-          <div className="mb-1.5 flex items-center gap-2 text-xs font-semibold text-teal-300">
-            <ShieldCheck className="h-4 w-4" />
-            <span>SmartGuide · {localizedName}</span>
-          </div>
-          <p>{ui.welcomePrefix}</p>
-        </div>
-
-        {messages.map((msg) => {
-          if (msg.role === 'user') {
-            return (
-              <div key={msg.id} className="flex justify-end">
-                <div className="max-w-[85%] rounded-2xl rounded-br-sm border border-amber-400/35 bg-amber-400/15 px-4 py-3 text-sm text-amber-50">
-                  {msg.imagePreviewUrl && (
+        {(messages.length > 0 ||
+          (busy && requestMode === 'question') ||
+          (errorMessage && requestMode === 'question') ||
+          voiceHint) && (
+          <section className="conversation" aria-label={ui.conversationHeading}>
+            {messages.length > 0 && (
+              <div className="conversation-heading">
+                <h2 className="eyebrow">{ui.conversationHeading}</h2>
+                <button
+                  className="text-action"
+                  type="button"
+                  disabled={busy}
+                  onClick={() => {
+                    setMessages([]);
+                    setErrorMessage(null);
+                    setLastFailedPayload(null);
+                  }}
+                >
+                  <RotateCcw aria-hidden="true" />
+                  {ui.clearChat}
+                </button>
+              </div>
+            )}
+            <div role="log" aria-live="polite" aria-relevant="additions">
+              {messages.map((message, index) => (
+                <div
+                  className={`chat-message chat-${message.role}`}
+                  key={message.id}
+                  ref={
+                    index === messages.length - 1
+                      ? latestResponseRef
+                      : undefined
+                  }
+                  lang={message.language}
+                >
+                  {message.imagePreviewUrl && (
                     <img
-                      src={msg.imagePreviewUrl}
-                      alt="Uploaded landmark photo"
-                      className="mb-2 max-h-44 w-full rounded-xl border border-amber-400/30 object-cover"
+                      className="chat-upload"
+                      src={message.imagePreviewUrl}
+                      alt={copy.photoAlt}
                     />
                   )}
-                  <p>{msg.text}</p>
-                </div>
-              </div>
-            );
-          }
-
-          const detectedDifferentMonument =
-            msg.detectedLandmarkSlug && msg.detectedLandmarkSlug !== landmark.slug;
-
-          return (
-            <div key={msg.id} className="flex justify-start">
-              <div className="w-full rounded-2xl rounded-bl-sm border border-slate-700/80 bg-slate-900/95 p-4 shadow-lg">
-                <div className="mb-2 flex flex-wrap items-center gap-2">
-                  <span className="inline-flex items-center gap-1 rounded-full border border-teal-400/30 bg-teal-500/10 px-2.5 py-0.5 text-[11px] font-medium text-teal-200">
-                    <ShieldCheck className="h-3 w-3" />
-                    {ui.verifiedArchive} {msg.archiveCode}
-                  </span>
-                  {msg.identifiedByVision && (
-                    <span className="inline-flex items-center gap-1 rounded-full border border-amber-400/35 bg-amber-400/10 px-2.5 py-0.5 text-[11px] font-medium text-amber-200">
-                      <Camera className="h-3 w-3" />
+                  {message.response?.identifiedByVision && (
+                    <p className="vision-label">
+                      <Camera aria-hidden="true" />
                       {ui.visionDetectedBadge}
-                    </span>
+                    </p>
+                  )}
+                  {message.response?.insight?.detectedTopicLabel && (
+                    <p className="topic-label">
+                      {message.response.insight.detectedTopicLabel}
+                    </p>
+                  )}
+                  <p className="chat-text">{message.text}</p>
+                  {message.response && (
+                    <>
+                      <AudioGuidePlayer
+                        audioBase64={message.response.audioBase64}
+                        audioMimeType={message.response.audioMimeType}
+                        fallbackText={message.text}
+                        language={message.language}
+                        autoPlay={
+                          autoPlayAudio && index === messages.length - 1
+                        }
+                      />
+                      <GuideFeedback
+                        interactionId={message.response.interactionId}
+                        language={language}
+                      />
+                      {message.response.landmarkSlug !== landmark.slug && (
+                        <Link
+                          className="text-action detected-landmark"
+                          href={roadmapLink(
+                            message.response.landmarkSlug,
+                            language,
+                            activeRoadmap?.roadmap.roadmapId,
+                          )}
+                        >
+                          {ui.switchDetectedLandmark}{' '}
+                          {message.response.landmarkName}
+                        </Link>
+                      )}
+                      <footer className="answer-footer">
+                        <span>
+                          <Check aria-hidden="true" />
+                          {ui.verifiedArchive} · {message.response.archiveCode}
+                        </span>
+                        <button
+                          type="button"
+                          className="text-action"
+                          onClick={() =>
+                            void copyAnswer(message.id, message.text)
+                          }
+                        >
+                          {copiedMsgId === message.id ? (
+                            <Check aria-hidden="true" />
+                          ) : (
+                            <Copy aria-hidden="true" />
+                          )}
+                          {copiedMsgId === message.id
+                            ? ui.copiedButton
+                            : ui.copyButton}
+                        </button>
+                      </footer>
+                    </>
                   )}
                 </div>
-
-                <p className="text-sm leading-relaxed text-slate-100 whitespace-pre-line">
-                  {msg.text}
-                </p>
-
-                <AudioGuidePlayer
-                  audioBase64={msg.audioBase64}
-                  audioMimeType={msg.audioMimeType}
-                  fallbackText={msg.text}
-                  language={msg.language}
-                  autoPlay={autoPlayAudio}
-                />
-
-                {detectedDifferentMonument && msg.detectedLandmarkSlug && (
-                  <button
-                    type="button"
-                    onClick={() =>
-                      router.push(`/l/${msg.detectedLandmarkSlug}?lang=${language}`)
-                    }
-                    className="mt-3 inline-flex items-center gap-1.5 rounded-xl border border-amber-400/40 bg-amber-400/15 px-3 py-1.5 text-xs font-semibold text-amber-200 hover:bg-amber-400/25 transition cursor-pointer"
-                  >
-                    <Sparkles className="h-3.5 w-3.5" />
-                    <span>
-                      {ui.switchDetectedLandmark} {msg.detectedLandmarkName}
-                    </span>
-                  </button>
-                )}
-              </div>
+              ))}
             </div>
-          );
-        })}
-
-        {isLoading && (
-          <div className="flex items-center gap-2.5 rounded-2xl border border-teal-400/25 bg-slate-900/80 px-4 py-3 text-xs text-teal-200">
-            <Loader2 className="h-4 w-4 animate-spin text-amber-300" />
-            <span>{ui.thinkingMessage}</span>
-          </div>
-        )}
-
-        {errorMessage && (
-          <div className="rounded-2xl border border-rose-500/40 bg-rose-950/50 px-4 py-3 text-xs text-rose-200">
-            {ui.errorPrefix} {errorMessage}
-          </div>
-        )}
-
-        <div ref={chatEndRef} />
-      </section>
-
-      {/* Bottom Sticky Snap & Ask + Voice + Text Composer */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-800/90 bg-[#090D16]/95 px-3 pb-4 pt-3 backdrop-blur-lg">
-        <div className="mx-auto w-full max-w-2xl">
-          {pendingPhoto && (
-            <div className="mb-2 flex items-center justify-between rounded-xl border border-amber-400/35 bg-slate-900 px-3 py-2">
-              <div className="flex items-center gap-2.5">
-                <img
-                  src={pendingPhoto.previewDataUrl}
-                  alt="Attached monument"
-                  className="h-10 w-10 rounded-lg object-cover"
-                />
-                <span className="text-xs font-medium text-amber-200">{ui.photoAttached}</span>
+            {busy && requestMode === 'question' && (
+              <div ref={loadingRef} className="scan-progress" role="status">
+                {loadingPhotoPreview ? (
+                  <div className="scan-thumbnail">
+                    <img src={loadingPhotoPreview} alt={copy.photoAlt} />
+                    <span className="scan-beam" />
+                  </div>
+                ) : (
+                  <Loader2 className="animate-spin" aria-hidden="true" />
+                )}
+                <span>
+                  {loadingPhotoPreview ? ui.scanningPhoto : ui.thinkingMessage}
+                </span>
               </div>
+            )}
+            {requestMode === 'question' && errorFeedback}
+            {voiceHint && (
+              <p className="voice-hint" role="status">
+                {ui.voiceUnsupported}
+              </p>
+            )}
+          </section>
+        )}
+
+        <section className="museum-dossier">
+          <button
+            className="dossier-toggle"
+            type="button"
+            onClick={() => setIsDossierOpen(!isDossierOpen)}
+            aria-expanded={isDossierOpen}
+            aria-controls="museum-dossier"
+          >
+            <BookOpen aria-hidden="true" />
+            <span>
+              {isDossierOpen ? ui.dossierToggleClose : ui.dossierToggleOpen}
+            </span>
+            <ChevronDown
+              className={isDossierOpen ? 'is-rotated' : ''}
+              aria-hidden="true"
+            />
+          </button>
+          {isDossierOpen && (
+            <div id="museum-dossier" className="dossier-content">
+              <dl className="dossier-facts">
+                <div>
+                  <dt>{ui.eraLabel}</dt>
+                  <dd>{landmark.builtYear}</dd>
+                </div>
+                <div>
+                  <dt>{ui.architectLabel}</dt>
+                  <dd lang="en">{landmark.architect}</dd>
+                </div>
+              </dl>
+              <div
+                className="dossier-tabs"
+                role="tablist"
+                aria-label={ui.dossierToggleOpen}
+              >
+                {(
+                  [
+                    { id: 'facts', label: ui.factsTab },
+                    { id: 'architecture', label: ui.architectureTab },
+                    { id: 'legends', label: ui.legendsTab },
+                  ] as const
+                ).map((tab) => (
+                  <button
+                    key={tab.id}
+                    id={`dossier-tab-${tab.id}`}
+                    role="tab"
+                    aria-selected={dossierTab === tab.id}
+                    aria-controls={`dossier-panel-${tab.id}`}
+                    type="button"
+                    onClick={() => setDossierTab(tab.id)}
+                    onKeyDown={(event) => {
+                      const tabs = [
+                        'facts',
+                        'architecture',
+                        'legends',
+                      ] as const;
+                      if (
+                        event.key === 'ArrowRight' ||
+                        event.key === 'ArrowLeft'
+                      ) {
+                        event.preventDefault();
+                        const next =
+                          tabs[
+                            (tabs.indexOf(tab.id) +
+                              (event.key === 'ArrowRight' ? 1 : 2)) %
+                              3
+                          ];
+                        setDossierTab(next);
+                        document.getElementById(`dossier-tab-${next}`)?.focus();
+                      }
+                    }}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+              {(
+                [
+                  { id: 'facts', items: landmark.historicalFacts },
+                  { id: 'architecture', items: landmark.architecturalDetails },
+                  { id: 'legends', items: landmark.localLegends },
+                ] as const
+              ).map((tab) => (
+                <div
+                  key={tab.id}
+                  id={`dossier-panel-${tab.id}`}
+                  role="tabpanel"
+                  aria-labelledby={`dossier-tab-${tab.id}`}
+                  hidden={dossierTab !== tab.id}
+                >
+                  <ul lang="en">
+                    {tab.items.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+              <p className="archive-footnote">
+                {landmark.verifiedBy} · {landmark.archiveCode}
+              </p>
+            </div>
+          )}
+        </section>
+
+        <Link
+          href={
+            nextLandmark
+              ? roadmapLink(
+                  nextLandmark.slug,
+                  language,
+                  activeRoadmap?.roadmap.roadmapId,
+                )
+              : `/?lang=${language}`
+          }
+          className="next-stop"
+        >
+          {nextLandmark && (
+            <div className="next-stop-photo">
+              <LandmarkArt
+                slug={nextLandmark.slug}
+                alt={nextLandmark.localizedNames[language]}
+              />
+            </div>
+          )}
+          <span>
+            <small>{nextLandmark ? copy.next : copy.finish}</small>
+            <strong>
+              {nextLandmark
+                ? nextLandmark.localizedNames[language]
+                : copy.route}
+            </strong>
+            {nextLandmark && (
+              <span className="next-stop-teaser">
+                {activeRoadmap?.roadmap.language === language
+                  ? nextRouteStop?.emotionalPayoff
+                  : experienceCopy.promises[nextLandmark.slug]}
+              </span>
+            )}
+          </span>
+          <Headphones aria-hidden="true" />
+        </Link>
+      </main>
+
+      <div className="composer-dock">
+        <div className="composer-inner">
+          {pendingPhoto && (
+            <div className="attached-photo">
+              <img src={pendingPhoto.previewDataUrl} alt={copy.photoAlt} />
+              <span>{ui.photoAttached}</span>
               <button
+                className="icon-action"
                 type="button"
                 onClick={() => setPendingPhoto(null)}
-                className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-xs text-slate-400 hover:text-white cursor-pointer"
+                aria-label={ui.removePhoto}
               >
-                <X className="h-3.5 w-3.5" />
-                {ui.removePhoto}
+                <X aria-hidden="true" />
               </button>
             </div>
           )}
-
           <input
             ref={fileInputRef}
             type="file"
             accept="image/*"
-            capture="environment"
-            className="hidden"
-            onChange={handlePhotoSelect}
+            className="sr-only"
+            tabIndex={-1}
+            aria-label={ui.snapButton}
+            onChange={handlePhoto}
+            disabled={busy}
           />
-
           <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              void submitQuestion(question);
+            className="question-composer"
+            onSubmit={(event) => {
+              event.preventDefault();
+              if (!busy) void submitQuestion(question);
             }}
-            className="flex items-center gap-2"
           >
-            {/* Snap & Ask Camera Button */}
             <button
+              className="icon-action"
               type="button"
-              disabled={isLoading}
+              disabled={busy}
               onClick={() => fileInputRef.current?.click()}
-              title={ui.snapButton}
-              className="flex h-11 shrink-0 items-center gap-1.5 rounded-2xl border border-teal-400/45 bg-teal-500/15 px-3 text-xs font-semibold text-teal-200 hover:bg-teal-500/25 transition disabled:opacity-50 cursor-pointer"
+              aria-label={ui.snapButton}
             >
-              <Camera className="h-4 w-4" />
-              <span className="hidden sm:inline">{ui.snapButton}</span>
+              <Camera aria-hidden="true" />
             </button>
-
-            {/* Voice Dictation Button */}
-            <button
-              type="button"
-              disabled={isLoading}
-              onClick={handleVoiceToggle}
-              title={isListening ? ui.voiceListening : ui.voiceButton}
-              className={[
-                'flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border transition cursor-pointer',
-                isListening
-                  ? 'border-rose-400 bg-rose-500/25 text-rose-200 animate-pulse'
-                  : 'border-slate-700 bg-slate-900 text-slate-300 hover:border-amber-400/50 hover:text-amber-200',
-              ].join(' ')}
-            >
-              {isListening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
-            </button>
-
-            {/* Text Input */}
             <input
+              ref={textInputRef}
               type="text"
               value={question}
-              onChange={(e) => setQuestion(e.target.value)}
-              placeholder={isListening ? ui.voiceListening : ui.inputPlaceholder}
-              className="h-11 min-w-0 flex-1 rounded-2xl border border-slate-700/90 bg-slate-900/90 px-4 text-sm text-white placeholder-slate-400 focus:border-amber-400/70 focus:outline-none"
+              maxLength={500}
+              disabled={busy}
+              onChange={(event) => setQuestion(event.target.value)}
+              placeholder={
+                isListening ? ui.voiceListening : ui.inputPlaceholder
+              }
+              aria-label={ui.inputPlaceholder}
             />
-
-            {/* Send Button */}
             <button
-              type="submit"
-              disabled={isLoading || (!question.trim() && !pendingPhoto)}
-              aria-label="Send question"
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 to-amber-500 text-slate-950 shadow-md shadow-amber-500/25 hover:brightness-110 transition disabled:opacity-40 cursor-pointer"
+              className={`icon-action ${isListening ? 'is-listening' : ''}`}
+              type="button"
+              disabled={busy}
+              onClick={handleVoice}
+              aria-label={isListening ? ui.voiceListening : ui.voiceButton}
+              aria-pressed={isListening}
             >
-              {isLoading ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
+              {isListening ? (
+                <MicOff aria-hidden="true" />
               ) : (
-                <Send className="h-4 w-4" />
+                <Mic aria-hidden="true" />
+              )}
+            </button>
+            <button
+              className="send-action"
+              type="submit"
+              disabled={busy || (!question.trim() && !pendingPhoto)}
+              aria-label={copy.send}
+            >
+              {busy ? (
+                <Loader2 className="animate-spin" aria-hidden="true" />
+              ) : (
+                <Send aria-hidden="true" />
               )}
             </button>
           </form>
         </div>
       </div>
+
+      {isLightboxOpen && (
+        <dialog
+          ref={dialogRef}
+          className="photo-dialog"
+          aria-label={localizedName}
+          onClose={() => setIsLightboxOpen(false)}
+          onClick={(event) => {
+            if (event.target === event.currentTarget)
+              dialogRef.current?.close();
+          }}
+        >
+          <div className="photo-dialog-content">
+            <button
+              className="icon-action lightbox-close"
+              type="button"
+              onClick={() => dialogRef.current?.close()}
+              aria-label={ui.closeLabel}
+            >
+              <X aria-hidden="true" />
+            </button>
+            <LandmarkArt
+              slug={landmark.slug}
+              alt={localizedName}
+              className="lightbox-image"
+              priority
+            />
+            <div>
+              <h2>{localizedName}</h2>
+              <p>{landmark.builtYear} · Ichan-Qala</p>
+            </div>
+          </div>
+        </dialog>
+      )}
     </div>
   );
 }

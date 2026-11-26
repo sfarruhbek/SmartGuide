@@ -1,0 +1,224 @@
+{
+  "project": "Ichan-Qal'a Tarixiy Obidalari — Frontend & RAG Ma'lumotlar Bazasi",
+  "source_badge": "Manba: Ichan-Qal’a muzeyi arxivi / UNESCO",
+  "unesco_reference": "https://whc.unesco.org/en/list/543",
+  "monuments": [
+    {
+      "id": "kalta-minor",
+      "name_uz": "Kalta Minor (Kaltaminor)",
+      "name_en": "Kalta Minor Minaret",
+      "historical_facts": {
+        "built_year": "1852–1855",
+        "commissioned_by": "Muhammad Aminxon (Xiva xoni)",
+        "dimensions": {
+          "current_height_m": 29,
+          "planned_height_m": "70–80",
+          "base_diameter_m": "14.2–14.5"
+        },
+        "unique_feature": "Markaziy Osiyodagi sirti boshdan-oyoq sirlangan yashil, ko‘k va oq koshinlar (mayolika) bilan qoplangan yagona minora."
+      },
+      "audio_guide_story": "Tasavvur qiling: XIX asr o‘rtalari, Xiva xonligining eng qudratli davri. 1852-yilda hukmdor Muhammad Aminxon shunday bir minora qurishga qaror qiladiki, uning uchidan nafaqat butun Xorazm vohasi, balki uzoq Buxoro ham kaftdek ko‘rinib turishi kerak edi! Poydevori qariyb 15 metr kenglikda tashlangan bu gigant minora 80 metrdan baland bo‘lishi ko‘zlangan. Ammo tarix o‘z hukmini o‘tkazdi: 1855-yilda Muhammad Aminxon Eronning Saraxs shahri yaqinidagi jangda halok bo‘ldi. Xonning o‘limidan so‘ng xazinadan mablag‘ ajratilishi to‘xtadi va ulkan loyiha 29 metr balandlikda yarim yo‘lda qolib ketdi. Xalq orasida esa boshqa bir qiziq rivoyat yuradi: go‘yoki Buxoro amiri ustaga maxfiy maktub yuborib, Xivadagi ishni bitirgach Buxoroda bundan-da balandroq minora qurib berishni so‘ragan. Bundan xabar topgan Xiva xoni ustani qatl ettirishga buyruq bergan, usta esa tun yarmida shahardan qochib ketgan. Shu tariqa 'Ulli minor' (Katta minora) nomi bilan boshlangan inshoot xalq tilida 'Kalta Minor' — ya’ni kalta, tugallanmagan minora nomini oldi. Shunga qaramay, u bugun Xivaning eng yorqin ramzi hisoblanadi.",
+      "faq": [
+        {
+          "question": "Nima sababdan Kalta Minor qurib bitkazilmagan?",
+          "answer": "Rasmiy tarixiy manbalarga ko‘ra, 1855-yilda minora qurdiruvchisi Muhammad Aminxon Saraxs jangida halok bo‘lgan va yangi hukmdor qurilishni davom ettirmagan."
+        },
+        {
+          "question": "Minora ichiga kirish mumkinmi?",
+          "answer": "Yo‘q, minora ichidagi aylanma zinapoya qurilishi oxiriga yetkazilmaganligi sababli uning tepasiga chiqish imkoni yo‘q."
+        },
+        {
+          "question": "Minoradagi yozuvlar nimani anglatadi?",
+          "answer": "Tashqi devorlardagi nasta’liq xatida bitilgan she’riy satrlar mashhur Xorazm shoiri va tarixchisi Muhammad Rizo Ogahiy qalamiga mansub."
+        }
+      ],
+      "coordinates": {
+        "latitude": 41.3783,
+        "longitude": 60.35797
+      },
+      "images": [
+        "https://commons.wikimedia.org/wiki/File:Kalta_Minor.jpg",
+        "https://commons.wikimedia.org/wiki/File:Xiva_kalta_minor.jpg",
+        "https://commons.wikimedia.org/wiki/File:Kalta_Minor,_Khiva,_Uzbekistan.jpg"
+      ],
+      "official_sources": [
+        "https://uz.wikipedia.org/wiki/Kaltaminor",
+        "https://khivamuseum.uz/",
+        "https://whc.unesco.org/en/list/543"
+      ]
+    },
+    {
+      "id": "juma-mosque",
+      "name_uz": "Juma masjidi",
+      "name_en": "Juma Mosque",
+      "historical_facts": {
+        "built_year": "X asr (985-yil tilga olingan); hozirgi binosi 1788–1789-yillarda qayta qurilgan",
+        "commissioned_by": "Abdurahmon Mehtar (saroy vaziri va amaldori)",
+        "dimensions": {
+          "area_m": "55 × 46",
+          "minaret_height_m": 42,
+          "columns_count": 212
+        },
+        "unique_feature": "Markaziy Osiyodagi gumbazsiz, peshtoqsiz va hovlisiz qurilgan yagona yirik masjid bo‘lib, uning tomini 212 ta noyob o‘ymakor yog‘och ustun ko‘tarib turadi."
+      },
+      "audio_guide_story": "Ichan-Qal’aning qoq markazida joylashgan Juma masjidiga qadam qo‘yishingiz bilan o‘zingizni tosh devorlar orasida emas, balki sirli yog‘och o‘rmon ichida his qilasiz. Boshqa sharq masjidlaridan farqli o‘laroq, bu yerda na ulkan moviy gumbazlar, na hashamatli peshtoqlar bor. Buning o‘rniga 17 qator bo‘lib saf tortgan 212 ta yog‘och ustun va shiftdagi ikkita yorug‘lik tuynugidan tushayotgan quyosh nurlari sizni kutib oladi. Bu yerning eng katta siri — ustunlarning yoshida! 1788-yilda masjid qayta qurilayotganda me’morlar Xorazmning qadimiy poytaxti — Kat shahridan keltirilgan va suv toshqinlaridan omon qolgan qadimiy ustunlardan foydalanishgan. E’tibor bering: masjid ichidagi 20 dan ortiq ustun X–XII asrlarga tegishli bo‘lib, ularning yoshi ming yildan oshgan! Qayrag‘och yog‘ochidan ishlangan bu ustunlar bir-birini aslo takrorlamaydi; ularda kufiy yozuvidagi arabcha duolar va qadimiy Xorazm naqshlari muhrlangan. Shiftdagi ochiq tuynuklar esa nafaqat yorug‘lik beradi, balki tabiiy shamollatish tizimi vazifasini ham o‘taydi.",
+      "faq": [
+        {
+          "question": "Juma masjidida jami nechta ustun bor?",
+          "answer": "O‘zbekiston Milliy Ensiklopediyasi va me’moriy o‘lchovlarga ko‘ra 212 ta (17 qator) yog‘och ustun mavjud."
+        },
+        {
+          "question": "Eng qadimgi ustun qaysi va uning tarixi qanday?",
+          "answer": "Masjid tarkibida X–XII asrlarga oid 21–24 ta eng qadimgi ustun bor. Ular qadimgi Xorazm poytaxti Kat (hozirgi Beruniy) shahridagi buzilib ketgan masjidlardan olib kelingan."
+        },
+        {
+          "question": "Nima uchun masjidning tomi ochiq (tuynukli) qilib qurilgan?",
+          "answer": "Bu yopiq va ustunli zalga tabiiy quyosh yorug‘ligi tushishi hamda havo aylanishini ta’minlash uchun qilingan muhandislik yechimidir."
+        }
+      ],
+      "coordinates": {
+        "latitude": 41.3775,
+        "longitude": 60.36
+      },
+      "images": [
+        "https://commons.wikimedia.org/wiki/File:Juma_Mosque_(Khiva)_01.jpg",
+        "https://commons.wikimedia.org/wiki/File:Juma_Mosque_20140927_Uzbekistan_0284_Khiva_(15638472913).jpg",
+        "https://commons.wikimedia.org/wiki/File:Juma_Mosque_(Khiva)_03.jpg"
+      ],
+      "official_sources": [
+        "https://uz.wikipedia.org/wiki/Juma_masjid_(Xiva)",
+        "https://whc.unesco.org/en/list/543"
+      ]
+    },
+    {
+      "id": "kunya-ark",
+      "name_uz": "Ko‘hna Ark",
+      "name_en": "Kunya-Ark",
+      "historical_facts": {
+        "built_year": "1686–1688 (1804–1806-yillarda kengaytirilgan)",
+        "commissioned_by": "Arangxon (Muhammad Arangxon); keyinchalik Eltuzarxon va Muhammad Rahimxon I tomonidan boyitilgan",
+        "dimensions": {
+          "layout_m": "130 × 93",
+          "area_hectares": 1.2
+        },
+        "unique_feature": "Ichan-Qal’aning g‘arbiy devoriga tutashgan 'qal’a ichidagi qal’a' — Xiva xonlarining asosiy qarorgohi va davlat boshqaruv markazi."
+      },
+      "audio_guide_story": "Ko‘hna Ark — bu shunchaki saroy emas, balki Xiva xonligining yuragi, ya’ni 'qal’a ichidagi mustaqil qal’a'dir. 1686-yilda Arangxon buyrug‘i bilan bunyod etilgan bu majmua baland paxsa devorlar bilan o‘ralgan bo‘lib, ichkarida xonning yashashi va davlatni boshqarishi uchun hamma narsa muhayyo edi: qishki va yozgi masjidlar, zarbxona, qabulxona (ko‘rinishxona), haram, qurol-aslaha ombori va hatto zindon ham shu yerda joylashgan. Arkning eng qiziqarli nuqtasi — Oq Shayx Bobo tepaligi. Bu ko‘shk Ichan-Qal’aning eng baland kuzatuv nuqtasi bo‘lib, u yerdan butun Xiva kaftdek ko‘rinadi. Yana bir haqiqiy tarixiy fakt: ko‘rinishxonada turgan hozirgi taxt aslida nusxa. 1816-yilda kumush yaproqlar bilan qoplab yasalgan asl Xiva xoni taxti 1873-yilda Chor Rossiyasi bosqini paytida o‘lja sifatida olib ketilgan va bugungi kunda Moskvadagi Kreml Qurol-aslaha palatasida saqlanmoqda. Ark hovlisidagi dumaloq g‘ishtin supada esa xon yozning jazirama kunlarida o‘tov tikib dam olgan.",
+      "faq": [
+        {
+          "question": "Ko‘hna Arkdagi xon taxti haqiqiymi?",
+          "answer": "Yo‘q, ko‘rinishxonadagi taxt nusxa hisoblanadi; 1816-yilda yasalgan kumush qoplamali asl taxt 1873-yilda olib ketilgan va hozir Moskva Kremlida saqlanadi."
+        },
+        {
+          "question": "Oq Shayx Bobo ko‘shki qanday vazifani bajargan?",
+          "answer": "U Arkdagi eng baland nuqta bo‘lib, shahar va uning atrofini nazorat qilish uchun soqchilar kuzatuv minorasi vazifasini bajargan."
+        },
+        {
+          "question": "Ark ichida tanga zarb qilinganmi?",
+          "answer": "Ha, Muhammad Rahimxon I davrida (1806–1825) bu yerda maxsus zarbxona qurilgan va Xiva tangalari shu yerda zarb etilgan."
+        }
+      ],
+      "coordinates": {
+        "latitude": 41.37889,
+        "longitude": 60.35806
+      },
+      "images": [
+        "https://commons.wikimedia.org/wiki/File:Konya_Ark_gate.jpg",
+        "https://commons.wikimedia.org/wiki/File:Konya_Ark_towers_(%D0%A6%D0%B8%D1%82%D0%B0%D0%B4%D0%B5%D0%BB%D1%8C_%D0%9A%D1%83%D0%BD%D1%8F-%D0%90%D1%80%D0%BA,_Ko%CA%BBhna_ark),_Itchan_Kala,_Khiva.jpg",
+        "https://commons.wikimedia.org/wiki/Category:Konya_Ark"
+      ],
+      "official_sources": [
+        "https://uz.wikipedia.org/wiki/Ko%CA%BBhna_Ark",
+        "https://en.wikipedia.org/wiki/Konya_Ark",
+        "https://whc.unesco.org/en/list/543"
+      ]
+    },
+    {
+      "id": "tosh-hovli-palace",
+      "name_uz": "Toshhovli saroyi",
+      "name_en": "Tosh-Hovli Palace",
+      "historical_facts": {
+        "built_year": "1830–1838 (to‘liq yakunlanishi 1841-yil)",
+        "commissioned_by": "Olloqulixon (me’morlar: Usta Tojiddin va Usta Qalandar Xivagiy)",
+        "dimensions": {
+          "rooms_count": 163,
+          "courtyards_count": 3
+        },
+        "unique_feature": "Saroy devorlari Xorazm kulolchiligining cho‘qqisi bo‘lgan ko‘k va oq rangdagi mayolika koshinlar, shiftlari esa qizil-jigarrang naqshlar hamda o‘ymakor ustunlar bilan bezatilgan."
+      },
+      "audio_guide_story": "Olloqulixon taxtga o‘tirgach, Ko‘hna Ark unga torlik qilib qoldi va u Xivaning sharqiy qismida hashamati bilan barchani lol qoldiradigan yangi saroy — Toshhovlini qurishga kirishdi. Saroy nomi 'Tosh hovli' bo‘lsa-da, u asosan pishiq g‘ishtdan qurilgan; uning bunchalik mustahkam va baland tashqi devorlari xuddi tosh qal’adek ko‘ringani uchun shunday atalgan. Qurilish tarixi esa fojiali voqea bilan bog‘liq: xon saroyni atigi ikki yilda bitirishni talab qiladi. Bunga ulgurmagan mashhur me’mor Usta Tojiddinni xon g‘azab ustida qoziqqa o‘tqazib qatl ettiradi. Shundan so‘ng ishni davom ettirgan Usta Qalandar saroyni 8 yilda nihoyasiga yetkazadi. Saroy ichi haqiqiy labirint: 163 ta xona va 3 ta asosiy hovli! Eng go‘zal qismi — Haram hovlisi. Bu yerda xonning 4 ta qonuniy xotini va o‘zi uchun 5 ta alohida ayvon qurilgan. Har bir ayvonning devorlari boshdan-oyoq moviy mayolika koshinlar bilan qoplangan, yog‘och ustunlar ostidagi marmar tagkursilarga esa Ogahiy g‘azallari o‘yib yozilgan.",
+      "faq": [
+        {
+          "question": "Toshhovli saroyida nechta xona va hovli bor?",
+          "answer": "Saroy 163 ta xona hamda 3 ta asosiy hovli (Haram, Ishrat hovli — mehmonxona va Arz hovli — sud zali)dan iborat."
+        },
+        {
+          "question": "Nima uchun saroy 'Toshhovli' deb atalgan?",
+          "answer": "Baland va mustahkam pishiq g‘ishtli tashqi devorlari uzoqdan yaxlit tosh qal’ani eslatgani uchun xalq orasida Toshhovli nomini olgan."
+        },
+        {
+          "question": "Haram hovlisidagi 5 ta ayvon kimlarga tegishli bo‘lgan?",
+          "answer": "Ulardan to‘rttasi xonning 4 nafar qonuniy xotiniga, eng baland va hashamatli beshinchi ayvon esa xonning o‘ziga tegishli bo‘lgan."
+        }
+      ],
+      "coordinates": {
+        "latitude": 41.37838,
+        "longitude": 60.36158
+      },
+      "images": [
+        "https://commons.wikimedia.org/wiki/File:Tosh-Hovli_Palace_(8145397760).jpg",
+        "https://commons.wikimedia.org/wiki/File:Le_harem_de_Tash_Khauli_(Khiva,_Ouzb%C3%A9kistan)_(5586429701).jpg",
+        "https://commons.wikimedia.org/wiki/Category:Tach_Khaouli"
+      ],
+      "official_sources": [
+        "https://en.wikipedia.org/wiki/Toshhovli_Palace",
+        "https://www.islamicarchitecturalheritage.com/listings/tash-khauli-palace",
+        "https://whc.unesco.org/en/list/543"
+      ]
+    },
+    {
+      "id": "islam-khoja-minaret",
+      "name_uz": "Islomxo‘ja minorasi",
+      "name_en": "Islam Khoja Minaret",
+      "historical_facts": {
+        "built_year": "1908–1910",
+        "commissioned_by": "Islomxo‘ja (Xiva xonligining bosh vaziri; me’mori: Xudoybergan Hoji)",
+        "dimensions": {
+          "total_height_m": 56.6,
+          "base_diameter_m": 9.5,
+          "steps_count": 175
+        },
+        "unique_feature": "Xivadagi eng baland inshoot va Markaziy Osiyodagi eng baland tarixiy minoralardan biri."
+      },
+      "audio_guide_story": "XX asr boshlarida Xivaga kelgan odam uzoqdan osmonga bo‘y cho‘zgan, moviy va yashil belbog‘li ulkan minorani ko‘rib hayratga tushardi. Bu — Ichan-Qal’adagi eng yosh, ammo eng baland obida — Islomxo‘ja minorasi. Uning ortida esa Xiva tarixidagi eng ilg‘or shaxslardan biri — bosh vazir Islomxo‘janing taqdiri yotadi. U Xiva xonligida yangi usul maktablari, kasalxona, pochta va telegraf ochishga harakat qilgan islohotchi edi. 1908-yilda u o‘z mablag‘i hisobidan madrasa va 56,6 metrlik minorani qurdiradi. Me’mor Xudoybergan Hoji minorani xuddi qadimiy XI–XII asr minoralari uslubida — tepaga tomon ingichkalashib boruvchi shaklda yaratgan. Afsuski, Islomxo‘janing islohotlari saroydagi mutaassib kuchlarga yoqmadi. 1913-yilda u xonning yashirin roziligi bilan suiqasd natijasida o‘ldirildi. Bugun esa bu muhtasham minora o‘z bunyodkorining xotirasi sifatida qad rostlab turibdi. Uning 175 ta tik zinapoyasidan tepaga ko‘tarilgan sayyoh butun Xiva shahrini 360 daraja burchak ostida tomosha qilishi mumkin.",
+      "faq": [
+        {
+          "question": "Islomxo‘ja minorasining tepasiga chiqish mumkinmi?",
+          "answer": "Ha, minora ichidagi 175 ta tor g‘ishtin zinapoya orqali yuqori kuzatuv maydonchasiga chiqish mumkin."
+        },
+        {
+          "question": "Minora nima sababdan tepaga qarab ingichkalashib boradi?",
+          "answer": "Bu seysmik barqarorlikni ta’minlash hamda inshootni vizual jihatdan yanada baland va nafis ko‘rsatish uchun qo‘llanilgan qadimiy me’moriy uslubdir."
+        },
+        {
+          "question": "Minorani qurdirgan Islomxo‘ja kim bo‘lgan?",
+          "answer": "U Asfandiyorxon davrida Xiva xonligining bosh vaziri bo‘lgan, shaharda Yevropa tipidagi maktab, kasalxona va shifoxonalar qurdirgan islohotchi davlat arbobi."
+        }
+      ],
+      "coordinates": {
+        "latitude": 41.3766,
+        "longitude": 60.3605
+      },
+      "images": [
+        "https://commons.wikimedia.org/wiki/File:Khiva,_Islam_Khodja_Minaret.jpg",
+        "https://commons.wikimedia.org/wiki/File:Le_minaret_Islam-Khodja_(Khiva,_Ouzb%C3%A9kistan)_(5597518312).jpg",
+        "https://commons.wikimedia.org/wiki/File:Islam_Hoja_Minaret,_Khiva_(Islomxo%CA%BBja_minorasi,_%D0%9C%D0%B8%D0%BD%D0%B0%D1%80%D0%B5%D1%82_%D0%98%D1%81%D0%BB%D0%B0%D0%BC_%D0%A5%D0%BE%D0%B4%D0%B6%D0%B0,_%D0%A5%D0%B8%D0%B2%D0%B0).jpg"
+      ],
+      "official_sources": [
+        "https://uz.wikipedia.org/wiki/Islomxo%E2%80%98ja_minorasi",
+        "https://en.wikipedia.org/wiki/Islamkhodja_Madrasah",
+        "https://whc.unesco.org/en/list/543"
+      ]
+    }
+  ]
+}
