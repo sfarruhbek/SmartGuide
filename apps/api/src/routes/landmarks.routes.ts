@@ -1,5 +1,8 @@
 import { Router } from 'express';
-import { getLandmarkBySlug, listLandmarkSummaries } from '../services/landmark.service.js';
+import {
+  getLandmarkBySlugWithSource,
+  listLandmarkSummariesWithSource,
+} from '../services/landmark.service.js';
 
 export const landmarksRouter = Router();
 
@@ -8,10 +11,11 @@ export const landmarksRouter = Router();
  * Lists all 5 verified Ichan-Qala landmarks with QR slugs and localized summaries.
  */
 landmarksRouter.get('/', async (_req, res) => {
-  const landmarks = await listLandmarkSummaries();
+  const { landmarks, landmarkStore } = await listLandmarkSummariesWithSource();
   res.json({
     site: 'Ichan-Qala, Khiva',
     count: landmarks.length,
+    landmarkStore,
     landmarks,
   });
 });
@@ -27,7 +31,7 @@ landmarksRouter.get('/:slug', async (req, res) => {
     return;
   }
 
-  const landmark = await getLandmarkBySlug(slug);
+  const { landmark, landmarkStore } = await getLandmarkBySlugWithSource(slug);
   if (!landmark) {
     res.status(404).json({
       error: `Landmark "${slug}" was not found in the verified Ichan-Qala archive.`,
@@ -35,5 +39,5 @@ landmarksRouter.get('/:slug', async (req, res) => {
     return;
   }
 
-  res.json({ landmark });
+  res.json({ landmark, landmarkStore });
 });

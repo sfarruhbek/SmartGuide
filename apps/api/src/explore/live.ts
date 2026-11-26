@@ -5,6 +5,7 @@ import { WebSocketServer, WebSocket } from 'ws';
 import { GoogleGenAI, Modality, Type, type Session, type LiveServerMessage, type LiveConnectParameters } from '@google/genai';
 import { z } from 'zod';
 import { env } from '../config/env.js';
+import { resolveClientIp } from '../config/proxy.js';
 import { aiLimit } from '../middleware/ai-limit.js';
 import { exploreChat, exploreRequestSchema } from './chat.js';
 import { LANGUAGE_CODES } from '@smartguide/shared';
@@ -60,7 +61,7 @@ export function attachLiveVoice(server:Server,handler:(ws:WebSocket,context:Cont
     const protocols=(req.headers['sec-websocket-protocol']??'').split(',').map(s=>s.trim());
     const token=protocols.find(s=>/^[a-f0-9]{64}$/.test(s));
     const grant=token?grants.get(token):undefined;
-    const ip=req.socket.remoteAddress??'unknown';
+    const ip=resolveClientIp(req,env.TRUST_PROXY);
     if(!grant||grant.expires<Date.now()||wss.clients.size>=env.AI_MAX_CONCURRENT||(ipCounts.get(ip)??0)>=2){socket.destroy();return;}
     grants.delete(token!); // One-time browser capability; never the Gemini credential.
     wss.handleUpgrade(req,socket,head,ws=>{

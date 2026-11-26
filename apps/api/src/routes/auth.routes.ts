@@ -11,7 +11,7 @@ const attempts=new Map<string,{count:number;expires:number}>();let active=0;
 const limit:RequestHandler=(req,res,next)=>{
   const now=Date.now();for(const [key,value]of attempts)if(value.expires<now)attempts.delete(key);
   const ip=req.ip??'unknown',bucket=attempts.get(ip)??{count:0,expires:now+10*60000};
-  if(bucket.count>=20||active>=2||attempts.size>=10000){res.setHeader('Retry-After','60');res.status(429).json({error:'AUTH_RATE_LIMIT'});return;}
+  if(bucket.count>=20||active>=env.AUTH_MAX_CONCURRENT||attempts.size>=10000){res.setHeader('Retry-After','60');res.status(429).json({error:'AUTH_RATE_LIMIT'});return;}
   bucket.count++;attempts.set(ip,bucket);active++;let released=false;const release=()=>{if(!released){released=true;active--;}};res.once('finish',release);res.once('close',release);next();
 };
 export const authRouter=Router();

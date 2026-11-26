@@ -15,8 +15,11 @@
     "dev:dashboard": "npm run build:shared && npm run dev --workspace=@smartguide/dashboard",
     "build": "npm run build:shared && npm run build --workspace=@smartguide/api && npm run build --workspace=@smartguide/tourist && npm run build --workspace=@smartguide/dashboard",
     "typecheck": "npm run build:shared && npm run typecheck --workspace=@smartguide/api && npm run typecheck --workspace=@smartguide/tourist && npm run typecheck --workspace=@smartguide/dashboard",
+    "db:init": "npm run build:shared && npm run db:init --workspace=@smartguide/api",
     "db:push": "npm run build:shared && npm run db:push --workspace=@smartguide/api",
-    "db:seed": "npm run build:shared && npm run db:seed --workspace=@smartguide/api",
+    "db:seed": "npm run build:shared && npm run db:seed:content --workspace=@smartguide/api",
+    "db:seed:content": "npm run build:shared && npm run db:seed:content --workspace=@smartguide/api",
+    "db:seed:demo": "npm run build:shared && npm run db:seed:demo --workspace=@smartguide/api",
     "db:studio": "npm run db:studio --workspace=@smartguide/api"
   },
   "devDependencies": {

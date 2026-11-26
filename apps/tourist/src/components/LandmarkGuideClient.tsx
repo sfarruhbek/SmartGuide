@@ -509,6 +509,7 @@ export function LandmarkGuideClient({
                 <AudioGuidePlayer
                   audioBase64={introResponse.audioBase64}
                   audioMimeType={introResponse.audioMimeType}
+                  audioStatus={introResponse.audioStatus}
                   fallbackText={introResponse.answer}
                   language={introResponse.language}
                   autoPlay
@@ -689,6 +690,7 @@ export function LandmarkGuideClient({
                       <AudioGuidePlayer
                         audioBase64={message.response.audioBase64}
                         audioMimeType={message.response.audioMimeType}
+                        audioStatus={message.response.audioStatus}
                         fallbackText={message.text}
                         language={message.language}
                         autoPlay={

@@ -106,6 +106,18 @@ export interface GuideAskRequest {
   includeAudio?: boolean;
 }
 
+export type LandmarkStoreMode = 'postgres' | 'json' | 'fallback-json';
+export type GuideAnalyticsStatus =
+  | 'recorded'
+  | 'skipped-json-store'
+  | 'db-unavailable'
+  | 'write-failed';
+export type GuideAudioStatus =
+  | 'included'
+  | 'not-requested'
+  | 'skipped-deadline'
+  | 'unavailable';
+
 export interface GuideAskResponse {
   interactionId: number;
   landmarkSlug: string;
@@ -120,6 +132,10 @@ export interface GuideAskResponse {
   modelUsed: string;
   sourceMode: 'groq-rag' | 'gemini-rag' | 'verified-rag-fallback';
   responseTimeMs: number;
+  analyticsRecorded?: boolean;
+  analyticsStatus?: GuideAnalyticsStatus;
+  landmarkStore?: LandmarkStoreMode;
+  audioStatus?: GuideAudioStatus;
 }
 
 export interface LandmarkVisitMetric {

@@ -19,6 +19,7 @@ test('verbose visual observations are bounded without losing a valid landmark ma
 test('photo answers cannot introduce an undocumented year or century',()=>{
   const facts=['Construction began in 1851 and stopped in 1855.'];
   assert.doesNotThrow(()=>assertGroundedDates('Начало строительства — 1851 год, XIX век.',facts));
+  assert.doesNotThrow(()=>assertGroundedDates('Высота плато 1500 метров, вход стоит 2000 soʻm или $1200.',facts));
   assert.throws(()=>assertGroundedDates('Построен в начале XX века.',facts));
   assert.throws(()=>assertGroundedDates('Построен в 1905 году.',facts));
 });

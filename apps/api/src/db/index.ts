@@ -7,7 +7,9 @@ export const pool = new Pool({
   connectionString: env.DATABASE_URL,
   max: 15,
   idleTimeoutMillis: 30_000,
-  connectionTimeoutMillis: 5_000,
+  connectionTimeoutMillis: env.DB_CONNECT_TIMEOUT_MS,
+  query_timeout: env.DB_QUERY_TIMEOUT_MS,
+  statement_timeout: env.DB_QUERY_TIMEOUT_MS,
 });
 
 export const db = drizzle(pool, { schema });
@@ -63,11 +65,18 @@ export async function ensureSchemaExists(): Promise<void> {
   `);
 }
 
-export async function checkDatabaseHealth(): Promise<boolean> {
+export async function checkDatabaseHealth(timeoutMs = env.DB_QUERY_TIMEOUT_MS): Promise<boolean> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
   try {
-    await pool.query('SELECT 1');
+    const query = pool.query('SELECT 1');
+    const timeout = new Promise<never>((_, reject) => {
+      timer = setTimeout(() => reject(new Error('DB health check timeout')), timeoutMs);
+    });
+    await Promise.race([query, timeout]);
     return true;
   } catch {
     return false;
+  } finally {
+    if (timer) clearTimeout(timer);
   }
 }

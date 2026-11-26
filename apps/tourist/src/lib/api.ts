@@ -88,10 +88,34 @@ export async function askGuide(
     !Number.isFinite(data.interactionId) ||
     typeof data.identifiedByVision !== 'boolean' ||
     (data.audioBase64 !== undefined && typeof data.audioBase64 !== 'string') ||
-    (data.audioMimeType !== undefined && typeof data.audioMimeType !== 'string')
+    (data.audioMimeType !== undefined && typeof data.audioMimeType !== 'string') ||
+    (data.analyticsRecorded !== undefined && typeof data.analyticsRecorded !== 'boolean') ||
+    (data.audioStatus !== undefined && typeof data.audioStatus !== 'string')
   )
     throw new Error('Invalid guide response');
   return data;
+}
+
+export async function synthesizeSpeech(
+  payload: { text: string; language: SupportedLanguage },
+  options: { signal?: AbortSignal; timeoutMs?: number } = {},
+): Promise<{ audioBase64: string; audioMimeType: string }> {
+  const text = payload.text.replace(/[*_#`~]+/g, '').replace(/\s+/g, ' ').trim().slice(0, 1400);
+  if (!text) throw new Error('Speech text is empty');
+  const data = await requestJson<{ audioBase64?: unknown; audioMimeType?: unknown }>(
+    `${getApiBaseUrl()}/api/audio/speech`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text, language: payload.language }),
+      signal: options.signal,
+    },
+    options.timeoutMs ?? 25000,
+  );
+  if (typeof data.audioBase64 !== 'string' || typeof data.audioMimeType !== 'string') {
+    throw new Error('Invalid speech response');
+  }
+  return { audioBase64: data.audioBase64, audioMimeType: data.audioMimeType };
 }
 
 export async function generateRoadmap(payload: {

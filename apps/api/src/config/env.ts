@@ -25,8 +25,14 @@ const envSchema = z.object({
   GROQ_VISION_MODEL: z.string().default('qwen/qwen3.8-27b'),
   GEMINI_TTS_FALLBACK_MODELS: z.string().default('gemini-3.8-flash-tts,gemini-3.1-flash-tts-preview,gemini-2.5-flash-preview-tts'),
   AI_REQUEST_TIMEOUT_MS: z.coerce.number().int().min(1000).max(60000).default(25000),
+  GUIDE_REQUEST_TIMEOUT_MS: z.coerce.number().int().min(5000).max(42000).default(35000),
+  GUIDE_MIN_TTS_BUDGET_MS: z.coerce.number().int().min(1000).max(25000).default(6000),
   AI_MAX_CONCURRENT: z.coerce.number().int().min(1).max(32).default(4),
   AI_REQUESTS_PER_MINUTE: z.coerce.number().int().min(1).max(1000).default(20),
+  AUTH_MAX_CONCURRENT: z.coerce.number().int().min(1).max(32).default(8),
+  DB_CONNECT_TIMEOUT_MS: z.coerce.number().int().min(500).max(15000).default(3000),
+  DB_QUERY_TIMEOUT_MS: z.coerce.number().int().min(500).max(15000).default(3000),
+  TRUST_PROXY: z.string().trim().default('false'),
   GEMINI_TTS_MODEL: z.string().default('gemini-3.8-flash-lite-tts'),
   GEMINI_LIVE_MODELS:z.string().default('gemini-3.8-live,gemini-3.1-flash-live-preview,gemini-2.5-flash-native-audio-latest'),
   GEMINI_LIVE_VOICE:z.string().default('Kore'),
@@ -37,8 +43,8 @@ const envSchema = z.object({
   AUTO_SEED: z
     .string()
     .optional()
-    .default('true')
-    .transform((val) => val.toLowerCase() !== 'false'),
+    .default('false')
+    .transform((val) => val.toLowerCase() === 'true'),
 });
 
 const parsed = envSchema.safeParse(process.env);

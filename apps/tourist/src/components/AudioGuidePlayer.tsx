@@ -1,11 +1,13 @@
 'use client';
 
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
-import { Pause, Play, RotateCcw, Volume2 } from 'lucide-react';
+import { Loader2, Pause, Play, RefreshCw, RotateCcw, Volume2 } from 'lucide-react';
 import {
   SUPPORTED_LANGUAGES,
+  type GuideAudioStatus,
   type SupportedLanguage,
 } from '@smartguide/shared';
+import { synthesizeSpeech } from '@/lib/api';
 import { TOURIST_UI } from '@/lib/i18n';
 import { ROUTE_COPY } from '@/lib/route-copy';
 
@@ -15,6 +17,7 @@ let activePlayerId: string | null = null;
 interface Props {
   audioBase64?: string;
   audioMimeType?: string;
+  audioStatus?: GuideAudioStatus;
   fallbackText: string;
   language: SupportedLanguage;
   autoPlay?: boolean;
@@ -28,6 +31,7 @@ function formatTime(seconds: number): string {
 export function AudioGuidePlayer({
   audioBase64,
   audioMimeType = 'audio/wav',
+  audioStatus,
   fallbackText,
   language,
   autoPlay = false,
@@ -35,6 +39,13 @@ export function AudioGuidePlayer({
   const playerId = useId();
   const audioRef = useRef<HTMLAudioElement>(null);
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+  const speechFetchRef = useRef<AbortController | null>(null);
+  const [deferredAudio, setDeferredAudio] = useState<{
+    audioBase64: string;
+    audioMimeType: string;
+  } | null>(null);
+  const [isLoadingAudio, setIsLoadingAudio] = useState(false);
+  const [serverAudioFailed, setServerAudioFailed] = useState(false);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [audioFailed, setAudioFailed] = useState(false);
   const [speechAvailable, setSpeechAvailable] = useState(false);
@@ -48,7 +59,53 @@ export function AudioGuidePlayer({
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   const ui = TOURIST_UI[language];
   const copy = ROUTE_COPY[language];
+  const effectiveAudioBase64 = audioBase64 ?? deferredAudio?.audioBase64;
+  const effectiveAudioMimeType = audioBase64
+    ? audioMimeType
+    : (deferredAudio?.audioMimeType ?? audioMimeType);
   const useRecordedAudio = Boolean(audioUrl && !audioFailed);
+  const shouldFetchDeferredAudio =
+    !audioBase64 &&
+    (audioStatus === 'skipped-deadline' || audioStatus === 'unavailable');
+
+  const fetchServerAudio = useCallback(async () => {
+    speechFetchRef.current?.abort();
+    const controller = new AbortController();
+    speechFetchRef.current = controller;
+    setIsLoadingAudio(true);
+    setServerAudioFailed(false);
+    try {
+      const result = await synthesizeSpeech(
+        { text: fallbackText, language },
+        { signal: controller.signal },
+      );
+      if (!controller.signal.aborted) {
+        setDeferredAudio(result);
+      }
+    } catch {
+      if (!controller.signal.aborted) {
+        setServerAudioFailed(true);
+      }
+    } finally {
+      if (speechFetchRef.current === controller) {
+        speechFetchRef.current = null;
+        setIsLoadingAudio(false);
+      }
+    }
+  }, [fallbackText, language]);
+
+  useEffect(() => {
+    setDeferredAudio(null);
+    setServerAudioFailed(false);
+    speechFetchRef.current?.abort();
+    speechFetchRef.current = null;
+    if (shouldFetchDeferredAudio) {
+      void fetchServerAudio();
+    }
+    return () => {
+      speechFetchRef.current?.abort();
+    };
+  }, [shouldFetchDeferredAudio, fetchServerAudio]);
 
   useEffect(() => {
     setSpeechAvailable('speechSynthesis' in window);
@@ -56,23 +113,23 @@ export function AudioGuidePlayer({
     setCurrentTime(0);
     setDuration(0);
     setAutoplayBlocked(false);
-    if (!audioBase64) {
+    if (!effectiveAudioBase64) {
       setAudioUrl(null);
       return;
     }
     try {
-      const bytes = Uint8Array.from(window.atob(audioBase64), (character) =>
+      const bytes = Uint8Array.from(window.atob(effectiveAudioBase64), (character) =>
         character.charCodeAt(0),
       );
       const url = URL.createObjectURL(
-        new Blob([bytes], { type: audioMimeType }),
+        new Blob([bytes], { type: effectiveAudioMimeType }),
       );
       setAudioUrl(url);
       return () => URL.revokeObjectURL(url);
     } catch {
       setAudioUrl(null);
     }
-  }, [audioBase64, audioMimeType]);
+  }, [effectiveAudioBase64, effectiveAudioMimeType]);
 
   const claimPlayback = useCallback(() => {
     if (activePlayerId !== playerId && 'speechSynthesis' in window)
@@ -274,7 +331,7 @@ export function AudioGuidePlayer({
           {rate === 1 ? '1.0×' : '1.25×'}
         </button>
       </div>
-      {useRecordedAudio && (
+      {useRecordedAudio ? (
         <button
           className="audio-replay text-action"
           type="button"
@@ -287,6 +344,26 @@ export function AudioGuidePlayer({
           <RotateCcw aria-hidden="true" />
           {ui.audioReplay}
         </button>
+      ) : (
+        shouldFetchDeferredAudio && (
+          <button
+            className="audio-replay text-action"
+            type="button"
+            disabled={isLoadingAudio}
+            onClick={() => void fetchServerAudio()}
+          >
+            {isLoadingAudio ? (
+              <Loader2 className="animate-spin" aria-hidden="true" />
+            ) : (
+              <RefreshCw aria-hidden="true" />
+            )}
+            {isLoadingAudio
+              ? ui.audioVoiceTag
+              : serverAudioFailed
+                ? ui.retryButton
+                : ui.audioVoiceTag}
+          </button>
+        )
       )}
     </div>
   );

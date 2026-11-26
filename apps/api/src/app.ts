@@ -2,6 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
 import { env } from './config/env.js';
+import { parseTrustProxy } from './config/proxy.js';
 import { checkDatabaseHealth } from './db/index.js';
 import { errorHandler } from './middleware/error-handler.js';
 import { analyticsRouter } from './routes/analytics.routes.js';
@@ -17,6 +18,8 @@ import { accessRouter } from './routes/access.routes.js';
 
 export function createApp() {
   const app = express();
+  const trustProxy = parseTrustProxy(env.TRUST_PROXY);
+  app.set('trust proxy', trustProxy);
 
   app.use(helmet());
   app.use(
@@ -51,6 +54,8 @@ export function createApp() {
       database: env.LANDMARK_STORE === 'json' ? 'not-used' : dbOk ? 'connected' : 'disconnected',
       analyticsAvailable: dbOk,
       landmarkStore: env.LANDMARK_STORE,
+      trustProxy,
+      guideTimeoutMs: env.GUIDE_REQUEST_TIMEOUT_MS,
       aiConfigured: env.isGroqConfigured && env.isGeminiConfigured,
       providers: { groq: env.isGroqConfigured, geminiSpeech: env.isGeminiConfigured },
       models: {

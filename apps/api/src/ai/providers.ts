@@ -11,6 +11,8 @@ export async function generateGroq<T>(params: {
   maxTokens?: number;
   image?: { data: string; mimeType: string };
   parse: (text: string) => T;
+  signal?: AbortSignal;
+  timeoutMs?: number;
 }) {
   return groq.run((model, key) => ({
     url: 'https://api.groq.com/openai/v1/chat/completions',
@@ -37,7 +39,10 @@ export async function generateGroq<T>(params: {
     const text = body.choices?.[0]?.message?.content?.trim();
     if (!text || body.choices?.[0]?.finish_reason === 'length') throw new InvalidProviderOutput();
     try { return params.parse(text); } catch { throw new InvalidProviderOutput(); }
-  }, params.image ? [env.GROQ_VISION_MODEL] : env.groqModels);
+  }, params.image ? [env.GROQ_VISION_MODEL] : env.groqModels, {
+    signal: params.signal,
+    timeoutMs: params.timeoutMs,
+  });
 }
 
 export function normalizeAudio(data: string, mime: string): { audioBase64: string; audioMimeType: string } {
@@ -61,7 +66,11 @@ export function normalizeAudio(data: string, mime: string): { audioBase64: strin
   return { audioBase64: Buffer.concat([header, bytes]).toString('base64'), audioMimeType: 'audio/wav' };
 }
 
-export async function generateSpeech(text: string, language: string) {
+export async function generateSpeech(
+  text: string,
+  language: string,
+  options: { signal?: AbortSignal; timeoutMs?: number } = {},
+) {
   return gemini.run((model, key) => ({
     url: `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
     init: {
@@ -77,5 +86,5 @@ export async function generateSpeech(text: string, language: string) {
     const audio = body.candidates?.[0]?.content?.parts?.find((part) => part.inlineData)?.inlineData;
     if (!audio?.data || !audio.mimeType) throw new InvalidProviderOutput();
     return normalizeAudio(audio.data, audio.mimeType);
-  });
+  }, undefined, options);
 }

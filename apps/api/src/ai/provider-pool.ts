@@ -1,6 +1,6 @@
 /** No upstream error bodies, headers, or credentials escape this module. */
 export class ProviderUnavailable extends Error {
-  constructor(public readonly reason: 'not-configured' | 'exhausted' | 'deadline') {
+  constructor(public readonly reason: 'not-configured' | 'exhausted' | 'deadline' | 'aborted') {
     super(`AI provider unavailable: ${reason}`);
   }
 }
@@ -46,23 +46,35 @@ export class ProviderPool {
     request: (model: string, key: string, signal: AbortSignal) => { url: string; init: RequestInit },
     parse: (body: unknown, model: string) => T,
     candidateModels = this.options.models,
+    runOptions: { signal?: AbortSignal; timeoutMs?: number } = {},
   ): Promise<{ value: T; modelUsed: string }> {
     const { keys, timeoutMs = 25_000, fetcher = fetch, now = Date.now } = this.options;
     if (!keys.length || !candidateModels.length) throw new ProviderUnavailable('not-configured');
-    const deadline = now() + timeoutMs;
+    if (runOptions.signal?.aborted) throw new ProviderUnavailable('aborted');
+    const budgetMs =
+      runOptions.timeoutMs !== undefined
+        ? Math.min(timeoutMs, runOptions.timeoutMs)
+        : timeoutMs;
+    if (budgetMs <= 0) throw new ProviderUnavailable('deadline');
+    const deadline = now() + budgetMs;
     let attempts = 0;
     // All keys are conservatively treated as one organization/project quota pool.
     for (const model of candidateModels) {
+      if (runOptions.signal?.aborted) throw new ProviderUnavailable('aborted');
       if (this.organizationCooldown > now()) break;
       if ((this.modelCooldowns.get(model) ?? 0) > now()) continue;
       const start = this.nextKey++ % keys.length;
       for (let offset = 0; offset < keys.length; offset++) {
         const index = (start + offset) % keys.length;
         if (this.disabledKeys.has(index) || (this.keyCooldowns.get(index) ?? 0) > now()) continue;
+        if (runOptions.signal?.aborted) throw new ProviderUnavailable('aborted');
         const remaining = deadline - now();
         if (remaining <= 0) throw new ProviderUnavailable('deadline');
         if (++attempts > 8) throw new ProviderUnavailable('exhausted');
-        const signal = AbortSignal.timeout(Math.max(1, Math.min(15_000, remaining)));
+        const attemptSignal = AbortSignal.timeout(Math.max(1, Math.min(15_000, remaining)));
+        const signal = runOptions.signal
+          ? AbortSignal.any([runOptions.signal, attemptSignal])
+          : attemptSignal;
         try {
           const { url, init } = request(model, keys[index], signal);
           const response = await fetcher(url, { ...init, signal });
@@ -97,6 +109,12 @@ export class ProviderPool {
           const value = parse(body, model);
           return { value, modelUsed: model };
         } catch (error) {
+          if (runOptions.signal?.aborted) {
+            throw new ProviderUnavailable('aborted');
+          }
+          if (now() >= deadline) {
+            throw new ProviderUnavailable('deadline');
+          }
           if (error instanceof InvalidProviderOutput || error instanceof SyntaxError || keys.length === 1) {
             this.modelCooldowns.set(model, now() + 15_000);
           } else {
@@ -106,6 +124,8 @@ export class ProviderPool {
         }
       }
     }
-    throw new ProviderUnavailable(now() >= deadline ? 'deadline' : 'exhausted');
+    throw new ProviderUnavailable(
+      runOptions.signal?.aborted ? 'aborted' : now() >= deadline ? 'deadline' : 'exhausted',
+    );
   }
 }

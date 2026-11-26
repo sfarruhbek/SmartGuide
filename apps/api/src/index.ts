@@ -1,19 +1,19 @@
 import { createApp } from './app.js';
 import { env } from './config/env.js';
 import { pool } from './db/index.js';
-import { seedDatabase } from './db/seed.js';
+import { seedContent } from './db/seed.js';
 import { attachLiveVoice } from './explore/live.js';
 
 async function bootstrap() {
-  if (env.AUTO_SEED) {
+  if (env.AUTO_SEED && env.LANDMARK_STORE === 'postgres') {
     try {
-      const result = await seedDatabase();
+      const result = await seedContent({ overwrite: false });
       console.log(
-        `[startup] PostgreSQL ready — ${result.landmarksUpserted} landmarks verified, ${result.interactionsInserted} initial analytics records added.`,
+        `[startup] PostgreSQL content verified — ${result.landmarksInserted} new landmarks inserted (${result.landmarksTotal} in catalog; approved DB rows preserved, demo analytics disabled).`,
       );
     } catch (error) {
       console.error(
-        '[startup] PostgreSQL auto-seed failed (is Postgres running?):',
+        '[startup] PostgreSQL auto content seed failed (is Postgres running?):',
         error instanceof Error ? error.message : error,
       );
     }
