@@ -25,7 +25,6 @@ import {
 } from 'lucide-react';
 import {
   LANGUAGE_CODES,
-  type GuideAskResponse,
   type SupportedLanguage,
 } from '@smartguide/shared';
 import { CITIES, PLACES } from '@/lib/places';
@@ -47,18 +46,14 @@ import {
 } from '@/lib/journey';
 import { journeyCopy } from '@/lib/journey-copy';
 import {
-  getOrCreateSessionId,
   getSavedLanguage,
   saveLanguage,
   updateLanguage,
   createLocalId,
 } from '@/lib/session';
-import { compressImageToBase64 } from '@/lib/image-utils';
-import { askGuide } from '@/lib/api';
 import { requestTrip } from '@/lib/trip-api';
 import { TouristHeader } from './TouristHeader';
 import { DiscoveryMap } from './DiscoveryMap';
-import { AudioGuidePlayer } from './AudioGuidePlayer';
 import {
   readJourneyNavigation,
   journeyUrl,
@@ -66,6 +61,9 @@ import {
 } from '@/lib/journey-navigation';
 import { tripBreakdown, tripText } from '@/lib/trip-summary';
 import { useKeyboardViewport } from '@/lib/use-keyboard-viewport';
+import { MapVoiceAssistant } from './MapVoiceAssistant';
+import { voiceCopy } from '@/lib/voice-copy';
+import type { VoicePlace, VoicePosition } from '@/lib/live-voice';
 
 const initialInput: TripInput = {
   cities: ['bukhara'],
@@ -103,19 +101,16 @@ export function TouristHomeClient({
   const [cityId, setCityId] = useState(initialRoute.city);
   const [filter, setFilter] = useState<PlaceFilter>(initialRoute.collection);
   const [selected, setSelected] = useState<string | null>(initialRoute.place);
+  const [voiceOpen,setVoiceOpen]=useState(false);
+  const [voicePlaces,setVoicePlaces]=useState<VoicePlace[]>([]);
+  const [voiceFocus,setVoiceFocus]=useState<VoicePlace|null>(null);
+  const [touristPosition,setTouristPosition]=useState<VoicePosition|null>(null);
   const [drafts, setDrafts] = useState<Discovery[]>([]);
   const [showDraft, setShowDraft] = useState(false);
-  const [photoBusy, setPhotoBusy] = useState(false);
-  const [photoError, setPhotoError] = useState(false);
-  const [photoResult, setPhotoResult] = useState<GuideAskResponse | null>(null);
-  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
-  const photoLock = useRef(false);
-  const photoController = useRef<AbortController | null>(null);
   const savedTripRef = useRef<Trip | null>(null);
-  const photoRef = useRef<HTMLInputElement>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const mainRef = useRef<HTMLElement>(null);
-  useEffect(() => () => { photoController.current?.abort(); planController.current?.abort(); }, []);
+  useEffect(() => () => planController.current?.abort(), []);
   const copy = journeyCopy(language);
   const city = CITIES.find((value) => value.id === cityId) || CITIES[0];
   const places = PLACES.filter(
@@ -155,6 +150,7 @@ export function TouristHomeClient({
         PLACES,
       );
       if (route.view !== 'plan') planController.current?.abort();
+      setVoiceOpen(false);setTouristPosition(null);setVoiceFocus(null);
       setTab(route.view);
       setCityId(route.city);
       setSelected(route.place);
@@ -199,6 +195,7 @@ export function TouristHomeClient({
     });
   };
   const changeCity = (id: string) => {
+    setVoiceFocus(null);setVoicePlaces([]);setTouristPosition(null);
     setCityId(id);
     setSelected(
       PLACES.find(
@@ -237,54 +234,6 @@ export function TouristHomeClient({
       if (planController.current === controller) {
         planController.current = null;
         setPlanBusy(false);
-      }
-    }
-  };
-  const choosePhoto = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    event.target.value = '';
-    if (!file || photoLock.current) return;
-    photoLock.current = true;
-    const controller = new AbortController();
-    photoController.current = controller;
-    setPhotoBusy(true);
-    setPhotoError(false);
-    setPhotoResult(null);
-    try {
-      const photo = await compressImageToBase64(file);
-      if (controller.signal.aborted) return;
-      setPhotoPreview(photo.previewDataUrl);
-      const result = await askGuide(
-        {
-          question: '',
-          language,
-          sessionId: getOrCreateSessionId(),
-          imageBase64: photo.base64,
-          imageMimeType: photo.mimeType,
-          includeAudio: true,
-        },
-        { signal: controller.signal },
-      );
-      if (controller.signal.aborted) return;
-      if (
-        !result.identifiedByVision ||
-        ![
-          'kalta-minor',
-          'juma-mosque',
-          'pahlavon-mahmud',
-          'tosh-hovli',
-          'kunya-ark',
-        ].includes(result.landmarkSlug)
-      )
-        throw Error('Unknown pilot place');
-      setPhotoResult(result);
-    } catch {
-      if (!controller.signal.aborted) setPhotoError(true);
-    } finally {
-      if (photoController.current === controller) {
-        photoController.current = null;
-        photoLock.current = false;
-        setPhotoBusy(false);
       }
     }
   };
@@ -354,12 +303,6 @@ export function TouristHomeClient({
         language={language}
         onLanguageChange={(lang) => {
           planController.current?.abort();
-          photoController.current?.abort();
-          photoController.current = null;
-          photoLock.current = false;
-          setPhotoBusy(false);
-          setPhotoResult(null);
-          setPhotoError(false);
           setLanguage(lang);
           updateLanguage(lang);
         }}
@@ -925,8 +868,13 @@ export function TouristHomeClient({
                 places={places}
                 drafts={visibleDrafts}
                 selected={selected}
-                onSelect={setSelected}
+                onSelect={id=>{setSelected(id);setVoiceFocus(null);}}
                 language={language}
+                onOpenVoice={()=>setVoiceOpen(true)}
+                extraPlaces={voicePlaces}
+                onSelectExtra={place=>{setSelected(null);setVoiceFocus(place);setVoiceOpen(true);}}
+                focus={voiceFocus}
+                touristLocation={touristPosition}
               />
               <aside className="map-place-panel">
                 {selectedPlace ? (
@@ -1066,57 +1014,16 @@ export function TouristHomeClient({
               </p>
             )}
             <section className="journey-camera">
-              <Camera />
-              <div>
-                <h2>{copy('camera')}</h2>
-                <p>{copy('cameraHint')}</p>
-              </div>
-              <input
-                ref={photoRef}
-                className="sr-only"
-                type="file"
-                accept="image/*"
-                tabIndex={-1}
-                onChange={choosePhoto}
-              />
-              <button
-                type="button"
-                className="journey-outline"
-                disabled={photoBusy}
-                onClick={() => photoRef.current?.click()}
-              >
-                {photoBusy ? <Loader2 className="animate-spin" /> : <Camera />}
-                {copy('choosePhoto')}
-              </button>
-              {photoError && (
-                <p role="alert" className="journey-error">
-                  {copy('photoError')}
-                </p>
-              )}
-              {photoResult && (
-                <div className="journey-photo-result">
-                  {photoPreview && (
-                    <img src={photoPreview} alt={copy('camera')} />
-                  )}
-                  <p>{photoResult.answer}</p>
-                  <AudioGuidePlayer
-                    audioBase64={photoResult.audioBase64}
-                    audioMimeType={photoResult.audioMimeType}
-                    fallbackText={photoResult.answer}
-                    language={photoResult.language}
-                  />
-                  <Link
-                    className="journey-text-link"
-                    href={`/l/${photoResult.landmarkSlug}?lang=${language}`}
-                  >
-                    {copy('guide')}
-                    <ArrowRight />
-                  </Link>
-                </div>
-              )}
+              <Camera aria-hidden="true" />
+              <div><h2>{voiceCopy(language)('title')}</h2><p>{voiceCopy(language)('intro')}</p></div>
+              <button type="button" className="journey-primary" onClick={()=>setVoiceOpen(true)}>{voiceCopy(language)('open')}<ArrowRight /></button>
             </section>
           </section>
         )}
+        <MapVoiceAssistant open={voiceOpen&&tab==='map'} onClose={()=>setVoiceOpen(false)} city={city} language={language}
+          location={touristPosition} onLocation={setTouristPosition} onPlaces={setVoicePlaces}
+          focusPlace={voiceFocus?.id==='tourist-location'?null:voiceFocus??(selectedPlace?{id:selectedPlace.id,name:local(selectedPlace.name,language),lat:selectedPlace.lat,lng:selectedPlace.lng}:null)}
+          onFocus={place=>{setVoiceFocus(place);if(place.id!=='tourist-location')setVoicePlaces(current=>[...current.filter(p=>p.id!==place.id),place]);}}/>
         <footer className="journey-footer">
           <span>smartguide / Oʻzbekiston</span>
           <span>{copy('collectionNote')}</span>

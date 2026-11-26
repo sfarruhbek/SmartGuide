@@ -28,6 +28,8 @@ const envSchema = z.object({
   AI_MAX_CONCURRENT: z.coerce.number().int().min(1).max(32).default(4),
   AI_REQUESTS_PER_MINUTE: z.coerce.number().int().min(1).max(1000).default(20),
   GEMINI_TTS_MODEL: z.string().default('gemini-3.8-flash-lite-tts'),
+  GEMINI_LIVE_MODELS:z.string().default('gemini-3.8-live,gemini-3.1-flash-live-preview,gemini-2.5-flash-native-audio-latest'),
+  GEMINI_LIVE_VOICE:z.string().default('Kore'),
   GEMINI_TTS_VOICE: z.string().default('Sulafat'),
   TICKET_PRICE_USD: z.coerce.number().positive().default(4),
   MUSEUM_REVENUE_SHARE_PERCENT: z.coerce.number().min(0).max(100).default(30),

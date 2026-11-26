@@ -12,6 +12,7 @@ import {
   Sparkles,
   Move,
   LocateFixed,
+  Mic,
 } from 'lucide-react';
 import type { SupportedLanguage } from '@smartguide/shared';
 import {
@@ -23,6 +24,8 @@ import {
   type Place,
 } from '@/lib/journey';
 import { journeyCopy } from '@/lib/journey-copy';
+import { voiceCopy } from '@/lib/voice-copy';
+import type { VoicePlace, VoicePosition } from '@/lib/live-voice';
 
 export function DiscoveryMap({
   city,
@@ -31,6 +34,11 @@ export function DiscoveryMap({
   selected,
   onSelect,
   language,
+  onOpenVoice,
+  extraPlaces=[],
+  onSelectExtra,
+  focus,
+  touristLocation,
 }: {
   city: City;
   places: Place[];
@@ -38,6 +46,11 @@ export function DiscoveryMap({
   selected: string | null;
   onSelect: (id: string) => void;
   language: SupportedLanguage;
+  onOpenVoice?:()=>void;
+  extraPlaces?:VoicePlace[];
+  onSelectExtra?:(place:VoicePlace)=>void;
+  focus?:VoicePlace|null;
+  touristLocation?:VoicePosition|null;
 }) {
   const copy = journeyCopy(language);
   const ref = useRef<HTMLDivElement>(null);
@@ -61,6 +74,7 @@ export function DiscoveryMap({
     if (target)
       setView((current) => ({ ...current, lat: target.lat, lng: target.lng }));
   }, [target?.lat, target?.lng]);
+  useEffect(()=>{if(focus)setView(current=>({...current,lat:focus.lat,lng:focus.lng,zoom:Math.max(current.zoom,13)}));},[focus?.id,focus?.lat,focus?.lng]);
   useEffect(() => {
     if (!ref.current) return;
     const observer = new ResizeObserver(([entry]) =>
@@ -191,6 +205,17 @@ export function DiscoveryMap({
           </button>
         );
       })}
+      {extraPlaces.filter(place=>!places.some(p=>p.id===place.id)&&place.kind!=='area').map(place=>{
+        const p=project(place.lat,place.lng,view.zoom),x=p.x-left,y=p.y-top;
+        if(x<0||y<0||x>size.width||y>size.height)return null;
+        return <button type="button" key={`voice-${place.id}`} className={`discovery-pin voice-place-pin ${focus?.id===place.id?'selected':''}`}
+          style={{left:x,top:y}} aria-label={place.name} title={place.name} onClick={()=>onSelectExtra?.(place)}><span><Landmark size={15}/></span></button>;
+      })}
+      {touristLocation&&(()=>{
+        const p=project(touristLocation.lat,touristLocation.lng,view.zoom),x=p.x-left,y=p.y-top;
+        return x>=0&&y>=0&&x<=size.width&&y<=size.height?<span className="tourist-location-dot" style={{left:x,top:y}} role="img" aria-label={voiceCopy(language)('gps')}/>:null;
+      })()}
+      {onOpenVoice&&<button type="button" className="map-voice-launch" onClick={onOpenVoice}><Mic size={18}/>{voiceCopy(language)('open')}</button>}
       <div className="map-controls">
         <button
           type="button"

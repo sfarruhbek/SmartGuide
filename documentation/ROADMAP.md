@@ -1,6 +1,6 @@
 # SmartGuide — Yakuniy 24 Soatlik Harakat Rejasi (2-kun va Demo Day)
 
-> Runtime yangilanishi: milliy frontend va `/khiva` haqiqiy Groq API ga ulangan, Gemini faqat ovoz uchun. `/api/roadmap/generate` endi mavjud; quyidagi soatbay reja barcha funksiyalar bajarilganini bildirmaydi. Joriy holat: [LIVE_API_SETUP.md](LIVE_API_SETUP.md), qolgan backend ishlari: [BACKEND_TASKS.md](BACKEND_TASKS.md). Trip Pass biznes-modeli va smeta saqlangan.
+> Runtime yangilanishi: milliy frontend va `/khiva` haqiqiy Groq API ga ulangan. Xaritada Gemini Live ovoz/foto popup, opt-in GPS va manbali kesh bor: [LIVE_VOICE_ASSISTANT.md](LIVE_VOICE_ASSISTANT.md). `/api/roadmap/generate` ham mavjud; quyidagi soatbay reja barcha funksiyalar bajarilganini bildirmaydi. Joriy holat: [LIVE_API_SETUP.md](LIVE_API_SETUP.md), qolgan backend ishlari: [BACKEND_TASKS.md](BACKEND_TASKS.md). Trip Pass biznes-modeli va smeta saqlangan; Live sarfini alohida o‘lchash kerak.
 
 **Tadbir:** Tourism Hackathon 2026 (25–27 noyabr 2026, CAEx Toshkent)  
 **Yakuniy qaror (Pivot):** **Emotsional & Foyda Asosidagi Shaxsiy Roadmap → Obida Oldida Jonli AI Suhbat → Sayyoh Qiziqishi va Signal/Noise Intellekti (Self-Learning Flywheel)**  

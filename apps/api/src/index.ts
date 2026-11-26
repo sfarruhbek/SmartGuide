@@ -2,6 +2,7 @@ import { createApp } from './app.js';
 import { env } from './config/env.js';
 import { pool } from './db/index.js';
 import { seedDatabase } from './db/seed.js';
+import { attachLiveVoice } from './explore/live.js';
 
 async function bootstrap() {
   if (env.AUTO_SEED) {
@@ -25,8 +26,10 @@ async function bootstrap() {
       `[smartguide-api] Groq text/planner: ${env.isGroqConfigured ? 'CONFIGURED' : 'LOCAL FALLBACK'}; Gemini speech: ${env.isGeminiConfigured ? 'CONFIGURED' : 'TEXT ONLY'}. Configuration is not a live provider health check.`,
     );
   });
+  const liveVoice=attachLiveVoice(server);
 
   const shutdown = async (signal: string) => {
+    liveVoice.close();
     console.log(`[smartguide-api] Received ${signal}, shutting down gracefully...`);
     server.close(async () => {
       await pool.end();

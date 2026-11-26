@@ -12,12 +12,17 @@ flowchart LR
   Planner --> Storage[Qurilmadagi localStorage]
   User --> Map[OSM xarita + joylar katalogi]
   Map --> Sources[Manba havolalari / lokal izohlar]
+  Map --> Live[Ovozli popup + foto + opt-in GPS]
+  Live --> Relay[Express WebSocket relay]
+  Relay --> GeminiLive[Gemini Live: audio / foto]
+  GeminiLive --> Tool[Groq: manbali kontekst]
+  Tool --> Catalog[Milliy katalog + Wikipedia kesh]
   Map --> Draft[Shaxsiy tekshirilmagan topilma]
   Draft --> Storage
   User --> Pilot[Xiva pilot guide]
   Pilot --> API[Express API]
   API --> AI[Groq: matn / foto / trip ranking]
-  API --> Voice[Gemini: faqat ovoz]
+  API --> Voice[Gemini TTS: eski pilot ovozi]
   API --> TripAPI[Server trip smetasi / lokal fallback]
   API --> DB[(PostgreSQL)]
   DB --> API
@@ -26,7 +31,7 @@ flowchart LR
 
 `apps/tourist/src/lib/trip-api.ts`: haqiqiy plan POST va response validatsiyasi. `journey.ts`: vaqt/pul/katalog validatsiyasi, proyeksiya, AI tartibi va generation metadata bilan localStorage tiklash; eski triplar migratsiyasi uchun lokal hisoblash saqlangan. `places.ts`: 16 shahar va 15 joy. Narxlar taxmin, real quote/qatnov jadvali emas.
 
-`DiscoveryMap.tsx`: visible OSM tile lar, attribution, pan/zoom va markerlar. Bu navigatsiya/routing engine emas. `TouristHomeClient.tsx`: plan / itinerary / map, fotosuratni mavjud Xiva API ga joʻnatish, shaxsiy qoralama dialogi. `journey-copy.ts`: 6 til UI; katalog hikoyalari hozir EN/RU/UZ.
+`DiscoveryMap.tsx`: visible OSM tile lar, attribution, pan/zoom va markerlar. Bu navigatsiya/routing engine emas. `TouristHomeClient.tsx`: plan / itinerary / map, shaxsiy qoralama va `MapVoiceAssistant.tsx` ovozli popup. Foto Live-sessiyaga yuboriladi; GPS faqat tugma bosilganda olinadi. [Live arxitektura va kontrakt](LIVE_VOICE_ASSISTANT.md). `journey-copy.ts` va `voice-copy.ts`: 6 til UI; katalog hikoyalari hozir EN/RU/UZ.
 
 `/khiva`: oldingi qisqa yurish builderi, `/l/[slug]`: mavjud 5 obida uchun AI matn, ovoz, foto, transkript, retry va micro-feedback UI. Lokal milliy trip va eski qisqa roadmap alohida formatlarda saqlanadi.
 
@@ -40,6 +45,8 @@ flowchart LR
 | POST `/api/guide/ask` | Bor; RAG/Vision/TTS va interaction log |
 | POST `/api/trips/generate` | Bor; milliy frontend ulangan, Groq ranking + server smeta |
 | POST `/api/audio/speech` | Bor; Gemini WAV va model fallback |
+| GET `/api/explore/places` | Bor; milliy katalog va opt-in GPS bo‘yicha yaqin joylar |
+| POST `/api/explore/live/session` + WS `/api/explore/live` | Bor; bir martalik token, Gemini Live audio/foto va Groq kontekst |
 | GET `/api/analytics/summary` | Bor; mavjud analytics tiplari |
 | POST `/api/roadmap/generate` | Bor; 2/3/5 stopli Xiva AI yurishi, DB persistence yoʻq |
 | Feedback / nearby / visit / export | Hali route ulanmagan |
@@ -59,6 +66,6 @@ Hozirgi live demo: JSON dossier + haqiqiy Groq/Gemini; analytics saqlanmaydi va 
 
 ## Keyingi arxitektura — kelishilishi kerak
 
-Milliy city/place katalogi va manba versiyalari; trip backendga saqlash; transport/tarif manbalari; contribution moderation va huquqlar; opt-in GPS; nationwide vision; payment/payout; agregat feedback va analytics. `feat/ai-provider-routing` foydalanuvchi topshirigʻi bilan backend va shared guide sourceMode tipini kengaytiradi; DB migratsiyasi yoʻq. [AI backend handoff](AI_BACKEND_HANDOFF.md) da provider/quota, import va testlar bayoni bor.
+Milliy katalogni kengaytirish va tarixiy review; trip backendga saqlash; transport/tarif manbalari; contribution moderation va huquqlar; Live ovoz/foto/GPS ni telefonlarda va public WSS da tekshirish; foto aniqligi eval; payment/payout; agregat feedback va analytics. Opt-in GPS va milliy Live popup allaqachon bor. DB migratsiyasi yo‘q. [AI backend handoff](AI_BACKEND_HANDOFF.md), [Live deployment](LIVE_VOICE_ASSISTANT.md).
 
 Feedback loop faqat o‘lchangan va yetarli namunadagi reaksiyalarga tayanishi kerak. Tilni millat deb olish, kam savol berilgan joyni «zerikarli» deb fakt sifatida chiqarish yoki soxta foizlarni UIga qoʻshish mumkin emas. Kontrakt va rollar: [API_CONTRACT.md](API_CONTRACT.md), [FRONTEND_PRODUCT.md](FRONTEND_PRODUCT.md).

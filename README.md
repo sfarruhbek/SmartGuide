@@ -2,7 +2,7 @@
 
 SmartGuide mustaqil sayohatchiga shaharlar, kunlar, umumiy byudjet va qiziqishlar asosida kunlik safar rejasini tuzishga yordam beradi. Rejada vaqt, ovqatlanish, transport, kirish, yashash va zaxira xarajatlari bor. Interaktiv xaritada mahalliy joylar, manbali hikoyalar va shaxsiy topilmalar uchun qoralama mavjud.
 
-**Butun Oʻzbekiston — mahsulot geografiyasi. Xiva — birinchi AI-pilot.** Milliy frontend Groq server planneriga ulangan: 16 shahar tanlovi va toʻrtta shahardagi 15 joy. Dossier/foto piloti besh Xiva obidasi bilan cheklangan. Gemini faqat ovoz uchun. Jonli narxlar, moderatsiya, GPS va toʻlovlar hali integratsiya talab qiladi. [Ishlaydigan API konfiguratsiyasi va tekshiruv](documentation/LIVE_API_SETUP.md).
+**Butun Oʻzbekiston — mahsulot geografiyasi.** Milliy frontend Groq server planneriga ulangan: 16 shahar tanlovi va toʻrtta shahardagi 15 planner joyi. Xaritada **Gemini Live ovozli popup** bor: suhbat, foto va ixtiyoriy GPS, Groq orqali manbali maʼlumot hamda yetishmagan joylarni Wikipediaʼdan keshga olish. Alohida besh Xiva obidasi dossier piloti saqlangan. Xarita katalogi hali butun mamlakatdagi barcha obyektlarni qamramaydi; jonli narxlar, moderatsiya va toʻlovlar tayyor emas. [API konfiguratsiyasi](documentation/LIVE_API_SETUP.md), [Live yordamchi va backend topshirish](documentation/LIVE_VOICE_ASSISTANT.md).
 
 ## Hujjatlar
 
@@ -16,6 +16,7 @@ SmartGuide mustaqil sayohatchiga shaharlar, kunlar, umumiy byudjet va qiziqishla
 | [AI backend handoff](documentation/AI_BACKEND_HANDOFF.md) | Groq / Gemini, quota fallback, yangi trip/audio API va JSON import |
 | [Backend tasks](documentation/BACKEND_TASKS.md) | Keyingi ishlar: P0/P1, masʼullar, DB/HTTPS/frontend integratsiya va demo qabul mezonlari |
 | [Live API setup](documentation/LIVE_API_SETUP.md) | Frontend → Groq/Gemini, lokal ishga tushirish va real HTTP tekshiruv |
+| [Live voice assistant](documentation/LIVE_VOICE_ASSISTANT.md) | Xarita popup, Gemini Live, foto/GPS, WebSocket va manbali kesh |
 | [Roadmap](documentation/ROADMAP.md) | Frontend va boshqa jamoa ishlarining alohida navbati |
 | [Git / deploy](documentation/GIT_WORKFLOW_AND_DEPLOY.md) | Jamoa egaligi va deploy yoʻriqnomasi |
 

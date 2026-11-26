@@ -15,6 +15,9 @@ Base URL `http://localhost:4000`, JSON. Til: `en | uz | ru | ja | ko | es`. Pilo
 | POST `/api/trips/generate` | Milliy trip v2; Groq ranking + server smeta, local-fallback |
 | POST `/api/audio/speech` | Gemini TTS → base64 WAV yoki 503 |
 | POST `/api/roadmap/generate` | Xiva qisqa yurishi, Groq; persistence yoʻq, roadmapId null |
+| GET `/api/explore/places` | `cityId` yoki `lat/lng` bo‘yicha `{places,areas}` |
+| POST `/api/explore/live/session` | Map/GPS konteksti → bir martalik 60 soniyalik token |
+| WS `/api/explore/live` | Gemini Live audio/foto, manbalar va yaqin joylar |
 | GET `/api/analytics/summary` | `AnalyticsSummary` |
 
 `GET /api/landmarks/nearby` hozir dinamik `/:slug` route bilan toʻqnashib 404 bo‘lishi mumkin; nearby sifatida tayyor emas. Health javobi real toʻlov yoki kontent tasdigʻi emas.
@@ -31,9 +34,9 @@ Base URL `http://localhost:4000`, JSON. Til: `en | uz | ru | ja | ko | es`. Pilo
 }
 ```
 
-Ixtiyoriy `imageBase64`, `imageMimeType`. Kamida savol yoki foto kerak. Savol max 500 belgi; base64 max 12M belgi. Foto boʻlmasa slug kerak. Brauzer mikrofon diktovkasini matnga aylantiradi; streaming audio chat endpointi yoʻq.
+Ixtiyoriy `imageBase64`, `imageMimeType`. Kamida savol yoki foto kerak. Savol max 500 belgi; base64 max 12M belgi. Foto boʻlmasa slug kerak. Ushbu legacy oqimda brauzer mikrofon diktovkasini matnga aylantiradi. Xaritadagi yangi popup esa alohida [Live WebSocket protokoli](LIVE_VOICE_ASSISTANT.md) orqali audio va foto yuboradi.
 
-Response maydonlari: `interactionId`, `landmarkSlug`, `landmarkName`, `language`, `answer`, optional `audioBase64`/`audioMimeType`, `identifiedByVision`, `verifiedBy`, `archiveCode`, `modelUsed`, `sourceMode`, `responseTimeMs`. `sourceMode`: `groq-rag | verified-rag-fallback`; oldingi `gemini-rag` shared tipida compatibility uchun qolgan. Gemini faqat TTS uchun, Groq matn va foto uchun. Tanilmagan foto va tanlangan slug boʻlmasa 422. `identifiedByVision: false` boʻlsa surat muvaffaqiyatli tanildi deb koʻrsatmaslik kerak. `verifiedBy` stringi mustaqil tarixiy audit dalili emas.
+Response maydonlari: `interactionId`, `landmarkSlug`, `landmarkName`, `language`, `answer`, optional `audioBase64`/`audioMimeType`, `identifiedByVision`, `verifiedBy`, `archiveCode`, `modelUsed`, `sourceMode`, `responseTimeMs`. `sourceMode`: `groq-rag | verified-rag-fallback`; oldingi `gemini-rag` shared tipida compatibility uchun qolgan. Ushbu legacy endpointda Gemini TTS uchun, Groq matn va foto uchun. Tanilmagan foto va tanlangan slug boʻlmasa 422. `identifiedByVision: false` boʻlsa surat muvaffaqiyatli tanildi deb koʻrsatmaslik kerak. `verifiedBy` stringi mustaqil tarixiy audit dalili emas.
 
 Hozir backend `roadmapId`, `insight`, `nextStopSuggestion`ni shared response sifatida kafolatlamaydi. Frontend ularni faqat optional kengaytma sifatida tushunadi.
 

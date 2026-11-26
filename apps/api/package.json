@@ -12,6 +12,10 @@
     "ai:check": "tsx scripts/check-ai.ts",
     "ai:smoke": "tsx scripts/smoke-ai.ts",
     "catalog:sync": "tsx scripts/sync-planner-catalog.ts",
+    "explore:seed": "tsx scripts/seed-explore.ts",
+    "explore:cache-check": "tsx scripts/check-explore-cache.ts",
+    "voice:probe": "tsx scripts/probe-live.ts",
+    "voice:check": "tsx scripts/check-live-assistant.ts",
     "db:push": "drizzle-kit push --force",
     "db:seed": "tsx src/db/seed.ts",
     "db:studio": "drizzle-kit studio"
@@ -25,6 +29,7 @@
     "express": "^5.1.0",
     "helmet": "^8.1.0",
     "pg": "^8.16.0",
+    "ws": "^8.23.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {
@@ -32,6 +37,7 @@
     "@types/express": "^5.0.1",
     "@types/node": "^22.15.0",
     "@types/pg": "^8.11.14",
+    "@types/ws": "^8.18.2",
     "drizzle-kit": "^0.31.11",
     "tsx": "^4.19.4",
     "typescript": "^5.8.2"

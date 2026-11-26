@@ -4,6 +4,7 @@ import { PwaRegistrar } from '@/components/PwaRegistrar';
 import './globals.css';
 import './journey.css';
 import './api-integration.css';
+import './voice.css';
 
 const playfair = localFont({
   src: './fonts/PlayfairDisplay.ttf',

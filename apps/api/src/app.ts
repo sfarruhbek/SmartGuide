@@ -10,6 +10,8 @@ import { landmarksRouter } from './routes/landmarks.routes.js';
 import { tripsRouter } from './routes/trips.routes.js';
 import { audioRouter } from './routes/audio.routes.js';
 import { roadmapRouter } from './routes/roadmap.routes.js';
+import { exploreRouter } from './routes/explore.routes.js';
+import { liveVoiceRouter } from './explore/live.js';
 
 export function createApp() {
   const app = express();
@@ -52,6 +54,7 @@ export function createApp() {
         planner: env.groqModels,
         ragVision: env.GROQ_VISION_MODEL,
         tts: env.GEMINI_TTS_MODEL,
+        liveVoice:env.GEMINI_LIVE_MODELS.split(','),
       },
       timestamp: new Date().toISOString(),
     });
@@ -63,6 +66,8 @@ export function createApp() {
   app.use('/api/trips', tripsRouter);
   app.use('/api/audio', audioRouter);
   app.use('/api/roadmap', roadmapRouter);
+  app.use('/api/explore', exploreRouter);
+  app.use('/api/explore/live', liveVoiceRouter);
 
   app.use((_req, res) => {
     res.status(404).json({ error: 'API route not found.' });

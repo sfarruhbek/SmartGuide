@@ -1,0 +1,12 @@
+{
+  "checkedAt": "2026-11-26T11:32:39.552Z",
+  "model": "gemini-3.8-live",
+  "audioBytes": 1657446,
+  "sourceEvents": 1,
+  "photoAccepted": true,
+  "interrupted": true,
+  "assistantTranscriptChars": 553,
+  "inputAudioBytes": 350080,
+  "userTranscriptChars": 147,
+  "scope": "Real API WebSocket relay, Gemini streamed audio, photo and Groq tourism tool. Physical browser microphone/speaker check remains manual."
+}

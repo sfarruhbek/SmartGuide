@@ -1,8 +1,8 @@
 # SmartGuide — frontend mahsulot va integratsiya holati
 
-Yangilangan: 26-noyabr 2026. Ish branchi: `feat/uzbekistan-solo-travel`.
+Yangilangan: 26-noyabr 2026. Joriy integratsiya: `main`; dastlabki frontend branchi `feat/uzbekistan-solo-travel`.
 
-Keyingi live integratsiya: milliy forma va `/khiva` haqiqiy API ga ulangan. Groq — plan/matn/foto; Gemini — ovoz. Loading/retry, server javobi validatsiyasi va aynan AI tartibini tiklash qoʻshilgan. Quyidagi dastlabki lokal planner tavsifi tarixiy holat; [LIVE_API_SETUP.md](LIVE_API_SETUP.md) joriy runtime va tekshiruvni belgilaydi. PostgreSQL, public contribution va payment hali alohida ish.
+Milliy forma va `/khiva` haqiqiy API ga ulangan. Groq — plan va manbali izoh; Gemini — xaritadagi Live ovoz/foto hamda eski pilot TTS. Loading/retry, server javobi validatsiyasi va aynan AI tartibini tiklash bor. Joriy ishga tushirish: [LIVE_API_SETUP.md](LIVE_API_SETUP.md); ovozli popup, GPS va katalog/kesh: [LIVE_VOICE_ASSISTANT.md](LIVE_VOICE_ASSISTANT.md). PostgreSQL, public contribution va payment hali alohida ish.
 
 ## Mahsulot qarori
 
@@ -13,13 +13,13 @@ Asosiy foydalanuvchi — yolgʻiz/mustaqil sayohatchi. Geografiya — butun Oʻz
 | Oqim | Amalga oshirilgan holat | Chegara |
 | --- | --- | --- |
 | `/` rejalashtirish | 16 shahar + boshqa shahar matni, 1–14 kun, USD jami byudjet, 5 qiziqish, yashash toggle | Bir kishi uchun; boshlanish sanasi / jonli jadval / bron yoʻq |
-| Kunlik reja | Nonushta, obidalar, ovqat, mahalliy transport, ixtiyoriy n−1 kecha, 10% zaxira, kamomad ko‘rsatish | Lokal deterministik planner; AI generatsiya deb ko‘rsatilmaydi |
+| Kunlik reja | Groq tanlagan joylar tartibi; server nonushta, obida, transport, n−1 kecha, 10% zaxira va kamomadni hisoblaydi | Narxlar smeta; server local-fallback qaytarsa UI alohida belgilaydi |
 | Safardan foydalanish | Xarajatlar toifalari, barcha kun va manbalar bilan TXT eksport; URL orqali boʻlim, kun, joyni tiklash | Eksport bron emas; shaxsiy trip boshqa qurilmaga bulut orqali yuborilmaydi |
 | Koʻp shahar | Tanlash tartibi saqlanadi; yangi shaharga butun transfer kuni ajratiladi | Yoʻl narxi distance asosidagi allowance, transport qatnovi emas; uzoq yoʻl yana vaqt talab qilishi mumkin |
 | Xarita | OpenStreetMap tile, pan/zoom, marker, klaviatura uchun tugmalar, shahar + mashhur joylar / noodatiy tarixiy hikoyalar filtrlari, matnli roʻyxat | Toifalar tahririy tanlov; jonli tashrifchilar statistikasi emas. Internet kerak; marshrut chizigʻi yoki navigatsiya hisoblanmaydi |
 | Kontent | 15 joy / Buxoro, Samarqand, Toshkent, Xiva; 3 tilda hikoya + manba havolasi | Boshqa 3 til UI tayyor, hikoya tarjimasi bo‘lmasa English deb belgilanadi; boshqa shaharlarda katalog hali toʻldiriladi |
 | Joy taklif qilish | Nom, shahar, koordinata, hikoya, manba, tarixiy daʼvo / rivoyat / kuzatuv; lokal saqlash va oʻchirish | Shaxsiy tekshirilmagan qoralama. Umumiy eʼlon yoki moderatorga joʻnatish yoʻq |
-| Foto | Existing `/api/guide/ask` bilan Xiva pilotiga ulangan | Mamlakat boʻylab recognition yoʻq; aniqlanmagan natija tanilgan deb koʻrsatilmaydi |
+| Live ovoz/foto | Xaritada Gemini Live popup: gapirish, javobni bo‘lish, mute, foto, opt-in GPS, manbalar va yaqin joylar | 28 obyekt + 16 shahar konteksti, Wikipedia kesh; butun mamlakat bo‘yicha to‘liq yoki kafolatli recognition emas |
 | `/khiva` | Oldingi 1/2/4 soatlik 5 obida yurish builderi saqlangan | Bu milliy ko‘p kunlik safardan alohida legacy pilot |
 | `/l/[slug]` | Matn/foto/speech input, audio, transkript, retry, progress va feedback UI | API/DB/model konfiguratsiyasiga bogʻliq. Feedback endpoint hozir backendda yoʻq |
 | Dashboard | Existing analitika + optional insight, CSV fallback, promo QR, hisoblagich | Yangi signal maʼlumoti yo‘q bo‘lsa empty state; kalkulyator haqiqiy savdo emas |
@@ -36,7 +36,7 @@ UI: EN / RU / UZ / ES / JA / KO. URL `?lang=` va saqlangan til mavjud. Milliy ka
 
 Frontend dasturchi: `apps/tourist/**`, `apps/dashboard/**` va shu vazifa uchun hujjatlar. Dastlabki `feat/uzbekistan-solo-travel` frontend ishida backend/shared runtime oʻzgarmagan. Keyingi aniq topshiriq bilan `feat/ai-provider-routing` backend route larini va shared guide sourceMode tipini kengaytiradi; DB sxemasi va root dependency oʻzgarmaydi. [Backend topshirish hujjati](AI_BACKEND_HANDOFF.md).
 
-Backend bilan kelishiladigan keyingi ishlar: milliy safar generation/storage, city/place katalogi, jonli tarif/jadval manbalari, source provenance, foydalanuvchi contribution moderation, nationwide vision, ixtiyoriy GPS, attribution va payment. Ular tayyor endpoint sifatida chaqirilmaydi. Eski pilot roadmap/feedback adapterlari HTTP xatoda halol fallback/retry ko‘rsatadi.
+Keyingi ishlar: safarni DBga saqlash, katalogni kengaytirish va tarixiy review, jonli tarif/jadval manbalari, contribution moderation, foto aniqligi eval, attribution va payment. Trip generation hamda xarita Live/foto/opt-in GPS allaqachon ulangan. Eski pilot roadmap/feedback adapterlari HTTP xatoda halol fallback/retry ko‘rsatadi.
 
 API holati: [API_CONTRACT.md](API_CONTRACT.md). Biznes farazlari: [BUSINESS_MODEL.md](BUSINESS_MODEL.md). Platforma xarajatlari: [SMETA_BUDGET.md](SMETA_BUDGET.md).
 

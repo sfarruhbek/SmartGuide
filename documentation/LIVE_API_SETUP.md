@@ -1,6 +1,6 @@
 # Рабочий frontend → API → Groq / Gemini
 
-26 ноября 2026. Национальная форма теперь вызывает `POST /api/trips/generate`; `/khiva` вызывает `POST /api/roadmap/generate`; текст/фото гида — `/api/guide/ask`; озвучка генерируется сервером через Gemini. Карта по-прежнему использует авторский каталог и OpenStreetMap. Ключи находятся только на сервере.
+26 ноября 2026. Национальная форма вызывает `POST /api/trips/generate`; `/khiva` — `POST /api/roadmap/generate`; старый гид — `/api/guide/ask`. На карте появился **Gemini Live голосовой popup** с фото, opt-in GPS, Groq-справочником и публичным кэшем найденных мест. [Live-протокол, модели и запуск](LIVE_VOICE_ASSISTANT.md). Карта использует OpenStreetMap и расширенный каталог; ключи находятся только на сервере.
 
 ## Текущий локальный запуск
 
@@ -25,7 +25,7 @@ npm run dev:api
 npm run dev:tourist
 ```
 
-Next проксирует `/api/*` на `SMARTGUIDE_API_ORIGIN`; это серверный URL. Для HTTPS использовать same-origin `/api` через Next/reverse proxy либо явно указать HTTPS API. Переменные `NEXT_PUBLIC_*` компилируются в браузерный bundle: после изменения URL требуется перезапуск dev или новая production-сборка. Ключи в них не помещать. Воспроизводимость оформления больше не зависит от Google Fonts: Inter/Playfair хранятся локально с OFL-лицензиями в `apps/tourist/src/app/fonts`.
+Next проксирует HTTP `/api/*` на `SMARTGUIDE_API_ORIGIN`; это серверный URL. Для HTTPS использовать same-origin `/api` через reverse proxy либо явно указать HTTPS API. **Live дополнительно требует WebSocket Upgrade `/api/explore/live`** до Express; обычная Next HTTP rewrite не подтверждает работу WSS. Пример Nginx — в [Live-инструкции](LIVE_VOICE_ASSISTANT.md). Переменные `NEXT_PUBLIC_*` компилируются в браузерный bundle: после изменения URL требуется перезапуск dev или новая production-сборка. Ключи в них не помещать. Inter/Playfair хранятся локально с OFL-лицензиями в `apps/tourist/src/app/fonts`.
 
 ## Поведение интерфейса
 

@@ -1,0 +1,708 @@
+[
+  {
+    "lat": 38.86111111,
+    "lng": 65.78472222,
+    "id": "area-karshi",
+    "name": "Qarshi",
+    "aliases": [
+      "Karshi",
+      "Карши",
+      "Qarshi"
+    ],
+    "kind": "area",
+    "facts": [
+      "Qarshi ( kar-SHEE; Uzbek: Қарши, Uzbek pronunciation: [qarˈʃɨ]) is a city in southern Uzbekistan. It is the capital of Qashqadaryo Region. Administratively, Qarshi is a district-level city, that includes the urban-type settlement Qashqadaryo."
+    ],
+    "sources": [
+      {
+        "title": "Wikipedia: Qarshi",
+        "url": "https://en.wikipedia.org/wiki/Qarshi",
+        "license": "CC BY-SA; source attribution and revision history at linked page"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:10.494Z",
+    "cityId": "karshi"
+  },
+  {
+    "lat": 39.65472222,
+    "lng": 66.97583333,
+    "id": "area-samarkand",
+    "name": "Samarkand",
+    "aliases": [
+      "Samarkand",
+      "Самарканд",
+      "Samarqand"
+    ],
+    "kind": "area",
+    "facts": [
+      "Samarkand is a major city in south-eastern Uzbekistan. Among the oldest continuously inhabited cities in Central Asia, it had a population of 882,000 inhabitants as of 2026, making it the second-largest city in Uzbekistan after Tashkent. It is the capital of the Samarkand Region and a district-level city that includes the urban-type settlements of Kimyogarlar, Farkhod, and Khishrav."
+    ],
+    "sources": [
+      {
+        "title": "Wikipedia: Samarkand",
+        "url": "https://en.wikipedia.org/wiki/Samarkand",
+        "license": "CC BY-SA; source attribution and revision history at linked page"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:10.496Z",
+    "cityId": "samarkand"
+  },
+  {
+    "lat": 41.31111111,
+    "lng": 69.27972222,
+    "id": "area-tashkent",
+    "name": "Tashkent",
+    "aliases": [
+      "Tashkent",
+      "Ташкент",
+      "Toshkent"
+    ],
+    "kind": "area",
+    "facts": [
+      "Tashkent ( ), also spelled Toshkent, is the capital and largest city of Uzbekistan. It is the most populous city in Central Asia, with a population of more than 3.1 million people as of July 1, 2025. It is located in northeastern Uzbekistan."
+    ],
+    "sources": [
+      {
+        "title": "Wikipedia: Tashkent",
+        "url": "https://en.wikipedia.org/wiki/Tashkent",
+        "license": "CC BY-SA; source attribution and revision history at linked page"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:10.496Z",
+    "cityId": "tashkent"
+  },
+  {
+    "lat": 39.76666667,
+    "lng": 64.42305556,
+    "id": "area-bukhara",
+    "name": "Bukhara",
+    "aliases": [
+      "Bukhara",
+      "Бухара",
+      "Buxoro"
+    ],
+    "kind": "area",
+    "facts": [
+      "Bukhara ( buu-KHAR-ə) is the seventh-largest city in Uzbekistan by population, with 305,500 residents as of 2026. It is the capital of Bukhara Region. Since ancient times, Bukhara was one of the most prosperous cities in Transoxiana alongside neighboring Samarkand owing to its location on the Silk Road."
+    ],
+    "sources": [
+      {
+        "title": "Wikipedia: Bukhara",
+        "url": "https://en.wikipedia.org/wiki/Bukhara",
+        "license": "CC BY-SA; source attribution and revision history at linked page"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:10.496Z",
+    "cityId": "bukhara"
+  },
+  {
+    "lat": 41.38138889,
+    "lng": 60.36111111,
+    "id": "area-khiva",
+    "name": "Khiva",
+    "aliases": [
+      "Khiva",
+      "Хива",
+      "Xiva"
+    ],
+    "kind": "area",
+    "facts": [
+      "Khiva (Uzbek: Xiva, Хива, خیوه; other names) is a district-level city of approximately 93,000 people in Khorazm Region, Uzbekistan. According to archaeological data, the city was established around 2,500 years ago. In 1997, Khiva celebrated its 2,500th anniversary."
+    ],
+    "sources": [
+      {
+        "title": "Wikipedia: Khiva",
+        "url": "https://en.wikipedia.org/wiki/Khiva",
+        "license": "CC BY-SA; source attribution and revision history at linked page"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:10.496Z",
+    "cityId": "khiva"
+  },
+  {
+    "lat": 40.78333333,
+    "lng": 72.33388889,
+    "id": "area-andijan",
+    "name": "Andijan",
+    "aliases": [
+      "Andijan",
+      "Андижан",
+      "Andijon"
+    ],
+    "kind": "area",
+    "facts": [
+      "Andijan ( AN-dih-JAN, -⁠JAHN), also spelt Andijon (Uzbek: [ˌændɪˈdʒɒn]) and formerly romanized as Andizhan (Russian: Андижан [əndʲɪˈʐan]), is a city in Uzbekistan. It is the administrative, economic, and cultural center of Andijan Region. Andijan is a district-level city with an area of 74 km2 (29 sq mi)."
+    ],
+    "sources": [
+      {
+        "title": "Wikipedia: Andijan",
+        "url": "https://en.wikipedia.org/wiki/Andijan",
+        "license": "CC BY-SA; source attribution and revision history at linked page"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:10.496Z",
+    "cityId": "andijan"
+  },
+  {
+    "lat": 40.52861111,
+    "lng": 70.9425,
+    "id": "area-kokand",
+    "name": "Kokand",
+    "aliases": [
+      "Kokand",
+      "Коканд",
+      "Qoʻqon"
+    ],
+    "kind": "area",
+    "facts": [
+      "Kokand ( KOH-kand) is a city in Fergana Region in eastern Uzbekistan, at the southwestern edge of the Fergana Valley. Administratively, Kokand is a district-level city, that includes the urban-type settlement Muqimiy. The population of Kokand as of 2022 was approximately 322,100."
+    ],
+    "sources": [
+      {
+        "title": "Wikipedia: Kokand",
+        "url": "https://en.wikipedia.org/wiki/Kokand",
+        "license": "CC BY-SA; source attribution and revision history at linked page"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:10.496Z",
+    "cityId": "kokand"
+  },
+  {
+    "lat": 40.11583333,
+    "lng": 67.84222222,
+    "id": "area-jizzakh",
+    "name": "Jizzakh",
+    "aliases": [
+      "Jizzakh",
+      "Джизак",
+      "Jizzax"
+    ],
+    "kind": "area",
+    "facts": [
+      "Jizzakh (; Uzbek: Jizzax [dʒɪzˈzɑχ]) is a city and the center of Jizzakh Region in Uzbekistan, located in the northeast of Samarkand. It is a district-level city. The population of Jizzakh is 179,200 (2020 est.)."
+    ],
+    "sources": [
+      {
+        "title": "Wikipedia: Jizzakh",
+        "url": "https://en.wikipedia.org/wiki/Jizzakh",
+        "license": "CC BY-SA; source attribution and revision history at linked page"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:10.497Z",
+    "cityId": "jizzakh"
+  },
+  {
+    "lat": 40.38638889,
+    "lng": 71.78638889,
+    "id": "area-fergana",
+    "name": "Fergana",
+    "aliases": [
+      "Fergana",
+      "Фергана",
+      "Fargʻona"
+    ],
+    "kind": "area",
+    "facts": [
+      "Fergana (; Uzbek: Fargʻona, pronounced [farʁɒˈna]) is a district-level city and the capital of Fergana Region in eastern Uzbekistan. Fergana is about 320 km (200 mi) east of Tashkent, about 75 km southwest of Andijan, and less than 20 kilometres (12 mi) from the Kyrgyzstan border. The modern city was founded in 1876."
+    ],
+    "sources": [
+      {
+        "title": "Wikipedia: Fergana",
+        "url": "https://en.wikipedia.org/wiki/Fergana",
+        "license": "CC BY-SA; source attribution and revision history at linked page"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:10.497Z",
+    "cityId": "fergana"
+  },
+  {
+    "lat": 40.08444444,
+    "lng": 65.37916667,
+    "id": "area-navoi",
+    "name": "Navoiy",
+    "aliases": [
+      "Navoi",
+      "Навои",
+      "Navoiy"
+    ],
+    "kind": "area",
+    "facts": [
+      "Navoiy ( na-vah-EE; Uzbek: [næʋɔˈij]) is a city and the capital of Navoiy Region in the central part of Uzbekistan. Administratively, it is a district-level city, that includes the urban-type settlement Tinchlik. The city is named after Alisher Navoiy."
+    ],
+    "sources": [
+      {
+        "title": "Wikipedia: Navoiy",
+        "url": "https://en.wikipedia.org/wiki/Navoiy",
+        "license": "CC BY-SA; source attribution and revision history at linked page"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:10.497Z",
+    "cityId": "navoi"
+  },
+  {
+    "lat": 37.21666667,
+    "lng": 67.28333333,
+    "id": "area-termez",
+    "name": "Termez",
+    "aliases": [
+      "Termez",
+      "Термез",
+      "Termiz"
+    ],
+    "kind": "area",
+    "facts": [
+      "Termez ( tər-MEZ) is the capital of Surxondaryo Region in southern Uzbekistan. Administratively, it is a district-level city. Its population is 182,800 (2021)."
+    ],
+    "sources": [
+      {
+        "title": "Wikipedia: Termez",
+        "url": "https://en.wikipedia.org/wiki/Termez",
+        "license": "CC BY-SA; source attribution and revision history at linked page"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:10.497Z",
+    "cityId": "termez"
+  },
+  {
+    "lat": 39.05,
+    "lng": 66.83333333,
+    "id": "area-shahrisabz",
+    "name": "Shahrisabz",
+    "aliases": [
+      "Shahrisabz",
+      "Шахрисабз",
+      "Shahrisabz"
+    ],
+    "kind": "area",
+    "facts": [
+      "Shahrisabz is a district-level city in Qashqadaryo Region in southern Uzbekistan. The Economic Cooperation Organization (ECO) selected Shakhrisabz as its tourism capital for 2024. It is located approximately 80 km south of Samarkand at an elevation of 622 m."
+    ],
+    "sources": [
+      {
+        "title": "Wikipedia: Shahrisabz",
+        "url": "https://en.wikipedia.org/wiki/Shahrisabz",
+        "license": "CC BY-SA; source attribution and revision history at linked page"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:10.497Z",
+    "cityId": "shahrisabz"
+  },
+  {
+    "lat": 42.46666667,
+    "lng": 59.6,
+    "id": "area-nukus",
+    "name": "Nukus",
+    "aliases": [
+      "Nukus",
+      "Нукус",
+      "Nukus"
+    ],
+    "kind": "area",
+    "facts": [
+      "Nukus (Karakalpak: Nókis, Нөкис; Uzbek: Nukus, Нукус) is the capital and largest city of the autonomous Republic of Karakalpakstan and the sixth-largest city in Uzbekistan. In 2026, the population of Nukus was 349,400 people. The Amu Darya river passes west of the city."
+    ],
+    "sources": [
+      {
+        "title": "Wikipedia: Nukus",
+        "url": "https://en.wikipedia.org/wiki/Nukus",
+        "license": "CC BY-SA; source attribution and revision history at linked page"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:10.497Z",
+    "cityId": "nukus"
+  },
+  {
+    "lat": 41.00111111,
+    "lng": 71.66833333,
+    "id": "area-namangan",
+    "name": "Namangan",
+    "aliases": [
+      "Namangan",
+      "Наманган",
+      "Namangan"
+    ],
+    "kind": "area",
+    "facts": [
+      "Namangan is a city in eastern Uzbekistan. It is the administrative, economic, and cultural center of Namangan Region. Namangan is located in the northern edge of the Fergana Valley, less than 30 km from the border with Kyrgyzstan."
+    ],
+    "sources": [
+      {
+        "title": "Wikipedia: Namangan",
+        "url": "https://en.wikipedia.org/wiki/Namangan",
+        "license": "CC BY-SA; source attribution and revision history at linked page"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:10.497Z",
+    "cityId": "namangan"
+  },
+  {
+    "lat": 40.47111111,
+    "lng": 71.72472222,
+    "id": "area-margilan",
+    "name": "Margilan",
+    "aliases": [
+      "Margilan",
+      "Маргилан",
+      "Margʻilon"
+    ],
+    "kind": "area",
+    "facts": [
+      "Margilan (Uzbek: Marg‘ilon, Persian: مرغیلان, pronounced [mɐrʁɨˈlɒn]) is a city in eastern Uzbekistan's Fergana Region. As of the 2024 census, its population was 253,500. Margilan is located in the south of the Fergana Valley, where trade caravans from China traveled westwards and vice versa during the days of the Silk Road."
+    ],
+    "sources": [
+      {
+        "title": "Wikipedia: Margilan",
+        "url": "https://en.wikipedia.org/wiki/Margilan",
+        "license": "CC BY-SA; source attribution and revision history at linked page"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:10.497Z",
+    "cityId": "margilan"
+  },
+  {
+    "lat": 40.48333333,
+    "lng": 68.78333333,
+    "id": "area-gulistan",
+    "name": "Guliston",
+    "aliases": [
+      "Gulistan",
+      "Гулистан",
+      "Guliston"
+    ],
+    "kind": "area",
+    "facts": [
+      "Gulistan (Uzbek pronunciation: [gʉlɪsˈtɒn]), known before 1961 as Mirzachul (pronounced [mɪrzɐˈtʃɵl]) and as Kayrokkum (pronounced [qɐɪrɒqˈqum]) until 2015, is the capital of Sirdaryo Region in eastern Uzbekistan. It is a district-level city."
+    ],
+    "sources": [
+      {
+        "title": "Wikipedia: Guliston",
+        "url": "https://en.wikipedia.org/wiki/Guliston",
+        "license": "CC BY-SA; source attribution and revision history at linked page"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:10.497Z",
+    "cityId": "gulistan"
+  },
+  {
+    "lat": 40.53861111,
+    "lng": 70.93777778,
+    "id": "wiki-35185727",
+    "name": "Palace of Khudáyár Khán",
+    "aliases": [
+      "Palace of Khudáyár Khán"
+    ],
+    "kind": "place",
+    "facts": [
+      "The Palace of Khudayar Khan, known as the Pearl of Kokand, was the palace of the last ruler of the Kokand Khanate, Khudayar Khan. It is the most visited tourism attraction in Uzbekistan’s Fergana Valley."
+    ],
+    "sources": [
+      {
+        "title": "Wikipedia: Palace of Khudáyár Khán",
+        "url": "https://en.wikipedia.org/wiki/Palace_of_Khud%C3%A1y%C3%A1r_Kh%C3%A1n",
+        "license": "CC BY-SA; source attribution and revision history at linked page"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:10.995Z",
+    "cityId": "kokand"
+  },
+  {
+    "lat": 42.46580556,
+    "lng": 59.61233333,
+    "id": "wiki-14846351",
+    "name": "Nukus Museum of Art",
+    "aliases": [
+      "Nukus Museum of Art"
+    ],
+    "kind": "place",
+    "facts": [
+      "The Nukus Museum of Art, officially the State Museum of Arts of the Republic of Karakalpakstan named after I.V. Savitsky (Karakalpak: I.V.Savitskiy atındaǵı Qaraqalpaqstan mámleketlik kórkem-óner múzeyi, Uzbek: I.V.Savitskiy nomidagi Qoraqalpogʻiston davlat sanʼat muzeyi), is located in Nukus, Karakalpakstan and is home to the world's second largest collection of Russian avant-garde artworks, as well as galleries of antiquities and Karakalpak folk art. In total, there are more than 82,000 items in the museum's collection. The museum was described by The Guardian as the Louvre of"
+    ],
+    "sources": [
+      {
+        "title": "Wikipedia: Nukus Museum of Art",
+        "url": "https://en.wikipedia.org/wiki/Nukus_Museum_of_Art",
+        "license": "CC BY-SA; source attribution and revision history at linked page"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:11.557Z",
+    "cityId": "nukus"
+  },
+  {
+    "lat": 39.06083333,
+    "lng": 66.82916667,
+    "id": "wiki-71474432",
+    "name": "Ak-Saray Palace",
+    "aliases": [
+      "Ak-Saray Palace"
+    ],
+    "kind": "place",
+    "facts": [
+      "Ak-Saray Palace is a ruined palace and historic site in Shahrisabz, Uzbekistan. The palace was built at the beginning of the Timurid period, between 1380 and 1404, under the reign of Timur. In 2000, the palace was declared a UNESCO World Heritage Site."
+    ],
+    "sources": [
+      {
+        "title": "Wikipedia: Ak-Saray Palace",
+        "url": "https://en.wikipedia.org/wiki/Ak-Saray_Palace",
+        "license": "CC BY-SA; source attribution and revision history at linked page"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:12.047Z",
+    "cityId": "shahrisabz"
+  },
+  {
+    "lat": 37.278239,
+    "lng": 67.182916,
+    "id": "wiki-40791807",
+    "name": "Kara Tepe",
+    "aliases": [
+      "Kara Tepe"
+    ],
+    "kind": "place",
+    "facts": [
+      "Kara Tepe is a Buddhist archaeological site in the Central Asia region of Bactria, in the Termez oasis near the city of Termez in southern Uzbekistan. The foundations of the site date to the 1st century CE, with a peak of activity around the 3rd and 4th centuries during the Kushan period, before experiencing a fatal decline around the 5th century CE, probably with the invasion of the Kushano-Sassanian, whose coinage can be found on the site. Most inscriptions of the Kushan and Kushano-Sasanian periods"
+    ],
+    "sources": [
+      {
+        "title": "Wikipedia: Kara Tepe",
+        "url": "https://en.wikipedia.org/wiki/Kara_Tepe",
+        "license": "CC BY-SA; source attribution and revision history at linked page"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:12.095Z",
+    "cityId": "termez"
+  },
+  {
+    "lat": 37.286265,
+    "lng": 67.188027,
+    "id": "wiki-62965297",
+    "name": "Fayaz Tepe",
+    "aliases": [
+      "Fayaz Tepe"
+    ],
+    "kind": "place",
+    "facts": [
+      "Fayaz Tepe, also Fayoz-Tepe, is a Buddhist archaeological site in the Central Asia region of Bactria, in the Termez oasis near the city of Termez in southern Uzbekistan. Located 15 km west of Termez off the main M39 highway. Bus number 15 runs past the turn-off to Fayaz Tepe, from where it is a 1 km walk without shade."
+    ],
+    "sources": [
+      {
+        "title": "Wikipedia: Fayaz Tepe",
+        "url": "https://en.wikipedia.org/wiki/Fayaz_Tepe",
+        "license": "CC BY-SA; source attribution and revision history at linked page"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:12.095Z",
+    "cityId": "termez"
+  },
+  {
+    "lat": 37.535384,
+    "lng": 67.115405,
+    "id": "wiki-62977055",
+    "name": "Balalyk Tepe",
+    "aliases": [
+      "Balalyk Tepe"
+    ],
+    "kind": "place",
+    "facts": [
+      "Balalyk tepe, in former Bactria, modern Uzbekistan, is a Central Asian archaeological site with many mural paintings. It was the site of a small fortified manor belonging to a princely Hephthalite clan. It is generally dated a bit later than the painting at Dilberjin, from the late 5th century to the early 7th century CE, or from the end of the 6th century to the early 7th century CE. The paintings of Balalyk Tepe are part of a \"Tokharistan school\", which also includes Adzhina-tepe and"
+    ],
+    "sources": [
+      {
+        "title": "Wikipedia: Balalyk Tepe",
+        "url": "https://en.wikipedia.org/wiki/Balalyk_Tepe",
+        "license": "CC BY-SA; source attribution and revision history at linked page"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:12.095Z",
+    "cityId": "termez"
+  },
+  {
+    "lat": 40.12277778,
+    "lng": 65.14805556,
+    "id": "wiki-21719841",
+    "name": "Rabati Malik",
+    "aliases": [
+      "Rabati Malik"
+    ],
+    "kind": "place",
+    "facts": [
+      "Rabati Malik, also called Ribat-i Malik, is a caravanserai ruin located on the M37 road from Samarkand to Bukhara about a kilometer west of the edge of Malik, Navoiy Province, Uzbekistan. It was constructed along the Silk Road according to the orders of Karakhanid Shams al-Mulk Nasr, son of Tamgachkhan Ibragim, who ruled in Samarkand from 1068 until 1080."
+    ],
+    "sources": [
+      {
+        "title": "Wikipedia: Rabati Malik",
+        "url": "https://en.wikipedia.org/wiki/Rabati_Malik",
+        "license": "CC BY-SA; source attribution and revision history at linked page"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:12.632Z",
+    "cityId": "navoi"
+  },
+  {
+    "lat": 39.04972,
+    "lng": 66.82724,
+    "id": "wiki-75436085",
+    "name": "Kuk Gumbaz Mosque (Shahrisabz)",
+    "aliases": [
+      "Kuk Gumbaz Mosque (Shahrisabz)"
+    ],
+    "kind": "place",
+    "facts": [
+      "Kuk Gumbaz Mosque is an architectural monument located in Shahrisabz, Qashqadaryo Region, Uzbekistan. The mosque was built between 1434 and 1435 by Ulug Beg Mirzo for his father Shah Rukh Mirzo. Historical inscriptions with the names of the Timurids and the time of construction have been preserved in the porch of the mosque."
+    ],
+    "sources": [
+      {
+        "title": "Wikipedia: Kuk Gumbaz Mosque (Shahrisabz)",
+        "url": "https://en.wikipedia.org/wiki/Kuk_Gumbaz_Mosque_(Shahrisabz)",
+        "license": "CC BY-SA; source attribution and revision history at linked page"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:12.590Z",
+    "cityId": "shahrisabz"
+  },
+  {
+    "id": "devonaboy",
+    "name": "Devonaboy Mosque",
+    "cityId": "andijan",
+    "aliases": [
+      "Девонабой",
+      "Деванабой",
+      "Devonaboy"
+    ],
+    "kind": "place",
+    "lat": 40.78813366666667,
+    "lng": 72.34064405555556,
+    "facts": [
+      "The national tourism portal lists Devonaboy as a central mosque in Andijan, used for Friday and Eid prayers."
+    ],
+    "sources": [
+      {
+        "title": "Uzbekistan Travel — Andijon viloyati",
+        "url": "https://uzbekistan.travel/uz/o/andijon-viloyati/"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:13.385Z"
+  },
+  {
+    "id": "qassoblik",
+    "name": "Qassoblik Mosque (Oqmachit)",
+    "cityId": "jizzakh",
+    "aliases": [
+      "Кассоблик",
+      "Окмачит",
+      "Qassoblik",
+      "Oqmachit"
+    ],
+    "kind": "place",
+    "lat": 40.146006416666665,
+    "lng": 67.82303480555555,
+    "facts": [
+      "The national tourism portal lists Qassoblik Mosque, also called Oqmachit, on Sharof Rashidov Street in Jizzakh."
+    ],
+    "sources": [
+      {
+        "title": "Uzbekistan Travel — Jizzax viloyati",
+        "url": "https://uzbekistan.travel/uz/o/jizzax-viloyati/"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:13.385Z"
+  },
+  {
+    "id": "podshohpirim-fergana",
+    "name": "Amir Xizr Valiy Podshohpirim",
+    "cityId": "fergana",
+    "aliases": [
+      "Подшохпирим",
+      "Podshohpirim",
+      "Amir Xizr Valiy"
+    ],
+    "kind": "place",
+    "lat": 40.413039999999995,
+    "lng": 71.75435261111112,
+    "facts": [
+      "The national tourism portal lists this shrine in the Yormozor neighbourhood of Fergana. Accounts about the person buried here are attributed traditions and require historical review."
+    ],
+    "sources": [
+      {
+        "title": "Uzbekistan Travel — Fargʻona viloyati",
+        "url": "https://uzbekistan.travel/uz/o/fargona-viloyati/"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:13.385Z"
+  },
+  {
+    "id": "puri-siddiq",
+    "name": "Puri Siddiq (Kaptarxona)",
+    "cityId": "margilan",
+    "aliases": [
+      "Пир Сиддик",
+      "Пури Сиддик",
+      "Puri Siddiq",
+      "Kaptarxona"
+    ],
+    "kind": "place",
+    "lat": 40.482860083333335,
+    "lng": 71.74305138888889,
+    "facts": [
+      "The national tourism portal describes a complex in Margilan with a mausoleum, mosque and dovecote. The dovecote and mosque are described as dating from the second half of the nineteenth century."
+    ],
+    "sources": [
+      {
+        "title": "Uzbekistan Travel — Fargʻona viloyati",
+        "url": "https://uzbekistan.travel/uz/o/fargona-viloyati/"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:13.385Z"
+  },
+  {
+    "id": "kok-gumbaz-karshi",
+    "name": "Kok Gumbaz Mosque, Qarshi",
+    "cityId": "karshi",
+    "aliases": [
+      "Кок Гумбаз Карши",
+      "Кук Гумбаз",
+      "Koʻkgumbaz Qarshi"
+    ],
+    "kind": "place",
+    "lat": 38.86375833333334,
+    "lng": 65.7915,
+    "facts": [
+      "The national tourism portal lists Kok Gumbaz Mosque on Nasaf Street in Qarshi and attributes its commission to Abdullakhan II based on an inscription."
+    ],
+    "sources": [
+      {
+        "title": "Uzbekistan Travel — Qashqadaryo viloyati",
+        "url": "https://uzbekistan.travel/uz/o/qashqadaryo-viloyati/"
+      }
+    ],
+    "provenance": "local-catalog",
+    "fetchedAt": "2026-11-26T11:02:13.385Z"
+  }
+]
