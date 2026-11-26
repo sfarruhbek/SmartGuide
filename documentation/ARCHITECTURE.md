@@ -1,48 +1,42 @@
-# SmartGuide — Tizim Arxitekturasi va Texnik Dizayn
+# SmartGuide — Tizim Arxitekturasi va Data Flywheel Dizayni
 
-Ushbu hujjat texnik mentorlar (Behruz Saidjonov, Aziza Turaeva), hakamlar hay'ati va yangi qo'shilayotgan dasturchilar uchun **SmartGuide** tizimining to'liq arxitekturasini tushuntiradi.
+Ushbu hujjat **SmartGuide** ning yakuniy mahsulot arxitekturasini — **Emotsional Shaxsiy Roadmap → Jonli Obida Suhbatlari → Sayyoh Qiziqishi va Signal/Noise Intellekti (Self-Learning Flywheel)** tizimini texnik jihatdan to'liq tushuntiradi.
 
 ---
 
-## 1. Umumiy Tizim Arxitekturasi
+## 1. Yopiq Zanjirli Data Flywheel Arxitekturasi (Boshqa AI'lardan Asosiy Farqimiz)
 
 ```mermaid
-flowchart LR
-    subgraph Tourist["Sayyoh Telefoni (Ilova yuklamasdan)"]
-        QR["QR-kod (Kassa / Obida)"] --> PWA["Tourist PWA\nNext.js 15 · :3000"]
+flowchart TB
+    subgraph S1["1-QADAM: Kirishda Shaxsiy Emotsional Roadmap"]
+        PREF["Sayyoh profili:\nTil · Vaqt (1h/2h/4h) · Qiziqish (Afsona/Me'morchilik/Foto/Tarix)"]
+        RM_GEN["POST /api/roadmap/generate\nSignal-Weighted Roadmap Engine"]
+        RM_UI["Emotsional Roadmap:\nQayerga? Nega? Qanday hissiyot/foyda oladi?\n(Real sayyohlar reytingi bilan!)"]
+        PREF --> RM_GEN --> RM_UI
     end
 
-    subgraph Museum["Muzey Ma'muriyati (B2B)"]
-        ADMIN["Executive Dashboard\nReact 19 + Vite · :5173"]
+    subgraph S2["2-QADAM: Obida Oldida Jonli AI Suhbat"]
+        VISIT["Obidaga yetib kelish\n(Roadmap tap · QR-kod · Snap & Ask foto)"]
+        ASK["POST /api/guide/ask\nVerified Local RAG + Gemini Vision + Gemini 3.8 TTS"]
+        FEEDBACK["Sayyoh munosabati\n(Suhbat matni + Micro-reaksiya: 🔥/🤯/😐)"]
+        RM_UI --> VISIT --> ASK --> FEEDBACK
     end
 
-    subgraph Backend["SmartGuide Core API (Node.js + Express 5 · :4000)"]
-        ROUTES["REST API + Zod Validation"]
-        CACHE["Smart Response & Audio Cache\n(Tezkor savollar <100ms)"]
-        RAG["Verified Local RAG Engine\n(ai.service.ts)"]
-        ANALYTICS["B2B Analytics & Revenue Engine"]
+    subgraph S3["3-QADAM: Tourist Interest & Signal/Noise Flywheel (MOAT)"]
+        EXTRACT["Interest & Impression Extractor\n(Mavzu · Hissiyot/Sentiment · Signal vs Noise · Curiosity Gap)"]
+        PG[("PostgreSQL Intelligence DB\nlandmarks · roadmaps · interactions · landmark_topic_signals")]
+        B2B["B2B Experience Intelligence Dashboard\nSignal vs Noise Heatmap · Sentiment · Revenue Share · QR Generator"]
+        FEEDBACK --> EXTRACT --> PG
+        PG -->|"Real-time 5s Poll"| B2B
     end
 
-    subgraph Data["Ma'lumotlar va AI"]
-        PG[("PostgreSQL\nlandmarks · interactions · qr_scans")]
-        GEMINI_V["Gemini 3.5 Flash-Lite\n(Fallback: Gemini 4 Hydrogen)\nMultimodal Vision + Grounded RAG"]
-        GEMINI_TTS["Gemini 3.8 Flash-Lite TTS\n(WAV Audio · 6 til)"]
-    end
-
-    PWA -->|"GET /api/landmarks/:slug\nPOST /api/guide/ask"| ROUTES
-    ADMIN -->|"Poll 5s: GET /api/analytics/summary\nGET /api/analytics/export"| ROUTES
-    ROUTES --> CACHE
-    CACHE -->|"Cache Miss"| RAG
-    RAG -->|"1. Tasdiqlangan dossier"| PG
-    RAG -->|"2. Vision + Grounded Text"| GEMINI_V
-    RAG -->|"3. Audio WAV"| GEMINI_TTS
-    ROUTES -->|"Har doim yoziladi"| ANALYTICS
-    ANALYTICS --> PG
+    PG ==>|"Yopiq tsikl: Eng qiziq obidalar va Signal faktlar\nkeyingi sayyohlar Roadmap & hikoyalarini yaxshilaydi!"| RM_GEN
+    PG ==>|"Signal-first Storytelling:\nKeraksiz shovqinni (Noise) olib tashlaydi"| ASK
 ```
 
 ---
 
-## 2. "Snap & Ask" + Zero-Hallucination RAG Ishlash Ketma-Ketligi
+## 2. To'liq So'rovlar Ketma-Ketligi (Sequence Diagram)
 
 ```mermaid
 sequenceDiagram
@@ -54,26 +48,31 @@ sequenceDiagram
     participant TTS as Gemini 3.8 Flash-Lite TTS
     participant DASH as apps/dashboard (B2B)
 
-    T->>PWA: QR skanerlaydi (/l/kalta-minor) + Rasm oladi yoki savol beradi
-    PWA->>PWA: Rasmni 1024px JPEG (~120KB) ga siqadi
+    Note over T,DB: 1-BOSQICH: Emotsional va Foyda Asosidagi Shaxsiy Roadmap
+    T->>PWA: Ilovaga kiradi, til + vaqt + qiziqish (vibe) tanlaydi
+    PWA->>API: POST /api/roadmap/generate { language, durationMinutes, interests, sessionId }
+    API->>DB: 5 ta obida + real landmark_topic_signals (eng yuqori Signal reytinglari) ni o'qiydi
+    API->>AI: Signal reytinglariga tayangan holda tartiblangan Emotsional Roadmap tuzadi
+    AI-->>API: Har bir stop uchun: nega borish, qanday hissiyot/foyda, top signal fakt
+    API->>DB: roadmaps jadvaliga yozadi
+    API-->>PWA: Shaxsiy Roadmap kartalari
+
+    Note over T,DB: 2-BOSQICH: Obida Oldida Jonli Suhbat + Signal/Noise Yig'ish
+    T->>PWA: Obidaga boradi (/l/kalta-minor), savol beradi yoki rasmga oladi
     PWA->>API: POST /api/guide/ask { landmarkSlug, question, language, sessionId, imageBase64? }
-    opt Agar imageBase64 mavjud bo'lsa
-        API->>DB: 5 ta obidaning visualCues katalogini oladi
-        API->>AI: Vision: Qaysi Ichan-Qal'a obidasi?
-        AI-->>API: "kalta-minor"
-    end
-    API->>DB: Faqat "kalta-minor" ning tasdiqlangan muzey pasportini oladi
-    API->>AI: Strict system_instruction (ONLY VERIFIED DOSSIER) + savol/rasm
-    AI-->>API: Aniq, 0% gallyutsinatsiya javob (tanlangan tilda)
-    API->>TTS: Toza nutq matni + speech_metadata.style
-    TTS-->>API: Base64 audio/wav (24kHz PCM WAV)
-    API->>DB: INSERT INTO interactions (landmark_id, language, question, session_id, has_image)
-    API-->>PWA: { answer, audioBase64, archiveCode, identifiedByVision }
-    PWA-->>T: Matn ko'rsatiladi + Ovozli gid ijro etiladi
+    API->>DB: Tasdiqlangan muzey pasporti + top Signal faktlarni oladi
+    API->>AI: Strict RAG + Signal-first javob + Interest/Sentiment JSON tahlili
+    AI-->>API: { answer, detectedTopic, signalCategory, sentiment, interestScore, curiosityGap? }
+    API->>TTS: Toza matn → WAV audio (24kHz)
+    TTS-->>API: Base64 audio/wav
+    API->>DB: interactions + landmark_topic_signals (signal_score++, sentiment) yangilanadi
+    API-->>PWA: { answer, audioBase64, detectedTopic, nextStopSuggestion }
+
+    Note over T,DASH: 3-BOSQICH: B2B Real-Time Experience Intelligence
     loop Har 5 soniyada
         DASH->>API: GET /api/analytics/summary
-        API->>DB: Real-time SQL agregatsiya
-        API-->>DASH: Yangi sayyoh, grafiklar, 30% muzey ulushi, LIVE NEW savol!
+        API->>DB: Obidalar qiziqishi, Signal vs Noise jadvali, Sentiment, Curiosity Gaps, Daromad
+        API-->>DASH: Jonli yangilangan B2B panel
     end
 ```
 
@@ -84,72 +83,95 @@ sequenceDiagram
 ```mermaid
 erDiagram
     landmarks ||--o{ interactions : "has many"
+    landmarks ||--o{ landmark_topic_signals : "tracks signal vs noise"
+    roadmaps ||--o{ interactions : "optional journey link"
+
     landmarks {
         serial id PK
         text slug UK "kalta-minor, juma-mosque, ..."
         text name
-        jsonb localized_names "en, uz, ru, ja, ko, es"
+        jsonb localized_names
         text era
         text built_year
         text architect
         text location_in_site
-        text verified_by
-        text archive_code "IQ-KH-001 .. IQ-KH-005"
-        jsonb historical_facts
+        text archive_code "IQ-KH-001..005"
+        integer estimated_visit_minutes "15..35 min"
+        jsonb emotional_promise "6 tilda: nima his qiladi/foyda oladi"
+        jsonb vibe_tags "legends, architecture, photography, royalty, spiritual"
+        jsonb historical_facts "tagged facts: id, text, category"
         jsonb architectural_details
         jsonb local_legends
         jsonb visual_cues
         jsonb suggested_questions
+    }
+
+    roadmaps {
+        serial id PK
+        text session_id
+        text language
+        integer duration_minutes "60 | 120 | 240"
+        jsonb selected_vibes
+        jsonb stops_json "ordered stops + why + emotion + topSignal"
         timestamptz created_at
-        timestamptz updated_at
     }
 
     interactions {
         serial id PK
         integer landmark_id FK
         text landmark_slug
-        text language "en, uz, ru, ja, ko, es"
+        text language
         text question
         text answer_preview
         boolean has_image
         boolean identified_by_vision
-        text session_id "Anonymous browser UUID"
-        text source_mode "gemini-rag | verified-rag-fallback"
+        text session_id
+        text detected_topic "e.g. architect-escape-legend"
+        text signal_category "legend | architecture | history | photo_spot | practical"
+        text sentiment "awe | fascinated | curious | neutral | bored"
+        integer interest_score "1..5"
+        text user_feedback "fascinating | surprising | not_relevant | null"
+        text curiosity_gap "unanswered question if outside archive"
+        text source_mode
         integer response_time_ms
         timestamptz created_at
     }
+
+    landmark_topic_signals {
+        serial id PK
+        integer landmark_id FK
+        text landmark_slug
+        text topic_key "e.g. unfinished-1855-battle"
+        text topic_label "Why Kalta Minor stopped at 29m"
+        text category "legend | architecture | history | photo_spot"
+        integer ask_count "necha marta so'ralgan"
+        integer positive_reactions "🔥/🤯 soni"
+        integer negative_reactions "😐/keraksiz soni"
+        real signal_score "0..100: Signal vs Noise indeksi"
+        timestamptz updated_at
+    }
 ```
 
-**Indekslar (Tezkor B2B agregatsiya uchun):**
-- `idx_interactions_landmark_id`
-- `idx_interactions_language`
-- `idx_interactions_session_id`
-- `idx_interactions_created_at`
+---
+
+## 4. "Signal vs. Noise" Ajratish Mexanizmi Qanday Ishlaydi?
+
+Oddiy AI har bir obida uchun 20 ta faktning hammasini bir xil vaznda saqlaydi. SmartGuide'da esa har bir fakt/mavzu o'z **Signal Score (`0–100`)** indeksiga ega:
+
+$$\text{Signal Score} = \text{clamp}\left(50 + 6 \cdot \ln(1 + \text{ask\_count}) + 12 \cdot \text{positive\_reactions} - 18 \cdot \text{negative\_reactions} + 8 \cdot \text{avg\_awe\_bonus},\; 0,\; 100\right)$$
+
+- **`Signal Score >= 75` (High Signal / "Oltin fakt"):**
+  - Yangi sayyohning **Emotsional Roadmap** kartasida *"Sayyohlarni eng ko'p hayratlantirgan nuqta"* sifatida chiqadi.
+  - Jonli suhbatda AI birinchi navbatda shu mavzularni jonli, qisqa hikoya qilib beradi.
+- **`Signal Score < 35` (Low Signal / "Noise — Ahamiyatsiz"):**
+  - AI buni o'zidan-o'zi cho'zib gapirib sayyohni zeriktirmaydi (faqat sayyoh aniq so'rasa javob beradi).
+  - B2B Dashboard'da muzey ma'muriyatiga *"Sayyohlar e'tibor bermayotgan ma'lumotlar"* bo'limida ko'rsatiladi!
 
 ---
 
-## 4. Nima Uchun "Structured Verified Dossier Injection" (Chunking o'rniga)?
+## 5. Barqarorlik va Graceful Degradation (4 Qatlamli Himoya)
 
-Oddiy RAG tizimlari hujjatlarni 500 tokenlik bo'laklarga (chunks) bo'lib, vektor qidiruvda ko'pincha muhim sanalar yoki afsona kontekstini yo'qotib qo'yadi.  
-Ichan-Qal'a kabi tarixiy obidalarda esa:
-1. Sayyoh **QR-kod** yoki **Snap & Ask Vision** orqali aynan qaysi obida oldida turgani 100% ma'lum bo'ladi.
-2. Bitta obidaning to'liq tasdiqlangan muzey pasporti atigi **~800–1,200 token** — bu `gemini-3.5-flash-lite` (1M token kontekst) ga to'liq, hech bir detalni yo'qotmasdan sig'adi!
-3. Natija: **0% kontekst uzilishi, 0% gallyutsinatsiya**, minimal infratuzilma (qo'shimcha Vector DB kerak emas — faqat PostgreSQL!).
-
----
-
-## 5. Unit-Ekonomika va Barqarorlik (B2B2C Modeli)
-
-| Ko'rsatkich | Qiymat | Izoh |
-| :--- | :--- | :--- |
-| Chipta ustamasi (sayyoh to'lovi) | **$4.00 / sayyoh** | Jonli giddan ($40–$60) 10 baravar arzon |
-| Muzey ulushi (B2B Revenue Share) | **$1.20 (30%)** | Muzey uchun $0 kapital xarajat + bepul analitika paneli |
-| SmartGuide ulushi | **$2.80 (70%)** | Server va AI xarajatlarini qoplaydi |
-| O'rtacha Gemini API xarajati | **~$0.15 / sayyoh** | `gemini-3.5-flash-lite` + `gemini-3.8-flash-lite-tts` + tezkor savollar keshi |
-| Yalpi marja (Gross Margin) | **~95%+** | Sog'lom SaaS/B2B2C unit-ekonomika (`LTV >= 3 x CAC`) |
-
-### Graceful Degradation (Ishonchlilik Qatlamlari)
-1. **Model fallback:** `gemini-3.5-flash-lite` xato bersa → avtomatik `gemini-4-hydrogen`.
-2. **Offline/Quota fallback:** Gemini API umuman javob bermasa → PostgreSQL'dagi tasdiqlangan arxivdan deterministik matn qaytadi (`sourceMode: "verified-rag-fallback"`).
-3. **TTS fallback:** Gemini TTS javob bermasa → Frontend `AudioGuidePlayer` avtomatik qurilmaning o'z `speechSynthesis` ovoziga o'tadi.
-4. **Rasm fallback:** Obida fotosi yuklanmasa → `LandmarkArt` maxsus vektor SVG illyustratsiyani ko'rsatadi.
+1. **Model Fallback:** `gemini-3.5-flash-lite` xato bersa → avtomatik `gemini-4-hydrogen`.
+2. **Offline/Archive Fallback:** API kalit ishlamasa ham, Roadmap va RAG javoblari PostgreSQL'dagi tasdiqlangan `landmarks` + `landmark_topic_signals` dan deterministik tarzda qaytadi (`500` xato chiqmaydi!).
+3. **TTS Fallback:** Gemini 3.8 TTS kechiksa yoki xato bersa → Frontend `AudioGuidePlayer` brauzerning `speechSynthesis` ovoziga o'tadi.
+4. **Smart Cache:** Bir xil tezkor savollar keshdan `<100ms` va `$0` API xarajatida qaytadi, lekin har bir savol baribir `interactions` va `landmark_topic_signals` ni yangilaydi!

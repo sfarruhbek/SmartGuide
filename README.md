@@ -1,123 +1,94 @@
-# SmartGuide — Ichan-Qala (Khiva) AI Tour Guide Infrastructure
+# SmartGuide — Shaxsiylashtirilgan Emotsional Roadmap + Jonli AI-Gid + Sayyohlar Qiziqishi Intellekti
 
 > **Tourism Hackathon 2026 (25–27 noyabr, CAEx Toshkent) · 3-trek: Kichik turbiznes va infratuzilmani raqamlashtirish**  
-> Tarixiy obyektlar va muzeylar uchun tayyor **B2B2C raqamli AI-gid infratuzilmasi**: ilova yuklamasdan QR-kod orqali ochiladigan 6 tilli ovozli AI-gid + **0% gallyutsinatsiyali** tasdiqlangan mahalliy RAG baza + **Snap & Ask** rasm tanish + real-vaqtdagi **B2B Muzey Analitika Paneli**.
+> **Yakuniy mahsulot konsepsiyasi:** Sayyoh ilovaga kirishi bilan unga **qaysi obidalarga nega borishi va qanday hissiyot/foyda olishi** bo'yicha shaxsiy **Roadmap** chiziladi → obida oldida **jonli ovozli/foto AI suhbat** quradi → har bir suhbatdan **qaysi obida va qaysi ma'lumot sayyohlarga haqiqatan qiziq ("Signal") va qaysilari ahamiyatsiz ("Noise")** ekani avtomatik yig'ilib, ham keyingi sayyohlarning Roadmap'ini mukammallashtiradi, ham muzeylarga **B2B Experience Intelligence** beradi!
 
 ---
 
-## Jamoa uchun Tezkor Navigatsiya (Boshlashdan oldin o'qing!)
-
-Har bir jamoa a'zosi o'zining TZ (Texnik Topshiriq) hujjatini ochib, parallel ravishda ishni boshlashi mumkin:
+## Hujjatlar Markazi (Boshlashdan Oldin O'qing!)
 
 | Hujjat | Kimga mo'ljallangan | Mazmuni |
 | :--- | :--- | :--- |
-| [documentation/ROADMAP.md](documentation/ROADMAP.md) | **Butun jamoa** | 48 soatlik aniq bosqichlar, Check-in (18:00), Code Freeze (19:00), Demo Day rejasi |
-| [documentation/ARCHITECTURE.md](documentation/ARCHITECTURE.md) | **Butun jamoa & Mentorlar** | Tizim arxitekturasi, Mermaid diagrammalar, DB ERD, zero-hallucination RAG va unit-ekonomika |
-| [documentation/TZ_FRONTEND.md](documentation/TZ_FRONTEND.md) | **Frontend Developer (1 kishi)** | `apps/tourist` (Next.js PWA) + `apps/dashboard` (React/Vite B2B) to'liq TZ (`FE-01`..`FE-14`) |
-| [documentation/TZ_BACKEND.md](documentation/TZ_BACKEND.md) | **Backend Developer (1 kishi)** | `apps/api` (Express + Drizzle + PostgreSQL), kesh, CSV eksport, AWS deploy to'liq TZ (`BE-01`..`BE-11`) |
-| [documentation/TZ_AI_RAG.md](documentation/TZ_AI_RAG.md) | **AI & RAG Data Engineer (1 kishi)** | 5 obida muzey RAG bazasi, Vision, TTS, 0% gallyutsinatsiya benchmark to'liq TZ (`AI-01`..`AI-08`) |
-| [documentation/API_CONTRACT.md](documentation/API_CONTRACT.md) | **Butun jamoa** | Frontend ↔ Backend ↔ AI o'rtasidagi qat'iy JSON kontrakt va `curl` testlari |
-| [documentation/GIT_WORKFLOW_AND_DEPLOY.md](documentation/GIT_WORKFLOW_AND_DEPLOY.md) | **Butun jamoa** | Parallel Git branch strategiyasi, fayl egaligi chegaralari va AWS Ubuntu deploy |
+| [documentation/BUSINESS_MODEL.md](documentation/BUSINESS_MODEL.md) | **Speaker, Mentorlar, Hakamlar** | ProSkill 7-band biznes model, Data Flywheel Moat, TAM/SAM/SOM, LTV/CAC (`18×`), GTM |
+| [documentation/SMETA_BUDGET.md](documentation/SMETA_BUDGET.md) | **Speaker, Investor, Hakamlar** | 2026 real narxlar asosida moliyaviy smeta (Gemini API `$0.036/sayyoh`, AWS EC2, `.uz`, QR stendlar, 3 oy & 12 oy P&L) |
+| [documentation/ARCHITECTURE.md](documentation/ARCHITECTURE.md) | **Butun jamoa & Texnik Mentorlar** | 3 bosqichli Data Flywheel arxitekturasi, Mermaid diagrammalar, PostgreSQL ERD, Signal/Noise formulasi |
+| [documentation/ROADMAP.md](documentation/ROADMAP.md) | **Butun jamoa** | 2-kun (26-noyabr) va Demo Day (27-noyabr) aniq soatbay rejasi, Code Freeze (19:00), 3 daqiqalik pitch ssenariysi |
+| [documentation/API_CONTRACT.md](documentation/API_CONTRACT.md) | **Butun jamoa** | `POST /api/roadmap/generate`, `POST /api/guide/ask`, `POST /api/guide/feedback`, `GET /api/analytics/summary` JSON kontraktlari |
+| [documentation/TZ_FRONTEND.md](documentation/TZ_FRONTEND.md) | **Frontend Developer (1 kishi)** | Emotsional Roadmap UI + Obida Jonli Suhbat + Micro-Feedback + B2B Signal/Noise Dashboard TZ (`FE-01`..`FE-15`) |
+| [documentation/TZ_BACKEND.md](documentation/TZ_BACKEND.md) | **Backend Developer (1 kishi)** | Roadmap & Signal DB sxemasi, Signal/Noise agregatsiya, kesh, CSV eksport, AWS Ubuntu Deploy TZ (`BE-01`..`BE-12`) |
+| [documentation/TZ_AI_RAG.md](documentation/TZ_AI_RAG.md) | **AI & RAG Data Engineer (1 kishi)** | Emotsional Roadmap Prompting, Interest/Sentiment/Signal Extractor, 5 obida RAG, Vision, TTS, `eval-rag.ts` TZ (`AI-01`..`AI-10`) |
+| [documentation/GIT_WORKFLOW_AND_DEPLOY.md](documentation/GIT_WORKFLOW_AND_DEPLOY.md) | **Butun jamoa** | Konfliktsiz parallel Git branch qoidalari va AWS Ubuntu (PostgreSQL + Node 22 + PM2 + Nginx/HTTPS) deploy |
 
 ### Workspace README fayllari
 - [packages/shared/README.md](packages/shared/README.md) — Umumiy TypeScript kontraktlari (`@smartguide/shared`)
-- [apps/api/README.md](apps/api/README.md) — Backend API + PostgreSQL + Gemini RAG/TTS servisi
-- [apps/tourist/README.md](apps/tourist/README.md) — Sayyohlar uchun Mobile-First Next.js PWA
-- [apps/dashboard/README.md](apps/dashboard/README.md) — Muzey ma'muriyati uchun B2B Analitika + QR Generator
+- [apps/api/README.md](apps/api/README.md) — Backend API + PostgreSQL + Gemini Roadmap/RAG/Vision/TTS servisi
+- [apps/tourist/README.md](apps/tourist/README.md) — Sayyohlar uchun Emotsional Roadmap + Live AI Guide PWA
+- [apps/dashboard/README.md](apps/dashboard/README.md) — Muzey ma'muriyati uchun B2B Experience Intelligence + QR Generator
 
 ---
 
-## Arxitektura va Parallel Ishlash Xaritasi
+## Boshqa AI'lardan (ChatGPT, Google Maps) Asosiy Farqimiz
+
+1. **Kirishdayoq "Nega borish kerak?" degan Emotsional Roadmap:** Quruq joylar ro'yxati emas — har bir obida sizga **qanday hissiyot, estetik zavq yoki hikoya berishi** aniq ko'rsatilgan shaxsiy yo'nalish.
+2. **Real Suhbatlardan O'rganuvchi "Signal vs. Noise" Bazasi:** Sayyohlar obida oldida jonli suhbat qurganda, tizim qaysi faktlar hayrat uyg'otganini (`Signal`) va qaysilari qiziq emasligini (`Noise`) ajratib oladi. Keyingi sayyoh uzun, zerikarli matn emas — **aynan eng kuchli, sinalgan ma'lumot va eng ideal marshrutni** oladi!
+3. **100% Muzey Tasdiqlagan Mahalliy RAG (0% Gallyutsinatsiya):** Xivaning Ichan-Qal'a 5 ta asosiy obidasi (`kalta-minor`, `juma-mosque`, `tosh-hovli`, `kunya-ark`, `pahlavon-mahmud`) bo'yicha rasmiy tarixiy pasportlar + 6 tilda jonli **Gemini 3.8 Flash-Lite TTS** ovoz.
+
+---
+
+## Arxitektura va Parallel Ishlash Xaritasi (Docker'siz)
 
 ```text
 SmartGuide/
 ├── packages/
 │   └── shared/                 # 🔒 Umumiy API tiplari (o'zgartirish faqat kelishib qilinadi)
 ├── apps/
-│   ├── api/                    # Backend + AI/RAG servisi (Port 4000)
+│   ├── api/                    # Backend + AI/RAG + Interest Flywheel (Port 4000)
 │   │   ├── data/               # 🧠 AI/RAG Dev zonasi: ichan-qala-landmarks.json
 │   │   └── src/
-│   │       ├── services/ai.service.ts  # 🧠 AI/RAG Dev zonasi: Gemini Vision + RAG + TTS
+│   │       ├── services/ai.service.ts  # 🧠 AI/RAG Dev zonasi: Roadmap, RAG, Vision, TTS, Signal Extractor
 │   │       ├── db/             # ⚙️ Backend Dev zonasi: Drizzle sxema & seed
 │   │       ├── routes/         # ⚙️ Backend Dev zonasi: REST endpointlar
-│   │       └── services/       # ⚙️ Backend Dev zonasi: landmark & analytics servislari
-│   ├── tourist/                # 🎨 Frontend Dev zonasi: Next.js PWA (Port 3000)
-│   └── dashboard/              # 🎨 Frontend Dev zonasi: React + Vite B2B (Port 5173)
-└── documentation/              # Barcha TZ, Roadmap, API Contract va xakaton hujjatlari
+│   │       └── services/       # ⚙️ Backend Dev zonasi: landmark, roadmap, analytics, cache servislari
+│   ├── tourist/                # 🎨 Frontend Dev zonasi: Next.js 15 PWA (Port 3000)
+│   └── dashboard/              # 🎨 Frontend Dev zonasi: React 19 + Vite B2B Panel (Port 5173)
+└── documentation/              # Biznes Model, Smeta, Arxitektura, Roadmap, API Contract, 3 ta TZ
 ```
-
-### Texnologik Stek (Docker'siz — Yengil va Tez)
-
-| Qism | Texnologiyalar | Port |
-| :--- | :--- | :--- |
-| **Backend + AI** | Node.js 20+, Express 5, TypeScript, Drizzle ORM, PostgreSQL, `@google/genai` | `4000` |
-| **AI Modellar** | RAG + Vision: `gemini-3.5-flash-lite` (fallback: `gemini-4-hydrogen`) · TTS: `gemini-3.8-flash-lite-tts` | — |
-| **Tourist PWA** | Next.js 15 (App Router), React 19, Tailwind CSS v4, Lucide Icons | `3000` |
-| **B2B Dashboard** | React 19, Vite 6, Tailwind CSS v4, Recharts 3, `qrcode` | `5173` |
 
 ---
 
-## 5 Daqiqada Lokal Ishga Tushirish (Har bir dasturchi uchun)
+## 5 Daqiqada Lokal Ishga Tushirish
 
 ### Talablar
-1. **Node.js >= 20** (`node -v`) va **npm** (`npm -v`)
-2. Lokal **PostgreSQL** servisi (5432-portda ishlab turgan)
-3. Google AI Studio'dan olingan **Gemini API Key**: https://aistudio.google.com/apikey
+- **Node.js >= 20** va **npm**
+- Lokal **PostgreSQL** servisi (5432-portda ishlab turgan)
+- Google AI Studio **Gemini API Key**
 
-### 1-qadam: Reponi yuklab olish va paketlarni o'rnatish
+### Buyruqlar
 ```bash
-git clone <REPO_URL> SmartGuide
+# 1. Reponi yuklash va paketlarni o'rnatish
+git clone https://github.com/sfarruhbek/SmartGuide.git
 cd SmartGuide
 npm install --no-audit --no-fund
-```
 
-### 2-qadam: PostgreSQL bazasini yaratish (bir marta)
-```bash
-# macOS / Linux:
+# 2. PostgreSQL bazasini yaratish (bir marta)
 psql -U postgres -c "CREATE DATABASE smartguide;"
 
-# Windows (PowerShell):
-& "C:\Program Files\PostgreSQL\18\bin\psql.exe" -U postgres -c "CREATE DATABASE smartguide;"
-```
-
-### 3-qadam: `.env` faylini sozlash
-```bash
+# 3. .env sozlash (DATABASE_URL + GEMINI_API_KEY kiriting)
 cp .env.example .env
-```
-`.env` faylini ochib, kamida quyidagi 2 ta qiymatni kiriting:
-```env
-GEMINI_API_KEY=AIza...sizning_kalitingiz
-DATABASE_URL=postgresql://postgres:SIZNING_PG_PAROLINGIZ@localhost:5432/smartguide
-```
-> **Eslatma:** Agar `GEMINI_API_KEY` hali kiritilmagan bo'lsa ham, API ishdan chiqmaydi — avtomatik ravishda mahalliy tasdiqlangan arxiv fallback rejimida javob qaytaradi. Haqiqiy Gemini Vision + TTS uchun kalitni kiriting.
 
-### 4-qadam: DB jadvallarini yaratish va Seed qilish
-```bash
+# 4. Jadvallar va Seed (5 ta Ichan-Qal'a obidasi + dastlabki analitika)
 npm run db:push
 npm run db:seed
-```
-`db:seed` idempotent (qayta ishlatsangiz dublikat yaratmaydi): 5 ta Ichan-Qal'a obidasini va B2B dashboard darhol to'la ko'rinishi uchun realistik boshlang'ich analitika ma'lumotlarini PostgreSQL'ga yozadi.
 
-### 5-qadam: Loyihani ishga tushirish
-```bash
-# Barcha 3 ta appni bitta terminalda parallel ishga tushirish:
+# 5. Barcha 3 servisni parallel ishga tushirish
 npm run dev
 ```
-Yoki faqat o'zingiz ishlayotgan qismni alohida terminalda ishga tushiring:
-- `npm run dev:api` → Backend API (`http://localhost:4000/api/health`)
-- `npm run dev:tourist` → Tourist PWA (`http://localhost:3000`, QR manzil: `http://localhost:3000/l/kalta-minor`)
-- `npm run dev:dashboard` → B2B Museum Dashboard (`http://localhost:5173`)
 
-### Tekshirish buyruqlari (har bir PR/push dan oldin majburiy!)
+- **Backend API:** `http://localhost:4000/api/health`
+- **Tourist PWA:** `http://localhost:3000` (QR sahifa: `http://localhost:3000/l/kalta-minor`)
+- **B2B Museum Dashboard:** `http://localhost:5173`
+
+Har bir push/PR oldidan majburiy tekshiruv:
 ```bash
-npm run typecheck
-npm run build
+npm run typecheck && npm run build
 ```
-
----
-
-## Biznes Model (Pitch va Dashboard uchun asosiy raqamlar)
-- **Tarif:** Chipta narxiga `+$4` (sayyoh ilova yuklamasdan QR-kod orqali foydalanadi).
-- **Daromad taqsimoti (B2B2C):** `70%` SmartGuide / `30%` Muzey yoki tarixiy kompleksga.
-- **API xarajati (Cost-to-Serve):** 1 sayyoh uchun o'rtacha `~$0.15` (yalpi marja **~96%**).
-- **Asosiy ustunlik (Moat):** Global AI modellardagi tarixiy xatolarni (gallyutsinatsiyani) nolga tushiruvchi muzey tasdiqlagan mahalliy RAG bazasi + kassa/obida QR tarqatish kanali.
