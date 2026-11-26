@@ -5,7 +5,7 @@ import {
   SUPPORTED_LANGUAGES,
   type SupportedLanguage,
 } from '@smartguide/shared';
-import { ROUTE_COPY } from '@/lib/route-copy';
+import { journeyCopy } from '@/lib/journey-copy';
 
 interface LanguageSwitcherProps {
   value: SupportedLanguage;
@@ -23,7 +23,7 @@ export function LanguageSwitcher({ value, onChange }: LanguageSwitcherProps) {
       <select
         value={value}
         onChange={(event) => onChange(event.target.value as SupportedLanguage)}
-        aria-label={ROUTE_COPY[value].language}
+        aria-label={journeyCopy(value)('language')}
       >
         {SUPPORTED_LANGUAGES.map((language) => (
           <option

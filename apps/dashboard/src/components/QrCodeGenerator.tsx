@@ -9,7 +9,6 @@ import {
   Laptop,
   Printer,
   QrCode,
-  ShieldCheck,
 } from 'lucide-react';
 import { SUPPORTED_LANGUAGES, type LandmarkSummary } from '@smartguide/shared';
 import { getDefaultTouristAppUrl } from '../lib/api';
@@ -29,7 +28,9 @@ interface QrPlaqueItem {
 }
 
 export function QrCodeGenerator({ landmarks }: QrCodeGeneratorProps) {
-  const [touristBaseUrl, setTouristBaseUrl] = useState<string>(getDefaultTouristAppUrl());
+  const [touristBaseUrl, setTouristBaseUrl] = useState<string>(
+    getDefaultTouristAppUrl(),
+  );
   const [qrDataUrls, setQrDataUrls] = useState<Record<string, string>>({});
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
@@ -39,19 +40,31 @@ export function QrCodeGenerator({ landmarks }: QrCodeGeneratorProps) {
     () => [
       {
         id: 'main-gate',
-        titleEn: 'Ichan-Qala Main Entrance',
-        titleUz: "Ichan-Qal'a Asosiy Kirish Qismi",
-        subtitle: 'All 5 Verified Khiva Landmarks + Snap & Ask Camera',
-        badge: 'SITE HUB',
-        path: '/',
-        filename: 'smartguide-qr-ichan-qala-entrance.png',
+        titleEn: 'Uzbekistan · Your own journey',
+        titleUz: 'Oʻzbekiston · Mustaqil sayohat',
+        subtitle: 'Cities, days, budget and local discoveries',
+        badge: 'PROMO ENTRY',
+        path: '/?ref=entrance',
+        filename: 'smartguide-qr-uzbekistan-entrance.png',
       },
+      ...[
+        ['hotel', 'Hotel reception', 'Mehmonxona'],
+        ['station', 'Railway station', 'Vokzal'],
+      ].map(([id, titleEn, titleUz]) => ({
+        id,
+        titleEn,
+        titleUz,
+        subtitle: 'Plan a solo journey across Uzbekistan',
+        badge: 'PROMO ENTRY',
+        path: `/?ref=${id}`,
+        filename: `smartguide-qr-${id}.png`,
+      })),
       ...landmarks.map((lm, index) => ({
         id: lm.slug,
         titleEn: lm.localizedNames?.en || lm.name,
         titleUz: lm.localizedNames?.uz || lm.name,
         subtitle: `${lm.builtYear} · ${lm.locationInSite}`,
-        badge: `STOP #${index + 1}`,
+        badge: `PILOT LINK #${index + 1}`,
         path: `/l/${lm.slug}`,
         filename: `smartguide-qr-${lm.slug}.png`,
       })),
@@ -95,7 +108,10 @@ export function QrCodeGenerator({ landmarks }: QrCodeGeneratorProps) {
     try {
       await navigator.clipboard.writeText(fullUrl);
       setCopiedId(id);
-      setTimeout(() => setCopiedId((curr) => (curr === id ? null : curr)), 1800);
+      setTimeout(
+        () => setCopiedId((curr) => (curr === id ? null : curr)),
+        1800,
+      );
     } catch {
       // Clipboard API unavailable on non-HTTPS origin
     }
@@ -125,11 +141,13 @@ export function QrCodeGenerator({ landmarks }: QrCodeGeneratorProps) {
           <div className="flex-1">
             <h2 className="flex items-center gap-2 font-display text-xl font-bold text-[#0F172A]">
               <QrCode className="h-5 w-5 text-[#0E7470]" />
-              <span>Museum QR Plaque Generator</span>
+              <span>Promo QR &amp; Pilot Links</span>
             </h2>
             <p className="mt-1 text-xs text-[#475569]">
-              Print-ready A4 museum posters (2 or 4 plaques per sheet). Set your LAN IP or AWS domain
-              below so judges can scan directly from their phones.
+              Promo entry posters for partners, plus optional Khiva guide links.
+              Physical signs at every monument are not required. Ref tags
+              identify the entry link; attribution reporting needs backend
+              integration.
             </p>
 
             <label className="mt-3 block">
@@ -193,11 +211,11 @@ export function QrCodeGenerator({ landmarks }: QrCodeGeneratorProps) {
                 {/* Poster Header */}
                 <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3">
                   <span className="text-[11px] font-bold tracking-wide text-[#0E7470]">
-                    SmartGuide · Ichan-Qala Official AI Guide
+                    SmartGuide · Uzbekistan at your own pace
                   </span>
                   <span className="inline-flex items-center gap-1 rounded-full border border-[#B47B38]/30 bg-[#FDF6EC] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#B47B38]">
-                    <ShieldCheck className="h-3 w-3" />
-                    <span>UNESCO Heritage</span>
+                    <Globe className="h-3 w-3" />
+                    <span>Uzbekistan</span>
                   </span>
                 </div>
 
@@ -217,7 +235,7 @@ export function QrCodeGenerator({ landmarks }: QrCodeGeneratorProps) {
                     )}
                   </div>
                   <p className="mt-2.5 text-center text-[11px] font-bold uppercase tracking-wide text-[#0E7470]">
-                    Point Camera · Instant Audio Guide · No App Download
+                    Scan to explore · No app download
                   </p>
                   <p className="mt-1 max-w-full truncate font-mono text-[10px] text-[#475569]">
                     {fullUrl}
@@ -232,12 +250,17 @@ export function QrCodeGenerator({ landmarks }: QrCodeGeneratorProps) {
                   <h3 className="mt-1.5 font-display text-xl font-bold text-[#0F172A]">
                     {item.titleEn}
                   </h3>
-                  <p className="text-xs font-semibold text-[#B47B38]">{item.titleUz}</p>
+                  <p className="text-xs font-semibold text-[#B47B38]">
+                    {item.titleUz}
+                  </p>
 
                   {/* 6 Language Flags */}
                   <div className="mt-3 flex flex-wrap items-center justify-center gap-2 border-t border-slate-100 pt-2.5 text-xs font-medium text-[#475569]">
                     {SUPPORTED_LANGUAGES.map((lang) => (
-                      <span key={lang.code} className="inline-flex items-center gap-1">
+                      <span
+                        key={lang.code}
+                        className="inline-flex items-center gap-1"
+                      >
                         <span aria-hidden="true">{lang.flag}</span>
                         <span className="uppercase">{lang.code}</span>
                       </span>

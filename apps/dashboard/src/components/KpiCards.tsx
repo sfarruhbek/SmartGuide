@@ -125,7 +125,7 @@ export function KpiCards({ data }: KpiCardsProps) {
       <div className="rounded-2xl border border-emerald-200 bg-gradient-to-br from-white via-white to-emerald-50/70 p-5 shadow-xs">
         <div className="flex items-center justify-between">
           <span className="text-xs font-semibold uppercase tracking-wider text-[#059669]">
-            Est. Revenue Share
+            Modelled Revenue Share
           </span>
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-100 text-[#059669]">
             <DollarSign className="h-4.5 w-4.5" />
@@ -144,11 +144,8 @@ export function KpiCards({ data }: KpiCardsProps) {
             Museum {revenue.museumSharePercent}%: $
             {revenue.museumShareUsd.toFixed(2)}
           </span>
-          <span className="tabular-nums text-[#475569]">
-            Margin:{' '}
-            <strong className="text-[#0F172A]">
-              {revenue.grossMarginPercent}%
-            </strong>
+          <span className="text-[#475569]">
+            Usage estimate · not payment records
           </span>
         </div>
       </div>

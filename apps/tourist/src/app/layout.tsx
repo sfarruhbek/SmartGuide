@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
+import './journey.css';
 
 const playfair = Playfair_Display({
   subsets: ['latin', 'cyrillic'],
@@ -17,9 +18,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'SmartGuide · Ichan-Qala Official AI Audio Guide',
+  title: 'SmartGuide · Uzbekistan at your own pace',
   description:
-    'Discover Ichan-Qala at your own pace. Five remarkable places, stories from the museum archive, and a personal audio guide in six languages.',
+    'Plan a solo journey across Uzbekistan. Daily itineraries, budget estimates, local discoveries and source-backed stories, at your own pace.',
   manifest: '/manifest.webmanifest',
   icons: {
     icon: '/icon.svg',

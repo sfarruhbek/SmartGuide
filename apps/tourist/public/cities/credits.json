@@ -1,0 +1,29 @@
+[
+  {
+    "id": "samarkand",
+    "page": "https://commons.wikimedia.org/wiki/File:Registan_square_Samarkand.jpg",
+    "author": "Ekrem Canli",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "bytes": 99324,
+    "changes": "Resized and converted to WebP; displayed crops may vary."
+  },
+  {
+    "id": "bukhara",
+    "page": "https://commons.wikimedia.org/wiki/File:Po-i-Kalyan.jpg",
+    "author": "Oleg Brovko",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+    "bytes": 40374,
+    "changes": "Resized and converted to WebP; displayed crops may vary."
+  },
+  {
+    "id": "tashkent",
+    "page": "https://commons.wikimedia.org/wiki/File:Chorsu_Bazaar_in_Tashkent.jpg",
+    "author": "Adam Harangozó",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "bytes": 54768,
+    "changes": "Resized and converted to WebP; displayed crops may vary."
+  }
+]

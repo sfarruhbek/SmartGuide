@@ -56,14 +56,29 @@ export function readSavedRoadmap(): SavedRoadmap | null {
       !raw ||
       ![60, 120, 240].includes(raw.durationMinutes) ||
       !Array.isArray(raw.vibes) ||
-      raw.vibes.length<1 || raw.vibes.length>3 ||
-      !raw.vibes.every(vibe=>['legends','architecture','photography','royalty','spiritual'].includes(vibe)) ||
+      raw.vibes.length < 1 ||
+      raw.vibes.length > 3 ||
+      !raw.vibes.every((vibe) =>
+        [
+          'legends',
+          'architecture',
+          'photography',
+          'royalty',
+          'spiritual',
+        ].includes(vibe),
+      ) ||
       !Array.isArray(raw.roadmap?.stops) ||
       raw.roadmap.stops.length === 0 ||
       raw.roadmap.stops.length > 5
     )
       return null;
-    if (!Number.isFinite(raw.roadmap.totalMinutes) || typeof raw.roadmap.headline!=='string' || new Set(raw.roadmap.stops.map(stop=>stop.slug)).size!==raw.roadmap.stops.length) return null;
+    if (
+      !Number.isFinite(raw.roadmap.totalMinutes) ||
+      typeof raw.roadmap.headline !== 'string' ||
+      new Set(raw.roadmap.stops.map((stop) => stop.slug)).size !==
+        raw.roadmap.stops.length
+    )
+      return null;
     if (
       !raw.roadmap.stops.every(
         (stop) =>
