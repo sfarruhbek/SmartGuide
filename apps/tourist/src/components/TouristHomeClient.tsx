@@ -1,12 +1,10 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
 import {
   ArrowDown,
   ArrowRight,
   Bookmark,
-  Camera,
   Check,
   History,
   Landmark,
@@ -22,6 +20,8 @@ import {
   Download,
   ChevronLeft,
   ChevronRight,
+  AudioLines,
+  Navigation,
 } from 'lucide-react';
 import {
   LANGUAGE_CODES,
@@ -61,9 +61,10 @@ import {
 } from '@/lib/journey-navigation';
 import { tripBreakdown, tripText } from '@/lib/trip-summary';
 import { useKeyboardViewport } from '@/lib/use-keyboard-viewport';
+import { useTouristLocation } from '@/lib/use-tourist-location';
 import { MapVoiceAssistant } from './MapVoiceAssistant';
 import { voiceCopy } from '@/lib/voice-copy';
-import type { VoicePlace, VoicePosition } from '@/lib/live-voice';
+import type { VoicePlace } from '@/lib/live-voice';
 
 const initialInput: TripInput = {
   cities: ['bukhara'],
@@ -104,7 +105,7 @@ export function TouristHomeClient({
   const [voiceOpen,setVoiceOpen]=useState(false);
   const [voicePlaces,setVoicePlaces]=useState<VoicePlace[]>([]);
   const [voiceFocus,setVoiceFocus]=useState<VoicePlace|null>(null);
-  const [touristPosition,setTouristPosition]=useState<VoicePosition|null>(null);
+  const {position:touristPosition,locating, error:geoError,toggle:toggleLocation,clear:clearLocation}=useTouristLocation();
   const [drafts, setDrafts] = useState<Discovery[]>([]);
   const [showDraft, setShowDraft] = useState(false);
   const savedTripRef = useRef<Trip | null>(null);
@@ -150,7 +151,7 @@ export function TouristHomeClient({
         PLACES,
       );
       if (route.view !== 'plan') planController.current?.abort();
-      setVoiceOpen(false);setTouristPosition(null);setVoiceFocus(null);
+      setVoiceOpen(false);clearLocation();setVoiceFocus(null);
       setTab(route.view);
       setCityId(route.city);
       setSelected(route.place);
@@ -163,6 +164,12 @@ export function TouristHomeClient({
     window.addEventListener('popstate', applyRoute);
     return () => window.removeEventListener('popstate', applyRoute);
   }, [initialLang]);
+  useEffect(()=>{
+    if(tab!=='map'&&!voiceOpen)clearLocation();
+  },[tab,voiceOpen,clearLocation]);
+  useEffect(()=>{
+    setVoiceFocus(current=>touristPosition?{...touristPosition,id:'tourist-location',name:voiceCopy(language)('gps')}:current?.id==='tourist-location'?null:current);
+  },[touristPosition?.lat,touristPosition?.lng,touristPosition?.accuracy,language]);
   useEffect(() => {
     if (!ready) return;
     const next = journeyUrl(
@@ -195,13 +202,23 @@ export function TouristHomeClient({
     });
   };
   const changeCity = (id: string) => {
-    setVoiceFocus(null);setVoicePlaces([]);setTouristPosition(null);
+    setVoiceFocus(null);setVoicePlaces([]);clearLocation();
     setCityId(id);
     setSelected(
       PLACES.find(
         (place) => place.city === id && matchesPlaceFilter(place, filter),
       )?.id || null,
     );
+  };
+  const openVoice=()=>{
+    if(!voiceOpen&&!touristPosition&&tab!=='map'){
+      const contextCity=tab==='itinerary'?trip?.days[day]?.city:input.cities[0];
+      if(contextCity&&CITIES.some(value=>value.id===contextCity)){
+        if(contextCity!==cityId)changeCity(contextCity);
+        setSelected(null);setVoiceFocus(null);
+      }
+    }
+    setVoiceOpen(value=>!value);
   };
   const saveTrip = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -332,6 +349,10 @@ export function TouristHomeClient({
             </button>
           );
         })}
+        <button type="button" className="journey-live" aria-label={`Live — ${voiceCopy(language)('open')}`}
+          aria-haspopup="dialog" aria-expanded={voiceOpen} aria-controls="smartguide-live" onClick={openVoice}>
+          <AudioLines aria-hidden="true"/><span>Live</span>
+        </button>
       </nav>
       <main ref={mainRef} tabIndex={-1} className="journey-main">
         {tab === 'plan' && (
@@ -813,6 +834,10 @@ export function TouristHomeClient({
             </div>
             <p className="map-intro">{copy('mapIntro')}</p>
             <div className="map-filterbar">
+              <button type="button" className="map-location-action" onClick={toggleLocation} aria-pressed={!!touristPosition}>
+                {locating?<Loader2 size={16} className="animate-spin"/>:<Navigation size={16}/>}
+                {voiceCopy(language)(locating?'locating':touristPosition?'locationOff':'location')}
+              </button>
               <label>
                 <span className="sr-only">{copy('cities')}</span>
                 <select
@@ -861,6 +886,7 @@ export function TouristHomeClient({
                 </button>
               ))}
             </div>
+            {geoError&&<p role="status" className="journey-error">{voiceCopy(language)('geoError')}</p>}
             <p className="collection-explanation">{copy('collectionHint')}</p>
             <div className="map-layout">
               <DiscoveryMap
@@ -908,7 +934,7 @@ export function TouristHomeClient({
                           : copy('free')}
                       </span>
                     </div>
-                    <a
+                    <details className="place-sources"><summary>{voiceCopy(language)('source')}</summary><a
                       href={selectedPlace.source}
                       target="_blank"
                       rel="noreferrer"
@@ -916,16 +942,14 @@ export function TouristHomeClient({
                     >
                       {copy('source')}
                       <ArrowRight size={15} />
-                    </a>
-                    {selectedPlace.guideSlug && (
-                      <Link
-                        href={`/l/${selectedPlace.guideSlug}?lang=${language}`}
+                    </a></details>
+                      <button
+                        type="button" onClick={()=>setVoiceOpen(true)}
                         className="journey-primary"
                       >
-                        {copy('guide')}
+                        {voiceCopy(language)('open')}
                         <ArrowRight />
-                      </Link>
-                    )}
+                      </button>
                     <p className="field-hint">{copy('estimates')}</p>
                   </article>
                 ) : selectedDraft ? (
@@ -1013,17 +1037,12 @@ export function TouristHomeClient({
                 {error}
               </p>
             )}
-            <section className="journey-camera">
-              <Camera aria-hidden="true" />
-              <div><h2>{voiceCopy(language)('title')}</h2><p>{voiceCopy(language)('intro')}</p></div>
-              <button type="button" className="journey-primary" onClick={()=>setVoiceOpen(true)}>{voiceCopy(language)('open')}<ArrowRight /></button>
-            </section>
           </section>
         )}
-        <MapVoiceAssistant open={voiceOpen&&tab==='map'} onClose={()=>setVoiceOpen(false)} city={city} language={language}
-          location={touristPosition} onLocation={setTouristPosition} onPlaces={setVoicePlaces}
+        <MapVoiceAssistant open={voiceOpen} mapVisible={tab==='map'} onClose={()=>setVoiceOpen(false)} city={city} cities={CITIES} onCityChange={changeCity} language={language}
+          location={touristPosition} locating={locating} geoError={geoError} onLocate={toggleLocation} onPlaces={setVoicePlaces}
           focusPlace={voiceFocus?.id==='tourist-location'?null:voiceFocus??(selectedPlace?{id:selectedPlace.id,name:local(selectedPlace.name,language),lat:selectedPlace.lat,lng:selectedPlace.lng}:null)}
-          onFocus={place=>{setVoiceFocus(place);if(place.id!=='tourist-location')setVoicePlaces(current=>[...current.filter(p=>p.id!==place.id),place]);}}/>
+          onFocus={place=>{setVoiceFocus(place);if(place.id!=='tourist-location'){setSelected(null);setVoicePlaces(current=>[...current.filter(p=>p.id!==place.id),place]);if(tab!=='map')navigate('map');}}}/>
         <footer className="journey-footer">
           <span>smartguide / Oʻzbekiston</span>
           <span>{copy('collectionNote')}</span>

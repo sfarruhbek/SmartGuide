@@ -9,7 +9,7 @@ Next.js 15, React 19, TypeScript, Tailwind 4. Default port 3000.
 - Map voice popup: Gemini Live audio through our WebSocket API, interruption, mute, photos, optional GPS, nearby sourced pins and a collapsible latest transcript. No text-chat interface. The extended map catalog has 28 places and 16 city contexts, with public-source lookup/cache for missing coverage. [Protocol, setup and real checks](../../documentation/LIVE_VOICE_ASSISTANT.md).
 - `/khiva`: retained short-walk pilot (1/2/4 hours, five landmarks).
 - `/l/[slug]`: Groq text/photo guide and Gemini speech through our API. `/khiva` calls the real roadmap route. Feedback remains unimplemented, with explicit unavailable UI.
-- Mobile navigation uses three equal buttons with short labels and reserved safe-area spacing. Day selection uses a select and previous/next buttons on phones, wrapping buttons on wider screens.
+- Mobile navigation has Plan / Journey / Map and a persistent Live action. Live opens over any main section; optional GPS and manual city selection sit at the top of its popup. The map also exposes GPS directly. Place sources are collapsed by default. The floating navigation and popup share safe-area clearance. Day selection uses a select and previous/next buttons on phones, wrapping buttons on wider screens.
 - View, city, collection, selected catalog place and day are restored from URL parameters; Back/Forward switches views. Trip export downloads all days, costs and sources as UTF-8 text.
 - Budget breakdown separates food, transport, admission, accommodation and reserve. API calls time out; interrupted guide requests are cancelled; errors and unknown places have recovery screens.
 

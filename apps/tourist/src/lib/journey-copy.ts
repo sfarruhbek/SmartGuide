@@ -56,7 +56,7 @@ const words = {
     '현재 피드백을 보낼 수 없습니다. 나중에 다시 시도해 주세요.',
   ],
   navPlan: ['Plan', 'План', 'Reja', 'Plan', '計画', '계획'],
-  navItinerary: ['Journey', 'Маршрут', 'Safar', 'Viaje', '旅程', '여정'],
+  navItinerary: ['Journey', 'Поездка', 'Safar', 'Viaje', '旅程', '여정'],
   navMap: ['Map', 'Карта', 'Xarita', 'Mapa', '地図', '지도'],
   navigation: [
     'Trip navigation',
@@ -525,12 +525,12 @@ const words = {
     '익숙한 길 너머로.',
   ],
   mapIntro: [
-    'Places with a story. Explore the collection, open the sources, or save a discovery of your own.',
-    'Места, за которыми стоит история. Изучай подборку, открывай источники и сохраняй собственные находки.',
-    'Hikoyali joylar. Toʻplam va manbalarni oʻrganing, oʻz topilmangizni saqlang.',
-    'Lugares con historia. Consulta las fuentes o guarda tu descubrimiento.',
-    '物語のある場所へ。出典を読んで、自分の発見も保存しましょう。',
-    '이야기가 있는 장소. 출처를 살펴보고 나만의 발견을 저장하세요.',
+    'Find places with a story, talk to your guide, or save a discovery of your own.',
+    'Находи места с историей, спрашивай помощника и сохраняй собственные открытия.',
+    'Hikoyali joylarni toping, yordamchidan soʻrang va oʻz kashfiyotlaringizni saqlang.',
+    'Descubre lugares con historia, habla con tu guía y guarda tus hallazgos.',
+    '物語のある場所を見つけ、ガイドに聞いて、自分の発見を保存しましょう。',
+    '이야기가 있는 장소를 찾고, 가이드에게 물어보고, 나만의 발견을 저장하세요.',
   ],
   all: ['All places', 'Все места', 'Barcha joylar', 'Todos', 'すべて', '전체'],
   landmark: [
